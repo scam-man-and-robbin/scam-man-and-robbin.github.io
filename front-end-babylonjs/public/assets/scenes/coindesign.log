@@ -8,14 +8,14 @@ Exporter version: 6.2.4, Blender version: 2.81 (sub 16)
 		UVs Precision       :  3
 		Vert Color Precision:  3
 		Mat Weight Precision:  2
-		texture directory   :  C:\Users\naren\Desktop\Naren\ScamMan\endless-runner-3d\public\assets\scenes\
+		texture directory   :  C:\xampp\htdocs\scam-man-and-robbin\front-end-babylonjs\public\assets\scenes\
 	Python World class constructor completed
 	processing begun of camera (UniversalCamera):  Camera
 	processing begun of mesh:  Cylinder
+		animation processing begun
+			WARNING: action CylinderAction.001 has no frames, ignored.
 		processing begun of material:  Material
 			processing texture coin_euro
-				WARNING: Exception during copy:
-					'C:\\Users\\naren\\Desktop\\Naren\\ScamMan\\endless-runner-3d\\public\\assets\\scenes\\coin_euro.png' and 'C:\\Users\\naren\\Desktop\\Naren\\ScamMan\\endless-runner-3d\\public\\assets\\scenes\\coin_euro.png' are the same file
 				texture type:  diffuseTexture, mapped using: "UVMap"
 		num positions      :  309
 		num normals        :  309
@@ -29,4 +29,4 @@ Exporter version: 6.2.4, Blender version: 2.81 (sub 16)
 	writing mesh:  Cylinder
 ========= Writing of JSON file completed =========
 ========= end of processing =========
-elapsed time:  0 min, 0.363 secs
+elapsed time:  0 min, 0.2066 secs

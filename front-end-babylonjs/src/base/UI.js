@@ -34,7 +34,7 @@ export default class UI {
     addImgButton(name, options = {}) {
         let imgbutton = new BABYLON.GUI.Button.CreateImageOnlyButton(name, "assets/scenes/scam-man-play-btn.png");
 
-        imgbutton.width = '0.2';
+        imgbutton.width = '0.25';
         imgbutton.height = '0.1';
         imgbutton.thickness = 0;
         imgbutton.top = '210';
@@ -55,8 +55,8 @@ export default class UI {
     addText(text, options = {}) {
         let textControl = new BABYLON.GUI.TextBlock();
         textControl.text = text;
-        textControl.color = options.color || 'white';
-        textControl.fontSize = options.fontSize || 28;
+        textControl.color = options.color || 'black';
+        textControl.fontSize = options.fontSize || 20;
         textControl.outlineWidth = options.outlineWidth || 0;
         textControl.outlineColor = options.outlineColor || "black";
         textControl.lineSpacing = options.lineSpacing || '5px';

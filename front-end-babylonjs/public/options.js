@@ -26,17 +26,11 @@ window.initialGameOptions = {
 
     // Player Options
     'player': {
-        'defaultSpeed': 3,
-        'gravity': -9,
-        'jumpForce': 50,
-        'jumpMaxAltitude': 5,
-        'lives': 3
-    },
-
-    'level': {
-        'tileWidth': 5,
-        'smallTileWidth': 5,
-        'hazardWidth': 2,
-    },
+        'defaultSpeed': 20,
+        'increaseSpeedRatio': 3,
+        'lives': 3,
+        'scamStartAfter' : 5000, // 3 seconds,
+        'godMode': false
+    }, 
 
 };

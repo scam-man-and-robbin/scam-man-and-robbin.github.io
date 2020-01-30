@@ -34,7 +34,7 @@ export default class Game {
          */
         this.canvas = document.getElementById("renderCanvas");
 
-        this.engine = new BABYLON.Engine(this.canvas, true);
+        this.engine = new BABYLON.Engine(this.canvas, true, null, true);
 
         this.currentLevel = null;
         this.currentLevelName = 'HomeMenuLevel';
@@ -78,14 +78,9 @@ export default class Game {
 
         function keyDown(e) {
             if (e.keyCode == 87 || e.keyCode == 38) {//Arrow Up
-                this.keys.up = 1;
-
-            } else if (e.keyCode == 83 || e.keyCode == 40) {//Arrow Down
-                this.keys.down = 1;
-
+                this.keys.shoot = 1;
             } else if (e.keyCode == 65 || e.keyCode == 37) {//Arrow Left
                 this.keys.left = 1;
-
             } else if (e.keyCode == 68 || e.keyCode == 39) {//Arrow Right
                 this.keys.right = 1;
             } else if (e.keyCode == 80 || e.keyCode == 32) {//Arrow Right
@@ -95,9 +90,7 @@ export default class Game {
 
         function keyUp(e) {
             if (e.keyCode == 87 || e.keyCode == 38) {//Arrow Up
-                this.keys.up = 0;
-            } else if (e.keyCode == 83 || e.keyCode == 40) {//Arrow Down
-                this.keys.down = 0;
+                this.keys.shoot = 0;
             } else if (e.keyCode == 65 || e.keyCode == 37) {//Arrow Left
                 this.keys.left = 0;
             } else if (e.keyCode == 68 || e.keyCode == 39) {//Arrow Right
@@ -113,11 +106,11 @@ export default class Game {
         hammertime.get('swipe').set({ direction: Hammer.DIRECTION_ALL });
 
         hammertime.on('swipeup', (ev) => {
-            this.keys.up = 1;
+            this.keys.shoot = 1;
 
             // Resets the key after some milleseconds
             setTimeout(() => {
-                this.keys.up = 0;
+                this.keys.shoot = 0;
             }, 150);
         });
 

@@ -2,6 +2,7 @@ import UI from '../../base/UI';
 import Player from '../Player';
 import Level from '../../base/Level';
 import TilesGenerator from './generators/TilesGenerator';
+import ScamsGenerator from './generators/ScamsGenerator';
 
 export default class RunnerLevel extends Level {
 
@@ -39,11 +40,11 @@ export default class RunnerLevel extends Level {
         this.createMenus();
 
         // Sets the active camera
-        var camera = this.createArcCamera();
+        var camera = this.createCamera();
         this.scene.activeCamera = camera;
 
         // Uncomment it to allow free camera rotation
-        // camera.attachControl(GAME.canvas, true);
+        camera.attachControl(GAME.canvas, true);
 
         // Add lights to the scene
         var light1 = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(0, 10, 0), this.scene);
@@ -56,8 +57,18 @@ export default class RunnerLevel extends Level {
         this.tiles = new TilesGenerator(this);
         this.tiles.generate();
 
+        setTimeout(() => {
+            this.scams = new ScamsGenerator(this);
+            this.scams.generate();
+        }, GAME.options.player.scamStartAfter);
+
+        setInterval(() => {
+            this.setGameSpeed();
+        }, 15000);
+        
+        this.scene.useMaterialMeshMap = true;
         this.scene.debugLayer.hide();
-        this.scene.debugLayer.show();
+        // this.scene.debugLayer.show();
     }
 
     createMenus() {
@@ -100,7 +111,7 @@ export default class RunnerLevel extends Level {
     }
 
     createTutorialText() {
-        let text = GAME.isMobile() ? 'Swipe the screen to control Scam Man' : 'Use Arrow Keys or WASD to Move & Space to Shoot.';
+        let text = GAME.isMobile() ? 'Swipe screen Left/Right to control Scam Man. Swipe Up to Shoot.' : 'Use Arrow Keys to Move & Space to Shoot.';
 
         // Small tutorial text
         let tutorialText = this.menu.addText(text, {
@@ -112,12 +123,11 @@ export default class RunnerLevel extends Level {
         }, 5000);
     }
 
-    createArcCamera() {
-        let camera = new BABYLON.ArcRotateCamera("arcCamera", 0, 300, 8, BABYLON.Vector3.Zero(), this.scene);
+    createCamera() {
+        let camera = new BABYLON.UniversalCamera("camera", new BABYLON.Vector3(0, 0, -8), this.scene);
+        // let camera = new BABYLON.ArcRotateCamera("arcCamera", 0, 0, -8, BABYLON.Vector3.Zero(), this.scene);
 
-        camera.ctype = 1;
-        camera.setPosition(new BABYLON.Vector3(0, 1, -3));
-        camera.radius = 5;
+        camera.setTarget(BABYLON.Vector3.Zero())
 
         return camera;
     }
@@ -125,7 +135,6 @@ export default class RunnerLevel extends Level {
     createPlayer() {
         // Creates the player and sets it as camera target
         this.player = new Player(this);
-        this.scene.activeCamera.lockedTarget = this.player.getMesh();
 
         var playerLight = new BABYLON.DirectionalLight("playerLight", new BABYLON.Vector3(1, -2, 1), this.scene);
         playerLight.intensity = 0.3;
@@ -139,7 +148,6 @@ export default class RunnerLevel extends Level {
         // Actions when player dies
         this.player.onDie = () => {
             GAME.pause();
-            this.player.calculatePoints();
             this.showMenu();
         }
     }
@@ -158,9 +166,7 @@ export default class RunnerLevel extends Level {
 
     beforeRender() {
         if (!GAME.isPaused()) {
-            setTimeout(() => {
-                this.player.move();
-            }, 3000);
+            this.player.move();
         }
     }
 
@@ -169,17 +175,28 @@ export default class RunnerLevel extends Level {
         /**
          * Wee need to dispose the current colliders and tiles on scene to prevent trash objects
          */
-        this.tiles.reset();
-        this.disposeColliders();
+        // this.tiles.reset();
+        // this.disposeColliders();
 
 
         this.player.reset();
 
-        this.tiles.generate();
+        this.speed = GAME.options.player.defaultSpeed;
 
         this.menu.hide();
         GAME.resume();
+        
 
+    }
+
+    getGameSpeed() {
+        return this.speed = this.speed ? this.speed : GAME.options.player.defaultSpeed;
+    }
+
+    setGameSpeed() {
+        if(!GAME.isPaused()) {
+            this.speed += GAME.options.player.increaseSpeedRatio;
+        }
     }
 
 }
