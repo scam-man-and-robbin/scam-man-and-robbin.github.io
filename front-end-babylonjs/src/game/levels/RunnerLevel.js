@@ -3,9 +3,16 @@ import Player from '../Player';
 import Level from '../../base/Level';
 import TilesGenerator from './generators/TilesGenerator';
 import ScamsGenerator from './generators/ScamsGenerator';
+import BoonsGenerator from './generators/BoonsGenerator';
 
 export default class RunnerLevel extends Level {
 
+    /**
+    * Class description
+    *
+    * To handle Core Game Level Related Actions. 
+    * Core Game Logics for the entire scene are handled here.
+    */
     setProperties() {
 
         this.player = null;
@@ -21,6 +28,9 @@ export default class RunnerLevel extends Level {
 
     }
 
+    /**
+     * Function to setup musics and sound assets
+     */
     setupAssets() {
 
         // Dummy Sounds for Time Being. Needs changing (Or requires providing credits)
@@ -33,6 +43,10 @@ export default class RunnerLevel extends Level {
 
     }
 
+    /**
+     * Function to set scene with camera, player.
+     * Also Coins will be initialized followed by Scam Objects and Boon Objects
+     */
     buildScene() {
 
         this.scene.clearColor = new BABYLON.Color3.FromHexString(GAME.options.backgroundColor);
@@ -44,7 +58,7 @@ export default class RunnerLevel extends Level {
         this.scene.activeCamera = camera;
 
         // Uncomment it to allow free camera rotation
-        camera.attachControl(GAME.canvas, true);
+        // camera.attachControl(GAME.canvas, true);
 
         // Add lights to the scene
         var light1 = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(0, 10, 0), this.scene);
@@ -57,20 +71,32 @@ export default class RunnerLevel extends Level {
         this.tiles = new TilesGenerator(this);
         this.tiles.generate();
 
+        // Scams will be started after n seconds.
         setTimeout(() => {
             this.scams = new ScamsGenerator(this);
             this.scams.generate();
         }, GAME.options.player.scamStartAfter);
 
+        // Boons will be started after 3*n+0.5 seconds.
+        setTimeout(() => {
+            this.boons = new BoonsGenerator(this);
+            this.boons.generate();
+        }, (GAME.options.player.scamStartAfter * 3) + 500);
+
+        // For now game speed is incremented for each 15 seconds
         setInterval(() => {
             this.setGameSpeed();
         }, 15000);
-        
+
         this.scene.useMaterialMeshMap = true;
         this.scene.debugLayer.hide();
         // this.scene.debugLayer.show();
     }
 
+    /**
+     * Function to build UI objects to show Points/Record/Replay Button/Home Button.
+     * Menu will be hidden on start of game.
+     */
     createMenus() {
         this.menu = new UI('runnerMenuUI');
 
@@ -110,6 +136,10 @@ export default class RunnerLevel extends Level {
 
     }
 
+    /**
+     * Function to show Game Instructions
+     * Message varies based on device
+     */
     createTutorialText() {
         let text = GAME.isMobile() ? 'Swipe screen Left/Right to control Scam Man. Swipe Up to Shoot.' : 'Use Arrow Keys to Move & Space to Shoot.';
 
@@ -123,6 +153,9 @@ export default class RunnerLevel extends Level {
         }, 5000);
     }
 
+    /**
+     * Function to setup camera for Game Engine.
+     */
     createCamera() {
         let camera = new BABYLON.UniversalCamera("camera", new BABYLON.Vector3(0, 0, -8), this.scene);
         // let camera = new BABYLON.ArcRotateCamera("arcCamera", 0, 0, -8, BABYLON.Vector3.Zero(), this.scene);
@@ -132,6 +165,9 @@ export default class RunnerLevel extends Level {
         return camera;
     }
 
+    /**
+     * Function to setup player with default lighting.
+     */
     createPlayer() {
         // Creates the player and sets it as camera target
         this.player = new Player(this);
@@ -140,11 +176,6 @@ export default class RunnerLevel extends Level {
         playerLight.intensity = 0.3;
         playerLight.parent = this.player.mesh;
 
-        this.scene.shadowGenerator = new BABYLON.ShadowGenerator(32, playerLight);
-        this.scene.shadowGenerator.useBlurExponentialShadowMap = true;
-
-        this.scene.shadowGenerator.getShadowMap().renderList.push(this.player.mesh);
-
         // Actions when player dies
         this.player.onDie = () => {
             GAME.pause();
@@ -152,6 +183,9 @@ export default class RunnerLevel extends Level {
         }
     }
 
+    /**
+     * Function to show Menu with last points/high record
+     */
     showMenu() {
         this.pointsTextControl.text = 'Points: ' + this.player.getPoints();
         this.currentRecordTextControl.text = 'Current Record: ' + this.player.getLastRecord();
@@ -164,20 +198,19 @@ export default class RunnerLevel extends Level {
         }
     }
 
+    /**
+     * Function to call logics that will be rendered seamlessly.
+     */
     beforeRender() {
         if (!GAME.isPaused()) {
             this.player.move();
         }
     }
 
+    /**
+     * Function to handle replay option.
+     */
     replay() {
-
-        /**
-         * Wee need to dispose the current colliders and tiles on scene to prevent trash objects
-         */
-        // this.tiles.reset();
-        // this.disposeColliders();
-
 
         this.player.reset();
 
@@ -185,16 +218,23 @@ export default class RunnerLevel extends Level {
 
         this.menu.hide();
         GAME.resume();
-        
+
 
     }
 
+    /**
+     * Function to return game speed outside this Class 
+     */
     getGameSpeed() {
-        return this.speed = this.speed ? this.speed : GAME.options.player.defaultSpeed;
+        this.speed = this.speed ? this.speed : GAME.options.player.defaultSpeed
+        return this.speed;
     }
 
+    /**
+     * Function to increment speed
+     */
     setGameSpeed() {
-        if(!GAME.isPaused()) {
+        if (!GAME.isPaused()) {
             this.speed += GAME.options.player.increaseSpeedRatio;
         }
     }

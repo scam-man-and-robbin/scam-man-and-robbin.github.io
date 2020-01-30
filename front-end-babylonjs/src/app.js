@@ -5,6 +5,7 @@ import Game from './Game.js';
 
 window.GAME = null;
 
+// Initialize GAME once Page is Loaded
 var app = {
 
     init() {

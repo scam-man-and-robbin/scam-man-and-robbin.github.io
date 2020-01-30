@@ -5,6 +5,11 @@ import Log from './base/Log.js';
 import RunnerLevel from './game/levels/RunnerLevel.js';
 import HomeMenuLevel from './game/levels/HomeMenuLevel.js';
 
+/**
+ * Class Description
+ * 
+ * To handle High Level entities that are applicable for the entire game
+ */
 export default class Game {
 
     constructor(options = {}) {
@@ -34,7 +39,7 @@ export default class Game {
          */
         this.canvas = document.getElementById("renderCanvas");
 
-        this.engine = new BABYLON.Engine(this.canvas, true, null, true);
+        this.engine = new BABYLON.Engine(this.canvas, true);
 
         this.currentLevel = null;
         this.currentLevelName = 'HomeMenuLevel';
@@ -65,6 +70,9 @@ export default class Game {
         this.paused = false;
     }
 
+    /**
+    * Function to set flags based on User Control Actions via Keyboard
+    */
     listenKeys() {
 
         document.addEventListener('keydown', keyDown.bind(this));
@@ -101,6 +109,9 @@ export default class Game {
         }
     }
 
+    /**
+     * Function to set flags based on User Control Action via Touch
+     */
     lintenTouchEvents() {
         var hammertime = new Hammer(document.body);
         hammertime.get('swipe').set({ direction: Hammer.DIRECTION_ALL });
@@ -139,6 +150,9 @@ export default class Game {
         });
     }
 
+    /**
+     * Function to pause/play when user changes focus away from window
+     */
     listenOtherEvents() {
         window.addEventListener('blur', () => {
             this.pause();
@@ -149,6 +163,10 @@ export default class Game {
         });
     }
 
+    /**
+     * 
+     * @param {string} levelName - Switch to HomeScreen/GameScreen
+     */
     goToLevel(levelName) {
 
         if (!this.levels[levelName]) {

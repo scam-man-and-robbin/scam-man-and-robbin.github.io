@@ -34,7 +34,7 @@ export default class Level {
 
         // To change bg image based on device
         let imgPath = "/assets/scenes/white_bg.png";
-        if(GAME.isMobile()){
+        if (GAME.isMobile()) {
             imgPath = "/assets/scenes/white_bg.png";
         }
 
@@ -94,37 +94,4 @@ export default class Level {
             delete this.materials[materialName];
         }
     }
-
-    /**
-     * Interpolate a value inside the Level Scene using the BABYLON Action Manager
-     * @param {*} target The target object
-     * @param {*} property The property in the object to interpolate
-     * @param {*} toValue The final value of interpolation
-     * @param {*} duration The interpolation duration in milliseconds
-     * @param {*} afterExecutionCallback Callback executed after ther interpolation ends
-     */
-    interpolate(target, property, toValue, duration, afterExecutionCallback = null) {
-
-        if (!this.scene.actionManager) {
-            this.scene.actionManager = new BABYLON.ActionManager(this.scene);
-        }
-
-        let interpolateAction = new BABYLON.InterpolateValueAction(
-            BABYLON.ActionManager.NothingTrigger,
-            target,
-            property,
-            toValue,
-            duration
-        );
-
-        interpolateAction.onInterpolationDoneObservable.add(() => {
-            GAME.log.debug('Interpolation done');
-            if (afterExecutionCallback) afterExecutionCallback();
-        });
-
-        this.scene.actionManager.registerAction(interpolateAction);
-        interpolateAction.execute();
-
-    }
-
 }

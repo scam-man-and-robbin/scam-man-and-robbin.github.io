@@ -1,5 +1,11 @@
 export default class TilesGenerator {
 
+    /**
+     * Class Description
+     * 
+     * To handle Coin Object related actions
+     * @param {*} level - Values from core game screen
+     */
     constructor(level) {
 
         this.level = level;
@@ -9,6 +15,10 @@ export default class TilesGenerator {
 
     }
 
+    /**
+     * Function to create coin material.
+     * Initial Dev - Simple Yellow Color Texture
+     */
     createCommonMaterials() {
 
         let coinMaterial = new BABYLON.StandardMaterial('coinMaterial', this.scene);
@@ -16,21 +26,17 @@ export default class TilesGenerator {
         coinMaterial.emissiveColor = new BABYLON.Color3.Yellow();
         coinMaterial.specularColor = new BABYLON.Color3.Yellow();
 
-        // Scam objects
-        let hazardMaterial = new BABYLON.StandardMaterial("hazardMaterial", this.scene);
-        hazardMaterial.diffuseColor = new BABYLON.Color3(0, 0, 1);
-        hazardMaterial.emissiveColor = new BABYLON.Color3(0, 0, 1);
-        hazardMaterial.specularColor = new BABYLON.Color3(0, 0, 1);
-
         // Freeze materials to improve performance (this material will not be modified)
         coinMaterial.freeze();
-        hazardMaterial.freeze();
 
         this.level.addMaterial(coinMaterial);
-        this.level.addMaterial(hazardMaterial);
 
     }
 
+    /**
+     * Function to generate coins every n seconds
+     * 2 seconds for now. May increase based on UX
+     */
     generate() {
 
         // New coins keep generating every 2 second
@@ -42,7 +48,9 @@ export default class TilesGenerator {
     }
 
 
-
+    /**
+     * Function to create coins on random position (3 lanes)
+     */
     createCoins() {
 
         // To position scam objects on different lanes randomly Default to Middle Lane
@@ -69,6 +77,11 @@ export default class TilesGenerator {
         coins.animations.push(this.createCoinAnimation());
         let coinAnimation = this.scene.beginAnimation(coins, 0, 2000, false);
         let playerMesh = this.player.getMesh();
+
+        /**
+         * @todo Currently we have set up passive coin collection. 
+         * Incase of collectable action change here
+         */
         if (coins.intersectsMesh(playerMesh, false)) {
             console.log("yes")
             coins.dispose();
@@ -89,6 +102,10 @@ export default class TilesGenerator {
         }
     }
 
+    /**
+     * Function to setup coin movements
+     * Currenly coins have only vertical motion
+     */
     createCoinAnimation() {
         let coinAnimation = new BABYLON.Animation("coinfall", "position.y", this.level.getGameSpeed(), BABYLON.Animation.ANIMATIONTYPE_FLOAT,
             BABYLON.Animation.ANIMATIONLOOPMODE_CYCLE);

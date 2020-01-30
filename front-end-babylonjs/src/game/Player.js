@@ -2,6 +2,12 @@ import UI from '../base/UI';
 
 export default class Player {
 
+    /**
+    * Class description
+    *
+    * To handle Player Object Related Actions. 
+    * Core Game Logics are handled here.
+    */
     constructor(level) {
 
         this.level = level;
@@ -11,6 +17,7 @@ export default class Player {
         this.bullerCounter = 1;
         this.coins = 0;
         this.scamCount = 0;
+        this.boonCount = 0;
         this.lives = GAME.options.player.lives;
         this.godMode = GAME.options.player.godMode;
         this.createCommonMaterials();
@@ -18,6 +25,10 @@ export default class Player {
 
     }
 
+    /**
+     * Function to create player material.
+     * Initial Dev - Simple Purple Color Texture
+     */
     createCommonMaterials() {
 
         let playerMaterial = new BABYLON.StandardMaterial("playerMaterial", this.scene);
@@ -32,6 +43,10 @@ export default class Player {
 
     }
 
+    /**
+    * Function to create player object.
+    * Initial Dev - Rectangular Box with simple Purple Color Texture
+    */
     setupPlayer() {
 
         this.mesh = BABYLON.MeshBuilder.CreateBox("player", {
@@ -46,6 +61,9 @@ export default class Player {
 
     }
 
+    /**
+    * Function to create UI Texts (Coin Counter, Lives Counter).
+    */
     createHUD() {
         this.hud = new UI('playerHudUI');
         this.coinsTextControl = null;
@@ -65,11 +83,19 @@ export default class Player {
         });
     }
 
+    /**
+    * Function to handle coin counter.
+    * Called when coin is passively landed over ground
+    */
     keepCoin() {
         this.coins++;
         this.coinsTextControl.text = 'Coins: $' + this.coins;
     }
 
+    /**
+    * Function to handle Live counter.
+    * Called when scam is missed and landed over player
+    */
     checkLife() {
         if (this.godMode) return;
 
@@ -86,14 +112,21 @@ export default class Player {
         }
     }
 
+    /**
+    * Function to handle player actions.
+    * Called when coin is passively landed over ground
+    */
     move() {
         this.checkDirectionMovement();
         this.checkShoot();
     }
 
+    /**
+    * Function to handle player left, right and center actions.
+    */
     checkDirectionMovement() {
         if (GAME.keys.left) {
-            if (this.changePosition && this.mesh.position.x > (GAME.isMobile() ? -1 : -2.5) ) {
+            if (this.changePosition && this.mesh.position.x > (GAME.isMobile() ? -1 : -2.5)) {
                 this.changePosition = false;
                 this.mesh.animations = [];
                 this.mesh.animations.push(this.createPlayerSideMotion('left', this.mesh.position.x));
@@ -118,6 +151,11 @@ export default class Player {
         }
     }
 
+    /**
+    * Function to set up animation based on direction type.
+    * @param {string} type - Direction Type [Left/Right]
+    * @param {float} startValue - Current Position X of Player
+    */
     createPlayerSideMotion(type, startValue) {
         let playerMotion = new BABYLON.Animation("playerSideMotion", "position.x", this.level.getGameSpeed() * 20, BABYLON.Animation.ANIMATIONTYPE_FLOAT,
             BABYLON.Animation.ANIMATIONLOOPMODE_CYCLE);
@@ -139,6 +177,9 @@ export default class Player {
         return playerMotion;
     }
 
+    /**
+    * Function to handle player shoot actions.
+    */
     checkShoot() {
         if (GAME.keys.shoot) {
 
@@ -161,6 +202,9 @@ export default class Player {
         }
     }
 
+    /**
+    * Function to handle bullet/beam animation actions.
+    */
     createBulletMotion(startValue) {
         let bulletMotion = new BABYLON.Animation("bulletShoot", "position.y", 400, BABYLON.Animation.ANIMATIONTYPE_FLOAT,
             BABYLON.Animation.ANIMATIONLOOPMODE_CYCLE);
@@ -178,19 +222,39 @@ export default class Player {
         return bulletMotion;
     }
 
+    // Function to access Player entity outside this class.
     getMesh() {
         return this.mesh;
     }
 
+    // Function to access Points entity outside this class.
     getPoints() {
         return this.scamCount;
     }
 
+    /**
+     * Function to handle scam counter.
+     */
     keepScam() {
         this.scamCount++;
         this.checkAndSaveRecord(this.scamCount);
     }
 
+    /**
+     * Function to handle boon counter.
+     * @todo Any other logics in future to be added
+     * 1. Currenly coins are doubled.
+     */
+    keepBoon() {
+        this.boonCount++;
+        this.coins *= 2;
+        this.coinsTextControl.text = 'Coins: $' + this.coins;
+    }
+
+    /**
+     * Function to update highest score of player in this machine.
+     * @param {int} points - Value that is saved to localstorage based on Is Record or Not
+     */
     checkAndSaveRecord(points) {
         let lastRecord = 0;
 
@@ -206,19 +270,27 @@ export default class Player {
         }
     }
 
+    /**
+     * Function to return if any high score record made by previous attempts.
+     */
     hasMadePointsRecord() {
         return this.pointsRecord;
     }
 
+    // Function to return last highest record.
     getLastRecord() {
         return window.localStorage['last_record'] || 0;
     }
 
+    /**
+     * Function to reset player postions and counters to initial levels to replay game.
+     */
     reset() {
 
         this.coins = 0;
         this.mesh.position.x = 0;
         this.scamCount = 0;
+        this.boonCount = 0;
         this.lives = GAME.options.player.lives;
         this.livesTextControl.text = 'Lives: ' + this.lives;
         this.coinsTextControl.text = 'Coins: $' + this.coins;
