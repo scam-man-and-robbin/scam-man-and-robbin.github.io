@@ -193,7 +193,7 @@ export default class Player {
     * @param {float} startValue - Current Position X of Player
     */
     createPlayerSideMotion(type, startValue) {
-        let playerMotion = new BABYLON.Animation("playerSideMotion", "position.x", this.level.getGameSpeed() * 20, BABYLON.Animation.ANIMATIONTYPE_FLOAT,
+        let playerMotion = new BABYLON.Animation("playerSideMotion", "position.x", this.level.getGameSpeed() * 40, BABYLON.Animation.ANIMATIONTYPE_FLOAT,
             BABYLON.Animation.ANIMATIONLOOPMODE_CYCLE);
 
         let keys = [];

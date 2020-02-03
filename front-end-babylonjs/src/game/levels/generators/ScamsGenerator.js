@@ -14,10 +14,10 @@ export default class ScamsGenerator {
         this.createCommonMaterials();
         this.scamTypes = [
             'NORMAL_SCAM',
+            'BLACK_OUT',
+            'ACCELERATOR',
             'ZIG_ZAG',
             'SPEEDY',
-            'ACCELERATOR',
-            'BLACK_OUT',
             'DIAGONAL',
             // 'SPLITTER'
         ];
@@ -49,9 +49,24 @@ export default class ScamsGenerator {
 
         // New scams keep generating every 4 second
         setInterval(() => {
-            if (!GAME.isPaused()) {
+            if (!GAME.isPaused() && this.player.lives) {
                 var scamType = 'NORMAL_SCAM';
-                let randomTileTypeNumber = Math.floor((Math.random() * this.scamTypes.length));
+
+                // To change difficulty as scam point increased
+                var scamTypesLength = 1;
+                if(this.player.scamCount > 4) {
+                    scamTypesLength = 2;
+                }
+
+                if(this.player.scamCount > 8) {
+                    scamTypesLength = 4;
+                }
+
+                if(this.player.scamCount > 12) {
+                    scamTypesLength = this.scamTypes.length;
+                }
+
+                let randomTileTypeNumber = Math.floor((Math.random() * scamTypesLength));
                 scamType = this.scamTypes[randomTileTypeNumber];
                 if (scamType == 'NORMAL_SCAM') {
                     this.createScams('NORMAL_SCAM');
