@@ -1,5 +1,11 @@
 export default class ScamsGenerator {
 
+    /**
+    * Class description
+    *
+    * To handle Scam Object Related Actions. 
+    */
+
     constructor(level) {
 
         this.level = level;
@@ -9,10 +15,18 @@ export default class ScamsGenerator {
         this.scamTypes = [
             'NORMAL_SCAM',
             'ZIG_ZAG',
+            'SPEEDY',
+            'ACCELERATOR',
+            'BLACK_OUT',
+            'DIAGONAL',
             // 'SPLITTER'
         ];
 
     }
+
+    /**
+     * Function to create a material for scam with diffusion of red color 
+     */
 
     createCommonMaterials() {
 
@@ -28,6 +42,9 @@ export default class ScamsGenerator {
 
     }
 
+    /**
+     * Function to randomly generate scam object with it's behaviour 
+     */
     generate() {
 
         // New scams keep generating every 4 second
@@ -40,13 +57,23 @@ export default class ScamsGenerator {
                     this.createScams('NORMAL_SCAM');
                 } else if (scamType == 'ZIG_ZAG') {
                     this.createScams('ZIG_ZAG');
+                } else if (scamType == 'SPEEDY') {
+                    this.createScams('SPEEDY');
+                } else if (scamType == 'ACCELERATOR') {
+                    this.createScams('ACCELERATOR');
+                } else if (scamType == 'BLACK_OUT') {
+                    this.createScams('BLACK_OUT');
+                } else if (scamType == 'DIAGONAL') {
+                    this.createScams('DIAGONAL');
                 }
             }
         }, 4000);
     }
 
-
-
+    /**
+     * Function to create the scam object.
+     * @param {string} type - Flag to decide the behaviour of the scam.
+     */
     createScams(type) {
 
         // To position scam objects on different lanes randomly Default to Middle Lane
@@ -77,8 +104,20 @@ export default class ScamsGenerator {
 
         if (type == 'ZIG_ZAG') {
             scams.animations.push(this.createZigZagScamAnimation(scams));
-        } else {
+        } else if (type == 'NORMAL_SCAM') {
             scams.animations.push(this.createScamAnimation());
+        }
+        else if (type == 'SPEEDY') {
+            scams.animations.push(this.createSpeedyScamAnimation());
+        }
+        else if (type == 'ACCELERATOR') {
+            scams.animations.push(this.createAcceleratorScamAnimation());
+        }
+        else if (type == 'BLACK_OUT') {
+            scams.animations.push(this.createBlackoutAnimation());
+        }
+        else if (type == 'DIAGONAL') {
+            scams.animations.push(this.createDiagonalScamAnimation(scams));
         }
         let scamAnimation = this.scene.beginAnimation(scams, 0, 2000, false);
         var trigger = setInterval(() => {
@@ -99,7 +138,6 @@ export default class ScamsGenerator {
                     }
                 });
                 if (scams.position.y < (playerMesh.position.y + 0.5)) {
-                    console.log("kill")
                     this.player.checkLife();
                     scams.dispose();
                     clearInterval(trigger);
@@ -114,24 +152,30 @@ export default class ScamsGenerator {
         }, 10000);
     }
 
+    /**
+     * Function for scam objects to fall in normal speed 
+     */
     createScamAnimation() {
         let scamAnimation = new BABYLON.Animation("scamfall", "position.y", this.level.getGameSpeed() - 5, BABYLON.Animation.ANIMATIONTYPE_FLOAT,
             BABYLON.Animation.ANIMATIONLOOPMODE_CYCLE);
 
         let keys = [];
 
-        keys.push({ frame: 0, value: 3 });
-        keys.push({ frame: 15, value: 1.5 });
-        keys.push({ frame: 30, value: 0 });
-        keys.push({ frame: 45, value: -1.5 });
-        keys.push({ frame: 60, value: -3 });
-        keys.push({ frame: 85, value: -4.5 });
+        let position = 3;
+        for (let index=0; index<6; index++){
+            keys.push({ frame: index*15, value: position });
+            position = position -1.5;    
+        }
 
         scamAnimation.setKeys(keys);
 
         return scamAnimation;
     }
 
+    /**
+     * Function for scam objects to fall in zigzag
+     * @param {object} scams - To perform the behaviour of the scam.
+     */
     createZigZagScamAnimation(scams) {
         let scamAnimation = new BABYLON.Animation("scamfall", "position", this.level.getGameSpeed() - 5, BABYLON.Animation.ANIMATIONTYPE_VECTOR3,
             BABYLON.Animation.ANIMATIONLOOPMODE_CYCLE);
@@ -142,21 +186,21 @@ export default class ScamsGenerator {
         let shift = false;
         let incrementBy = 1;
         for (let index = 0; index < 8; index++) {
-            keys.push({ frame: index*15, value: position });
+            keys.push({ frame: index * 15, value: position });
             // Shift Right
-            if(position.x == (GAME.isMobile() ? 1 : 2.5)) {
+            if (position.x == (GAME.isMobile() ? 1 : 2.5)) {
                 shift = true;
                 incrementBy = -1;
-            }else if(position.x == -(GAME.isMobile() ? 1 : 2.5)){
+            } else if (position.x == -(GAME.isMobile() ? 1 : 2.5)) {
                 shift = true;
                 incrementBy = 1;
-            }else{
+            } else {
                 shift = false
-            } 
-            if(shift){
-                position = position.add(new BABYLON.Vector3(((GAME.isMobile() ? 1 : 2.5))*(incrementBy), -1, 0));
-            }else{
-                position = position.add(new BABYLON.Vector3(((GAME.isMobile() ? 1 : 2.5))*(incrementBy), -1, 0));
+            }
+            if (shift) {
+                position = position.add(new BABYLON.Vector3(((GAME.isMobile() ? 1 : 2.5)) * (incrementBy), -1, 0));
+            } else {
+                position = position.add(new BABYLON.Vector3(((GAME.isMobile() ? 1 : 2.5)) * (incrementBy), -1, 0));
             }
         }
 
@@ -169,6 +213,88 @@ export default class ScamsGenerator {
         // Adding easing function to my animation
         scamAnimation.setEasingFunction(easingFunction);
 
+        return scamAnimation;
+    }
+
+    /**
+     * Function for scam objects to fall in speedy manner 
+     */
+    createSpeedyScamAnimation() {
+        let scamAnimation = new BABYLON.Animation("scamfall", "position.y", this.level.getGameSpeed() - 5, BABYLON.Animation.ANIMATIONTYPE_FLOAT,
+            BABYLON.Animation.ANIMATIONLOOPMODE_CYCLE);
+
+        let keys = [];
+
+        keys.push({ frame: 0, value: 3 });
+        keys.push({ frame: 30, value: -3 });
+        scamAnimation.setKeys(keys);
+        return scamAnimation;
+    }
+
+    /**
+     * Function for scam objects to fall in accelerator manner 
+     */
+    createAcceleratorScamAnimation() {
+        let scamAnimation = new BABYLON.Animation("scamfall", "position.y", this.level.getGameSpeed() - 5, BABYLON.Animation.ANIMATIONTYPE_FLOAT,
+            BABYLON.Animation.ANIMATIONLOOPMODE_CYCLE);
+
+        let keys = [];
+
+        keys.push({ frame: 0, value: 3 });
+        keys.push({ frame: 15, value: 1.5 });
+        keys.push({ frame: 30, value: -3 });
+        scamAnimation.setKeys(keys);
+        return scamAnimation;
+    }
+
+    /**
+     * Function to perform screen blackout 
+     */
+    createBlackoutAnimation() {
+        var background = new BABYLON.Layer("front", "/assets/scenes/white_bg_opaque.png", this.scene);
+        background.isBackground = false;
+        
+        setTimeout(() => {
+            background.dispose();
+        }, 1000);
+        return this.createScamAnimation();
+    }
+
+    /**
+     * Function for scam objects to fall in Diagonal
+     * @param {object} scams - To perform the behaviour of the scam.
+     */
+    createDiagonalScamAnimation(scams) {
+        let scamAnimation = new BABYLON.Animation("scamfall", "position", this.level.getGameSpeed() - 5, BABYLON.Animation.ANIMATIONTYPE_VECTOR3,
+            BABYLON.Animation.ANIMATIONLOOPMODE_CYCLE);
+
+        let keys = [];
+
+        let position = scams.position;
+        for (let index = 0; index < 5; index++) {
+            keys.push({ frame: index * 15, value: position });
+            if (index == 1 && position.x != 0) {        // keys[index].frame
+                if (position.x == (GAME.isMobile() ? 1 : 2.5)) {
+                    // Move Left        
+                    position = position.add(new BABYLON.Vector3((GAME.isMobile() ? 1 : 2.5) * (-2), -2, 0));
+                } else {
+                    // Move Right
+                    position = position.add(new BABYLON.Vector3((GAME.isMobile() ? 1 : 2.5) * (2), -2, 0));
+                }
+            }
+            //Move Down
+            else if (index != 4 || position.x == 0) {
+                position = position.add(new BABYLON.Vector3(0, -2, 0));
+            }
+        }
+        scamAnimation.setKeys(keys);
+        var easingFunction = new BABYLON.CircleEase();
+
+        // For each easing function, you can choose beetween EASEIN (default), EASEOUT, EASEINOUT
+        easingFunction.setEasingMode(BABYLON.EasingFunction.EASINGMODE_EASEIN);
+
+        // Adding easing function to my animation
+        scamAnimation.setEasingFunction(easingFunction);
         return scamAnimation;
     }
 
