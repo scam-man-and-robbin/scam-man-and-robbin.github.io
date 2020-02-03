@@ -46,7 +46,7 @@ export default class BoonsGenerator {
 
         // New boons keep generating every 10 second
         setInterval(() => {
-            if (!GAME.isPaused()) {
+            if (!GAME.isPaused() && this.player.lives) {
                 var boonType = 'NORMAL_BOON';
                 let randomTileTypeNumber = Math.floor((Math.random() * this.boonTypes.length));
                 boonType = this.boonTypes[randomTileTypeNumber];

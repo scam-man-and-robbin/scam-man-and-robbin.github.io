@@ -47,7 +47,7 @@ export default class AssetsDatabase {
 
         options.loop = (typeof options.loop !== 'undefined') ? options.loop : true;
         options.volume = (typeof options.volume !== 'undefined') ? options.volume : 0.5;
-        options.autoplay = (typeof options.autoplay !== 'undefined') ? options.autoplay : true;
+        options.autoplay = (typeof options.autoplay !== 'undefined') ? options.autoplay : false;
 
         return this.addSound(name, file, options);
 
