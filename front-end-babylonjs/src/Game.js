@@ -115,6 +115,32 @@ export default class Game {
     lintenTouchEvents() {
         var hammertime = new Hammer(document.body);
         hammertime.get('swipe').set({ direction: Hammer.DIRECTION_ALL });
+        // hammertime.get('pan').set({ direction: Hammer.DIRECTION_ALL });
+
+        
+        // hammertime.on('panleft', (ev) => {
+        //     this.keys.left = 1;
+
+        //     setTimeout(() => {
+        //         this.keys.left = 0;
+        //     }, 10);
+        // });
+
+        // hammertime.on('panright', (ev) => {
+        //     this.keys.right = 1;
+
+        //     setTimeout(() => {
+        //         this.keys.right = 0;
+        //     }, 10);
+        // });
+
+        // hammertime.on('panup', (ev) => {
+        //     this.keys.shoot = 1;
+
+        //     setTimeout(() => {
+        //         this.keys.shoot = 0;
+        //     }, 10);
+        // });
 
         hammertime.on('swipeup', (ev) => {
             this.keys.shoot = 1;

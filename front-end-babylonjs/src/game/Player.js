@@ -20,6 +20,7 @@ export default class Player {
         this.boonCount = 0;
         this.lives = GAME.options.player.lives;
         this.godMode = GAME.options.player.godMode;
+        this.allowCoinChange = true;
         this.createCommonMaterials();
         this.setupPlayer();
 
@@ -57,6 +58,8 @@ export default class Player {
         this.mesh.position = new BABYLON.Vector3(0, -3, 0);
         this.mesh.material = this.level.getMaterial('playerMaterial');
         this.changePosition = true;
+        this.gotCoinSound = this.level.assets.getSound('gotCoinSound');
+        this.scammedSound = this.level.assets.getSound('damageSound');
         this.createHUD();
 
     }
@@ -69,10 +72,11 @@ export default class Player {
         this.coinsTextControl = null;
         this.livesTextControl = null;
         this.coinsTextControl = this.hud.addText('Coins: $0', {
-            'top': '10px',
-            'left': '10px',
+            'top': '-10px',
+            'left': '-10px',
             'fontSize': '15px',
-            'horizontalAlignment': BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_LEFT
+            'horizontalAlignment': BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_RIGHT,
+            'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_BOTTOM
         });
 
         this.livesTextControl = this.hud.addText('Lives: ' + this.lives, {
@@ -88,8 +92,15 @@ export default class Player {
     * Called when coin is passively landed over ground
     */
     keepCoin() {
-        this.coins++;
-        this.coinsTextControl.text = 'Coins: $' + this.coins;
+        if (this.lives != 0 && this.allowCoinChange) {
+            this.coins += 100;
+            this.gotCoinSound.play();
+            this.coinsTextControl.text = 'Coins: $' + this.coins;
+            this.coinsTextControl.fontSize = '16px';
+            setTimeout(() => {
+                this.coinsTextControl.fontSize = '15px';
+            }, 500);
+        }
     }
 
     /**
@@ -103,13 +114,38 @@ export default class Player {
             this.lives = 0;
             this.livesTextControl.text = 'Lives: ' + this.lives;
 
+            this.coins = 0;
+            this.coinsTextControl.text = 'Coins: $' + this.coins;
+            this.coinsTextControl.fontSize = '18px';
+            this.allowCoinChange = false;
             if (this.onDie) {
                 this.onDie();
             }
         } else {
             this.lives--;
             this.livesTextControl.text = 'Lives: ' + this.lives;
+            this.scammedSound.play();
+            // Reduce coins when scammed.
+            let newCoins = Math.floor((this.coins / GAME.options.player.lives) * (GAME.options.player.lives - this.lives));
+            var factor = Math.floor((this.coins - newCoins) / 10);
+            var trigger = setInterval(() => {
+                this.coins -= factor;
+                if(this.coins > newCoins) {
+                    this.coinsTextControl.text = 'Coins: $' + this.coins;
+                    this.coinsTextControl.fontSize = '18px';
+                    this.coinsTextControl.color = 'red';
+                }else {
+                    this.coins = newCoins
+                    this.allowCoinChange = true;
+                    this.coinsTextControl.text = 'Coins: $' + this.coins;
+                    this.coinsTextControl.fontSize = '15px';
+                    this.coinsTextControl.color = 'black';
+                    clearInterval(trigger);
+                }
+            }, 50);
+            
         }
+
     }
 
     /**
@@ -247,8 +283,22 @@ export default class Player {
      */
     keepBoon() {
         this.boonCount++;
-        this.coins *= 2;
-        this.coinsTextControl.text = 'Coins: $' + this.coins;
+        let newCoins = this.coins * 2;
+        var factor = Math.floor((newCoins - this.coins) / 10);
+        var trigger = setInterval(() => {
+            this.coins += factor;
+            if(this.coins < newCoins && this.allowCoinChange) {
+                this.coinsTextControl.text = 'Coins: $' + this.coins;
+                this.coinsTextControl.fontSize = '18px';
+                this.coinsTextControl.color = 'green';
+            }else {
+                this.coins = this.lives > 0 ? newCoins : 0;
+                this.coinsTextControl.text = 'Coins: $' + this.coins;
+                this.coinsTextControl.fontSize = '15px';
+                this.coinsTextControl.color = 'black';
+                clearInterval(trigger);
+            }
+        }, 50);
     }
 
     /**
