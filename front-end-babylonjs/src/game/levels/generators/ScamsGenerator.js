@@ -19,7 +19,7 @@ export default class ScamsGenerator {
             'ZIG_ZAG',
             'SPEEDY',
             'DIAGONAL',
-            // 'SPLITTER'
+            'SPLITTER'
         ];
 
     }
@@ -54,32 +54,24 @@ export default class ScamsGenerator {
 
                 // To change difficulty as scam point increased
                 var scamTypesLength = 1;
-                if(this.player.scamCount > 4) {
+                if (this.player.scamCount > 5) {
                     scamTypesLength = 2;
                 }
 
-                if(this.player.scamCount > 8) {
+                if (this.player.scamCount > 10) {
                     scamTypesLength = 4;
                 }
 
-                if(this.player.scamCount > 12) {
+                if (this.player.scamCount > 15) {
                     scamTypesLength = this.scamTypes.length;
                 }
 
                 let randomTileTypeNumber = Math.floor((Math.random() * scamTypesLength));
                 scamType = this.scamTypes[randomTileTypeNumber];
-                if (scamType == 'NORMAL_SCAM') {
-                    this.createScams('NORMAL_SCAM');
-                } else if (scamType == 'ZIG_ZAG') {
-                    this.createScams('ZIG_ZAG');
-                } else if (scamType == 'SPEEDY') {
-                    this.createScams('SPEEDY');
-                } else if (scamType == 'ACCELERATOR') {
-                    this.createScams('ACCELERATOR');
-                } else if (scamType == 'BLACK_OUT') {
-                    this.createScams('BLACK_OUT');
-                } else if (scamType == 'DIAGONAL') {
-                    this.createScams('DIAGONAL');
+                if (scamType == 'SPLITTER') {
+                    this.createSplitterScams();
+                } else {
+                    this.createScams(scamType);
                 }
             }
         }, 4000);
@@ -104,7 +96,7 @@ export default class ScamsGenerator {
         if (randomPositionChooser >= 60) {
             positionX = GAME.isMobile() ? 1 : 2.5; // Positioning on the right
         }
-        let scamDiameter = GAME.isMobile() ? 0.2 : 0.4;
+        let scamDiameter = GAME.isMobile() ? 0.35 : 0.7;
         // let scams = BABYLON.Mesh.CreateCylinder("scam_"+randomPositionChooser, 0.1, scamDiameter, scamDiameter, 16, 0, this.scene);
         let scams = BABYLON.MeshBuilder.CreateBox("scam_" + randomPositionChooser, {
             width: scamDiameter,
@@ -177,9 +169,9 @@ export default class ScamsGenerator {
         let keys = [];
 
         let position = 3;
-        for (let index=0; index<6; index++){
-            keys.push({ frame: index*15, value: position });
-            position = position -1.5;    
+        for (let index = 0; index < 6; index++) {
+            keys.push({ frame: index * 15, value: position });
+            position = position - 1.5;
         }
 
         scamAnimation.setKeys(keys);
@@ -268,7 +260,7 @@ export default class ScamsGenerator {
     createBlackoutAnimation() {
         var background = new BABYLON.Layer("front", "/assets/scenes/white_bg_opaque.png", this.scene);
         background.isBackground = false;
-        
+
         setTimeout(() => {
             background.dispose();
         }, 1000);
@@ -310,6 +302,89 @@ export default class ScamsGenerator {
 
         // Adding easing function to my animation
         scamAnimation.setEasingFunction(easingFunction);
+        return scamAnimation;
+    }
+
+    createSplitterScams() {
+        
+        let scams = [];
+        var trigger = [];
+        for (let index = 0; index < 2; index++) {
+            let randomPositionChooser = Math.floor((Math.random() * 100)); // 0 to 100 random number
+            let scamDiameter = GAME.isMobile() ? 0.35 : 0.7;
+            scams[index] = BABYLON.MeshBuilder.CreateBox("scam_" + randomPositionChooser, {
+                width: scamDiameter,
+                height: scamDiameter,
+                depth: 0.01
+            }, this.scene);
+
+            scams[index].material = this.level.getMaterial('scamMaterial');
+            scams[index].position.x = 0;
+            scams[index].position.y = 3;
+            scams[index].position.z = 0;
+
+            scams[index].animations.push(this.createSplitterAnimation(scams[index], index == 1 ? 'right' : 'left'));
+            let scamAnimation = this.scene.beginAnimation(scams[index], 0, 2000, false);
+            trigger[index] = setInterval(() => {
+                let playerMesh = this.player.getMesh();
+                if (scams[index]) {
+                    let scamMesh = [];
+                    this.scene.meshes.forEach(element => {
+                        if (element['name'].includes("bullet") && !scamMesh.includes(element['name'])) {
+                            scamMesh.push(element['name']);
+                            if (element.intersectsMesh(scams[index], false)) {
+                                // this.slicer(element)
+                                // element.material.emissiveColor = new BABYLON.Color3.FromHexString('#ff0000')
+                                scams[index].dispose();
+                                element.visibility = false;
+                                this.player.keepScam();
+                                clearInterval(trigger[index]);
+                            }
+                        }
+                    });
+                    if (scams[index].position.y < (playerMesh.position.y + 0.5)) {
+                        this.player.checkLife();
+                        scams[index].dispose();
+                        clearInterval(trigger[index]);
+                    }
+                } else {
+                    clearInterval(trigger[index]);
+                }
+            }, 5);
+            setTimeout(() => {
+                scamAnimation.pause();
+                scams[index].dispose();
+            }, 10000);
+        }
+    }
+
+
+    createSplitterAnimation(scams, direction) {
+        let scamAnimation = new BABYLON.Animation("scamfall", "position", this.level.getGameSpeed() - 10, BABYLON.Animation.ANIMATIONTYPE_VECTOR3,
+            BABYLON.Animation.ANIMATIONLOOPMODE_CYCLE);
+
+        let keys = [];
+
+        let position = scams.position;
+        for (let index = 0; index < 6; index++) {
+            keys.push({ frame: index * 15, value: position });
+            if (index == 1 && direction == 'right') {
+                position = position.add(new BABYLON.Vector3((GAME.isMobile() ? 1 : 2.5), -1.5, 0));
+            } else if (index == 1) {
+                position = position.add(new BABYLON.Vector3((GAME.isMobile() ? -1 : -2.5), -1.5, 0));
+            } else {
+                position = position.add(new BABYLON.Vector3(0, -1.5, 0));
+            }
+        }
+        scamAnimation.setKeys(keys);
+        var easingFunction = new BABYLON.CircleEase();
+
+        // For each easing function, you can choose beetween EASEIN (default), EASEOUT, EASEINOUT
+        easingFunction.setEasingMode(BABYLON.EasingFunction.EASINGMODE_EASEIN);
+
+        // Adding easing function to my animation
+        scamAnimation.setEasingFunction(easingFunction);
+
         return scamAnimation;
     }
 

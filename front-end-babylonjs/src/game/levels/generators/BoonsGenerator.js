@@ -78,7 +78,7 @@ export default class BoonsGenerator {
         if (randomPositionChooser >= 60) {
             positionX = GAME.isMobile() ? 1 : 2.5; // Positioning on the right
         }
-        let boonDiameter = GAME.isMobile() ? 0.2 : 0.4;
+        let boonDiameter = GAME.isMobile() ? 0.35 : 0.7;
         let boons = BABYLON.MeshBuilder.CreateBox("boon_" + randomPositionChooser, {
             width: boonDiameter,
             height: boonDiameter,

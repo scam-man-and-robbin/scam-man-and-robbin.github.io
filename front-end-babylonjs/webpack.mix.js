@@ -9,3 +9,7 @@ mix.js('src/app.js', 'public/build/')
       'src/libs/babylon.addons.js',
    ], 'public/build/vendor.js')
    .setPublicPath('public/build');
+
+if (mix.inProduction()) {
+   mix.version();
+}
