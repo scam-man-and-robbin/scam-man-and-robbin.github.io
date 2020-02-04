@@ -11,6 +11,7 @@ export default class ScamsGenerator {
         this.level = level;
         this.scene = level.scene;
         this.player = level.player;
+        this.foreground = level.foreground;
         this.createCommonMaterials();
         this.scamTypes = [
             'NORMAL_SCAM',
@@ -258,12 +259,12 @@ export default class ScamsGenerator {
      * Function to perform screen blackout 
      */
     createBlackoutAnimation() {
-        var background = new BABYLON.Layer("front", "/assets/scenes/white_bg_opaque.png", this.scene);
-        background.isBackground = false;
-
+        // var background = new BABYLON.Layer("front", "/assets/scenes/white_bg_opaque.png", this.scene);
+        // background.isBackground = false;
+        this.foreground.layerMask = 1;
         setTimeout(() => {
-            background.dispose();
-        }, 1000);
+            this.foreground.layerMask = 0;
+        }, 1500);
         return this.createScamAnimation();
     }
 

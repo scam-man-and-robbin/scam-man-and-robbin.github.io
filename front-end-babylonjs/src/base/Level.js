@@ -13,6 +13,7 @@ export default class Level {
 
         this.assets = null;
 
+        this.foreground = null;
     }
 
     start() {
@@ -40,6 +41,9 @@ export default class Level {
 
         var background = new BABYLON.Layer("back", imgPath, this.scene);
         background.isBackground = true;
+
+        this.foreground = new BABYLON.Layer("front", "/assets/scenes/white_bg_opaque.png", this.scene, false);
+        this.foreground.layerMask = 0;
         // Add assets management and execute beforeRender after finish
         this.assets = new AssetsDatabase(this.scene, () => {
 
