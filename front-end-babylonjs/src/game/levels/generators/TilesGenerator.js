@@ -92,6 +92,18 @@ export default class TilesGenerator {
                 this.player.keepCoin();
                 clearInterval(trigger);
             }
+            if(!this.player.lives) {
+                coinAnimation.pause();
+                coins.dispose();
+                clearInterval(trigger);    
+            }            
+            if(GAME.isPaused()) {
+                coins.paused = true;
+                coinAnimation.pause();
+            }
+            if(!GAME.isPaused() && coins.paused) {
+                coinAnimation.restart();
+            }
         }, 10);
         setTimeout(() => {
             coinAnimation.pause();

@@ -344,6 +344,7 @@ export default class Player {
         this.lives = GAME.options.player.lives;
         this.livesTextControl.text = 'Lives: ' + this.lives;
         this.coinsTextControl.text = 'Coins: $' + this.coins;
+        this.allowCoinChange = true;
 
     }
 

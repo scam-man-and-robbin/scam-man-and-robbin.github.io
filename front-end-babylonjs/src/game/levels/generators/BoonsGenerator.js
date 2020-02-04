@@ -115,6 +115,13 @@ export default class BoonsGenerator {
                     boons.dispose();
                     clearInterval(trigger);
                 }
+                if(GAME.isPaused()) {
+                    boons.paused = true;
+                    boonAnimation.pause();
+                }
+                if(!GAME.isPaused() && boons.paused) {
+                    boonAnimation.restart();
+                }
             } else {
                 clearInterval(trigger);
             }

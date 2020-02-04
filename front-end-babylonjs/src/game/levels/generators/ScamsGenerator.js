@@ -150,6 +150,13 @@ export default class ScamsGenerator {
                     scams.dispose();
                     clearInterval(trigger);
                 }
+                if(GAME.isPaused()) {
+                    scams.paused = true;
+                    scamAnimation.pause();
+                }
+                if(!GAME.isPaused() && scams.paused) {
+                    scamAnimation.restart();
+                }
             } else {
                 clearInterval(trigger);
             }
@@ -347,6 +354,13 @@ export default class ScamsGenerator {
                         this.player.checkLife();
                         scams[index].dispose();
                         clearInterval(trigger[index]);
+                    }
+                    if(GAME.isPaused()) {
+                        scams[index].paused = true;
+                        scamAnimation.pause();
+                    }
+                    if(!GAME.isPaused() && scams[index].paused) {
+                        scamAnimation.restart();
                     }
                 } else {
                     clearInterval(trigger[index]);
