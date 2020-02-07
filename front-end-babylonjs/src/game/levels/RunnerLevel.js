@@ -4,6 +4,7 @@ import Level from '../../base/Level';
 import TilesGenerator from './generators/TilesGenerator';
 import ScamsGenerator from './generators/ScamsGenerator';
 import BoonsGenerator from './generators/BoonsGenerator';
+import AgeCounter from './counters/AgeCounter';
 
 export default class RunnerLevel extends Level {
 
@@ -25,6 +26,7 @@ export default class RunnerLevel extends Level {
         this.pointsTextControl = null;
         this.currentRecordTextControl = null;
         this.hasMadeRecordTextControl = null;
+        this.status = null;
 
     }
 
@@ -71,6 +73,8 @@ export default class RunnerLevel extends Level {
         this.tiles = new TilesGenerator(this);
         this.tiles.generate();
 
+        this.ageTimer = new AgeCounter(this);
+
         // Scams will be started after n seconds.
         setTimeout(() => {
             this.scams = new ScamsGenerator(this);
@@ -100,8 +104,8 @@ export default class RunnerLevel extends Level {
     createMenus() {
         this.menu = new UI('runnerMenuUI');
 
-        this.pointsTextControl = this.menu.addText('Points: 0', {
-            'top': '-150px',
+        this.gameStatus = this.menu.addText('You Win', {
+            'top': '-180px',
             'color': GAME.options.pointsTextColor,
             'outlineColor': GAME.options.pointsOutlineTextColor,
             'outlineWidth': '2px',
@@ -109,24 +113,43 @@ export default class RunnerLevel extends Level {
             'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_CENTER
         });
 
-        this.currentRecordTextControl = this.menu.addText('Current Record: 0', {
+        this.gameSubTextControl = this.menu.addText('You cannot give up. Try reaching Age 65...', {
+            'top': '-140px',
+            'color': GAME.options.pointsTextColor,
+            'outlineColor': GAME.options.pointsOutlineTextColor,
+            'outlineWidth': '2px',
+            'fontSize': '15px',
+            'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_CENTER
+        });
+
+        this.pointsTextControl = this.menu.addText('Points: 0', {
             'top': '-100px',
+            'color': GAME.options.pointsTextColor,
+            'outlineColor': GAME.options.pointsOutlineTextColor,
+            'outlineWidth': '2px',
+            'fontSize': '35px',
+            'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_CENTER
+        });
+
+        this.currentRecordTextControl = this.menu.addText('Current Record: 0', {
+            'top': '-60px',
             'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_CENTER
         });
 
         this.hasMadeRecordTextControl = this.menu.addText('You got a new Points Record!', {
-            'top': '-60px',
+            'top': '-40px',
             'color': GAME.options.recordTextColor,
             'fontSize': '20px',
             'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_CENTER
         });
 
         this.menu.addButton('replayButton', 'Replay Game', {
+            'top': '20px',
             'onclick': () => this.replay()
         });
 
         this.menu.addButton('backButton', 'Return to Home', {
-            'top': '70px',
+            'top': '90px',
             'onclick': () => GAME.goToLevel('HomeMenuLevel')
         });
 
@@ -180,6 +203,15 @@ export default class RunnerLevel extends Level {
         this.player.onDie = () => {
             GAME.pause();
             this.showMenu();
+            this.ageTimer.advancedTexture.dispose();
+        }
+
+        // Actions when player wins
+        this.player.win = () => {
+            GAME.pause();
+            this.status = 'WIN';
+            this.showMenu();
+            this.ageTimer.advancedTexture.dispose();
         }
     }
 
@@ -189,6 +221,13 @@ export default class RunnerLevel extends Level {
     showMenu() {
         this.pointsTextControl.text = 'Points: ' + this.player.getPoints();
         this.currentRecordTextControl.text = 'Current Record: ' + this.player.getLastRecord();
+        if(this.status == 'WIN') {
+            this.gameStatus.text = 'You Win!';
+            this.gameSubTextControl.text = 'Bravo! Play again to beat the record...'
+        } else {
+            this.gameStatus.text = 'You Lost!';
+            this.gameSubTextControl.text = 'You cannot give up. Try reaching Age 65...'
+        }
         this.menu.show();
 
         if (this.player.hasMadePointsRecord()) {
@@ -217,6 +256,8 @@ export default class RunnerLevel extends Level {
         this.speed = GAME.options.player.defaultSpeed;
 
         this.menu.hide();
+        this.status = null;
+        this.ageTimer.setupTimer();
         GAME.resume();
 
 
