@@ -87,6 +87,55 @@ export default class UI {
 
         return img;
     }
+
+    displayMessage(scamhitted){
+        GAME.pause();
+        var rect1 = new BABYLON.GUI.Rectangle();
+        var hit =  new BABYLON.GUI.TextBlock("Hit Message", "YOU ARE SCAMMED");
+        var label0 = new BABYLON.GUI.TextBlock("Educational Message", scamhitted);
+        if(GAME.isMobile())
+        {
+            rect1.width = 1;
+            rect1.height = '50px';
+            label0.fontSize = "12em";
+            label0.lineSpacing = '1px';
+            hit.fontSize = "30em";
+            hit.paddingBottom = '150px'
+            label0.top = "1px";
+        }
+        else{
+            hit.fontSize = "45em";
+            hit.paddingBottom = '250px'
+            rect1.width = 1;
+            rect1.height = '130px';
+            label0.fontSize = "35em";
+            label0.lineSpacing = '2px';
+            label0.top = "18px";
+        }
+        hit.color = "red";
+        rect1.cornerRadius = 0;
+        rect1.thickness = 0;
+        rect1.background = "grey";
+        rect1.alpha = 0.7;
+        // rect1.horizontalAlignment = BABYLON.GUI.Control.horizontal_alignment_left;
+        this.menuTexture.addControl(rect1);
+
+        this.menuTexture.addControl(hit);
+        label0.fontFamily = "monospace";
+        label0.color = "white";
+        label0.textVerticalAlignment = 0;
+        label0.textWrapping = true;
+        // label0.horizontalAlignment = BABYLON.GUI.Control.horizontal_alignment_left;
+        rect1.addControl(label0);
+
+        setTimeout(() =>{
+            // label0.dispose();
+            hit.dispose();
+            rect1.dispose();
+            GAME.resume();
+        },2000);
+    }
+
     add(control) {
         control.uiControlID = this.currentControlID++;
         this.controls.push(control);

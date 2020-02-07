@@ -69,6 +69,7 @@ export default class ScamsGenerator {
 
                 let randomTileTypeNumber = Math.floor((Math.random() * scamTypesLength));
                 scamType = this.scamTypes[randomTileTypeNumber];
+                this.player.activeScam = scamType;
                 if (scamType == 'SPLITTER') {
                     this.createSplitterScams();
                 } else {
@@ -139,6 +140,7 @@ export default class ScamsGenerator {
                             // this.slicer(element)
                             // element.material.emissiveColor = new BABYLON.Color3.FromHexString('#ff0000')
                             scams.dispose();
+                            this.foreground.layerMask = 0;
                             element.visibility = false;
                             this.player.keepScam();
                             clearInterval(trigger);
@@ -146,6 +148,7 @@ export default class ScamsGenerator {
                     }
                 });
                 if (scams.position.y < (playerMesh.position.y + 0.5)) {
+                    this.foreground.layerMask = 0;
                     this.player.checkLife();
                     scams.dispose();
                     clearInterval(trigger);
@@ -269,9 +272,9 @@ export default class ScamsGenerator {
         // var background = new BABYLON.Layer("front", "/assets/scenes/white_bg_opaque.png", this.scene);
         // background.isBackground = false;
         this.foreground.layerMask = 1;
-        setTimeout(() => {
-            this.foreground.layerMask = 0;
-        }, 1500);
+        // setTimeout(() => {
+        //     this.foreground.layerMask = 0;
+        // }, 1500);
         return this.createScamAnimation();
     }
 

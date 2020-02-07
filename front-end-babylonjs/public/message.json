@@ -1,0 +1,32 @@
+{
+    "Message" : {
+        "ZIG_ZAG" : {
+            "Info" : "Cold-calling ,you respond to someone contacting you out of the blue to move their pension" ,
+            "Icon" : "a phone"
+        },
+        "SPLITTER" : {
+            "Info" : "Offered withdrawal,transfer your pension to a scheme because they offer you early access to your pension" ,
+            "Icon" : "a non-standard coloured coin"
+        },
+        "ACCELERATOR" : {
+            "Info" : "Accelerator, you engaged with a company because they offered you free financial advice",
+            "Icon" : "pound signs with a cross through it"
+        },
+        "BLACK_OUT" : {
+            "Info" : "Black out,  you engaged with a company because they offered a unique/limited investment opportunity",
+            "Icon" : "something unusual"
+        },
+        "SPEEDY" : {
+            "Info" : "Speedy, you agree to something because you are told the offer has a time limit on it",
+            "Icon" : " clock"
+        },
+        "DIAGONAL" : {
+            "Info" : "Diagonal, fake scammer vigilantes working on people’s fear of scams to get them to move their pension",
+            "Icon" : "mini scam man"
+        },
+        "NORMAL_SCAM" : {
+            "Info" : "Normal Scam, fake scammer vigilantes working on people’s fear of scams to get them to move their pension",
+            "Icon" : "FCA logo"
+        }
+    }
+}

@@ -1,4 +1,5 @@
 import UI from '../base/UI';
+import Message from '../../public/message.json'; 
 
 export default class Player {
 
@@ -10,6 +11,7 @@ export default class Player {
     */
     constructor(level) {
 
+        this.message = null;
         this.level = level;
         this.scene = level.scene;
         this.changePosition = false;
@@ -21,6 +23,7 @@ export default class Player {
         this.lives = GAME.options.player.lives;
         this.godMode = GAME.options.player.godMode;
         this.allowCoinChange = true;
+        this.activeScam = null;
         this.createCommonMaterials();
         this.setupPlayer();
 
@@ -122,6 +125,10 @@ export default class Player {
                 this.onDie();
             }
         } else {
+            this.message = new UI('displayMessage');
+            let dummy = Message.Message;
+            this.message.displayMessage(dummy[this.activeScam].Info);
+            // console.log('kkk',dummy[this.activeScam].Info);
             this.lives--;
             this.livesTextControl.text = 'Lives: ' + this.lives;
             this.scammedSound.play();
