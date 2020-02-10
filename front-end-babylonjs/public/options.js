@@ -33,4 +33,6 @@ window.initialGameOptions = {
         'godMode': false
     }, 
 
+    'gameLength' : 180 // in seconds
+
 };

@@ -43,7 +43,17 @@ export default class Player {
         // Freeze materials to improve performance (this material will not be modified)
         playerMaterial.freeze();
 
+        let bulletMaterial = new BABYLON.StandardMaterial("bulletMaterial", this.scene);
+        bulletMaterial.diffuseColor = new BABYLON.Color3.FromHexString("#887FC0");
+        bulletMaterial.emissiveColor = new BABYLON.Color3.FromHexString("#887FC0");
+        bulletMaterial.specularColor = new BABYLON.Color3.FromHexString("#887FC0");
+        bulletMaterial.alpha = 0.5;
+
+        // Freeze materials to improve performance (this material will not be modified)
+        bulletMaterial.freeze();
+
         this.level.addMaterial(playerMaterial);
+        this.level.addMaterial(bulletMaterial);
 
     }
 
@@ -225,44 +235,26 @@ export default class Player {
     */
     checkShoot() {
         if (GAME.keys.shoot) {
+            
+            let bullet = BABYLON.Mesh.CreateCylinder("bullet_" + this.bullerCounter++, 3, 1, 0.05, 0, 0, this.scene);
+            // scams.position = this.mesh.getAbsolutePosition().clone();
+            let meshPosition = this.mesh.getAbsolutePosition().clone();
+            bullet.position.x = meshPosition.x;
+            bullet.position.y = -1.1;
 
-            const bullet = BABYLON.MeshBuilder.CreateBox("bullet_" + this.bullerCounter++, {
-                width: 0.1,
-                height: 0.2,
-                depth: 0.01
-            }, this.scene);
-            bullet.position = this.mesh.getAbsolutePosition().clone();
-            bullet.material = this.level.getMaterial('playerMaterial');
-
-            bullet.animations = [];
-            bullet.animations.push(this.createBulletMotion(bullet.position.y));
-            this.scene.beginAnimation(bullet, 0, 1000, false);
-            // Clear bullet after a second
+            bullet.material = this.level.getMaterial('bulletMaterial');
+            // Clear bullet after half second
             setTimeout(() => {
                 bullet.dispose();
-            }, 1500);
+            }, 500);
+            var trigger = setInterval(() => {
+                if(!this.changePosition) {
+                    bullet.dispose();
+                    clearInterval(trigger);
+                }
+            }, 100);
 
         }
-    }
-
-    /**
-    * Function to handle bullet/beam animation actions.
-    */
-    createBulletMotion(startValue) {
-        let bulletMotion = new BABYLON.Animation("bulletShoot", "position.y", 400, BABYLON.Animation.ANIMATIONTYPE_FLOAT,
-            BABYLON.Animation.ANIMATIONLOOPMODE_CYCLE);
-
-        let keys = [];
-        var frameCounter = 0, value = 0;
-        for (let index = 0; index < 40; index++) {
-            keys.push({ frame: frameCounter, value: startValue + value });
-            frameCounter += 15;
-            value += 0.7
-        }
-
-        bulletMotion.setKeys(keys);
-
-        return bulletMotion;
     }
 
     // Function to access Player entity outside this class.
