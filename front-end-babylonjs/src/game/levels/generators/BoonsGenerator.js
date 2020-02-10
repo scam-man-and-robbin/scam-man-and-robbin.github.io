@@ -15,7 +15,9 @@ export default class BoonsGenerator {
 
         // For now only one type of Boon Behaviour
         this.boonTypes = [
-            'NORMAL_BOON'
+            'NORMAL_BOON',
+            'INVISIBLITY_BOON',
+            'LIFE_BOON'
         ];
 
     }
@@ -52,6 +54,12 @@ export default class BoonsGenerator {
                 boonType = this.boonTypes[randomTileTypeNumber];
                 if (boonType == 'NORMAL_BOON') {
                     this.createBoons('NORMAL_BOON');
+                }
+                else if(boonType == 'INVISIBLITY_BOON') {
+                    this.createBoons('INVISIBLITY_BOON');
+                }
+                else if(boonType == 'LIFE_BOON') {
+                    this.createBoons('LIFE_BOON');
                 }
             }
         }, 10000);
@@ -108,7 +116,7 @@ export default class BoonsGenerator {
                 });
                 if (playerMesh.intersectsMesh(boons, false)) {
                     boons.dispose();
-                    this.player.keepBoon();
+                    this.player.keepBoon(type);
                     clearInterval(trigger);
                 }
                 if (boons.position.y < (playerMesh.position.y + 0.5)) {
@@ -137,6 +145,7 @@ export default class BoonsGenerator {
      * Currenly boons have only vertical motion
      */
     createBoonAnimation() {
+
         let boonAnimation = new BABYLON.Animation("boonfall", "position.y", this.level.getGameSpeed() - 5, BABYLON.Animation.ANIMATIONTYPE_FLOAT,
             BABYLON.Animation.ANIMATIONLOOPMODE_CYCLE);
 
