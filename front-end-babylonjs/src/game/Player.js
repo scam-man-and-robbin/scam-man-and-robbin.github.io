@@ -1,5 +1,5 @@
 import UI from '../base/UI';
-import Message from '../../public/message.json'; 
+import Message from '../../public/message.json';
 
 export default class Player {
 
@@ -20,6 +20,7 @@ export default class Player {
         this.coins = 0;
         this.scamCount = 0;
         this.boonCount = 0;
+        this.typeOfBoon = 0;
         this.lives = GAME.options.player.lives;
         this.godMode = GAME.options.player.godMode;
         this.allowCoinChange = true;
@@ -41,7 +42,7 @@ export default class Player {
         playerMaterial.specularColor = new BABYLON.Color3.FromHexString("#8510d8");
 
         // Freeze materials to improve performance (this material will not be modified)
-        playerMaterial.freeze();
+        // playerMaterial.freeze();
 
         let bulletMaterial = new BABYLON.StandardMaterial("bulletMaterial", this.scene);
         bulletMaterial.diffuseColor = new BABYLON.Color3.FromHexString("#887FC0");
@@ -66,13 +67,20 @@ export default class Player {
         this.mesh = BABYLON.MeshBuilder.CreateBox("player", {
             width: 0.4,
             height: 0.8,
-            depth: 0.1
+            depth: 0.01
         }, this.scene);
-        this.mesh.position = new BABYLON.Vector3(0, -3, 0);
+        this.mesh.position = new BABYLON.Vector3(0, -2.5, 0);
         this.mesh.material = this.level.getMaterial('playerMaterial');
         this.changePosition = true;
         this.gotCoinSound = this.level.assets.getSound('gotCoinSound');
         this.scammedSound = this.level.assets.getSound('damageSound');
+        this.groundMesh = BABYLON.MeshBuilder.CreateBox("groundplane", {
+            width: screen.width,
+            height: 0.1,
+            depth: 0.01
+        }, this.scene);
+        this.groundMesh.position = new BABYLON.Vector3(0, -2.9, 0);
+
         this.createHUD();
 
     }
@@ -84,10 +92,10 @@ export default class Player {
         this.hud = new UI('playerHudUI');
         this.coinsTextControl = null;
         this.livesTextControl = null;
-        this.coinsTextControl = this.hud.addText('Coins: $0', {
+        this.coinsTextControl = this.hud.addText('Pension Pot: £', {
             'top': '-10px',
             'left': '-10px',
-            'fontSize': '15px',
+            'fontSize': (GAME.isMobile() ? '15px' : '45px'),
             'horizontalAlignment': BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_RIGHT,
             'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_BOTTOM
         });
@@ -108,10 +116,10 @@ export default class Player {
         if (this.lives != 0 && this.allowCoinChange) {
             this.coins += 100;
             this.gotCoinSound.play();
-            this.coinsTextControl.text = 'Coins: $' + this.coins;
-            this.coinsTextControl.fontSize = '16px';
+            this.coinsTextControl.text = 'Pension Pot: £' + this.coins;
+            this.coinsTextControl.fontSize = (GAME.isMobile() ? '15px' : '45px');
             setTimeout(() => {
-                this.coinsTextControl.fontSize = '15px';
+                this.coinsTextControl.fontSize = (GAME.isMobile() ? '15px' : '45px');
             }, 500);
         }
     }
@@ -121,6 +129,7 @@ export default class Player {
     * Called when scam is missed and landed over player
     */
     checkLife() {
+        if (this.mesh.material.alpha != 1) return;
         if (this.godMode) return;
 
         if (this.lives <= 1) {
@@ -128,8 +137,8 @@ export default class Player {
             this.livesTextControl.text = 'Lives: ' + this.lives;
 
             this.coins = 0;
-            this.coinsTextControl.text = 'Coins: $' + this.coins;
-            this.coinsTextControl.fontSize = '18px';
+            this.coinsTextControl.text = 'Pension Pot: £' + this.coins;
+            this.coinsTextControl.fontSize = (GAME.isMobile() ? '15px' : '45px');
             this.allowCoinChange = false;
             if (this.onDie) {
                 this.onDie();
@@ -147,20 +156,20 @@ export default class Player {
             var factor = Math.floor((this.coins - newCoins) / 10);
             var trigger = setInterval(() => {
                 this.coins -= factor;
-                if(this.coins > newCoins) {
-                    this.coinsTextControl.text = 'Coins: $' + this.coins;
-                    this.coinsTextControl.fontSize = '18px';
+                if (this.coins > newCoins) {
+                    this.coinsTextControl.text = 'Pension Pot: £' + this.coins;
+                    this.coinsTextControl.fontSize = (GAME.isMobile() ? '15px' : '45px');
                     this.coinsTextControl.color = 'red';
-                }else {
+                } else {
                     this.coins = newCoins
                     this.allowCoinChange = true;
-                    this.coinsTextControl.text = 'Coins: $' + this.coins;
-                    this.coinsTextControl.fontSize = '15px';
+                    this.coinsTextControl.text = 'Pension Pot: £' + this.coins;
+                    this.coinsTextControl.fontSize = (GAME.isMobile() ? '15px' : '45px');
                     this.coinsTextControl.color = 'black';
                     clearInterval(trigger);
                 }
             }, 50);
-            
+
         }
 
     }
@@ -280,24 +289,40 @@ export default class Player {
      * @todo Any other logics in future to be added
      * 1. Currenly coins are doubled.
      */
-    keepBoon() {
+    keepBoon(boon) {
         this.boonCount++;
-        let newCoins = this.coins * 2;
-        var factor = Math.floor((newCoins - this.coins) / 10);
-        var trigger = setInterval(() => {
-            this.coins += factor;
-            if(this.coins < newCoins && this.allowCoinChange) {
-                this.coinsTextControl.text = 'Coins: $' + this.coins;
-                this.coinsTextControl.fontSize = '18px';
-                this.coinsTextControl.color = 'green';
-            }else {
-                this.coins = this.lives > 0 ? newCoins : 0;
-                this.coinsTextControl.text = 'Coins: $' + this.coins;
-                this.coinsTextControl.fontSize = '15px';
-                this.coinsTextControl.color = 'black';
-                clearInterval(trigger);
-            }
-        }, 50);
+        console.log('type of boon',boon);
+        if (boon == 'LIFE_BOON' && this.lives < 3 && this.boonCount%5 == 0) {
+            console.log('booncount', this.boonCount);
+            this.lives += 1;
+            this.livesTextControl.text = 'Lives: ' + this.lives;
+        }
+        else if (boon == 'INVISIBLITY_BOON' && this.boonCount%5 == 0) {
+            console.log('booncount', this.boonCount);
+            this.mesh.material.alpha = 0.3;
+            setTimeout(() => {
+                this.mesh.material.alpha = 1;
+            }, 13000);
+        }
+        else if(boon == 'NORMAL_BOON' || this.boonCount) {
+            console.log('booncount', this.boonCount);
+            let newCoins = this.coins * 2;
+            var factor = Math.floor((newCoins - this.coins) / 10);
+            var trigger = setInterval(() => {
+                this.coins += factor;
+                if (this.coins < newCoins && this.allowCoinChange) {
+                    this.coinsTextControl.text = 'Pension Pot: £' + this.coins;
+                    this.coinsTextControl.fontSize = (GAME.isMobile() ? '15px' : '45px');
+                    this.coinsTextControl.color = 'green';
+                } else {
+                    this.coins = this.lives > 0 ? newCoins : 0;
+                    this.coinsTextControl.text = 'Pension Pot: £' + this.coins;
+                    this.coinsTextControl.fontSize = (GAME.isMobile() ? '15px' : '45px');
+                    this.coinsTextControl.color = 'black';
+                    clearInterval(trigger);
+                }
+            }, 50);
+        }
     }
 
     /**
@@ -342,7 +367,7 @@ export default class Player {
         this.boonCount = 0;
         this.lives = GAME.options.player.lives;
         this.livesTextControl.text = 'Lives: ' + this.lives;
-        this.coinsTextControl.text = 'Coins: $' + this.coins;
+        this.coinsTextControl.text = 'Pension Pot: £' + this.coins;
         this.allowCoinChange = true;
 
     }
