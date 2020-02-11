@@ -69,7 +69,7 @@ export default class Player {
             height: 0.8,
             depth: 0.01
         }, this.scene);
-        this.mesh.position = new BABYLON.Vector3(0, -2.5, 0);
+        this.mesh.position = new BABYLON.Vector3(0, -2.3, 0);
         this.mesh.material = this.level.getMaterial('playerMaterial');
         this.changePosition = true;
         this.gotCoinSound = this.level.assets.getSound('gotCoinSound');
@@ -79,7 +79,7 @@ export default class Player {
             height: 0.1,
             depth: 0.01
         }, this.scene);
-        this.groundMesh.position = new BABYLON.Vector3(0, -2.9, 0);
+        this.groundMesh.position = new BABYLON.Vector3(0, -2.7, 0);
 
         this.createHUD();
 
@@ -95,7 +95,7 @@ export default class Player {
         this.coinsTextControl = this.hud.addText('Pension Pot: £', {
             'top': '-10px',
             'left': '-10px',
-            'fontSize': (GAME.isMobile() ? '15px' : '45px'),
+            'fontSize': (GAME.isMobile() ? '15px' : '35px'),
             'horizontalAlignment': BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_RIGHT,
             'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_BOTTOM
         });
@@ -117,9 +117,9 @@ export default class Player {
             this.coins += 100;
             this.gotCoinSound.play();
             this.coinsTextControl.text = 'Pension Pot: £' + this.coins;
-            this.coinsTextControl.fontSize = (GAME.isMobile() ? '15px' : '45px');
+            this.coinsTextControl.fontSize = (GAME.isMobile() ? '15px' : '35px');
             setTimeout(() => {
-                this.coinsTextControl.fontSize = (GAME.isMobile() ? '15px' : '45px');
+                this.coinsTextControl.fontSize = (GAME.isMobile() ? '15px' : '35px');
             }, 500);
         }
     }
@@ -138,7 +138,7 @@ export default class Player {
 
             this.coins = 0;
             this.coinsTextControl.text = 'Pension Pot: £' + this.coins;
-            this.coinsTextControl.fontSize = (GAME.isMobile() ? '15px' : '45px');
+            this.coinsTextControl.fontSize = (GAME.isMobile() ? '15px' : '35px');
             this.allowCoinChange = false;
             if (this.onDie) {
                 this.onDie();
@@ -158,13 +158,13 @@ export default class Player {
                 this.coins -= factor;
                 if (this.coins > newCoins) {
                     this.coinsTextControl.text = 'Pension Pot: £' + this.coins;
-                    this.coinsTextControl.fontSize = (GAME.isMobile() ? '15px' : '45px');
+                    this.coinsTextControl.fontSize = (GAME.isMobile() ? '15px' : '35px');
                     this.coinsTextControl.color = 'red';
                 } else {
                     this.coins = newCoins
                     this.allowCoinChange = true;
                     this.coinsTextControl.text = 'Pension Pot: £' + this.coins;
-                    this.coinsTextControl.fontSize = (GAME.isMobile() ? '15px' : '45px');
+                    this.coinsTextControl.fontSize = (GAME.isMobile() ? '15px' : '35px');
                     this.coinsTextControl.color = 'black';
                     clearInterval(trigger);
                 }
@@ -291,33 +291,29 @@ export default class Player {
      */
     keepBoon(boon) {
         this.boonCount++;
-        console.log('type of boon',boon);
-        if (boon == 'LIFE_BOON' && this.lives < 3 && this.boonCount%5 == 0) {
-            console.log('booncount', this.boonCount);
+        if (boon == 'LIFE_BOON' && this.lives < 3) {
             this.lives += 1;
             this.livesTextControl.text = 'Lives: ' + this.lives;
         }
-        else if (boon == 'INVISIBLITY_BOON' && this.boonCount%5 == 0) {
-            console.log('booncount', this.boonCount);
+        else if (boon == 'INVISIBLITY_BOON') {
             this.mesh.material.alpha = 0.3;
             setTimeout(() => {
                 this.mesh.material.alpha = 1;
             }, 13000);
         }
-        else if(boon == 'NORMAL_BOON' || this.boonCount) {
-            console.log('booncount', this.boonCount);
+        else if(boon == 'NORMAL_BOON') {
             let newCoins = this.coins * 2;
             var factor = Math.floor((newCoins - this.coins) / 10);
             var trigger = setInterval(() => {
                 this.coins += factor;
                 if (this.coins < newCoins && this.allowCoinChange) {
                     this.coinsTextControl.text = 'Pension Pot: £' + this.coins;
-                    this.coinsTextControl.fontSize = (GAME.isMobile() ? '15px' : '45px');
+                    this.coinsTextControl.fontSize = (GAME.isMobile() ? '15px' : '35px');
                     this.coinsTextControl.color = 'green';
                 } else {
                     this.coins = this.lives > 0 ? newCoins : 0;
                     this.coinsTextControl.text = 'Pension Pot: £' + this.coins;
-                    this.coinsTextControl.fontSize = (GAME.isMobile() ? '15px' : '45px');
+                    this.coinsTextControl.fontSize = (GAME.isMobile() ? '15px' : '35px');
                     this.coinsTextControl.color = 'black';
                     clearInterval(trigger);
                 }

@@ -147,12 +147,24 @@ export default class ScamsGenerator {
                         }
                     }
                 });
-                if (scams.position.y < (playerMesh.position.y + 0.5)) {
+                if (this.player.groundMesh.intersectsMesh(scams, false)) {
                     this.foreground.layerMask = 0;
                     this.player.checkLife();
                     scams.dispose();
                     clearInterval(trigger);
                 }
+                else if (this.player.mesh.intersectsMesh(scams, false)) {
+                    this.foreground.layerMask = 0;
+                    this.player.checkLife();
+                    scams.dispose();
+                    clearInterval(trigger);
+                }
+                // if (scams.position.y < (playerMesh.position.y + 0.5)) {
+                //     this.foreground.layerMask = 0;
+                //     this.player.checkLife();
+                //     scams.dispose();
+                //     clearInterval(trigger);
+                // }
                 if(GAME.isPaused()) {
                     scams.paused = true;
                     scamAnimation.pause();
