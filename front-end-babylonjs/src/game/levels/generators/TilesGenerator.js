@@ -82,14 +82,10 @@ export default class TilesGenerator {
          * @todo Currently we have set up passive coin collection. 
          * Incase of collectable action change here
          */
-        if (coins.intersectsMesh(playerMesh, false)) {
-            console.log("yes")
-            coins.dispose();
-            this.player.keepCoin();
-        }
         var trigger = setInterval(() => {
-            if(coins.position.y < playerMesh.position.y) {
+            if(coins.position.y < playerMesh.position.y-0.2) {
                 this.player.keepCoin();
+                coins.dispose();
                 clearInterval(trigger);
             }
             if(!this.player.lives) {
