@@ -71,7 +71,7 @@ export default class TilesGenerator {
         coins.material = this.level.getMaterial('coinMaterial');
         coins.position.x = positionX;
         coins.position.y = 3;
-        coins.position.z = 0;
+        coins.position.z = 0.1;
         coins.rotation.x = 1.2;
 
         coins.animations.push(this.createCoinAnimation());

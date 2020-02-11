@@ -55,15 +55,15 @@ export default class ScamsGenerator {
 
                 // To change difficulty as scam point increased
                 var scamTypesLength = 1;
-                if (this.player.scamCount > 5) {
+                if (this.player.scamCount > 3) {
                     scamTypesLength = 2;
                 }
 
-                if (this.player.scamCount > 10) {
+                if (this.player.scamCount > 6) {
                     scamTypesLength = 4;
                 }
 
-                if (this.player.scamCount > 15) {
+                if (this.player.scamCount > 10) {
                     scamTypesLength = this.scamTypes.length;
                 }
 
@@ -294,15 +294,15 @@ export default class ScamsGenerator {
             if (index == 1 && position.x != 0) {        // keys[index].frame
                 if (position.x == (GAME.isMobile() ? 1 : 2.5)) {
                     // Move Left        
-                    position = position.add(new BABYLON.Vector3((GAME.isMobile() ? 1 : 2.5) * (-2), -2, 0));
+                    position = position.add(new BABYLON.Vector3((GAME.isMobile() ? 1 : 2.5) * (-2), -1.5, 0));
                 } else {
                     // Move Right
-                    position = position.add(new BABYLON.Vector3((GAME.isMobile() ? 1 : 2.5) * (2), -2, 0));
+                    position = position.add(new BABYLON.Vector3((GAME.isMobile() ? 1 : 2.5) * (2), -1.5, 0));
                 }
             }
             //Move Down
             else if (index != 4 || position.x == 0) {
-                position = position.add(new BABYLON.Vector3(0, -2, 0));
+                position = position.add(new BABYLON.Vector3(0, -1.5, 0));
             }
         }
         scamAnimation.setKeys(keys);
@@ -384,12 +384,14 @@ export default class ScamsGenerator {
         let keys = [];
 
         let position = scams.position;
-        for (let index = 0; index < 6; index++) {
+        for (let index = 0; index < 4; index++) {
             keys.push({ frame: index * 15, value: position });
             if (index == 1 && direction == 'right') {
                 position = position.add(new BABYLON.Vector3((GAME.isMobile() ? 1 : 2.5), -1.5, 0));
             } else if (index == 1) {
                 position = position.add(new BABYLON.Vector3((GAME.isMobile() ? -1 : -2.5), -1.5, 0));
+            } else  if(index == 0) {
+                position = position.add(new BABYLON.Vector3(0, -0.8, 0));
             } else {
                 position = position.add(new BABYLON.Vector3(0, -1.5, 0));
             }

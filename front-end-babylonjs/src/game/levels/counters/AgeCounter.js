@@ -23,7 +23,7 @@ export default class AgeCounter {
 
         // GUI
 
-        this.advancedTexture = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI");
+        this.advancedTexture = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI", false);
 
         // Outer Rectangle for Values
         var outterRect = new BABYLON.GUI.Rectangle();

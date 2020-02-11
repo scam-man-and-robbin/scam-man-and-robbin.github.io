@@ -62,7 +62,7 @@ export default class BoonsGenerator {
                     this.createBoons('LIFE_BOON');
                 }
             }
-        }, 10000);
+        }, 11000);
     }
 
 

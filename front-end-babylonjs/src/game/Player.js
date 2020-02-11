@@ -92,7 +92,7 @@ export default class Player {
         this.hud = new UI('playerHudUI');
         this.coinsTextControl = null;
         this.livesTextControl = null;
-        this.coinsTextControl = this.hud.addText('Pension Pot: £', {
+        this.coinsTextControl = this.hud.addText('Pension Pot: £0', {
             'top': '-10px',
             'left': '-10px',
             'fontSize': (GAME.isMobile() ? '15px' : '45px'),
@@ -249,7 +249,7 @@ export default class Player {
             // scams.position = this.mesh.getAbsolutePosition().clone();
             let meshPosition = this.mesh.getAbsolutePosition().clone();
             bullet.position.x = meshPosition.x;
-            bullet.position.y = -1.1;
+            bullet.position.y = -0.6;
 
             bullet.material = this.level.getMaterial('bulletMaterial');
             // Clear bullet after half second
