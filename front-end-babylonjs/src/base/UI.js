@@ -133,7 +133,7 @@ export default class UI {
             hit.dispose();
             rect1.dispose();
             GAME.resume();
-        },2000);
+        },GAME.options.messageReadTime);
     }
 
     add(control) {

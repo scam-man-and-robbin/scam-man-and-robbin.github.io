@@ -14,9 +14,9 @@ export default class BoonsGenerator {
         this.createCommonMaterials();
         this.typeOfBoon = 0;
         this.texture = null;
-        // For now only one type of Boon Behaviour
+        // Special Boons
         this.boonTypes = [
-            'NORMAL_BOON',
+            // 'NORMAL_BOON',
             'INVISIBLITY_BOON',
             'LIFE_BOON'
         ];
@@ -28,17 +28,11 @@ export default class BoonsGenerator {
      * Initial Dev - Simple Green Color Texture
      */
     createCommonMaterials() {
-        // this.texture = new BABYLON.Texture("assets/scenes/alphabeti.png",this.scene);    
         this.boonMaterial = new BABYLON.StandardMaterial('boonMaterial', this.scene);
         this.boonMaterial.diffuseColor = new BABYLON.Color3.Green();
         this.boonMaterial.emissiveColor = new BABYLON.Color3.Green();
         this.boonMaterial.specularColor = new BABYLON.Color3.Green();
-    
-        // Freeze materials to improve performance (this material will not be modified)
-        // boonMaterial.freeze();
-    
         this.level.addMaterial(this.boonMaterial);
-        // this.level.removeMaterial(this.boonMaterial);
     }
 
     /**
@@ -53,19 +47,19 @@ export default class BoonsGenerator {
                 var boonType = 'NORMAL_BOON';
                 let randomTileTypeNumber = Math.floor((Math.random() * this.boonTypes.length));
                 boonType = this.boonTypes[randomTileTypeNumber];
-                this.typeOfBoon ++;
-                if(boonType == 'INVISIBLITY_BOON' && this.typeOfBoon%5 == 0 ) {
-                    this.texture = new BABYLON.Texture("assets/scenes/alphabeti.png",this.scene);
+                this.typeOfBoon++;
+                if (boonType == 'INVISIBLITY_BOON' && this.typeOfBoon % 5 == 0) {
+                    this.texture = new BABYLON.Texture("assets/scenes/alphabeti.png", this.scene);
                     this.boonMaterial.diffuseTexture = this.texture
                     this.createBoons('INVISIBLITY_BOON');
                 }
-                else if(boonType == 'LIFE_BOON' && this.typeOfBoon%5 == 0) {
-                    this.texture = new BABYLON.Texture("assets/scenes/alphabetl.png",this.scene);
+                else if (boonType == 'LIFE_BOON' && this.typeOfBoon % 5 == 0) {
+                    this.texture = new BABYLON.Texture("assets/scenes/alphabetl.png", this.scene);
                     this.boonMaterial.diffuseTexture = this.texture
                     this.createBoons('LIFE_BOON');
                 }
-                else { //(boonType == 'NORMAL_BOON' || this.typeOfBoon )
-                    this.texture = new BABYLON.Texture("assets/scenes/alphabetn.png",this.scene);
+                else {
+                    this.texture = new BABYLON.Texture("assets/scenes/alphabetn.png", this.scene);
                     this.boonMaterial.diffuseTexture = this.texture
                     this.createBoons('NORMAL_BOON');
                 }
@@ -136,11 +130,11 @@ export default class BoonsGenerator {
                 //     boons.dispose();
                 //     clearInterval(trigger);
                 // }
-                if(GAME.isPaused()) {
+                if (GAME.isPaused()) {
                     boons.paused = true;
                     boonAnimation.pause();
                 }
-                if(!GAME.isPaused() && boons.paused) {
+                if (!GAME.isPaused() && boons.paused) {
                     boonAnimation.restart();
                 }
             } else {

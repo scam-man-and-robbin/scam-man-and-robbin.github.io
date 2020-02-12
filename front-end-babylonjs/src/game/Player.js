@@ -147,7 +147,6 @@ export default class Player {
             this.message = new UI('displayMessage');
             let dummy = Message.Message;
             this.message.displayMessage(dummy[this.activeScam].Info);
-            // console.log('kkk',dummy[this.activeScam].Info);
             this.lives--;
             this.livesTextControl.text = 'Lives: ' + this.lives;
             this.scammedSound.play();
@@ -249,7 +248,7 @@ export default class Player {
             // scams.position = this.mesh.getAbsolutePosition().clone();
             let meshPosition = this.mesh.getAbsolutePosition().clone();
             bullet.position.x = meshPosition.x;
-            bullet.position.y = -0.6;
+            bullet.position.y = -0.4;
 
             bullet.material = this.level.getMaterial('bulletMaterial');
             // Clear bullet after half second
@@ -298,8 +297,16 @@ export default class Player {
         else if (boon == 'INVISIBLITY_BOON') {
             this.mesh.material.alpha = 0.3;
             setTimeout(() => {
+                var count = 0;
                 this.mesh.material.alpha = 1;
-            }, 13000);
+                var trigger = setInterval(() => {
+                    this.mesh.material.alpha = (count % 2) ? 0.3 : 1;
+                    count += 1;
+                    if(count > 10) {
+                        clearInterval(trigger);
+                    }
+                }, 200);
+            }, 10000);
         }
         else if(boon == 'NORMAL_BOON') {
             let newCoins = this.coins * 2;

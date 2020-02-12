@@ -365,11 +365,22 @@ export default class ScamsGenerator {
                             }
                         }
                     });
-                    if (scams[index].position.y < (playerMesh.position.y + 0.5)) {
+                    if (this.player.groundMesh.intersectsMesh(scams[index], false)) {
                         this.player.checkLife();
                         scams[index].dispose();
                         clearInterval(trigger[index]);
                     }
+                    else if (this.player.mesh.intersectsMesh(scams[index], false)) {
+                        this.foreground.layerMask = 0;
+                        this.player.checkLife();
+                        scams[index].dispose();
+                        clearInterval(trigger[index]);
+                    }
+                    // if (scams[index].position.y < (playerMesh.position.y + 0.5)) {
+                    //     this.player.checkLife();
+                    //     scams[index].dispose();
+                    //     clearInterval(trigger[index]);
+                    // }
                     if(GAME.isPaused()) {
                         scams[index].paused = true;
                         scamAnimation.pause();
@@ -396,7 +407,7 @@ export default class ScamsGenerator {
         let keys = [];
 
         let position = scams.position;
-        for (let index = 0; index < 4; index++) {
+        for (let index = 0; index < 6; index++) {
             keys.push({ frame: index * 15, value: position });
             if (index == 1 && direction == 'right') {
                 position = position.add(new BABYLON.Vector3((GAME.isMobile() ? 1 : 2.5), -1.5, 0));
