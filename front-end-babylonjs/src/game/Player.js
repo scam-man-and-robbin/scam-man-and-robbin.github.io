@@ -1,5 +1,4 @@
 import UI from '../base/UI';
-import Message from '../../public/message.json';
 
 export default class Player {
 
@@ -20,7 +19,6 @@ export default class Player {
         this.coins = 0;
         this.scamCount = 0;
         this.boonCount = 0;
-        this.typeOfBoon = 0;
         this.lives = GAME.options.player.lives;
         this.godMode = GAME.options.player.godMode;
         this.allowCoinChange = true;
@@ -48,7 +46,7 @@ export default class Player {
         bulletMaterial.diffuseColor = new BABYLON.Color3.FromHexString("#887FC0");
         bulletMaterial.emissiveColor = new BABYLON.Color3.FromHexString("#887FC0");
         bulletMaterial.specularColor = new BABYLON.Color3.FromHexString("#887FC0");
-        bulletMaterial.alpha = 0.5;
+        bulletMaterial.alpha = 0.4;
 
         // Freeze materials to improve performance (this material will not be modified)
         bulletMaterial.freeze();
@@ -92,6 +90,7 @@ export default class Player {
         this.hud = new UI('playerHudUI');
         this.coinsTextControl = null;
         this.livesTextControl = null;
+        this.pauseButtonControl = null;
         this.coinsTextControl = this.hud.addText('Pension Pot: £0', {
             'top': '-10px',
             'left': '-10px',
@@ -106,6 +105,17 @@ export default class Player {
             'fontSize': '15px',
             'horizontalAlignment': BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_RIGHT
         });
+        // this.pauseButtonControl = this.hud.addButton('Pause','PAUSE',{
+        //     'width':0.1,
+        //     'height':0.05   ,
+        //     'top' : '10px',
+        //     'right' : '-10px',
+        //     'horizontalAlignment': BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_LEFT,
+        //     'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP,
+        //     'onclick': () => this.level.pauseMenu(),
+
+        // });
+        
     }
 
     /**
@@ -144,9 +154,9 @@ export default class Player {
                 this.onDie();
             }
         } else {
-            this.message = new UI('displayMessage');
-            let dummy = Message.Message;
-            this.message.displayMessage(dummy[this.activeScam].Info);
+            // this.message = new UI('displayMessage');
+            // let dummy = Message.Message;
+            // this.message.displayMessage(dummy[this.activeScam].Info);
             this.lives--;
             this.livesTextControl.text = 'Lives: ' + this.lives;
             this.scammedSound.play();

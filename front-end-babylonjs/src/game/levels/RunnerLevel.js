@@ -28,6 +28,7 @@ export default class RunnerLevel extends Level {
         this.hasMadeRecordTextControl = null;
         this.status = null;
 
+        // this.gamestats = null;
     }
 
     /**
@@ -71,7 +72,7 @@ export default class RunnerLevel extends Level {
         this.scene.clearColor = new BABYLON.Color3.FromHexString(GAME.options.backgroundColor);
 
         this.createMenus();
-
+        // this.createGameStats();
         // Sets the active camera
         var camera = this.createCamera();
         this.scene.activeCamera = camera;
@@ -176,6 +177,31 @@ export default class RunnerLevel extends Level {
 
     }
 
+    // createGameStats() {
+    //     this.gamestats = new UI('statsMenuUI');
+
+    //     this.scoreTextControl = this.gamestats.addText('Points: 0', {
+    //         'top': '-100px',
+    //         'color': GAME.options.pointsTextColor,
+    //         'outlineColor': GAME.options.pointsOutlineTextColor,
+    //         'outlineWidth': '2px',
+    //         'fontSize': '35px',
+    //         'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_CENTER
+    //     });
+
+    //     this.gamestats.addButton('resumeButton', 'RESUME', {
+    //         'top': '20px',
+    //         'onclick': () => {
+    //             GAME.resume();
+    //             this.gamestats.hide();
+    //         }
+    //     });
+
+
+    //     this.gamestats.hide();
+
+    // }
+
     /**
      * Function to show Game Instructions
      * Message varies based on device
@@ -254,6 +280,11 @@ export default class RunnerLevel extends Level {
         }
     }
 
+    // pauseMenu(){
+    //     GAME.pause();
+    //     this.scoreTextControl.text = 'Points: ' + this.player.getPoints();
+    //     this.gamestats.show();
+    // }
     /**
      * Function to call logics that will be rendered seamlessly.
      */

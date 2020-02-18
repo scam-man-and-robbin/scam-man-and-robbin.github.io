@@ -16,7 +16,10 @@ export default class UI {
         button.outlineWidth = options.outlineWidth || 0;
         button.outlineColor = options.outlineColor || button.color;
         button.background = options.background || 'white';
+        button.horizontalAlignment = (typeof options.horizontalAlignment !== 'undefined') ? options.horizontalAlignment : BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER;
+        button.verticalAlignment = (typeof options.verticalAlignment !== 'undefined') ? options.verticalAlignment : BABYLON.GUI.Control.VERTICAL_ALIGNMENT_CENTER;
         button.left = options.left || '0px';
+        button.right = options.right || '0px';
         button.top = options.top || '0px';
         button.textHorizontalAlignment = (typeof options.horizontalAlignment !== 'undefined') ? options.horizontalAlignment : BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER;
         button.textVerticalAlignment = (typeof options.verticalAlignment !== 'undefined') ? options.verticalAlignment : BABYLON.GUI.Control.VERTICAL_ALIGNMENT_CENTER;
@@ -88,16 +91,17 @@ export default class UI {
         return img;
     }
 
-    displayMessage(scamhitted){
+    displayMessage(scamhitted,signal){
         GAME.pause();
         var rect1 = new BABYLON.GUI.Rectangle();
-        var hit =  new BABYLON.GUI.TextBlock("Hit Message", "YOU ARE SCAMMED");
         var label0 = new BABYLON.GUI.TextBlock("Educational Message", scamhitted);
+        var hit =  new BABYLON.GUI.TextBlock("Signal", signal);
+        hit.color = (signal == 'HIT IT')?'red':'green';
         if(GAME.isMobile())
         {
             rect1.width = 1;
-            rect1.height = '50px';
-            label0.fontSize = "12em";
+            rect1.height = '55px';
+            label0.fontSize = "14em";
             label0.lineSpacing = '1px';
             hit.fontSize = "30em";
             hit.paddingBottom = '150px'
@@ -112,7 +116,6 @@ export default class UI {
             label0.lineSpacing = '2px';
             label0.top = "18px";
         }
-        hit.color = "red";
         rect1.cornerRadius = 0;
         rect1.thickness = 0;
         rect1.background = "grey";
@@ -125,6 +128,7 @@ export default class UI {
         label0.color = "white";
         label0.textVerticalAlignment = 0;
         label0.textWrapping = true;
+        // label0.resizeToFit = true;
         // label0.horizontalAlignment = BABYLON.GUI.Control.horizontal_alignment_left;
         rect1.addControl(label0);
 

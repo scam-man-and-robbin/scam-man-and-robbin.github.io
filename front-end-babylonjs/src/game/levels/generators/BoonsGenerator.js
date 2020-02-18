@@ -1,3 +1,5 @@
+import UI from './../../../base/UI';
+import Message from '../../../../public/message.json';
 export default class BoonsGenerator {
 
     /**
@@ -14,6 +16,7 @@ export default class BoonsGenerator {
         this.createCommonMaterials();
         this.typeOfBoon = 0;
         this.texture = null;
+        this.boonSet = new Set();
         // Special Boons
         this.boonTypes = [
             // 'NORMAL_BOON',
@@ -45,23 +48,33 @@ export default class BoonsGenerator {
         setInterval(() => {
             if (!GAME.isPaused() && this.player.lives) {
                 var boonType = 'NORMAL_BOON';
+                let flag;
                 let randomTileTypeNumber = Math.floor((Math.random() * this.boonTypes.length));
                 boonType = this.boonTypes[randomTileTypeNumber];
                 this.typeOfBoon++;
                 if (boonType == 'INVISIBLITY_BOON' && this.typeOfBoon % 5 == 0) {
+                    flag = 'INVISIBLITY_BOON';
                     this.texture = new BABYLON.Texture("assets/scenes/alphabeti.png", this.scene);
                     this.boonMaterial.diffuseTexture = this.texture
                     this.createBoons('INVISIBLITY_BOON');
                 }
                 else if (boonType == 'LIFE_BOON' && this.typeOfBoon % 5 == 0) {
+                    flag = 'LIFE_BOON';
                     this.texture = new BABYLON.Texture("assets/scenes/alphabetl.png", this.scene);
                     this.boonMaterial.diffuseTexture = this.texture
                     this.createBoons('LIFE_BOON');
                 }
                 else {
+                    flag = 'NORMAL_BOON';
                     this.texture = new BABYLON.Texture("assets/scenes/alphabetn.png", this.scene);
                     this.boonMaterial.diffuseTexture = this.texture
                     this.createBoons('NORMAL_BOON');
+                }
+                this.message = new UI('displayMessage');
+                if(!this.boonSet.has(flag)){
+                    this.boonSet.add(flag);
+                    let dummy = Message.Message;
+                    this.message.displayMessage(dummy[flag].Info, "CATCH IT");
                 }
             }
         }, 11000);
@@ -144,7 +157,7 @@ export default class BoonsGenerator {
         setTimeout(() => {
             boonAnimation.pause();
             boons.dispose();
-        }, 10000);
+        }, 15000);
     }
 
     /**

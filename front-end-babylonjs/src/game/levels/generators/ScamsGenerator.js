@@ -1,3 +1,6 @@
+import UI from './../../../base/UI';
+import Message from '../../../../public/message.json';
+
 export default class ScamsGenerator {
 
     /**
@@ -13,6 +16,7 @@ export default class ScamsGenerator {
         this.player = level.player;
         this.foreground = level.foreground;
         this.createCommonMaterials();
+        this.scamSet = new Set();
         this.scamTypes = [
             'NORMAL_SCAM',
             'BLACK_OUT',
@@ -75,6 +79,12 @@ export default class ScamsGenerator {
                 } else {
                     this.createScams(scamType);
                 }
+                this.message = new UI('displayMessage');
+                if(!this.scamSet.has(scamType)){
+                    this.scamSet.add(scamType);
+                    let dummy = Message.Message;
+                    this.message.displayMessage(dummy[scamType].Info, "HIT IT");
+                } 
             }
         }, 4000);
     }

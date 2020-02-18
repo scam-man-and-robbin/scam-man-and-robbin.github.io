@@ -71,19 +71,23 @@ export default class TilesGenerator {
         coins.material = this.level.getMaterial('coinMaterial');
         coins.position.x = positionX;
         coins.position.y = 3;
-        coins.position.z = 0.1;
+        coins.position.z = 0;
         coins.rotation.x = 1.2;
 
         coins.animations.push(this.createCoinAnimation());
         let coinAnimation = this.scene.beginAnimation(coins, 0, 2000, false);
         let playerMesh = this.player.getMesh();
-
+        let groundPlane = this.scene.getMeshByName("groundplane");
         /**
          * @todo Currently we have set up passive coin collection. 
          * Incase of collectable action change here
          */
         var trigger = setInterval(() => {
-            if(coins.position.y < playerMesh.position.y-0.2) {
+            if(groundPlane.intersectsMesh(coins, false)) {
+                coins.dispose();
+                clearInterval(trigger);
+            }
+            if (playerMesh.intersectsMesh(coins, false)) {
                 this.player.keepCoin();
                 coins.dispose();
                 clearInterval(trigger);
