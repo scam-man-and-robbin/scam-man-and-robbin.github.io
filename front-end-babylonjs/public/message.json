@@ -13,7 +13,7 @@
             "Icon" : "pound signs with a cross through it"
         },
         "BLACK_OUT" : {
-            "Info" : "Black out,  you engaged with a company because they offered a unique/limited investment opportunity",
+            "Info" : "Black out, you engaged with a company because they offered a unique or limited investment opportunity",
             "Icon" : "something unusual"
         },
         "SPEEDY" : {
@@ -25,7 +25,19 @@
             "Icon" : "mini scam man"
         },
         "NORMAL_SCAM" : {
-            "Info" : "Normal Scam, fake scammer vigilantes working on people’s fear of scams to get them to move their pension",
+            "Info" : "Normal Scam, scammer vigilantes working on people’s fear of scams to get them to move their pension",
+            "Icon" : "FCA logo"
+        },
+        "NORMAL_BOON" : {
+            "Info" : "Normal Boon, scammer vigilantes working on people’s fear of scams to get them to move their pension",
+            "Icon" : "FCA logo"
+        },
+        "INVISIBLITY_BOON" : {
+            "Info" : "Invisiblity Boon, scammer vigilantes working on people’s fear of scams to get them to move their pension",
+            "Icon" : "FCA logo"
+        },
+        "LIFE_BOON" : {
+            "Info" : "Life Boon, scammer vigilantes working on people’s fear of scams to get them to move their pension",
             "Icon" : "FCA logo"
         }
     }
