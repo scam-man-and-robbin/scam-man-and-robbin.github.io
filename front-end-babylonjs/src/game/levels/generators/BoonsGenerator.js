@@ -106,16 +106,16 @@ export default class BoonsGenerator {
             let playerMesh = this.player.getMesh();
             if (boons) {
                 let boonMesh = [];
-                this.scene.meshes.forEach(element => {
-                    if (element['name'].includes("bullet") && !boonMesh.includes(element['name'])) {
-                        boonMesh.push(element['name']);
-                        if (element.intersectsMesh(boons, false)) {
-                            boons.dispose();
-                            element.visibility = false;
-                            clearInterval(trigger);
-                        }
-                    }
-                });
+                // this.scene.meshes.forEach(element => {
+                //     if (element['name'].includes("bullet") && !boonMesh.includes(element['name'])) {
+                //         boonMesh.push(element['name']);
+                //         if (element.intersectsMesh(boons, false)) {
+                //             boons.dispose();
+                //             element.visibility = false;
+                //             clearInterval(trigger);
+                //         }
+                //     }
+                // });
                 if (playerMesh.intersectsMesh(boons, false)) {
                     boons.dispose();
                     this.player.keepBoon(type);

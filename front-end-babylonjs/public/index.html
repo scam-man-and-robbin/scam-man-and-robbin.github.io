@@ -4,7 +4,10 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <meta name="apple-mobile-web-app-capable" content="yes">
         <title>Scam Man & Robbins</title>
+        <link rel="manifest" href="manifest.json">
+        <link href="rotate.css" rel="stylesheet">
 
         <style>
             html, body {
@@ -38,8 +41,13 @@
     </head>
 
     <body>
+        <div id="turn">
+            <div id="overlay">
+                <span>Please rotate your screen to play...</span>
+            </div>
+        </div>
         <!-- Main game canvas -->
-        <canvas id="renderCanvas" touch-action="none"></canvas>
+        <canvas id="renderCanvas" touch-action="none"></canvas>        
     </body>
 
 </html>

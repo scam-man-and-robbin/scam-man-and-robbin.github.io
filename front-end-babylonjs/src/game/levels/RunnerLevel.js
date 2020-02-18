@@ -50,6 +50,23 @@ export default class RunnerLevel extends Level {
      * Also Coins will be initialized followed by Scam Objects and Boon Objects
      */
     buildScene() {
+        // if(GAME.isMobile()) {
+        //     var elem = document.getElementById("renderCanvas");
+        //     if (elem.requestFullscreen) {
+        //         elem.requestFullscreen();
+        //     } else if (elem.mozRequestFullScreen) { /* Firefox */
+        //         elem.mozRequestFullScreen();
+        //     } else if (elem.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
+        //         elem.webkitRequestFullscreen();
+        //     } else if (elem.msRequestFullscreen) { /* IE/Edge */
+        //         elem.msRequestFullscreen();
+        //     }
+        //     if(screen.orientation) {
+        //         screen.orientation.lock("portrait-primary");
+        //     } else if(screen.mozOrientation) {
+        //         screen.mozOrientation.lock("portrait-primary");
+        //     }
+        // }
 
         this.scene.clearColor = new BABYLON.Color3.FromHexString(GAME.options.backgroundColor);
 
