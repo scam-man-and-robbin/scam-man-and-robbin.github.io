@@ -101,7 +101,7 @@ export default class BoonsGenerator {
         if (randomPositionChooser >= 60) {
             positionX = GAME.isMobile() ? 1 : 2.5; // Positioning on the right
         }
-        let boonDiameter = GAME.isMobile() ? 0.35 : 0.7;
+        let boonDiameter = GAME.isMobile() ? 0.35 : 0.4;
         let boons = BABYLON.MeshBuilder.CreateBox("boon_" + randomPositionChooser, {
             width: boonDiameter,
             height: boonDiameter,
@@ -119,16 +119,16 @@ export default class BoonsGenerator {
             let playerMesh = this.player.getMesh();
             if (boons) {
                 let boonMesh = [];
-                // this.scene.meshes.forEach(element => {
-                //     if (element['name'].includes("bullet") && !boonMesh.includes(element['name'])) {
-                //         boonMesh.push(element['name']);
-                //         if (element.intersectsMesh(boons, false)) {
-                //             boons.dispose();
-                //             element.visibility = false;
-                //             clearInterval(trigger);
-                //         }
-                //     }
-                // });
+                this.scene.meshes.forEach(element => {
+                    if (element['name'].includes("bullet") && !boonMesh.includes(element['name'])) {
+                        boonMesh.push(element['name']);
+                        if (element.intersectsMesh(boons, false)) {
+                            boons.dispose();
+                            element.visibility = false;
+                            clearInterval(trigger);
+                        }
+                    }
+                });
                 if (playerMesh.intersectsMesh(boons, false)) {
                     boons.dispose();
                     this.player.keepBoon(type);

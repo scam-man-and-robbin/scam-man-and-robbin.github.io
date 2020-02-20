@@ -108,7 +108,7 @@ export default class ScamsGenerator {
         if (randomPositionChooser >= 60) {
             positionX = GAME.isMobile() ? 1 : 2.5; // Positioning on the right
         }
-        let scamDiameter = GAME.isMobile() ? 0.35 : 0.7;
+        let scamDiameter = GAME.isMobile() ? 0.35 : 0.4;
         // let scams = BABYLON.Mesh.CreateCylinder("scam_"+randomPositionChooser, 0.1, scamDiameter, scamDiameter, 16, 0, this.scene);
         let scams = BABYLON.MeshBuilder.CreateBox("scam_" + randomPositionChooser, {
             width: scamDiameter,
@@ -151,9 +151,11 @@ export default class ScamsGenerator {
                             // element.material.emissiveColor = new BABYLON.Color3.FromHexString('#ff0000')
                             scams.dispose();
                             this.foreground.layerMask = 0;
-                            element.visibility = false;
+                            setTimeout(() => {
+                                element.dispose();
+                                clearInterval(trigger);
+                            }, 200);
                             this.player.keepScam();
-                            clearInterval(trigger);
                         }
                     }
                 });
@@ -344,7 +346,7 @@ export default class ScamsGenerator {
         var trigger = [];
         for (let index = 0; index < 2; index++) {
             let randomPositionChooser = Math.floor((Math.random() * 100)); // 0 to 100 random number
-            let scamDiameter = GAME.isMobile() ? 0.35 : 0.7;
+            let scamDiameter = GAME.isMobile() ? 0.35 : 0.4;
             scams[index] = BABYLON.MeshBuilder.CreateBox("scam_" + randomPositionChooser, {
                 width: scamDiameter,
                 height: scamDiameter,
