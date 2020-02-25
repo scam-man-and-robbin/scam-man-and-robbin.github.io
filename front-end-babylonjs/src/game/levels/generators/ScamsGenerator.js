@@ -84,7 +84,7 @@ export default class ScamsGenerator {
                     this.scamSet.add(scamType);
                     let dummy = Message.Message;
                     this.message.displayMessage(dummy[scamType].Info, "HIT IT");
-                } 
+                }
             }
         }, 4000);
     }

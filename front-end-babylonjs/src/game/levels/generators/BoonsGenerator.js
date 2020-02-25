@@ -73,8 +73,8 @@ export default class BoonsGenerator {
                 this.message = new UI('displayMessage');
                 if(!this.boonSet.has(flag)){
                     this.boonSet.add(flag);
-                    let dummy = Message.Message;
-                    this.message.displayMessage(dummy[flag].Info, "CATCH IT");
+                    let message = Message.Message;
+                    this.message.displayMessage(message[flag].Info, "CATCH IT");
                 }
             }
         }, 11000);
