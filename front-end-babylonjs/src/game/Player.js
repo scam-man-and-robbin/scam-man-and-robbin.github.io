@@ -1,4 +1,5 @@
 import UI from '../base/UI';
+import Message from './../../public/message.json';
 
 export default class Player {
 
@@ -10,7 +11,7 @@ export default class Player {
     */
     constructor(level) {
 
-        this.message = null;
+        this.message = new UI('pauseScreen');
         this.level = level;
         this.scene = level.scene;
         this.changePosition = false;
@@ -91,6 +92,12 @@ export default class Player {
     */
     createHUD() {
         this.hud = new UI('playerHudUI');
+        // if(flag){
+        //     this.hud.show();
+        // }
+        // else{
+        //     this.hud.hide();
+        // }
         this.coinsTextControl = null;
         this.livesTextControl = null;
         this.pauseButtonControl = null;
@@ -102,23 +109,21 @@ export default class Player {
             'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_BOTTOM
         });
 
-        this.livesTextControl = this.hud.addText('Lives: ' + this.lives, {
-            'top': '10px',
-            'left': '-10px',
-            'fontSize': '15px',
-            'horizontalAlignment': BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_RIGHT
+        this.pauseButtonControl = this.hud.addButton('Pause','PAUSE',{
+            'width':(GAME.isMobile() ? 0.15 : 0.1),
+            'height':0.05,
+            'top' : '10px',
+            'left' : '-10px',
+            'isVisible' : true,
+            'fontSize': (GAME.isMobile() ? '10em' : '20em'),
+            'horizontalAlignment': BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_RIGHT,
+            'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP,
+            'onclick': () => {
+                this.coinsTextControl.isVisible = false;
+                this.pauseButtonControl.isVisible = false;
+                this.message.pauseScreen(this.coins,this.scamCount,this.boonCount,this.level.scams ? this.level.scams.scamSet : null)
+            }
         });
-        // this.pauseButtonControl = this.hud.addButton('Pause','PAUSE',{
-        //     'width':0.1,
-        //     'height':0.05   ,
-        //     'top' : '10px',
-        //     'right' : '-10px',
-        //     'horizontalAlignment': BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_LEFT,
-        //     'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP,
-        //     'onclick': () => this.level.pauseMenu(),
-
-        // });
-        
     }
 
     /**
@@ -145,10 +150,7 @@ export default class Player {
         if (this.mesh.material.alpha != 1) return;
         if (this.godMode) return;
 
-        if (this.lives <= 1) {
-            this.lives = 0;
-            this.livesTextControl.text = 'Lives: ' + this.lives;
-
+        if (this.coins <= 1) {
             this.coins = 0;
             this.coinsTextControl.text = 'Pension Pot: £' + this.coins;
             this.coinsTextControl.fontSize = (GAME.isMobile() ? '15px' : '35px');
@@ -158,13 +160,14 @@ export default class Player {
             }
         } else {
             // this.message = new UI('displayMessage');
-            // let dummy = Message.Message;
-            // this.message.displayMessage(dummy[this.activeScam].Info);
-            this.lives--;
-            this.livesTextControl.text = 'Lives: ' + this.lives;
+            let message = Message.Message;
+            // this.lives--;
+            // this.livesTextControl.text = 'Lives: ' + this.lives;
             this.scammedSound.play();
             // Reduce coins when scammed.
-            let newCoins = Math.floor((this.coins / GAME.options.player.lives) * (GAME.options.player.lives - this.lives));
+            // let newCoins = Math.floor((this.coins / GAME.options.player.lives) * (GAME.options.player.lives - this.lives));
+            // var factor = Math.floor((this.coins - newCoins) / 10);
+            let newCoins = Math.floor(this.coins-message[this.activeScam].reduction);
             var factor = Math.floor((this.coins - newCoins) / 10);
             var trigger = setInterval(() => {
                 this.coins -= factor;
@@ -173,11 +176,17 @@ export default class Player {
                     this.coinsTextControl.fontSize = (GAME.isMobile() ? '15px' : '35px');
                     this.coinsTextControl.color = 'red';
                 } else {
-                    this.coins = newCoins
                     this.allowCoinChange = true;
                     this.coinsTextControl.text = 'Pension Pot: £' + this.coins;
                     this.coinsTextControl.fontSize = (GAME.isMobile() ? '15px' : '35px');
                     this.coinsTextControl.color = 'black';
+                    clearInterval(trigger);
+                }
+                if (this.coins <= 1) {
+                    this.allowCoinChange = false;
+                    if (this.onDie) {
+                        this.onDie();
+                    }
                     clearInterval(trigger);
                 }
             }, 50);
@@ -190,6 +199,10 @@ export default class Player {
     * Function to handle player actions.
     * Called when coin is passively landed over ground
     */
+    // visible(){
+    //     let status = true;
+    //     this.createHUD(status);
+    // }
     move() {
         this.checkDirectionMovement();
         this.checkShoot();
