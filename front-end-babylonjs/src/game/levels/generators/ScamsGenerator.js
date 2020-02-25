@@ -108,7 +108,7 @@ export default class ScamsGenerator {
         if (randomPositionChooser >= 60) {
             positionX = GAME.isMobile() ? 1 : 2.5; // Positioning on the right
         }
-        let scamDiameter = GAME.isMobile() ? 0.35 : 0.7;
+        let scamDiameter = GAME.isMobile() ? 0.35 : 0.4;
         // let scams = BABYLON.Mesh.CreateCylinder("scam_"+randomPositionChooser, 0.1, scamDiameter, scamDiameter, 16, 0, this.scene);
         let scams = BABYLON.MeshBuilder.CreateBox("scam_" + randomPositionChooser, {
             width: scamDiameter,
@@ -151,9 +151,12 @@ export default class ScamsGenerator {
                             // element.material.emissiveColor = new BABYLON.Color3.FromHexString('#ff0000')
                             scams.dispose();
                             this.foreground.layerMask = 0;
-                            element.visibility = false;
+                            clearInterval(this.blackOutTrigger);
+                            setTimeout(() => {
+                                element.dispose();
+                                clearInterval(trigger);
+                            }, 200);
                             this.player.keepScam();
-                            clearInterval(trigger);
                         }
                     }
                 });
@@ -291,9 +294,22 @@ export default class ScamsGenerator {
      * Function to perform screen blackout 
      */
     createBlackoutAnimation() {
-        // var background = new BABYLON.Layer("front", "/assets/scenes/white_bg_opaque.png", this.scene);
-        // background.isBackground = false;
-        this.foreground.layerMask = 1;
+        var imgPath = 'distort1.png';
+        this.foreground.dispose();
+        this.blackOutTrigger = setInterval(() => {
+            this.foreground.layerMask = 0;
+            if(!GAME.isPaused()) {
+                this.foreground = new BABYLON.Layer("front", "/assets/scenes/" + imgPath, this.scene);
+                this.foreground.isBackground = false;
+                this.foreground.layerMask = 1;
+                if(imgPath == 'distort1.png'){
+                    imgPath = 'distort2.png';
+                } else {
+                    imgPath = 'distort1.png';
+                }
+            }
+        }, 200);
+        
         // setTimeout(() => {
         //     this.foreground.layerMask = 0;
         // }, 1500);
@@ -344,7 +360,7 @@ export default class ScamsGenerator {
         var trigger = [];
         for (let index = 0; index < 2; index++) {
             let randomPositionChooser = Math.floor((Math.random() * 100)); // 0 to 100 random number
-            let scamDiameter = GAME.isMobile() ? 0.35 : 0.7;
+            let scamDiameter = GAME.isMobile() ? 0.35 : 0.4;
             scams[index] = BABYLON.MeshBuilder.CreateBox("scam_" + randomPositionChooser, {
                 width: scamDiameter,
                 height: scamDiameter,

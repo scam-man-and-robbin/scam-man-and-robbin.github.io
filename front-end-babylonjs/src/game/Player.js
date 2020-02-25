@@ -241,7 +241,7 @@ export default class Player {
     * @param {float} startValue - Current Position X of Player
     */
     createPlayerSideMotion(type, startValue) {
-        let playerMotion = new BABYLON.Animation("playerSideMotion", "position.x", this.level.getGameSpeed() * 40, BABYLON.Animation.ANIMATIONTYPE_FLOAT,
+        let playerMotion = new BABYLON.Animation("playerSideMotion", "position.x", 1000, BABYLON.Animation.ANIMATIONTYPE_FLOAT,
             BABYLON.Animation.ANIMATIONLOOPMODE_CYCLE);
 
         let keys = [];
@@ -265,7 +265,7 @@ export default class Player {
     * Function to handle player shoot actions.
     */
     checkShoot() {
-        if (GAME.keys.shoot) {
+        if (GAME.keys.shoot && !this.beamEnabled) {
             
             let bullet = BABYLON.Mesh.CreateCylinder("bullet_" + this.bullerCounter++, 3, 1, 0.05, 0, 0, this.scene);
             // scams.position = this.mesh.getAbsolutePosition().clone();
@@ -274,13 +274,16 @@ export default class Player {
             bullet.position.y = -0.4;
 
             bullet.material = this.level.getMaterial('bulletMaterial');
+            this.beamEnabled = true;
             // Clear bullet after half second
             setTimeout(() => {
                 bullet.dispose();
-            }, 500);
+                this.beamEnabled = false;
+            }, 700);
             var trigger = setInterval(() => {
                 if(!this.changePosition) {
                     bullet.dispose();
+                    this.beamEnabled = false;
                     clearInterval(trigger);
                 }
             }, 100);
