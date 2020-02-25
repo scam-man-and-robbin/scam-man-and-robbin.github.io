@@ -18,6 +18,7 @@ export default class Player {
         this.nextBullet = true;
         this.bullerCounter = 1;
         this.coins = 0;
+        this.maxCoins = 0;
         this.scamCount = 0;
         this.boonCount = 0;
         this.lives = GAME.options.player.lives;
@@ -25,8 +26,8 @@ export default class Player {
         this.allowCoinChange = true;
         this.activeScam = null;
         this.coinsTextControl = null;
-        this.livesTextControl = null;
         this.pauseButtonControl = null;
+        this.lastScamId = null;
         this.createCommonMaterials();
         this.setupPlayer();
 
@@ -99,7 +100,6 @@ export default class Player {
         //     this.hud.hide();
         // }
         this.coinsTextControl = null;
-        this.livesTextControl = null;
         this.pauseButtonControl = null;
         this.coinsTextControl = this.hud.addText('Pension Pot: £0', {
             'top': '-10px',
@@ -139,6 +139,7 @@ export default class Player {
             setTimeout(() => {
                 this.coinsTextControl.fontSize = (GAME.isMobile() ? '15px' : '35px');
             }, 500);
+            this.maxCoins = this.coins > this.maxCoins ? this.coins : this.maxCoins;
         }
     }
 
@@ -307,9 +308,12 @@ export default class Player {
     /**
      * Function to handle scam counter.
      */
-    keepScam() {
-        this.scamCount++;
-        this.checkAndSaveRecord(this.scamCount);
+    keepScam(scamId) {
+        if(this.lastScamId !== scamId) {
+            this.lastScamId = scamId;
+            this.scamCount++;
+            this.checkAndSaveRecord(this.scamCount);
+        }
     }
 
     /**
@@ -321,7 +325,7 @@ export default class Player {
         this.boonCount++;
         if (boon == 'LIFE_BOON' && this.lives < 3) {
             this.lives += 1;
-            this.livesTextControl.text = 'Lives: ' + this.lives;
+            // this.livesTextControl.text = 'Lives: ' + this.lives;
         }
         else if (boon == 'INVISIBLITY_BOON') {
             this.mesh.material.alpha = 0.3;
@@ -342,6 +346,7 @@ export default class Player {
             var factor = Math.floor((newCoins - this.coins) / 10);
             var trigger = setInterval(() => {
                 this.coins += factor;
+                this.maxCoins = (this.coins > this.maxCoins) ? this.coins : this.maxCoins;
                 if (this.coins < newCoins && this.allowCoinChange) {
                     this.coinsTextControl.text = 'Pension Pot: £' + this.coins;
                     this.coinsTextControl.fontSize = (GAME.isMobile() ? '15px' : '35px');
@@ -394,11 +399,11 @@ export default class Player {
     reset() {
 
         this.coins = 0;
+        this.maxCoins = 0;
         this.mesh.position.x = 0;
         this.scamCount = 0;
         this.boonCount = 0;
         this.lives = GAME.options.player.lives;
-        this.livesTextControl.text = 'Lives: ' + this.lives;
         this.coinsTextControl.text = 'Pension Pot: £' + this.coins;
         this.allowCoinChange = true;
 

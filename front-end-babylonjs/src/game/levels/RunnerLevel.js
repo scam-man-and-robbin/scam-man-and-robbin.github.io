@@ -346,6 +346,13 @@ export default class RunnerLevel extends Level {
                 this.nextStage++;
             }
         }
+        if (this.player.maxCoins && this.player.coins <= 1) {
+            this.player.allowCoinChange = false;
+            if (this.player.onDie) {            
+                this.ageTimer.advancedTexture.dispose();
+                this.player.onDie();
+            }
+        }
     }
 
     /**
@@ -359,6 +366,8 @@ export default class RunnerLevel extends Level {
 
         this.menu.hide();
         this.status = null;
+        this.ageTimer.advancedTexture.isVisible = false;
+        this.ageTimer.advancedTexture.dispose();
         this.ageTimer.setupTimer();
         this.nextStage = 0;
         GAME.resume();

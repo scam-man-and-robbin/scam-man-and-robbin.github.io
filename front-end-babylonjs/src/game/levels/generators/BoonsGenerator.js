@@ -68,11 +68,11 @@ export default class BoonsGenerator {
                     this.createBoons('NORMAL_BOON');
                 }
                 // this.message = new UI('displayMessage');
-                // if(!this.boonSet.has(flag)){
-                //     this.boonSet.add(flag);
-                //     let dummy = Message.Message;
-                //     this.message.displayMessage(dummy[flag].Info, "CATCH IT");
-                // }
+                if(!this.boonSet.has(boonType)){
+                    this.boonSet.add(boonType);
+                    // let dummy = Message.Message;
+                    // this.message.displayMessage(dummy[flag].Info, "CATCH IT");
+                }
             }
         }, 11000);
     }
@@ -140,6 +140,10 @@ export default class BoonsGenerator {
                 //     boons.dispose();
                 //     clearInterval(trigger);
                 // }
+                if(!this.player.lives || this.level.age >= 65) {
+                    boons.dispose();
+                    clearInterval(trigger);
+                }
                 if (GAME.isPaused()) {
                     boons.paused = true;
                     boonAnimation.pause();

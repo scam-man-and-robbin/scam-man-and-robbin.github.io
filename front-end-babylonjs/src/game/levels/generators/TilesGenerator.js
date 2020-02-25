@@ -92,11 +92,10 @@ export default class TilesGenerator {
                 coins.dispose();
                 clearInterval(trigger);
             }
-            if(!this.player.lives) {
-                coinAnimation.pause();
+            if(!this.player.lives || this.level.age >= 65) {
                 coins.dispose();
-                clearInterval(trigger);    
-            }            
+                clearInterval(trigger);
+            }           
             if(GAME.isPaused()) {
                 coins.paused = true;
                 coinAnimation.pause();

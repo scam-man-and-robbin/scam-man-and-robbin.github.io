@@ -3,32 +3,32 @@
         "ZIG_ZAG" : {
             "Info" : "Cold-calling: You respond to someone contacting you out of the blue to move their pension" ,
             "Icon" : "a phone",
-            "reduction" : 600
+            "reduction" : 400
         },
         "SPLITTER" : {
             "Info" : "Offered withdrawal: Transfer your pension to a scheme because they offer you early access to your pension" ,
             "Icon" : "a non-standard coloured coin",
-            "reduction" : 1000
+            "reduction" : 800
         },
         "ACCELERATOR" : {
             "Info" : "Accelerator: You engaged with a company because they offered you free financial advice",
             "Icon" : "pound signs with a cross through it",
-            "reduction" : 800
+            "reduction" : 300
         },
         "BLACK_OUT" : {
             "Info" : "Black out: You engaged with a company because they offered a unique or limited investment opportunity",
             "Icon" : "something unusual",
-            "reduction" : 200
+            "reduction" : 500
         },
         "SPEEDY" : {
             "Info" : "Speedy: You agree to something because you are told the offer has a time limit on it",
             "Icon" : " clock",
-            "reduction" : 300
+            "reduction" : 600
         },
         "DIAGONAL" : {
             "Info" : "Diagonal: Fake scammer vigilantes working on people’s fear of scams to get them to move their pension",
             "Icon" : "mini scam man",
-            "reduction" : 500
+            "reduction" : 700
         },
         "NORMAL_SCAM" : {
             "Info" : "Normal Scam: High returns with low risk",

@@ -29,7 +29,7 @@ window.initialGameOptions = {
         'defaultSpeed': 20,
         'increaseSpeedRatio': 3,
         'lives': 3,
-        'scamStartAfter' : 5000, // 3 seconds,
+        'scamStartAfter' : 5000, // 5 seconds,
         'godMode': false
     }, 
 

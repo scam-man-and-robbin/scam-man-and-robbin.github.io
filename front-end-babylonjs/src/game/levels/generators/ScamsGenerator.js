@@ -58,11 +58,11 @@ export default class ScamsGenerator {
                     this.createScams(scamType);
                 }
                 // this.message = new UI('displayMessage');
-                // if(!this.scamSet.has(scamType)){
-                //     this.scamSet.add(scamType);
-                //     let dummy = Message.Message;
-                //     this.message.displayMessage(dummy[scamType].Info, "HIT IT");
-                // } 
+                if(!this.scamSet.has(scamType)){
+                    this.scamSet.add(scamType);
+                    // let dummy = Message.Message;
+                    // this.message.displayMessage(dummy[scamType].Info, "HIT IT");
+                } 
             }
         }, 4000);
     }
@@ -152,7 +152,7 @@ export default class ScamsGenerator {
                                 element.dispose();
                                 clearInterval(trigger);
                             }, 200);
-                            this.player.keepScam();
+                            this.player.keepScam(randomPositionChooser);
                         }
                     }
                 });
@@ -174,6 +174,10 @@ export default class ScamsGenerator {
                 //     scams.dispose();
                 //     clearInterval(trigger);
                 // }
+                if(!this.player.lives || this.level.age >= 65) {
+                    scams.dispose();
+                    clearInterval(trigger);
+                }
                 if(GAME.isPaused()) {
                     scams.paused = true;
                     scamAnimation.pause();
@@ -382,7 +386,7 @@ export default class ScamsGenerator {
                                 // element.material.emissiveColor = new BABYLON.Color3.FromHexString('#ff0000')
                                 scams[index].dispose();
                                 element.visibility = false;
-                                this.player.keepScam();
+                                this.player.keepScam(randomPositionChooser);
                                 clearInterval(trigger[index]);
                             }
                         }

@@ -65,7 +65,7 @@ export default class UI {
         return imgbutton;
     }
 
-    pauseScreen(coins,danger,safety, scamset){
+    pauseScreen(coins, danger, safety, scamset) {
         GAME.pause();
         let screen = new BABYLON.GUI.Rectangle();
         screen.width = 0.98;
@@ -75,16 +75,18 @@ export default class UI {
         screen.background = "white";
         screen.alpha = 0.8;
         this.menuTexture.addControl(screen);
-        let pointText = new BABYLON.GUI.TextBlock('Pension Pot','Pension pot £:'+coins);
-        pointText.top =  '7em';
-        pointText.color =  GAME.options.pointsTextColor;
-        pointText.outlineColor =  GAME.options.pointsOutlineTextColor;
-        pointText.outlineWidth =  '2px';
-        pointText.fontSize =  (GAME.isMobile() ? '15px' : '25px');
-        pointText.textHorizontalAlignment =  BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_LEFT;
-        pointText.textVerticalAlignment =  BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP;
+
+        let pointText = new BABYLON.GUI.TextBlock('Pension Pot', 'Pension pot £:' + coins);
+        pointText.top = '7em';
+        pointText.color = GAME.options.pointsTextColor;
+        pointText.outlineColor = GAME.options.pointsOutlineTextColor;
+        pointText.outlineWidth = '2px';
+        pointText.fontSize = (GAME.isMobile() ? '15px' : '25px');
+        pointText.textHorizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_LEFT;
+        pointText.textVerticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP;
         screen.addControl(pointText);
-        let scamText = new BABYLON.GUI.TextBlock('Scam Count','Scam Count :'+danger);
+
+        let scamText = new BABYLON.GUI.TextBlock('Scam Count', 'Scam Count :' + danger);
         scamText.top = '7em';
         scamText.color = GAME.options.pointsTextColor;
         scamText.outlineColor = GAME.options.pointsOutlineTextColor;
@@ -93,80 +95,85 @@ export default class UI {
         scamText.textHorizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_RIGHT;
         scamText.textVerticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP;
         screen.addControl(scamText);
-        let boonText = new BABYLON.GUI.TextBlock('Boon Count','Boon Count :'+safety);
-        boonText.top =  (GAME.isMobile() ? '21em' : '31em');
+
+        let boonText = new BABYLON.GUI.TextBlock('Boon Count', 'Boon Count :' + safety);
+        boonText.top = (GAME.isMobile() ? '21em' : '31em');
         // boonText.left =  (GAME.isMobile() ? '-10em' : '-100em');
-        boonText.color =  GAME.options.pointsTextColor;
-        boonText.outlineColor =  GAME.options.pointsOutlineTextColor;
-        boonText.outlineWidth =  '2px';
-        boonText.fontSize =  (GAME.isMobile() ? '12px' : '20px');
-        boonText.textHorizontalAlignment =  BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_RIGHT;
-        boonText.textVerticalAlignment =  BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP;
+        boonText.color = GAME.options.pointsTextColor;
+        boonText.outlineColor = GAME.options.pointsOutlineTextColor;
+        boonText.outlineWidth = '2px';
+        boonText.fontSize = (GAME.isMobile() ? '12px' : '20px');
+        boonText.textHorizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_RIGHT;
+        boonText.textVerticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP;
         screen.addControl(boonText);
-        if(scamset == null){
-            var info =  new BABYLON.GUI.TextBlock("CASUAL", "Ready to face it");
+
+        if( scamset && scamset.size){
+            let arr = Array.from(scamset);
+            let temp = 0;
+            for (let index = 0; index < scamset.size; index++) {
+                let scamName = arr[index];
+                
+
+                let image = new BABYLON.GUI.Image("icon", "assets/scenes/scam.png");
+                image.width = 0.1;
+                image.height = 0.08;
+                image.top = (GAME.isMobile() ? 36 + temp : 140 + temp);
+                image.left = (GAME.isMobile() ? '5em' : '8em');
+                image.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_LEFT;
+                image.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP;
+                screen.addControl(image);
+                
+                let message = Message.Message;
+                let display = new BABYLON.GUI.Rectangle();
+                display.width = 0.85;
+                display.height = 0.075;
+                display.thickness = 0;
+                display.alpha = 0.9;
+                display.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_LEFT;
+                display.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP;
+                display.top = (GAME.isMobile() ? 42 + temp : 140 + temp);
+                display.left = (GAME.isMobile() ? '40em' : '135em');
+                screen.addControl(display);
+                
+                let scamDescription = new BABYLON.GUI.TextBlock('Scam Description', message[scamName].Info)
+                scamDescription.color = GAME.options.pointsTextColor;
+                scamDescription.outlineColor = GAME.options.pointsOutlineTextColor;
+                scamDescription.outlineWidth = '2px';
+                scamDescription.top = '1px';
+                scamDescription.textVerticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_CENTER;
+                scamDescription.fontSize = (GAME.isMobile() ? '12px' : '30px');
+                scamDescription.textHorizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_LEFT;
+                scamDescription.textWrapping = true;
+                display.addControl(scamDescription);
+                if (GAME.isMobile()) {
+                    temp += 55;
+                }
+                else {
+                    temp += 100;
+                }
+            }
+        } else {
+            var info = new BABYLON.GUI.TextBlock("CASUAL", "You haven't hit any scams");
             info.color = 'red'
             info.fontSize = "30em";
             // info.paddingBottom = '150px';
             screen.addControl(info)
         }
-        else{
-            let arr = Array.from(scamset);
-            let temp = 0;
-            for(let index=0; index<scamset.size; index++){
-                let scamName = arr[index];
-                let image = new BABYLON.GUI.Image("icon", "assets/scenes/scam.png");
-                image.width = 0.1;
-                image.height = 0.08;
-                image.top =  (GAME.isMobile() ? 36+temp : 140+temp);
-                image.left =  (GAME.isMobile() ? '5em' : '8em');
-                image.horizontalAlignment =  BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_LEFT;
-                image.verticalAlignment =  BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP;
-                screen.addControl(image); 
-                let message = Message.Message;
-                let display = new BABYLON.GUI.Rectangle();
-                display.width = 0.85;
-                display.height = 0.1;
-                display.thickness = 0;
-                display.alpha = 0.9;
-                display.horizontalAlignment =  BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_LEFT;
-                display.verticalAlignment =  BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP;
-                display.top =  (GAME.isMobile() ? 42+temp : 140+temp);
-                display.left =  (GAME.isMobile() ? '45em' : '135em');
-                screen.addControl(display);
-                let scamDescription = new BABYLON.GUI.TextBlock('Scam Description', message[scamName].Info)
-                scamDescription.color =  GAME.options.pointsTextColor;
-                scamDescription.outlineColor =  GAME.options.pointsOutlineTextColor;
-                scamDescription.outlineWidth =  '2px';
-                scamDescription.top = '1px';
-                scamDescription.textVerticalAlignment =  BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP;
-                scamDescription.fontSize =  (GAME.isMobile() ? '12px' : '30px');
-                scamDescription.textHorizontalAlignment =  BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_LEFT;
-                scamDescription.textWrapping =  true;
-                display.addControl(scamDescription);
-                if(GAME.isMobile()){
-                    temp += 55;
-                }
-                else{
-                    temp += 100;
-                }
-            }
-        }
 
-            let buttonResume = new BABYLON.GUI.Button.CreateSimpleButton('RESUME', 'RESUME');
-            buttonResume.width =  (GAME.isMobile() ? 0.2 : 0.3);
-            buttonResume.height = (GAME.isMobile() ? 0.05 : 0.1);
-            buttonResume.color =  'black';
-            buttonResume.fontSize = (GAME.isMobile() ? "10em" : "20em");
-            buttonResume.background =  'white';
-            buttonResume.horizontalAlignment =  BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER;
-            buttonResume.verticalAlignment =  BABYLON.GUI.Control.VERTICAL_ALIGNMENT_BOTTOM;
-            buttonResume.top = '-5em';
-            buttonResume.onPointerUpObservable.add(function(){
-                GAME.resume();
-                screen.dispose();
-            });
-            screen.addControl(buttonResume);    
+        let buttonResume = new BABYLON.GUI.Button.CreateSimpleButton('RESUME', 'RESUME');
+        buttonResume.width = (GAME.isMobile() ? 0.2 : 0.3);
+        buttonResume.height = (GAME.isMobile() ? 0.05 : 0.1);
+        buttonResume.color = 'black';
+        buttonResume.fontSize = (GAME.isMobile() ? "10em" : "20em");
+        buttonResume.background = 'white';
+        buttonResume.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER;
+        buttonResume.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_BOTTOM;
+        buttonResume.top = '-5em';
+        buttonResume.onPointerUpObservable.add(function () {
+            GAME.resume();
+            screen.dispose();
+        });
+        screen.addControl(buttonResume);
 
 
     }
@@ -208,14 +215,13 @@ export default class UI {
         return img;
     }
 
-    displayMessage(scamhitted,signal){
+    displayMessage(scamhitted, signal) {
         GAME.pause();
         var rect1 = new BABYLON.GUI.Rectangle();
         var label0 = new BABYLON.GUI.TextBlock("Educational Message", scamhitted);
-        var hit =  new BABYLON.GUI.TextBlock("Signal", signal);
-        hit.color = (signal == 'HIT IT')?'red':'green';
-        if(GAME.isMobile())
-        {
+        var hit = new BABYLON.GUI.TextBlock("Signal", signal);
+        hit.color = (signal == 'HIT IT') ? 'red' : 'green';
+        if (GAME.isMobile()) {
             rect1.width = 1;
             rect1.height = '55px';
             label0.fontSize = "14em";
@@ -224,7 +230,7 @@ export default class UI {
             hit.paddingBottom = '150px'
             label0.top = "1px";
         }
-        else{
+        else {
             hit.fontSize = "45em";
             hit.paddingBottom = '250px'
             rect1.width = 1;
@@ -249,12 +255,12 @@ export default class UI {
         // label0.horizontalAlignment = BABYLON.GUI.Control.horizontal_alignment_left;
         rect1.addControl(label0);
 
-        setTimeout(() =>{
+        setTimeout(() => {
             // label0.dispose();
             hit.dispose();
             rect1.dispose();
             GAME.resume();
-        },GAME.options.messageReadTime);
+        }, GAME.options.messageReadTime);
     }
 
     add(control) {
