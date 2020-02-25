@@ -23,6 +23,9 @@ export default class Player {
         this.godMode = GAME.options.player.godMode;
         this.allowCoinChange = true;
         this.activeScam = null;
+        this.coinsTextControl = null;
+        this.livesTextControl = null;
+        this.pauseButtonControl = null;
         this.createCommonMaterials();
         this.setupPlayer();
 

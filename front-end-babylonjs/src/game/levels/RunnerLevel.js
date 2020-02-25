@@ -5,6 +5,7 @@ import TilesGenerator from './generators/TilesGenerator';
 import ScamsGenerator from './generators/ScamsGenerator';
 import BoonsGenerator from './generators/BoonsGenerator';
 import AgeCounter from './counters/AgeCounter';
+import StageCounter from "./counters/StageCounter";
 
 export default class RunnerLevel extends Level {
 
@@ -27,6 +28,8 @@ export default class RunnerLevel extends Level {
         this.currentRecordTextControl = null;
         this.hasMadeRecordTextControl = null;
         this.status = null;
+        this.currentStageAge = 0;
+        this.nextStage = 0;
 
         // this.gamestats = null;
     }
@@ -51,24 +54,7 @@ export default class RunnerLevel extends Level {
      * Also Coins will be initialized followed by Scam Objects and Boon Objects
      */
     buildScene() {
-        // if(GAME.isMobile()) {
-        //     var elem = document.getElementById("renderCanvas");
-        //     if (elem.requestFullscreen) {
-        //         elem.requestFullscreen();
-        //     } else if (elem.mozRequestFullScreen) { /* Firefox */
-        //         elem.mozRequestFullScreen();
-        //     } else if (elem.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
-        //         elem.webkitRequestFullscreen();
-        //     } else if (elem.msRequestFullscreen) { /* IE/Edge */
-        //         elem.msRequestFullscreen();
-        //     }
-        //     if(screen.orientation) {
-        //         screen.orientation.lock("portrait-primary");
-        //     } else if(screen.mozOrientation) {
-        //         screen.mozOrientation.lock("portrait-primary");
-        //     }
-        // }
-
+        
         this.scene.clearColor = new BABYLON.Color3.FromHexString(GAME.options.backgroundColor);
 
         this.createMenus();
@@ -92,6 +78,7 @@ export default class RunnerLevel extends Level {
         this.tiles.generate();
 
         this.ageTimer = new AgeCounter(this);
+        this.stageCounter = new StageCounter(this);
 
         // Scams will be started after n seconds.
         setTimeout(() => {
@@ -173,7 +160,7 @@ export default class RunnerLevel extends Level {
 
         this.menu.hide();
 
-        this.createTutorialText();
+        // this.createTutorialText();
 
     }
 
@@ -291,6 +278,12 @@ export default class RunnerLevel extends Level {
     beforeRender() {
         if (!GAME.isPaused()) {
             this.player.move();
+            this.age = parseInt(this.ageTimer.ageControl.text);
+            if(((this.age - 18) % 12) == 0 && this.currentStageAge !== this.age) {
+                this.stageCounter.showStage(this.nextStage);
+                this.currentStageAge = this.age;
+                this.nextStage++;
+            }
         }
     }
 
@@ -306,6 +299,7 @@ export default class RunnerLevel extends Level {
         this.menu.hide();
         this.status = null;
         this.ageTimer.setupTimer();
+        this.nextStage = 0;
         GAME.resume();
 
 

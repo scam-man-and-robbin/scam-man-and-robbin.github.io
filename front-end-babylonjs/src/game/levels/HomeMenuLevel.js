@@ -29,6 +29,9 @@ export default class HomeMenuLevel extends Level {
 
         menu.addImage();
         menu.addImgButton('playButton', {
+            'imgpath' : "assets/scenes/scam-man-play-btn.png",
+            'width' : 0.25,
+            'top' : '210px',
             'onclick': () => GAME.goToLevel('RunnerLevel')
         });
 

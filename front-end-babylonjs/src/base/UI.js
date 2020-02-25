@@ -35,15 +35,22 @@ export default class UI {
     }
 
     addImgButton(name, options = {}) {
-        let imgbutton = new BABYLON.GUI.Button.CreateImageOnlyButton(name, "assets/scenes/scam-man-play-btn.png");
+        let imgbutton = new BABYLON.GUI.Button.CreateImageOnlyButton(name, options.imgpath);
 
-        imgbutton.width = '0.25';
-        imgbutton.height = '0.1';
         imgbutton.thickness = 0;
-        imgbutton.top = '210';
-
-        // imgbutton.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER;
-        // imgbutton.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP;
+        imgbutton.width = options.width || 0.5;
+        imgbutton.height = options.height || '60px';
+        imgbutton.color = options.color || 'black';
+        imgbutton.outlineWidth = options.outlineWidth || 0;
+        imgbutton.outlineColor = options.outlineColor || imgbutton.color;
+        imgbutton.background = options.background || 'transparent';
+        imgbutton.horizontalAlignment = (typeof options.horizontalAlignment !== 'undefined') ? options.horizontalAlignment : BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER;
+        imgbutton.verticalAlignment = (typeof options.verticalAlignment !== 'undefined') ? options.verticalAlignment : BABYLON.GUI.Control.VERTICAL_ALIGNMENT_CENTER;
+        imgbutton.left = options.left || '0px';
+        imgbutton.right = options.right || '0px';
+        imgbutton.top = options.top || '20px';
+        imgbutton.textHorizontalAlignment = (typeof options.horizontalAlignment !== 'undefined') ? options.horizontalAlignment : BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER;
+        imgbutton.textVerticalAlignment = (typeof options.verticalAlignment !== 'undefined') ? options.verticalAlignment : BABYLON.GUI.Control.VERTICAL_ALIGNMENT_CENTER;
 
         if (options.onclick) {
             imgbutton.onPointerUpObservable.add(options.onclick);
@@ -156,6 +163,11 @@ export default class UI {
 
     hide() {
         this.controls.forEach(control => control.isVisible = false);
+    }
+
+    clear() {
+        this.controls.forEach(control => control.dispose());
+        this.menuTexture.dispose();
     }
 
 }

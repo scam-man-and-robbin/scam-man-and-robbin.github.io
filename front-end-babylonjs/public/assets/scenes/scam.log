@@ -1,0 +1,36 @@
+Exporter version: 6.2.4, Blender version: 2.81 (sub 16)
+========= Conversion from Blender to Babylon.js =========
+	Scene settings used :
+		inline textures     :  false
+		Material Type       :  PBR
+		Positions Precision :  4
+		Normals Precision   :  3
+		UVs Precision       :  3
+		Vert Color Precision:  3
+		Mat Weight Precision:  2
+		texture directory   :  C:\xampp\htdocs\scam-man-and-robbin\front-end-babylonjs\public\assets\scenes\
+	Python World class constructor completed
+	processing begun of camera (UniversalCamera):  Camera
+	processing begun of mesh:  scam1
+		processing begun of material:  SVGMat.007
+		processing begun of material:  SVGMat.001
+		processing begun of material:  SVGMat.002
+		processing begun of material:  SVGMat.003
+		processing begun of material:  SVGMat.004
+		processing begun of material:  SVGMat.005
+		processing begun of material:  SVGMat.006
+		processing begun of multimaterial:  scam.Multimaterial#0
+		num positions      :  26706
+		num normals        :  26706
+		num tangents       :  0
+		num uvs            :  0
+		num uvs2           :  0
+		num colors         :  0
+		num indices        :  32940
+		WARNING: # of 0 area faces found:  1031
+	processing begun of light (POINT):  Light
+========= Writing of JSON file started =========
+	writing mesh:  scam1
+========= Writing of JSON file completed =========
+========= end of processing =========
+elapsed time:  0 min, 1.13 secs

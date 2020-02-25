@@ -1,5 +1,6 @@
 import UI from './../../../base/UI';
 import Message from '../../../../public/message.json';
+import stages from '../../../../public/stage.json';
 export default class BoonsGenerator {
 
     /**
@@ -46,36 +47,32 @@ export default class BoonsGenerator {
 
         // New boons keep generating every 10 second
         setInterval(() => {
-            if (!GAME.isPaused() && this.player.lives) {
-                var boonType = 'NORMAL_BOON';
-                let flag;
+            this.boonTypes = stages["stage_" + (this.level.nextStage-1)]["boons"];
+            if (!GAME.isPaused() && this.player.lives && this.level.age < 65) {
                 let randomTileTypeNumber = Math.floor((Math.random() * this.boonTypes.length));
-                boonType = this.boonTypes[randomTileTypeNumber];
+                let boonType = this.boonTypes[randomTileTypeNumber];
                 this.typeOfBoon++;
-                if (boonType == 'INVISIBLITY_BOON' && this.typeOfBoon % 5 == 0) {
-                    flag = 'INVISIBLITY_BOON';
+                if (boonType == 'INVISIBLITY_BOON') {
                     this.texture = new BABYLON.Texture("assets/scenes/alphabeti.png", this.scene);
                     this.boonMaterial.diffuseTexture = this.texture
                     this.createBoons('INVISIBLITY_BOON');
                 }
-                else if (boonType == 'LIFE_BOON' && this.typeOfBoon % 5 == 0) {
-                    flag = 'LIFE_BOON';
+                else if (boonType == 'LIFE_BOON') {
                     this.texture = new BABYLON.Texture("assets/scenes/alphabetl.png", this.scene);
                     this.boonMaterial.diffuseTexture = this.texture
                     this.createBoons('LIFE_BOON');
                 }
                 else {
-                    flag = 'NORMAL_BOON';
                     this.texture = new BABYLON.Texture("assets/scenes/alphabetn.png", this.scene);
                     this.boonMaterial.diffuseTexture = this.texture
                     this.createBoons('NORMAL_BOON');
                 }
-                this.message = new UI('displayMessage');
-                if(!this.boonSet.has(flag)){
-                    this.boonSet.add(flag);
-                    let dummy = Message.Message;
-                    this.message.displayMessage(dummy[flag].Info, "CATCH IT");
-                }
+                // this.message = new UI('displayMessage');
+                // if(!this.boonSet.has(flag)){
+                //     this.boonSet.add(flag);
+                //     let dummy = Message.Message;
+                //     this.message.displayMessage(dummy[flag].Info, "CATCH IT");
+                // }
             }
         }, 11000);
     }

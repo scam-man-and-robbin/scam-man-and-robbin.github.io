@@ -41,7 +41,7 @@ export default class TilesGenerator {
 
         // New coins keep generating every 2 second
         setInterval(() => {
-            if(!GAME.isPaused() && this.player.lives){
+            if(!GAME.isPaused() && this.player.lives  && this.level.age < 65){
                 this.createCoins();
             }
         }, 2000);

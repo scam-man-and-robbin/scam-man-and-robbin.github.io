@@ -12,7 +12,7 @@ export default class AgeCounter {
         this.scene = level.scene;
         this.player = level.player;
         this.progressValue = null;
-        this.textControl = null;
+        this.ageControl = null;
         this.progressValueInvisible = null;
         this.advancedTexture = null;
         this.setupTimer();
@@ -88,14 +88,14 @@ export default class AgeCounter {
 
 
         // Age Value Text that increases
-        this.textControl = new BABYLON.GUI.TextBlock();
-        this.textControl.textHorizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER;
-        this.textControl.textVerticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_CENTER;
-        this.textControl.text = '18';
-        this.textControl.color = '#EB12DB';
-        this.textControl.fontSize = 10;
+        this.ageControl = new BABYLON.GUI.TextBlock();
+        this.ageControl.textHorizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER;
+        this.ageControl.textVerticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_CENTER;
+        this.ageControl.text = '18';
+        this.ageControl.color = '#EB12DB';
+        this.ageControl.fontSize = 10;
 
-        this.progressValue.addControl(this.textControl);
+        this.progressValue.addControl(this.ageControl);
 
         let startText = new BABYLON.GUI.TextBlock();
         startText.textHorizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_LEFT;
@@ -135,11 +135,11 @@ export default class AgeCounter {
                     this.progressValue.width = moveProgressWidth;
                     this.progressValueInvisible.width = moveProgressWidth + 0.01;
                     let value = Math.round(18 + ageValue);
-                    this.textControl.text = "" + value;
+                    this.ageControl.text = "" + value;
                     if (value > 63 || value < 23) {
-                        this.textControl.alpha = 0;
+                        this.ageControl.alpha = 0;
                     } else {
-                        this.textControl.alpha = 1;
+                        this.ageControl.alpha = 1;
                     }
                 }
             } else if (!this.player.lives) {
