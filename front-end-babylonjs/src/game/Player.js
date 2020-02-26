@@ -406,6 +406,7 @@ export default class Player {
         this.lives = GAME.options.player.lives;
         this.coinsTextControl.text = 'Pension Pot: £' + this.coins;
         this.allowCoinChange = true;
+        this.pauseButtonControl.isVisible = true;
 
     }
 
