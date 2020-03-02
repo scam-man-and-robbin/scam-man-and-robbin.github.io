@@ -118,9 +118,9 @@ export default class UI {
             let temp = 0;
             for (let index = 0; index < scamset.size; index++) {
                 let scamName = arr[index];
-                
+                let message = Message.Message;
 
-                let image = new BABYLON.GUI.Image("icon", "assets/scenes/scam.png");
+                let image = new BABYLON.GUI.Image("icon", message[scamName].path);
                 image.width = 0.15;
                 image.height = 0.08;
                 image.top = 36 + temp;
@@ -129,7 +129,6 @@ export default class UI {
                 image.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP;
                 screen.addControl(image);
                 
-                let message = Message.Message;
                 let display = new BABYLON.GUI.Rectangle();
                 display.width = 0.75;
                 display.height = 0.075;

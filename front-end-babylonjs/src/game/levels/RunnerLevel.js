@@ -29,7 +29,7 @@ export default class RunnerLevel extends Level {
         this.hasMadeRecordTextControl = null;
         this.status = null;
         this.currentStageAge = 0;
-        this.nextStage = 0;
+        this.nextStage = 1;
 
         // this.gamestats = null;
     }
@@ -288,7 +288,7 @@ export default class RunnerLevel extends Level {
      * Function to show Menu with last points/high record
      */
     showMenu() {
-        this.pointsTextControl.text = 'Points: £ ' + this.player.getPoints();
+        this.pointsTextControl.text = 'Points: £' + this.player.getPoints();
         this.ageTextControl.text = 'Age: ' + this.age;
         this.currentRecordTextControl.text = 'Current Record: ' + this.player.getLastRecord();
         if(this.status == 'WIN') {
@@ -356,7 +356,7 @@ export default class RunnerLevel extends Level {
             this.player.coinsTextControl.isVisible=true;
             this.player.move();
             this.age = parseInt(this.ageTimer.ageControl.text);
-            if(((this.age - 18) % 12) == 0 && this.currentStageAge !== this.age) {
+            if(((this.age - 18) % 16) == 0 && this.currentStageAge !== this.age) {
                 this.stageCounter.showStage(this.nextStage);
                 this.currentStageAge = this.age;
                 this.nextStage++;
@@ -385,7 +385,7 @@ export default class RunnerLevel extends Level {
         this.ageTimer.advancedTexture.isVisible = false;
         this.ageTimer.clear();
         this.ageTimer = new AgeCounter(this);
-        this.nextStage = 0;
+        this.nextStage = 1;
         this.currentStageAge = 0;
         GAME.resume();
 
