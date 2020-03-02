@@ -58,11 +58,8 @@ export default class ScamsGenerator {
                 } else {
                     this.createScams(scamType);
                 }
-                // this.message = new UI('displayMessage');
                 if(!this.scamSet.has(scamType)){
                     this.scamSet.add(scamType);
-                    // let dummy = Message.Message;
-                    // this.message.displayMessage(dummy[scamType].Info, "HIT IT");
                 } 
             }
         }, 4000);
@@ -94,24 +91,6 @@ export default class ScamsGenerator {
             height: scamDiameter,
             depth: 0.01
         }, this.scene);
-
-
-        // // Test
-        // var scene = this.scene;
-        // // Dude
-        // BABYLON.SceneLoader.ImportMesh("scam1", "assets/scenes/", "scam.babylon", scene, function (newMeshes2, particleSystems2, skeletons2) {
-        //     var scam = newMeshes2[0];
-        //     scam.position = new BABYLON.Vector3(7.025, 0-9, 0+5.5);
-        //     scam.scaling = new BABYLON.Vector3(0.05, 0.05, 0.05);
-        //     console.log(scam)
-        //     return scene;
-        // }, function (scene) {
-        //     // Called during inprogress
-        //     console.log("InProgress")
-        // }, function (scene, message, exception) {
-        //     // Called when Error Occurs
-        //     console.log("onError");
-        // });
 
         scams.material = this.level.getMaterial('scamMaterial');
         scams.position.x = positionX;
@@ -169,12 +148,6 @@ export default class ScamsGenerator {
                     scams.dispose();
                     clearInterval(trigger);
                 }
-                // if (scams.position.y < (playerMesh.position.y + 0.5)) {
-                //     this.foreground.layerMask = 0;
-                //     this.player.checkLife();
-                //     scams.dispose();
-                //     clearInterval(trigger);
-                // }
                 if(!this.player.lives || this.level.age >= 65) {
                     scams.dispose();
                     clearInterval(trigger);
@@ -311,9 +284,6 @@ export default class ScamsGenerator {
             }
         }, 500);
         
-        // setTimeout(() => {
-        //     this.foreground.layerMask = 0;
-        // }, 1500);
         return this.createScamAnimation();
     }
 
@@ -403,11 +373,6 @@ export default class ScamsGenerator {
                         scams[index].dispose();
                         clearInterval(trigger[index]);
                     }
-                    // if (scams[index].position.y < (playerMesh.position.y + 0.5)) {
-                    //     this.player.checkLife();
-                    //     scams[index].dispose();
-                    //     clearInterval(trigger[index]);
-                    // }
                     if(GAME.isPaused()) {
                         scams[index].paused = true;
                         scamAnimation.pause();

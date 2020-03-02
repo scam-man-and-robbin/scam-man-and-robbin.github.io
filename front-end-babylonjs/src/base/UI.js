@@ -112,7 +112,7 @@ export default class UI {
             let temp = 0;
             for (let index = 0; index < scamset.size; index++) {
                 let scamName = arr[index];
-                let message = Message.Message;
+                let message = Message.message;
 
                 let image = new BABYLON.GUI.Image("icon", message[scamName].path);
                 image.width = 0.1;
@@ -134,7 +134,7 @@ export default class UI {
                 display.left = (GAME.isMobile() ? '40em' : '135em');
                 screen.addControl(display);
                 
-                let scamDescription = new BABYLON.GUI.TextBlock('Scam Description', message[scamName].Info)
+                let scamDescription = new BABYLON.GUI.TextBlock('Scam Description', message[scamName].info)
                 scamDescription.color = GAME.options.pointsTextColor;
                 scamDescription.outlineColor = GAME.options.pointsOutlineTextColor;
                 scamDescription.outlineWidth = '2px';

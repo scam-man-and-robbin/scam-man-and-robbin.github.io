@@ -164,55 +164,6 @@ export default class RunnerLevel extends Level {
 
     }
 
-    // createGameStats() {
-    //     this.gamestats = new UI('statsMenuUI');
-
-
-    //     this.scoreTextControl = this.gamestats.addText('Points: £ 0', {
-    //         'top': '60em',
-    //         'left': (GAME.isMobile() ? '10em' : '100em'),
-    //         'color': GAME.options.pointsTextColor,
-    //         'outlineColor': GAME.options.pointsOutlineTextColor,
-    //         'outlineWidth': '2px',
-    //         'fontSize': (GAME.isMobile() ? '15px' : '25px'),
-    //         'horizontalAlignment': BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_LEFT,
-    //         'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP
-    //     });
-
-    //     this.countScamTextControl = this.gamestats.addText('Scam Faced: 0', {
-    //         'top': '60em',
-    //         'left': (GAME.isMobile() ? '-10em' : '-100em'),
-    //         'color': GAME.options.pointsTextColor,
-    //         'outlineColor': GAME.options.pointsOutlineTextColor,
-    //         'outlineWidth': '2px',
-    //         'fontSize': (GAME.isMobile() ? '10px' : '20px'),
-    //         'horizontalAlignment': BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_RIGHT,
-    //         'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP
-    //     });
-
-    //     this.countBoonTextControl = this.gamestats.addText('Boon Count: 0', {
-    //         'top': '80em',
-    //         'left': (GAME.isMobile() ? '-10em' : '-100em'),
-    //         'color': GAME.options.pointsTextColor,
-    //         'outlineColor': GAME.options.pointsOutlineTextColor,
-    //         'outlineWidth': '2px',
-    //         'fontSize': (GAME.isMobile() ? '10px' : '20px'),
-    //         'horizontalAlignment': BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_RIGHT,
-    //         'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP
-    //     });
-    //     // this.gamestats.addButton('resumeButton', 'RESUME', {
-    //     //     'top': '20px',
-    //     //     'onclick': () => {
-    //     //         GAME.resume();
-    //     //         this.gamestats.hide();
-    //     //     }
-    //     // });
-
-
-    //     this.gamestats.hide();
-
-    // }
-
     /**
      * Function to show Game Instructions
      * Message varies based on device
@@ -293,45 +244,6 @@ export default class RunnerLevel extends Level {
         }
     }
 
-    // pauseMenu(){
-    //     GAME.pause();
-    //     let sampleSet = this.scams.scamSet;
-    //     this.scoreTextControl.text = 'Points: £ ' + this.player.coins;
-    //     this.countScamTextControl.text = 'Scam Faced: ' + this.player.getPoints();
-    //     this.countBoonTextControl.text = 'Boon Count: ' + this.player.boonCount;
-    //     let arr = Array.from(sampleSet);
-    //     let temp = 0;
-    //     for(let index=0; index<sampleSet.size; index++){
-    //         let dummy1 = arr[index];
-    //         this.scamNameTextControl = this.gamestats.addText(dummy1,{
-    //             'color': GAME.options.pointsTextColor,
-    //             'outlineColor': GAME.options.pointsOutlineTextColor,
-    //             'outlineWidth': '2px',
-    //             'fontSize': (GAME.isMobile() ? '11px' : '15px'),
-    //             'top': (GAME.isMobile() ? 93+temp : 150+temp),
-    //             'left': (GAME.isMobile() ? '10em' : '100em'),
-    //             'horizontalAlignment': BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_LEFT,
-    //             'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP
-    //         });
-    //         let dummy = Message.Message;
-    //         console.log('gggg',dummy[dummy1]);
-    //         this.scamDescriptionTextControl = this.gamestats.addText(dummy[dummy1].Info,{
-    //             'color': GAME.options.pointsTextColor,
-    //             'outlineColor': GAME.options.pointsOutlineTextColor,
-    //             'outlineWidth': '2px',
-    //             'fontSize': (GAME.isMobile() ? '11px' : '15px'),
-    //             'top': (GAME.isMobile() ? 110+temp : 170+temp),
-    //             'left': (GAME.isMobile() ? '10em' : '100em'),
-    //             'paddingRight': (GAME.isMobile() ? 10 : 100),
-    //             'horizontalAlignment': BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_LEFT,
-    //             'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP,
-    //             'textWrapping' : true,
-    //         });
-    //         temp +=50;
-    //     }
-
-    //     this.gamestats.show();
-    // }
     /**
      * Function to call logics that will be rendered seamlessly.
      */

@@ -87,7 +87,7 @@ export default class StageCounter {
                 });
                 stageData['scams'].forEach(scam => {
                     top = top + 60;
-                    this.stageUI.addText(Message.Message[scam]['Info'], {
+                    this.stageUI.addText(Message.message[scam]['info'], {
                         'top': top,
                         'fontSize': '15px',
                         'left': '20px',
@@ -96,7 +96,7 @@ export default class StageCounter {
                     });
                     this.stageUI.addImgButton('Dynamic Logo',{
                         'top': top,
-                        'imgpath' : Message.Message[scam]['path'],
+                        'imgpath' : Message.message[scam]['path'],
                         'width': 0.08,
                         'height' : 0.08,
                         'left': '5px',
@@ -115,7 +115,7 @@ export default class StageCounter {
                 });
                 stageData['boons'].forEach(scam => {
                     top = top + 60;
-                    this.stageUI.addText(Message.Message[scam]['Info'], {
+                    this.stageUI.addText(Message.message[scam]['info'], {
                         'top': top,
                         'fontSize': '15px',
                         'left': '10px',
