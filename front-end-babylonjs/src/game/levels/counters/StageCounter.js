@@ -89,7 +89,16 @@ export default class StageCounter {
                     this.stageUI.addText(Message.Message[scam]['Info'], {
                         'top': top,
                         'fontSize': '15px',
-                        'left': '10px',
+                        'left': '20px',
+                        'horizontalAlignment': BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_LEFT,
+                        'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_CENTER
+                    });
+                    this.stageUI.addImgButton('Dynamic Logo',{
+                        'top': top,
+                        'imgpath' : Message.Message[scam]['path'],
+                        'width': 0.08,
+                        'height' : 0.08,
+                        'left': '5px',
                         'horizontalAlignment': BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_LEFT,
                         'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_CENTER
                     });

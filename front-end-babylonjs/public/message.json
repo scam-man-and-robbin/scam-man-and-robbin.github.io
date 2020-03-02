@@ -1,50 +1,57 @@
 {
     "Message" : {
-        "ZIG_ZAG" : {
+        "zig_zag" : {
             "Info" : "Cold-calling: You respond to someone contacting you out of the blue to move their pension" ,
             "Icon" : "a phone",
-            "reduction" : 400
+            "reduction" : 400,
+            "path" : "assets/scenes/scam.png"
         },
-        "SPLITTER" : {
+        "splitter" : {
             "Info" : "Offered withdrawal: Transfer your pension to a scheme because they offer you early access to your pension" ,
             "Icon" : "a non-standard coloured coin",
-            "reduction" : 800
+            "reduction" : 800,
+            "path" : "assets/scenes/scam.png"
         },
-        "ACCELERATOR" : {
+        "accelerator" : {
             "Info" : "Accelerator: You engaged with a company because they offered you free financial advice",
             "Icon" : "pound signs with a cross through it",
-            "reduction" : 300
+            "reduction" : 300,
+            "path" : "assets/scenes/scam.png"
         },
-        "BLACK_OUT" : {
+        "black_out" : {
             "Info" : "Black out: You engaged with a company because they offered a unique or limited investment opportunity",
             "Icon" : "something unusual",
-            "reduction" : 500
+            "reduction" : 500,
+            "path" : "assets/scenes/scam.png"
         },
-        "SPEEDY" : {
+        "speedy" : {
             "Info" : "Speedy: You agree to something because you are told the offer has a time limit on it",
             "Icon" : " clock",
-            "reduction" : 600
+            "reduction" : 600,
+            "path" : "assets/scenes/scam.png"
         },
-        "DIAGONAL" : {
+        "diagonal" : {
             "Info" : "Diagonal: Fake scammer vigilantes working on people’s fear of scams to get them to move their pension",
             "Icon" : "mini scam man",
-            "reduction" : 700
+            "reduction" : 700,
+            "path" : "assets/scenes/scam.png"
         },
-        "NORMAL_SCAM" : {
+        "normal_scam" : {
             "Info" : "Normal Scam: High returns with low risk",
             "Icon" : "FCA logo",
-            "reduction" : 100
+            "reduction" : 100,
+            "path" : "assets/scenes/scam.png"
         },
-        "NORMAL_BOON" : {
+        "normal_boon" : {
             "Info" : "Normal Boon: Check FCA registered - get FCA number",
             "Icon" : "FCA logo"
             
         },
-        "INVISIBLITY_BOON" : {
+        "invisiblity_boon" : {
             "Info" : "Invisiblity Boon: Ask to sleep on your decision/ think about it",
             "Icon" : "FCA logo"
         },
-        "LIFE_BOON" : {
+        "life_boon" : {
             "Info" : "Life Boon: Check with current provider before transferring",
             "Icon" : "FCA logo"
         }

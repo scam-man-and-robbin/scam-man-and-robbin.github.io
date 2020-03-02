@@ -21,8 +21,8 @@ export default class BoonsGenerator {
         // Special Boons
         this.boonTypes = [
             // 'NORMAL_BOON',
-            'INVISIBLITY_BOON',
-            'LIFE_BOON'
+            'invisiblity_boon',
+            'life_boon'
         ];
 
     }
@@ -52,20 +52,20 @@ export default class BoonsGenerator {
                 let randomTileTypeNumber = Math.floor((Math.random() * this.boonTypes.length));
                 let boonType = this.boonTypes[randomTileTypeNumber];
                 this.typeOfBoon++;
-                if (boonType == 'INVISIBLITY_BOON') {
+                if (boonType == 'invisiblity_boon') {
                     this.texture = new BABYLON.Texture("assets/scenes/alphabeti.png", this.scene);
                     this.boonMaterial.diffuseTexture = this.texture
-                    this.createBoons('INVISIBLITY_BOON');
+                    this.createBoons('invisiblity_boon');
                 }
-                else if (boonType == 'LIFE_BOON') {
+                else if (boonType == 'life_boon') {
                     this.texture = new BABYLON.Texture("assets/scenes/alphabetl.png", this.scene);
                     this.boonMaterial.diffuseTexture = this.texture
-                    this.createBoons('LIFE_BOON');
+                    this.createBoons('life_boon');
                 }
                 else {
                     this.texture = new BABYLON.Texture("assets/scenes/alphabetn.png", this.scene);
                     this.boonMaterial.diffuseTexture = this.texture
-                    this.createBoons('NORMAL_BOON');
+                    this.createBoons('normal_boon');
                 }
                 // this.message = new UI('displayMessage');
                 if(!this.boonSet.has(boonType)){

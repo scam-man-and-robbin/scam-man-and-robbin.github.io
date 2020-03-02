@@ -12,6 +12,7 @@ export default class ScamsGenerator {
 
     constructor(level) {
 
+        this.decision = true;
         this.level = level;
         this.scene = level.scene;
         this.player = level.player;
@@ -52,7 +53,7 @@ export default class ScamsGenerator {
                 let randomTileTypeNumber = Math.floor((Math.random() * this.scamTypes.length));
                 let scamType = this.scamTypes[randomTileTypeNumber];
                 this.player.activeScam = scamType;
-                if (scamType == 'SPLITTER') {
+                if (scamType == 'splitter') {
                     this.createSplitterScams();
                 } else {
                     this.createScams(scamType);
@@ -117,21 +118,21 @@ export default class ScamsGenerator {
         scams.position.y = 3;
         scams.position.z = 0;
 
-        if (type == 'ZIG_ZAG') {
+        if (type == 'zig_zag') {
             scams.animations.push(this.createZigZagScamAnimation(scams));
-        } else if (type == 'NORMAL_SCAM') {
+        } else if (type == 'normal_scam') {
             scams.animations.push(this.createScamAnimation());
         }
-        else if (type == 'SPEEDY') {
+        else if (type == 'speedy') {
             scams.animations.push(this.createSpeedyScamAnimation());
         }
-        else if (type == 'ACCELERATOR') {
+        else if (type == 'accelerator') {
             scams.animations.push(this.createAcceleratorScamAnimation());
         }
-        else if (type == 'BLACK_OUT') {
+        else if (type == 'black_out') {
             scams.animations.push(this.createBlackoutAnimation());
         }
-        else if (type == 'DIAGONAL') {
+        else if (type == 'diagonal') {
             scams.animations.push(this.createDiagonalScamAnimation(scams));
         }
         let scamAnimation = this.scene.beginAnimation(scams, 0, 2000, false);
@@ -371,8 +372,8 @@ export default class ScamsGenerator {
             scams[index].position.x = 0;
             scams[index].position.y = 3;
             scams[index].position.z = 0;
-
-            scams[index].animations.push(this.createSplitterAnimation(scams[index], index == 1 ? 'right' : 'left'));
+            console.log('gg',index);
+            scams[index].animations.push(this.createSplitterAnimation(scams[index], index == 1 ? 'right' : 'left',index));
             let scamAnimation = this.scene.beginAnimation(scams[index], 0, 2000, false);
             trigger[index] = setInterval(() => {
                 let playerMesh = this.player.getMesh();
@@ -427,22 +428,26 @@ export default class ScamsGenerator {
 
 
     createSplitterAnimation(scams, direction) {
-        let scamAnimation = new BABYLON.Animation("scamfall", "position", this.level.getGameSpeed() - 10, BABYLON.Animation.ANIMATIONTYPE_VECTOR3,
+        let scamAnimation = new BABYLON.Animation("scamfall", "position", this.level.getGameSpeed() - 20, BABYLON.Animation.ANIMATIONTYPE_VECTOR3,
             BABYLON.Animation.ANIMATIONLOOPMODE_CYCLE);
 
         let keys = [];
-
         let position = scams.position;
-        for (let index = 0; index < 6; index++) {
+        for (let index = 0; index < 7; index++) {
             keys.push({ frame: index * 15, value: position });
             if (index == 1 && direction == 'right') {
+                this.decision = !this.decision; 
                 position = position.add(new BABYLON.Vector3((GAME.isMobile() ? 1 : 2.5), -1.5, 0));
             } else if (index == 1) {
                 position = position.add(new BABYLON.Vector3((GAME.isMobile() ? -1 : -2.5), -1.5, 0));
             } else  if(index == 0) {
                 position = position.add(new BABYLON.Vector3(0, -0.8, 0));
             } else {
-                position = position.add(new BABYLON.Vector3(0, -1.5, 0));
+                if(this.decision){
+                    position = position.add(new BABYLON.Vector3(0, -1, 0));
+                } else {
+                    position = position.add(new BABYLON.Vector3(0, -1.5, 0));
+                }
             }
         }
         scamAnimation.setKeys(keys);

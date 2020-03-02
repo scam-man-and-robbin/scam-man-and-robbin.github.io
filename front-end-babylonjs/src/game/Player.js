@@ -323,11 +323,11 @@ export default class Player {
      */
     keepBoon(boon) {
         this.boonCount++;
-        if (boon == 'LIFE_BOON' && this.lives < 3) {
+        if (boon == 'life_boon' && this.lives < 3) {
             this.lives += 1;
             // this.livesTextControl.text = 'Lives: ' + this.lives;
         }
-        else if (boon == 'INVISIBLITY_BOON') {
+        else if (boon == 'invisiblity_boon') {
             this.mesh.material.alpha = 0.3;
             setTimeout(() => {
                 var count = 0;
@@ -341,7 +341,7 @@ export default class Player {
                 }, 200);
             }, 10000);
         }
-        else if(boon == 'NORMAL_BOON') {
+        else if(boon == 'normal_boon') {
             let newCoins = this.coins * 2;
             var factor = Math.floor((newCoins - this.coins) / 10);
             var trigger = setInterval(() => {
