@@ -257,7 +257,8 @@ export default class RunnerLevel extends Level {
         this.player.onDie = () => {
             GAME.pause();
             this.showMenu();
-            this.ageTimer.advancedTexture.dispose();
+            this.ageTimer.clear();
+            this.player.pauseButtonControl.isVisible = false;
         }
 
         // Actions when player wins
@@ -265,7 +266,8 @@ export default class RunnerLevel extends Level {
             GAME.pause();
             this.status = 'WIN';
             this.showMenu();
-            this.ageTimer.advancedTexture.dispose();
+            this.ageTimer.clear();
+            this.player.pauseButtonControl.isVisible = false;
         }
     }
 
@@ -349,7 +351,7 @@ export default class RunnerLevel extends Level {
         if (this.player.maxCoins && this.player.coins <= 1) {
             this.player.allowCoinChange = false;
             if (this.player.onDie) {            
-                this.ageTimer.advancedTexture.dispose();
+                this.ageTimer.clear();
                 this.player.onDie();
             }
         }
@@ -367,9 +369,10 @@ export default class RunnerLevel extends Level {
         this.menu.hide();
         this.status = null;
         this.ageTimer.advancedTexture.isVisible = false;
-        this.ageTimer.advancedTexture.dispose();
-        this.ageTimer.setupTimer();
+        this.ageTimer.clear();
+        this.ageTimer = new AgeCounter(this);
         this.nextStage = 0;
+        this.currentStageAge = 0;
         GAME.resume();
 
 

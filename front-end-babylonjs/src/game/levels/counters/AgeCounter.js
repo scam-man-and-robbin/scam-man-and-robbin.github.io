@@ -153,4 +153,8 @@ export default class AgeCounter {
 
     }
 
+    clear() {
+        this.advancedTexture.dispose();
+    }
+
 }

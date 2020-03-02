@@ -67,6 +67,7 @@ export default class StageCounter {
                 this.stageUI.addImgButton('continueBtn', {
                     'imgpath': "assets/scenes/scam-man-continue-btn.png",
                     'top': '50px',
+                    'width' : GAME.isMobile() ? 0.4 : 0.25,
                     'onclick': () => {
                         this.player.coinsTextControl.isVisible = true;
                         this.stageUI.clear();
