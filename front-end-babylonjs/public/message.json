@@ -44,16 +44,19 @@
         },
         "normal_boon" : {
             "info" : "Normal Boon: Check FCA registered - get FCA number",
-            "icon" : "FCA logo"
+            "icon" : "FCA logo",
+            "path" : "assets/scenes/boon.png"
             
         },
         "invisiblity_boon" : {
             "info" : "Invisiblity Boon: Ask to sleep on your decision/ think about it",
-            "icon" : "FCA logo"
+            "icon" : "FCA logo",
+            "path" : "assets/scenes/boon.png"
         },
         "life_boon" : {
             "info" : "Life Boon: Check with current provider before transferring",
-            "icon" : "FCA logo"
+            "icon" : "FCA logo",
+            "path" : "assets/scenes/boon.png"
         }
     }
 }

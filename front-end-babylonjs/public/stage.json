@@ -3,14 +3,14 @@
         "message" : "Don’t let a scammer steal your pension pot! ",
         "instruction" : "Swipe left and right to move Scam Man, and swipe upwards to activate his torch and shine a light on an incoming scam! Collect as many coins and bonuses as you can, so you can retire happily at the age of 65! ",
         "scams" : ["normal_scam"],
-        "boons" : ["NORMAL_BOON"]
+        "boons" : ["normal_boon"]
     },
     "stage_1" : {
         "scams" : ["zig_zag", "accelerator"],
         "boons" : ["normal_boon", "invisiblity_boon"]
     },
     "stage_2" : {
-        "scams" : ["speedy"],
+        "scams" : ["speedy", "zig_zag"],
         "boons" : ["normal_boon", "life_boon"]
     },
     "stage_3" : {
