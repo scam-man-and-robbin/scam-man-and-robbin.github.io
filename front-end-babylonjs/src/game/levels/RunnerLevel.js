@@ -110,51 +110,64 @@ export default class RunnerLevel extends Level {
         this.menu = new UI('runnerMenuUI');
 
         this.gameStatus = this.menu.addText('You Win', {
-            'top': '-180px',
+            'top': '60px',
             'color': GAME.options.pointsTextColor,
             'outlineColor': GAME.options.pointsOutlineTextColor,
             'outlineWidth': '2px',
             'fontSize': '40px',
-            'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_CENTER
+            'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP
         });
 
         this.gameSubTextControl = this.menu.addText('You cannot give up. Try reaching Age 65...', {
-            'top': '-140px',
+            'top': '100px',
             'color': GAME.options.pointsTextColor,
             'outlineColor': GAME.options.pointsOutlineTextColor,
             'outlineWidth': '2px',
             'fontSize': '15px',
-            'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_CENTER
+            'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP
         });
 
         this.pointsTextControl = this.menu.addText('Points: £ 0', {
-            'top': '-100px',
+            'top': '140px',
             'color': GAME.options.pointsTextColor,
             'outlineColor': GAME.options.pointsOutlineTextColor,
             'outlineWidth': '2px',
             'fontSize': '35px',
-            'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_CENTER
+            'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP
+        });
+
+        this.ageTextControl = this.menu.addText('Age: 0', {
+            'top': '180px',
+            'color': GAME.options.pointsTextColor,
+            'outlineColor': GAME.options.pointsOutlineTextColor,
+            'outlineWidth': '2px',
+            'fontSize': '35px',
+            'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP
         });
 
         this.currentRecordTextControl = this.menu.addText('Current Record: 0', {
-            'top': '-60px',
-            'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_CENTER
+            'top': '220px',
+            'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP
         });
 
         this.hasMadeRecordTextControl = this.menu.addText('You got a new Points Record!', {
-            'top': '-40px',
+            'top': '260px',
             'color': GAME.options.recordTextColor,
             'fontSize': '20px',
-            'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_CENTER
+            'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP
         });
 
         this.menu.addButton('replayButton', 'Replay Game', {
-            'top': '20px',
+            'top': '300px',
+            'height': '50px',
+            'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP,
             'onclick': () => this.replay()
         });
 
         this.menu.addButton('backButton', 'Return to Home', {
-            'top': '90px',
+            'top': '360px',
+            'height': '50px',
+            'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP,
             'onclick': () => GAME.goToLevel('HomeMenuLevel')
         });
 
@@ -275,7 +288,8 @@ export default class RunnerLevel extends Level {
      * Function to show Menu with last points/high record
      */
     showMenu() {
-        this.pointsTextControl.text = 'Points: ' + this.player.getPoints();
+        this.pointsTextControl.text = 'Points: £ ' + this.player.getPoints();
+        this.ageTextControl.text = 'Age: ' + this.age;
         this.currentRecordTextControl.text = 'Current Record: ' + this.player.getLastRecord();
         if(this.status == 'WIN') {
             this.gameStatus.text = 'You Win!';

@@ -104,7 +104,7 @@ export default class Player {
         this.coinsTextControl = this.hud.addText('Pension Pot: £0', {
             'top': '-10px',
             'left': '-10px',
-            'fontSize': (GAME.isMobile() ? '15px' : '35px'),
+            'fontSize': '15px',
             'horizontalAlignment': BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_RIGHT,
             'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_BOTTOM
         });
@@ -115,7 +115,7 @@ export default class Player {
             'top' : '10px',
             'left' : '-10px',
             'isVisible' : true,
-            'fontSize': (GAME.isMobile() ? '10em' : '20em'),
+            'fontSize': '10em',
             'horizontalAlignment': BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_RIGHT,
             'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP,
             'onclick': () => {
@@ -135,9 +135,9 @@ export default class Player {
             this.coins += 100;
             this.gotCoinSound.play();
             this.coinsTextControl.text = 'Pension Pot: £' + this.coins;
-            this.coinsTextControl.fontSize = (GAME.isMobile() ? '15px' : '35px');
+            this.coinsTextControl.fontSize = '15px';
             setTimeout(() => {
-                this.coinsTextControl.fontSize = (GAME.isMobile() ? '15px' : '35px');
+                this.coinsTextControl.fontSize = '15px';
             }, 500);
             this.maxCoins = this.coins > this.maxCoins ? this.coins : this.maxCoins;
         }
@@ -154,7 +154,7 @@ export default class Player {
         if (this.coins <= 1) {
             this.coins = 0;
             this.coinsTextControl.text = 'Pension Pot: £' + this.coins;
-            this.coinsTextControl.fontSize = (GAME.isMobile() ? '15px' : '35px');
+            this.coinsTextControl.fontSize = '15px';
             this.allowCoinChange = false;
             if (this.onDie) {
                 this.onDie();
@@ -174,12 +174,12 @@ export default class Player {
                 this.coins -= factor;
                 if (this.coins > newCoins) {
                     this.coinsTextControl.text = 'Pension Pot: £' + this.coins;
-                    this.coinsTextControl.fontSize = (GAME.isMobile() ? '15px' : '35px');
+                    this.coinsTextControl.fontSize = '15px';
                     this.coinsTextControl.color = 'red';
                 } else {
                     this.allowCoinChange = true;
                     this.coinsTextControl.text = 'Pension Pot: £' + this.coins;
-                    this.coinsTextControl.fontSize = (GAME.isMobile() ? '15px' : '35px');
+                    this.coinsTextControl.fontSize = '15px';
                     this.coinsTextControl.color = 'black';
                     clearInterval(trigger);
                 }
@@ -214,7 +214,7 @@ export default class Player {
     */
     checkDirectionMovement() {
         if (GAME.keys.left) {
-            if (this.changePosition && this.mesh.position.x > (GAME.isMobile() ? -1 : -2.5)) {
+            if (this.changePosition && this.mesh.position.x > (GAME.isMobile() ? -1 : -1.5)) {
                 this.changePosition = false;
                 this.mesh.animations = [];
                 this.mesh.animations.push(this.createPlayerSideMotion('left', this.mesh.position.x));
@@ -227,7 +227,7 @@ export default class Player {
         }
 
         if (GAME.keys.right) {
-            if (this.changePosition && this.mesh.position.x < (GAME.isMobile() ? 1 : 2.5)) {
+            if (this.changePosition && this.mesh.position.x < (GAME.isMobile() ? 1 : 1.5)) {
                 this.changePosition = false;
                 this.mesh.animations = [];
                 this.mesh.animations.push(this.createPlayerSideMotion('right', this.mesh.position.x));
@@ -252,9 +252,9 @@ export default class Player {
         var frameCounter = 0, value = 0;
         for (let index = 0; index < 5; index++) {
             if (type == 'left') {
-                value += (GAME.isMobile() ? -0.2 : -0.5);
+                value += (GAME.isMobile() ? -0.2 : -0.3);
             } else {
-                value += (GAME.isMobile() ? 0.2 : 0.5);
+                value += (GAME.isMobile() ? 0.2 : 0.3);
             }
             keys.push({ frame: frameCounter, value: startValue + value });
             frameCounter += 15;
@@ -349,12 +349,12 @@ export default class Player {
                 this.maxCoins = (this.coins > this.maxCoins) ? this.coins : this.maxCoins;
                 if (this.coins < newCoins && this.allowCoinChange) {
                     this.coinsTextControl.text = 'Pension Pot: £' + this.coins;
-                    this.coinsTextControl.fontSize = (GAME.isMobile() ? '15px' : '35px');
+                    this.coinsTextControl.fontSize = '15px';
                     this.coinsTextControl.color = 'green';
                 } else {
                     this.coins = this.lives > 0 ? newCoins : 0;
                     this.coinsTextControl.text = 'Pension Pot: £' + this.coins;
-                    this.coinsTextControl.fontSize = (GAME.isMobile() ? '15px' : '35px');
+                    this.coinsTextControl.fontSize = '15px';
                     this.coinsTextControl.color = 'black';
                     clearInterval(trigger);
                 }

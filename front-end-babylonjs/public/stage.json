@@ -10,7 +10,7 @@
         "boons" : ["NORMAL_BOON", "INVISIBLITY_BOON"]
     },
     "stage_2" : {
-        "scams" : ["BLACK_OUT", "SPEEDY"],
+        "scams" : ["ZIG_ZAG", "SPEEDY"],
         "boons" : ["NORMAL_BOON", "LIFE_BOON"]
     },
     "stage_3" : {

@@ -89,14 +89,14 @@ export default class BoonsGenerator {
         let randomPositionChooser = Math.floor((Math.random() * 100)); // 0 to 100 random number
         let positionX = 0;
         if (randomPositionChooser >= 0 && randomPositionChooser < 30) {
-            positionX = GAME.isMobile() ? -1 : -2.5; // Positining on the left
+            positionX = GAME.isMobile() ? -1 : -1.5; // Positining on the left
         }
 
         if (randomPositionChooser >= 30) {
             positionX = 0;
         }
         if (randomPositionChooser >= 60) {
-            positionX = GAME.isMobile() ? 1 : 2.5; // Positioning on the right
+            positionX = GAME.isMobile() ? 1 : 1.5; // Positioning on the right
         }
         let boonDiameter = GAME.isMobile() ? 0.35 : 0.4;
         let boons = BABYLON.MeshBuilder.CreateBox("boon_" + randomPositionChooser, {
@@ -121,8 +121,10 @@ export default class BoonsGenerator {
                         boonMesh.push(element['name']);
                         if (element.intersectsMesh(boons, false)) {
                             boons.dispose();
-                            element.visibility = false;
-                            clearInterval(trigger);
+                            setTimeout(() => {
+                                element.dispose();
+                                clearInterval(trigger);
+                            }, 200);
                         }
                     }
                 });
