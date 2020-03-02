@@ -118,10 +118,10 @@ export default class StageCounter {
                 })
                 this.stageUI.addControl(this.scamDescription);
                 stageData['scams'].forEach(scam => {
-                    top = top + 60;
+                    top = top + 100;
                     let image = new BABYLON.GUI.Image("icon", Message.Message[scam].path);
                     image.width = 0.15;
-                    image.height = 0.08;
+                    image.height = 0.09;
                     image.top = top;
                     image.left = 0.1;
                     image.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_LEFT;
@@ -130,7 +130,7 @@ export default class StageCounter {
                     
                     let display = new BABYLON.GUI.Rectangle();
                     display.width = 0.75;
-                    display.height = 0.075;
+                    display.height = 0.09;
                     display.thickness = 0;
                     display.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_RIGHT;
                     display.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_CENTER;
@@ -192,10 +192,10 @@ export default class StageCounter {
             'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_CENTER
         }));
         stageData['boons'].forEach(scam => {
-            top = top + 60;
+            top = top + 100;
             let image = new BABYLON.GUI.Image("icon", Message.Message[scam].path);
             image.width = 0.15;
-            image.height = 0.08;
+            image.height = 0.09;
             image.top = top;
             image.left = 0.1;
             image.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_LEFT;
@@ -204,7 +204,7 @@ export default class StageCounter {
             
             let display = new BABYLON.GUI.Rectangle();
             display.width = 0.75;
-            display.height = 0.075;
+            display.height = 0.09;
             display.thickness = 0;
             display.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_RIGHT;
             display.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_CENTER;
