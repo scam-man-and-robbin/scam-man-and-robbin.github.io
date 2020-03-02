@@ -24,9 +24,9 @@ export default class StageCounter {
         textControl.fontSize = options.fontSize || 20;
         textControl.outlineWidth = options.outlineWidth || 0;
         textControl.outlineColor = options.outlineColor || "black";
-        textControl.lineSpacing = options.lineSpacing || '5px';
+        textControl.lineSpacing = options.lineSpacing || '0px';
         textControl.left = options.left || '0px';
-        textControl.paddingRight = options.paddingRight || '0px';
+        textControl.paddingRight = options.paddingRight || '10px';
         textControl.top = options.top || '0px';
         textControl.textHorizontalAlignment = (typeof options.horizontalAlignment !== 'undefined') ? options.horizontalAlignment : BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER;
         textControl.textVerticalAlignment = (typeof options.verticalAlignment !== 'undefined') ? options.verticalAlignment : BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP;
@@ -119,9 +119,9 @@ export default class StageCounter {
                 this.stageUI.addControl(this.scamDescription);
                 stageData['scams'].forEach(scam => {
                     top = top + 100;
-                    let image = new BABYLON.GUI.Image("icon", Message.Message[scam].path);
+                    let image = new BABYLON.GUI.Image("icon", Message.message[scam].path);
                     image.width = 0.15;
-                    image.height = 0.09;
+                    image.height = 0.1;
                     image.top = top;
                     image.left = 0.1;
                     image.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_LEFT;
@@ -130,14 +130,14 @@ export default class StageCounter {
                     
                     let display = new BABYLON.GUI.Rectangle();
                     display.width = 0.75;
-                    display.height = 0.09;
+                    display.height = 0.1;
                     display.thickness = 0;
                     display.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_RIGHT;
                     display.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_CENTER;
                     display.top =  top;
                     this.stageUI.addControl(display);
 
-                    let scamsMessage = this.addText(Message.Message[scam]['Info'], {
+                    let scamsMessage = this.addText(Message.message[scam]['info'], {
                         'top': '1px',
                         'fontSize': '15px',
                         'left': '10px',
@@ -193,9 +193,9 @@ export default class StageCounter {
         }));
         stageData['boons'].forEach(scam => {
             top = top + 100;
-            let image = new BABYLON.GUI.Image("icon", Message.Message[scam].path);
+            let image = new BABYLON.GUI.Image("icon", Message.message[scam].path);
             image.width = 0.15;
-            image.height = 0.09;
+            image.height = 0.1;
             image.top = top;
             image.left = 0.1;
             image.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_LEFT;
@@ -204,14 +204,14 @@ export default class StageCounter {
             
             let display = new BABYLON.GUI.Rectangle();
             display.width = 0.75;
-            display.height = 0.09;
+            display.height = 0.1;
             display.thickness = 0;
             display.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_RIGHT;
             display.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_CENTER;
             display.top =  top;
             this.stageUI.addControl(display);
 
-            let scamsMessage = this.addText(Message.Message[scam]['Info'], {
+            let scamsMessage = this.addText(Message.message[scam]['info'], {
                 'top': '1px',
                 'fontSize': '15px',
                 'left': '10px',

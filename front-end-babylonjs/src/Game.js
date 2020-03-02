@@ -58,7 +58,12 @@ export default class Game {
         this.startLevel();
     }
 
-    pause() {
+    pause(autoAction) {
+        if(!this.paused && autoAction && this.currentLevel.player) {
+            this.currentLevel.player.coinsTextControl.isVisible = false;
+            this.currentLevel.player.pauseButtonControl.isVisible = false;
+            this.currentLevel.player.message.pauseScreen(this.currentLevel.player.coins,this.currentLevel.player.scamCount,this.currentLevel.player.boonCount,this.currentLevel.scams ? this.currentLevel.scams.scamSet : null)
+        }
         this.paused = true;
     }
 
@@ -181,11 +186,11 @@ export default class Game {
      */
     listenOtherEvents() {
         window.addEventListener('blur', () => {
-            this.pause();
+            this.pause(true);
         });
 
         window.addEventListener('focus', () => {
-            this.resume();
+            // this.resume();
         });
     }
 

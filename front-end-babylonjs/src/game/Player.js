@@ -160,10 +160,7 @@ export default class Player {
                 this.onDie();
             }
         } else {
-            // this.message = new UI('displayMessage');
-            let message = Message.Message;
-            // this.lives--;
-            // this.livesTextControl.text = 'Lives: ' + this.lives;
+            let message = Message.message;
             this.scammedSound.play();
             // Reduce coins when scammed.
             // let newCoins = Math.floor((this.coins / GAME.options.player.lives) * (GAME.options.player.lives - this.lives));
@@ -204,10 +201,6 @@ export default class Player {
     * Function to handle player actions.
     * Called when coin is passively landed over ground
     */
-    // visible(){
-    //     let status = true;
-    //     this.createHUD(status);
-    // }
     move() {
         this.checkDirectionMovement();
         this.checkShoot();

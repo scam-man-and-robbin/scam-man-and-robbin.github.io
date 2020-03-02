@@ -20,7 +20,7 @@ export default class BoonsGenerator {
         this.boonSet = new Set();
         // Special Boons
         this.boonTypes = [
-            // 'NORMAL_BOON',
+            // 'normal_boon',
             'invisiblity_boon',
             'life_boon'
         ];
@@ -67,11 +67,8 @@ export default class BoonsGenerator {
                     this.boonMaterial.diffuseTexture = this.texture
                     this.createBoons('normal_boon');
                 }
-                // this.message = new UI('displayMessage');
                 if(!this.boonSet.has(boonType)){
                     this.boonSet.add(boonType);
-                    // let dummy = Message.Message;
-                    // this.message.displayMessage(dummy[flag].Info, "CATCH IT");
                 }
             }
         }, 11000);
@@ -135,13 +132,8 @@ export default class BoonsGenerator {
                 }
                 else if (this.player.groundMesh.intersectsMesh(boons, false)) {
                     boons.dispose();
-                    // this.player.keepBoon(type);
                     clearInterval(trigger);
                 }
-                // if (boons.position.y < (playerMesh.position.y + 0.5)) {
-                //     boons.dispose();
-                //     clearInterval(trigger);
-                // }
                 if(!this.player.lives || this.level.age >= 65) {
                     boons.dispose();
                     clearInterval(trigger);
