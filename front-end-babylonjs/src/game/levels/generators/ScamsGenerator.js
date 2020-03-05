@@ -342,7 +342,6 @@ export default class ScamsGenerator {
             scams[index].position.x = 0;
             scams[index].position.y = 3;
             scams[index].position.z = 0;
-            console.log('gg',index);
             scams[index].animations.push(this.createSplitterAnimation(scams[index], index == 1 ? 'right' : 'left',index));
             let scamAnimation = this.scene.beginAnimation(scams[index], 0, 2000, false);
             trigger[index] = setInterval(() => {

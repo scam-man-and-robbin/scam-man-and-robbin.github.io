@@ -69,7 +69,7 @@ export default class RunnerLevel extends Level {
         // Add lights to the scene
         var light1 = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(0, 10, 0), this.scene);
         var light2 = new BABYLON.PointLight("light2", new BABYLON.Vector3(0, 100, -100), this.scene);
-        light1.intensity = 0.9;
+        light1.intensity = 0.8;
         light2.intensity = 0.2;
 
         this.createPlayer();
@@ -214,7 +214,7 @@ export default class RunnerLevel extends Level {
         this.player = new Player(this);
 
         var playerLight = new BABYLON.DirectionalLight("playerLight", new BABYLON.Vector3(1, -2, 1), this.scene);
-        playerLight.intensity = 0.3;
+        playerLight.intensity = 0.6;
         playerLight.parent = this.player.mesh;
 
         // Actions when player dies
