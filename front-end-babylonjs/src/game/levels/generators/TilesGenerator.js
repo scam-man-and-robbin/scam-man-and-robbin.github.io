@@ -77,7 +77,7 @@ export default class TilesGenerator {
         coins.animations.push(this.createCoinAnimation());
         let coinAnimation = this.scene.beginAnimation(coins, 0, 2000, false);
         let playerMesh = this.player.getMesh();
-        let groundPlane = this.scene.getMeshByName("groundplane");
+        let groundPlane = this.player.groundMesh;
         /**
          * @todo Currently we have set up passive coin collection. 
          * Incase of collectable action change here

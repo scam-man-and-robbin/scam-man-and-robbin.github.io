@@ -271,9 +271,14 @@ export default class RunnerLevel extends Level {
             this.player.move();
             this.age = parseInt(this.ageTimer.ageControl.text);
             if(((this.age - 18) % 16) == 0 && this.currentStageAge !== this.age) {
-                this.stageCounter.showStage(this.nextStage);
-                this.currentStageAge = this.age;
-                this.nextStage++;
+                this.freezeGeneration = true;
+                this.holdStage = true;
+                this.completeStage();
+            }
+            if(!this.player.beamEnabled && this.player.changePosition && !this.player.playerLanding) {
+                this.player.mesh.material.alpha = 1;
+            } else {
+                this.player.mesh.material.alpha = 0;
             }
         }
         if (this.player.maxCoins && this.player.coins <= 1) {
@@ -321,6 +326,24 @@ export default class RunnerLevel extends Level {
         if (!GAME.isPaused()) {
             this.speed += GAME.options.player.increaseSpeedRatio;
         }
+    }
+
+    completeStage() {
+        let trigger = setInterval(() => {
+            if(this.holdStage && ((this.freezeGeneration && 
+                this.scams && 
+                !this.scams.activeScams.length && 
+                this.boons &&
+                !this.boons.activeBoons.length) || this.nextStage === 1)) {
+                    console.log(this.nextStage)
+                    this.stageCounter.showStage(this.nextStage);
+                    this.currentStageAge = this.age;
+                    this.nextStage++;
+                    this.holdStage = false;
+                    clearInterval(trigger);
+            }
+        }, 1000);
+        
     }
 
 }

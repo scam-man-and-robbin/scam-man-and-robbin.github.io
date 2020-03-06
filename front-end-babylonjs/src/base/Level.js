@@ -33,14 +33,19 @@ export default class Level {
         // Create the scene space
         this.scene = new BABYLON.Scene(GAME.engine);
 
-        // To change bg image based on device
-        let imgPath = "/assets/scenes/white_bg.png";
-        if (GAME.isMobile()) {
-            imgPath = "/assets/scenes/white_bg.png";
+        if(GAME.currentLevelName === 'RunnerLevel') {
+            // To change bg image based on device
+            let imgPath = "/assets/scenes/game_bg.png";
+            if (GAME.isMobile()) {
+                imgPath = "/assets/scenes/game_bg.png";
+            }
+            var background = new BABYLON.Layer("back", imgPath, this.scene);
+            background.isBackground = true;
+        } else {
+            let imgPath = "/assets/scenes/white_bg.png";
+            var background = new BABYLON.Layer("back", imgPath, this.scene);
+            background.isBackground = true;
         }
-
-        var background = new BABYLON.Layer("back", imgPath, this.scene);
-        background.isBackground = true;
 
         this.foreground = new BABYLON.Layer("front", "/assets/scenes/distort1.png", this.scene, false);
         this.foreground.layerMask = 0;

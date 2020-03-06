@@ -94,19 +94,42 @@ export default class StageCounter {
                 });
                 this.stageUI.addControl(this.gameInstructionControl);
             }
-            if (stage == 0) {
-                stageUI.addImgButton('continueBtn', {
-                    'imgpath': "assets/scenes/scam-man-continue-btn.png",
-                    'top': '50px',
-                    'width' : GAME.isMobile() ? 0.4 : 0.25,
-                    'onclick': () => {
+            
+            // Skip button
+            stageUI.addImgButton('continueBtn', {
+                'imgpath': "assets/scenes/scam-man-continue-btn.png",
+                'top': '-50px',
+                'width' : GAME.isMobile() ? 0.4 : 0.25,
+                'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_BOTTOM,
+                'onclick': () => {
+                    // this.player.coinsTextControl.isVisible = true;
+                    // stageUI.clear();
+                    // GAME.resume();
+                    // show = false;
+                    if(screen === 1 && stage > 0) {
+                        timer = 6;
+                        this.setBoons(stageData);
+                        this.scamDescription.dispose();
+                        this.scamsMessage.forEach(scam => {
+                            scam.dispose();
+                        });
+                        this.scamsImage.forEach(image => {
+                            image.dispose();
+                        });
+                        background.background = "#F38669";
+                        screen = 2;
+                    }else if (show) {
+                        stageUI.remove(this.stageStatus);
                         this.player.coinsTextControl.isVisible = true;
                         stageUI.clear();
                         GAME.resume();
                         show = false;
+                        this.player.landPlayer();
+                        clearInterval(trigger);
                     }
-                });
-            } else {
+                }
+            });
+            if(stageData['scams']) {
                 let top = -140;
                 this.scamDescription = this.addText("Beware the following scams", {
                     'top': top,
@@ -175,6 +198,7 @@ export default class StageCounter {
                     stageUI.clear();
                     GAME.resume();
                     show = false;
+                    this.player.landPlayer();
                     clearInterval(trigger);
                 }
             }, 1000);

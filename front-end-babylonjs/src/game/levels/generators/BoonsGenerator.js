@@ -24,6 +24,7 @@ export default class BoonsGenerator {
             'invisiblity_boon',
             'life_boon'
         ];
+        this.activeBoons = [];
 
     }
 
@@ -48,24 +49,25 @@ export default class BoonsGenerator {
         // New boons keep generating every 10 second
         setInterval(() => {
             this.boonTypes = stages["stage_" + (this.level.nextStage-1)]["boons"];
-            if (!GAME.isPaused() && this.player.lives && this.level.age < 65) {
+            if (!GAME.isPaused() && this.player.lives && this.level.age < 65 && !this.level.freezeGeneration) {
                 let randomTileTypeNumber = Math.floor((Math.random() * this.boonTypes.length));
                 let boonType = this.boonTypes[randomTileTypeNumber];
+                this.activeBoons.push(randomTileTypeNumber);
                 this.typeOfBoon++;
                 if (boonType == 'invisiblity_boon') {
                     this.texture = new BABYLON.Texture("assets/scenes/alphabeti.png", this.scene);
                     this.boonMaterial.diffuseTexture = this.texture
-                    this.createBoons('invisiblity_boon');
+                    this.createBoons('invisiblity_boon', randomTileTypeNumber);
                 }
                 else if (boonType == 'life_boon') {
                     this.texture = new BABYLON.Texture("assets/scenes/alphabetl.png", this.scene);
                     this.boonMaterial.diffuseTexture = this.texture
-                    this.createBoons('life_boon');
+                    this.createBoons('life_boon', randomTileTypeNumber);
                 }
                 else {
                     this.texture = new BABYLON.Texture("assets/scenes/alphabetn.png", this.scene);
                     this.boonMaterial.diffuseTexture = this.texture
-                    this.createBoons('normal_boon');
+                    this.createBoons('normal_boon', randomTileTypeNumber);
                 }
                 if(!this.boonSet.has(boonType)){
                     this.boonSet.add(boonType);
@@ -80,7 +82,7 @@ export default class BoonsGenerator {
      * @param {string} type - Type of Boon Object
      * Currently only one type of Boon Entity
      */
-    createBoons(type) {
+    createBoons(type, randomTileTypeNumber) {
 
         // To position boon objects on different lanes randomly Default to Middle Lane
         let randomPositionChooser = Math.floor((Math.random() * 100)); // 0 to 100 random number
@@ -120,6 +122,7 @@ export default class BoonsGenerator {
                             boons.dispose();
                             setTimeout(() => {
                                 element.dispose();
+                                this.removeActiveBoon(randomTileTypeNumber);
                                 clearInterval(trigger);
                             }, 200);
                         }
@@ -128,14 +131,17 @@ export default class BoonsGenerator {
                 if (playerMesh.intersectsMesh(boons, false)) {
                     boons.dispose();
                     this.player.keepBoon(type);
+                    this.removeActiveBoon(randomTileTypeNumber);
                     clearInterval(trigger);
                 }
                 else if (this.player.groundMesh.intersectsMesh(boons, false)) {
                     boons.dispose();
+                    this.removeActiveBoon(randomTileTypeNumber);
                     clearInterval(trigger);
                 }
                 if(!this.player.lives || this.level.age >= 65) {
                     boons.dispose();
+                    this.removeActiveBoon(randomTileTypeNumber);
                     clearInterval(trigger);
                 }
                 if (GAME.isPaused()) {
@@ -146,6 +152,7 @@ export default class BoonsGenerator {
                     boonAnimation.restart();
                 }
             } else {
+                this.removeActiveBoon(randomTileTypeNumber);
                 clearInterval(trigger);
             }
         }, 5);
@@ -176,6 +183,11 @@ export default class BoonsGenerator {
         boonAnimation.setKeys(keys);
 
         return boonAnimation;
+    }
+
+    removeActiveBoon(randomTileTypeNumber) {
+        var index = this.activeBoons.indexOf(randomTileTypeNumber);
+        if (index !== -1) this.activeBoons.splice(index, 1);
     }
 
 }

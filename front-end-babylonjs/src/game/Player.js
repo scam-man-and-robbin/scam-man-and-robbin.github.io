@@ -33,16 +33,11 @@ export default class Player {
      * Initial Dev - Simple Purple Color Texture
      */
     createCommonMaterials() {
-        // let playerMaterial = new BABYLON.StandardMaterial("playerMaterial", this.scene);
-        // playerMaterial.diffuseColor = new BABYLON.Color3.FromHexString("#8510d8");
-        // playerMaterial.emissiveColor = new BABYLON.Color3.FromHexString("#8510d8");
-        // playerMaterial.specularColor = new BABYLON.Color3.FromHexString("#8510d8");
         var playerMaterial = new BABYLON.StandardMaterial("playerMaterial", this.scene);
-        playerMaterial.diffuseTexture = new BABYLON.Texture("assets/scenes/scamman_win.png", this.scene);
+        playerMaterial.diffuseTexture = new BABYLON.Texture("assets/scenes/scam man_stand.png", this.scene);
         playerMaterial.diffuseTexture.hasAlpha = true;
         playerMaterial.backFaceCulling = true;
-        // Freeze materials to improve performance (this material will not be modified)
-        // playerMaterial.freeze();
+        
         let bulletMaterial = new BABYLON.StandardMaterial("bulletMaterial", this.scene);
         bulletMaterial.diffuseColor = new BABYLON.Color3.FromHexString("#887FC0");
         bulletMaterial.emissiveColor = new BABYLON.Color3.FromHexString("#887FC0");
@@ -78,6 +73,7 @@ export default class Player {
         this.spriteManagerPlayer['left'] = new BABYLON.SpriteManager("playerManager", "assets/scenes/scamman_walk_left.png", 1, 62, this.scene);
         this.spriteManagerPlayer['right'] = new BABYLON.SpriteManager("playerManager", "assets/scenes/scamman_walk_right.png", 1, 62, this.scene);
         this.spriteManagerPlayer['up'] = new BABYLON.SpriteManager("playerManager", "assets/scenes/scamman_attack.png", 1, {width: 41, height: 63}, this.scene);
+        this.spriteManagerPlayer['land'] = new BABYLON.SpriteManager("playerManager", "assets/scenes/scamman_land.png", 1, {width: 118, height: 198}, this.scene);
         this.createHUD();
     }
     /**
@@ -131,7 +127,7 @@ export default class Player {
     * Called when scam is missed and landed over player
     */
     checkLife() {
-        if (this.mesh.material.alpha != 1) return;
+        // if (this.mesh.material.alpha != 1) return;
         if (this.godMode) return;
         if (this.coins <= 1) {
             this.coins = 0;
@@ -191,8 +187,11 @@ export default class Player {
         if (GAME.keys.left) {
             if (this.changePosition && this.mesh.position.x > (GAME.isMobile() ? -1 : -1.5)) {
                 this.changePosition = false;
+                if(this.shootAction){
+                    this.shootAction.dispose();
+                    clearInterval(this.shootTrigger);
+                }
                 var player = new BABYLON.Sprite("player", this.spriteManagerPlayer['left']);
-                this.mesh.material.alpha = 0;
                 player.playAnimation(0, 7, true, 100);
                 player.position = this.mesh.position;
                 player.size = 1.15;
@@ -205,17 +204,20 @@ export default class Player {
                 this.scene.beginAnimation(this.mesh, 0, 100, false);
                 setTimeout(() => {
                     this.changePosition = true;
-                    this.mesh.material.alpha = 1;
                     clearInterval(movement);
                     player.dispose();
-                }, 300);
+                }, 200);
             }
         }
         if (GAME.keys.right) {
             if (this.changePosition && this.mesh.position.x < (GAME.isMobile() ? 1 : 1.5)) {
                 this.changePosition = false;
+                if(this.shootAction){
+                    this.shootAction.dispose();
+                    clearInterval(this.shootTrigger);
+                }
                 var player = new BABYLON.Sprite("player", this.spriteManagerPlayer['right']);
-                this.mesh.material.alpha = 0;
+                // this.mesh.material.alpha = 0;
                 player.playAnimation(0, 7, true, 100);
                 player.position = this.mesh.position;
                 player.size = 1.15;
@@ -228,10 +230,9 @@ export default class Player {
                 this.scene.beginAnimation(this.mesh, 0, 100, false);
                 setTimeout(() => {
                     this.changePosition = true;
-                    this.mesh.material.alpha = 1;
                     clearInterval(movement);
                     player.dispose();
-                }, 300);
+                }, 200);
             }
         }
     }
@@ -261,7 +262,7 @@ export default class Player {
     * Function to handle player shoot actions.
     */
     checkShoot() {
-        if (GAME.keys.shoot && !this.beamEnabled) {
+        if (GAME.keys.shoot && !this.beamEnabled && this.changePosition) {
             let bullet = BABYLON.Mesh.CreateCylinder("bullet_" + this.bullerCounter++, 3, 1, 0.05, 0, 0, this.scene);
             // scams.position = this.mesh.getAbsolutePosition().clone();
             let meshPosition = this.mesh.getAbsolutePosition().clone();
@@ -269,22 +270,24 @@ export default class Player {
             bullet.position.y = -0.4;
             bullet.material = this.level.getMaterial('bulletMaterial');
             this.beamEnabled = true;
-            var player = new BABYLON.Sprite("player", this.spriteManagerPlayer['up']);
-            this.mesh.material.alpha = 0;
-            player.playAnimation(0, 3, true, 25);
-            player.position = this.mesh.position;
-            player.size = 1;
-            player.isPickable = true;
-            var movement = setInterval(() => {
-                player.position = this.mesh.position;
+            if(this.shootAction) {
+                this.shootAction.dispose();
+                clearInterval(this.shootTrigger);
+            }
+            this.shootAction = new BABYLON.Sprite("player", this.spriteManagerPlayer['up']);
+            this.shootAction.playAnimation(0, 3, false, 25);
+            this.shootAction.position = this.mesh.position;
+            this.shootAction.size = 1;
+            this.shootAction.isPickable = true;
+            this.shootTrigger = setInterval(() => {
+                this.shootAction.position = this.mesh.position;
             }, 24);
             // Clear bullet after half second
             setTimeout(() => {
-                player.dispose();
                 bullet.dispose();
-                this.mesh.material.alpha = 1;
                 this.beamEnabled = false;
-                clearInterval(movement);
+                this.shootAction.dispose();
+                clearInterval(this.shootTrigger);
             }, 700);
             var trigger = setInterval(() => {
                 if(!this.changePosition) {
@@ -396,5 +399,18 @@ export default class Player {
         this.coinsTextControl.text = 'Pension Pot: £' + this.coins;
         this.allowCoinChange = true;
         this.pauseButtonControl.isVisible = true;
+    }
+
+    landPlayer() {
+        this.playerLanding = true;
+        this.landAction = new BABYLON.Sprite("land", this.spriteManagerPlayer['land']);
+        this.landAction.position = new BABYLON.Vector3(0.1, -1.2, 0);
+        this.landAction.playAnimation(0, 11, false, 80, () => {
+            this.playerLanding = false;
+            this.level.freezeGeneration = false;
+            this.landAction.dispose();
+        });
+        this.landAction.size = 3;
+        this.landAction.isPickable = true;
     }
 }

@@ -20,6 +20,7 @@ export default class ScamsGenerator {
         this.createCommonMaterials();
         this.scamSet = new Set();
         this.scamTypes = [];
+        this.activeScams = [];
 
     }
 
@@ -49,14 +50,15 @@ export default class ScamsGenerator {
         // New scams keep generating every 4 second
         setInterval(() => {
             this.scamTypes = stages["stage_" + (this.level.nextStage-1)]["scams"];
-            if (!GAME.isPaused() && this.player.lives && this.level.age < 65) {
+            if (!GAME.isPaused() && this.player.lives && this.level.age < 65 && !this.level.freezeGeneration) {
                 let randomTileTypeNumber = Math.floor((Math.random() * this.scamTypes.length));
                 let scamType = this.scamTypes[randomTileTypeNumber];
                 this.player.activeScam = scamType;
+                this.activeScams.push(randomTileTypeNumber);
                 if (scamType == 'splitter') {
                     this.createSplitterScams();
                 } else {
-                    this.createScams(scamType);
+                    this.createScams(scamType, randomTileTypeNumber);
                 }
                 if(!this.scamSet.has(scamType)){
                     this.scamSet.add(scamType);
@@ -69,7 +71,7 @@ export default class ScamsGenerator {
      * Function to create the scam object.
      * @param {string} type - Flag to decide the behaviour of the scam.
      */
-    createScams(type) {
+    createScams(type, randomTileTypeNumber) {
 
         // To position scam objects on different lanes randomly Default to Middle Lane
         let randomPositionChooser = Math.floor((Math.random() * 100)); // 0 to 100 random number
@@ -130,6 +132,7 @@ export default class ScamsGenerator {
                             clearInterval(this.blackOutTrigger);
                             setTimeout(() => {
                                 element.dispose();
+                                this.removeActiveScam(randomTileTypeNumber);
                                 clearInterval(trigger);
                             }, 200);
                             this.player.keepScam(randomPositionChooser);
@@ -140,16 +143,19 @@ export default class ScamsGenerator {
                     this.foreground.layerMask = 0;
                     this.player.checkLife();
                     scams.dispose();
+                    this.removeActiveScam(randomTileTypeNumber);
                     clearInterval(trigger);
                 }
                 else if (this.player.mesh.intersectsMesh(scams, false)) {
                     this.foreground.layerMask = 0;
                     this.player.checkLife();
                     scams.dispose();
+                    this.removeActiveScam(randomTileTypeNumber);
                     clearInterval(trigger);
                 }
                 if(!this.player.lives || this.level.age >= 65) {
                     scams.dispose();
+                    this.removeActiveScam(randomTileTypeNumber);
                     clearInterval(trigger);
                 }
                 if(GAME.isPaused()) {
@@ -160,6 +166,7 @@ export default class ScamsGenerator {
                     scamAnimation.restart();
                 }
             } else {
+                this.removeActiveScam(randomTileTypeNumber);
                 clearInterval(trigger);
             }
         }, 5);
@@ -424,6 +431,11 @@ export default class ScamsGenerator {
         scamAnimation.setEasingFunction(easingFunction);
 
         return scamAnimation;
+    }
+
+    removeActiveScam(randomTileTypeNumber) {
+        var index = this.activeScams.indexOf(randomTileTypeNumber);
+        if (index !== -1) this.activeScams.splice(index, 1);
     }
 
 
