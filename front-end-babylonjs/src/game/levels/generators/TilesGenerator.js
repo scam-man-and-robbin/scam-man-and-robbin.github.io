@@ -21,13 +21,18 @@ export default class TilesGenerator {
      */
     createCommonMaterials() {
 
-        let coinMaterial = new BABYLON.StandardMaterial('coinMaterial', this.scene);
-        coinMaterial.diffuseColor = new BABYLON.Color3.Yellow();
-        coinMaterial.emissiveColor = new BABYLON.Color3.Yellow();
-        coinMaterial.specularColor = new BABYLON.Color3.Yellow();
+        // let coinMaterial = new BABYLON.StandardMaterial('coinMaterial', this.scene);
+        // coinMaterial.diffuseColor = new BABYLON.Color3.Yellow();
+        // coinMaterial.emissiveColor = new BABYLON.Color3.Yellow();
+        // coinMaterial.specularColor = new BABYLON.Color3.Yellow();
+
+        let coinMaterial = new BABYLON.StandardMaterial("coinMaterial", this.scene);
+        coinMaterial.diffuseTexture = new BABYLON.Texture("assets/scenes/Coins.png", this.scene);
+        coinMaterial.diffuseTexture.hasAlpha = true;
+        coinMaterial.backFaceCulling = true;
 
         // Freeze materials to improve performance (this material will not be modified)
-        coinMaterial.freeze();
+        // coinMaterial.freeze();
 
         this.level.addMaterial(coinMaterial);
 

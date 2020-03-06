@@ -18,7 +18,6 @@ export default class RunnerLevel extends Level {
     setProperties() {
 
         this.player = null;
-
         // Used for ground tiles generation
         this.tiles = null;
 
@@ -67,10 +66,12 @@ export default class RunnerLevel extends Level {
         // camera.attachControl(GAME.canvas, true);
 
         // Add lights to the scene
-        var light1 = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(0, 10, 0), this.scene);
-        var light2 = new BABYLON.PointLight("light2", new BABYLON.Vector3(0, 100, -100), this.scene);
-        light1.intensity = 0.8;
-        light2.intensity = 0.2;
+        var light2 = new BABYLON.DirectionalLight("light2", new BABYLON.Vector3(-100, 100, 100), this.scene);
+        //  light2.diffuse = new BABYLON.Color3(1, 0, 1);
+        // var light1 = new BABYLON.DirectionalLight("light1", new BABYLON.Vector3(1, -1, 1), this.scene);
+        
+        //light1.intensity = 1;
+        light2.intensity = 0.9;
 
         this.createPlayer();
 
@@ -215,9 +216,10 @@ export default class RunnerLevel extends Level {
         // Creates the player and sets it as camera target
         this.player = new Player(this);
 
-        var playerLight = new BABYLON.DirectionalLight("playerLight", new BABYLON.Vector3(1, -2, 1), this.scene);
-        playerLight.intensity = 0.6;
-        playerLight.parent = this.player.mesh;
+        this.playerLight = new BABYLON.DirectionalLight("playerLight", new BABYLON.Vector3(1, -2, 1), this.scene);
+        this.playerLight.intensity = 1;
+        this.playerLight.includedOnlyMeshes.push(this.player.mesh);
+        this.playerLight.parent = this.player.mesh;
 
         // Actions when player dies
         this.player.onDie = () => {

@@ -33,10 +33,11 @@ export default class BoonsGenerator {
      * Initial Dev - Simple Green Color Texture
      */
     createCommonMaterials() {
-        this.boonMaterial = new BABYLON.StandardMaterial('boonMaterial', this.scene);
-        this.boonMaterial.diffuseColor = new BABYLON.Color3.Green();
-        this.boonMaterial.emissiveColor = new BABYLON.Color3.Green();
-        this.boonMaterial.specularColor = new BABYLON.Color3.Green();
+        this.boonMaterial = new BABYLON.StandardMaterial("boonMaterial", this.scene);
+        this.boonMaterial.diffuseTexture = new BABYLON.Texture("assets/scenes/FCA.png", this.scene);
+        this.boonMaterial.diffuseTexture.hasAlpha = true;
+        this.boonMaterial.backFaceCulling = true;
+
         this.level.addMaterial(this.boonMaterial);
     }
 
@@ -54,18 +55,21 @@ export default class BoonsGenerator {
                 let boonType = this.boonTypes[randomTileTypeNumber];
                 this.activeBoons.push(randomTileTypeNumber);
                 this.typeOfBoon++;
+                let message = Message.message;
+                let location = message[boonType].path;
+
                 if (boonType == 'invisiblity_boon') {
-                    this.texture = new BABYLON.Texture("assets/scenes/alphabeti.png", this.scene);
+                    this.texture = new BABYLON.Texture(location, this.scene);
                     this.boonMaterial.diffuseTexture = this.texture
                     this.createBoons('invisiblity_boon', randomTileTypeNumber);
                 }
                 else if (boonType == 'life_boon') {
-                    this.texture = new BABYLON.Texture("assets/scenes/alphabetl.png", this.scene);
+                    this.texture = new BABYLON.Texture(location, this.scene);
                     this.boonMaterial.diffuseTexture = this.texture
                     this.createBoons('life_boon', randomTileTypeNumber);
                 }
                 else {
-                    this.texture = new BABYLON.Texture("assets/scenes/alphabetn.png", this.scene);
+                    this.texture = new BABYLON.Texture(location, this.scene);
                     this.boonMaterial.diffuseTexture = this.texture
                     this.createBoons('normal_boon', randomTileTypeNumber);
                 }

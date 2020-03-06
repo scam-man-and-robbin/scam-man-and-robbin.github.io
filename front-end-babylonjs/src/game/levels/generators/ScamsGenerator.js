@@ -30,13 +30,10 @@ export default class ScamsGenerator {
 
     createCommonMaterials() {
 
-        let scamMaterial = new BABYLON.StandardMaterial('scamMaterial', this.scene);
-        scamMaterial.diffuseColor = new BABYLON.Color3.Red();
-        scamMaterial.emissiveColor = new BABYLON.Color3.Red();
-        scamMaterial.specularColor = new BABYLON.Color3.Red();
-
-        // Freeze materials to improve performance (this material will not be modified)
-        scamMaterial.freeze();
+        let scamMaterial = new BABYLON.StandardMaterial("scamMaterial", this.scene);
+        scamMaterial.diffuseTexture = new BABYLON.Texture("assets/scenes/Cold_call.png", this.scene);
+        scamMaterial.diffuseTexture.hasAlpha = true;
+        scamMaterial.backFaceCulling = true;
 
         this.level.addMaterial(scamMaterial);
 
@@ -94,7 +91,11 @@ export default class ScamsGenerator {
             depth: 0.01
         }, this.scene);
 
+        let message = Message.message;
+        let location = message[type].path;
+
         scams.material = this.level.getMaterial('scamMaterial');
+        scams.material.diffuseTexture = new BABYLON.Texture(location, this.scene);
         scams.position.x = positionX;
         scams.position.y = 3;
         scams.position.z = 0;
@@ -345,7 +346,11 @@ export default class ScamsGenerator {
                 depth: 0.01
             }, this.scene);
 
+            let message = Message.message;
+            let location = message["splitter"].path;
+            
             scams[index].material = this.level.getMaterial('scamMaterial');
+            scams[index].material.diffuseTexture = new BABYLON.Texture(location, this.scene);
             scams[index].position.x = 0;
             scams[index].position.y = 3;
             scams[index].position.z = 0;

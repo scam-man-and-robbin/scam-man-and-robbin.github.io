@@ -37,12 +37,12 @@ export default class Player {
         playerMaterial.diffuseTexture = new BABYLON.Texture("assets/scenes/scam man_stand.png", this.scene);
         playerMaterial.diffuseTexture.hasAlpha = true;
         playerMaterial.backFaceCulling = true;
-        
+
         let bulletMaterial = new BABYLON.StandardMaterial("bulletMaterial", this.scene);
         bulletMaterial.diffuseColor = new BABYLON.Color3.FromHexString("#887FC0");
         bulletMaterial.emissiveColor = new BABYLON.Color3.FromHexString("#887FC0");
         bulletMaterial.specularColor = new BABYLON.Color3.FromHexString("#887FC0");
-        bulletMaterial.alpha = 0.4;
+        bulletMaterial.alpha = 0.5;
         // Freeze materials to improve performance (this material will not be modified)
         bulletMaterial.freeze();
         this.level.addMaterial(playerMaterial);
@@ -267,7 +267,7 @@ export default class Player {
             // scams.position = this.mesh.getAbsolutePosition().clone();
             let meshPosition = this.mesh.getAbsolutePosition().clone();
             bullet.position.x = meshPosition.x;
-            bullet.position.y = -0.4;
+            bullet.position.y = -0.2;
             bullet.material = this.level.getMaterial('bulletMaterial');
             this.beamEnabled = true;
             if(this.shootAction) {
@@ -276,11 +276,15 @@ export default class Player {
             }
             this.shootAction = new BABYLON.Sprite("player", this.spriteManagerPlayer['up']);
             this.shootAction.playAnimation(0, 3, false, 25);
-            this.shootAction.position = this.mesh.position;
+            this.shootAction.position.x = this.mesh.position.x + 0.2;
+            this.shootAction.position.y = this.mesh.position.y;
+            this.shootAction.position.z = this.mesh.position.z;
             this.shootAction.size = 1;
             this.shootAction.isPickable = true;
             this.shootTrigger = setInterval(() => {
-                this.shootAction.position = this.mesh.position;
+                this.shootAction.position.x = this.mesh.position.x + 0.2;
+                this.shootAction.position.y = this.mesh.position.y;
+                this.shootAction.position.z = this.mesh.position.z;
             }, 24);
             // Clear bullet after half second
             setTimeout(() => {
