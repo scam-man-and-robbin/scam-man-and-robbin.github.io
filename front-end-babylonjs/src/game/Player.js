@@ -47,7 +47,7 @@ export default class Player {
         bulletMaterial.diffuseColor = new BABYLON.Color3.FromHexString("#887FC0");
         bulletMaterial.emissiveColor = new BABYLON.Color3.FromHexString("#887FC0");
         bulletMaterial.specularColor = new BABYLON.Color3.FromHexString("#887FC0");
-        bulletMaterial.alpha = 0.4;
+        bulletMaterial.alpha = 0.5;
         // Freeze materials to improve performance (this material will not be modified)
         bulletMaterial.freeze();
         this.level.addMaterial(playerMaterial);
@@ -266,17 +266,21 @@ export default class Player {
             // scams.position = this.mesh.getAbsolutePosition().clone();
             let meshPosition = this.mesh.getAbsolutePosition().clone();
             bullet.position.x = meshPosition.x;
-            bullet.position.y = -0.4;
+            bullet.position.y = -0.2;
             bullet.material = this.level.getMaterial('bulletMaterial');
             this.beamEnabled = true;
             var player = new BABYLON.Sprite("player", this.spriteManagerPlayer['up']);
             this.mesh.material.alpha = 0;
             player.playAnimation(0, 3, true, 25);
-            player.position = this.mesh.position;
+            player.position.x = this.mesh.position.x + 0.2;
+            player.position.y = this.mesh.position.y;
+            player.position.z = this.mesh.position.z;
             player.size = 1;
             player.isPickable = true;
             var movement = setInterval(() => {
-                player.position = this.mesh.position;
+                player.position.x = this.mesh.position.x + 0.2;
+                player.position.y = this.mesh.position.y;
+                player.position.z = this.mesh.position.z;
             }, 24);
             // Clear bullet after half second
             setTimeout(() => {
