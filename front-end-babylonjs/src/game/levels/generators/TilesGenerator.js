@@ -11,6 +11,7 @@ export default class TilesGenerator {
         this.level = level;
         this.scene = level.scene;
         this.player = level.player;
+        this.activeCoins = [];
         this.createCommonMaterials();
 
     }
@@ -46,7 +47,7 @@ export default class TilesGenerator {
 
         // New coins keep generating every 2 second
         setInterval(() => {
-            if (!GAME.isPaused() && this.player.lives && this.level.age < 65) {
+            if (!GAME.isPaused() && this.player.lives && this.level.age < 65 && !this.level.freezeGeneration) {
                 this.createCoins();
             }
         }, 2000);
@@ -71,6 +72,7 @@ export default class TilesGenerator {
         if (randomPositionChooser >= 60) {
             positionX = GAME.isMobile() ? 1 : 1.5; // Positioning on the right
         }
+        this.activeCoins.push(randomPositionChooser);
         let coinDiameter = GAME.isMobile() ? 0.25 : 0.4;
         let coins = BABYLON.Mesh.CreateCylinder("coin", 0.01, coinDiameter, coinDiameter, 16, 0, this.scene);
         coins.material = this.level.getMaterial('coinMaterial');
@@ -90,15 +92,18 @@ export default class TilesGenerator {
         var trigger = setInterval(() => {
             if (groundPlane.intersectsMesh(coins, false)) {
                 coins.dispose();
+                this.removeActiveCoin(randomPositionChooser);
                 clearInterval(trigger);
             }
             if (playerMesh.intersectsMesh(coins, false)) {
                 this.player.keepCoin();
                 coins.dispose();
+                this.removeActiveCoin(randomPositionChooser);
                 clearInterval(trigger);
             }
             if (!this.player.lives || this.level.age >= 65) {
                 coins.dispose();
+                this.removeActiveCoin(randomPositionChooser);
                 clearInterval(trigger);
             }
             if (GAME.isPaused()) {
@@ -138,6 +143,11 @@ export default class TilesGenerator {
         coinAnimation.setKeys(keys);
 
         return coinAnimation;
+    }
+
+    removeActiveCoin(randomTileTypeNumber) {
+        var index = this.activeCoins.indexOf(randomTileTypeNumber);
+        if (index !== -1) this.activeCoins.splice(index, 1);
     }
 
 }

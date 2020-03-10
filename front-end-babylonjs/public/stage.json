@@ -10,11 +10,11 @@
         "boons" : ["refuse", "pension_wise"]
     },
     "stage_2" : {
-        "scams" : ["speedy", "zig_zag"],
+        "scams" : ["speedy", "diagonal"],
         "boons" : ["thinking_about", "invisiblity_boon"]
     },
     "stage_3" : {
         "scams" : ["diagonal", "splitter"],
-        "boons" : ["normal_boon", "invisiblity_boon"]
+        "boons" : ["dont_transfer", "invisiblity_boon"]
     }
 }

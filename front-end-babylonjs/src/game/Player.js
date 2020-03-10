@@ -62,7 +62,11 @@ export default class Player {
         this.mesh.material = this.level.getMaterial('playerMaterial');
         this.changePosition = true;
         this.gotCoinSound = this.level.assets.getSound('gotCoinSound');
+        this.gameLostSound = this.level.assets.getSound('gameLostSound');
+        this.beginGameSound = this.level.assets.getSound('beginGameSound');
+        this.infoSound = this.level.assets.getSound('infoSound');
         this.scammedSound = this.level.assets.getSound('damageSound');
+        this.movementSound = this.level.assets.getSound('movementSound');
         this.groundMesh = BABYLON.MeshBuilder.CreateBox("groundplane", {
             width: screen.width,
             height: 0.1,
@@ -205,6 +209,7 @@ export default class Player {
                 this.mesh.animations = [];
                 this.mesh.animations.push(this.createPlayerSideMotion('left', this.mesh.position.x));
                 this.scene.beginAnimation(this.mesh, 0, 100, false);
+                this.movementSound.play();
                 setTimeout(() => {
                     this.changePosition = true;
                     clearInterval(movement);
@@ -231,6 +236,7 @@ export default class Player {
                 this.mesh.animations = [];
                 this.mesh.animations.push(this.createPlayerSideMotion('right', this.mesh.position.x));
                 this.scene.beginAnimation(this.mesh, 0, 100, false);
+                this.movementSound.play();
                 setTimeout(() => {
                     this.changePosition = true;
                     clearInterval(movement);
@@ -270,7 +276,7 @@ export default class Player {
             // scams.position = this.mesh.getAbsolutePosition().clone();
             let meshPosition = this.mesh.getAbsolutePosition().clone();
             bullet.position.x = meshPosition.x;
-            bullet.position.y = -0.2;
+            bullet.position.y = -0.3;
             bullet.material = this.level.getMaterial('bulletMaterial');
             this.beamEnabled = true;
             if (this.shootAction) {
@@ -407,6 +413,7 @@ export default class Player {
 
     landPlayer() {
         this.playerLanding = true;
+        this.beginGameSound.play();
         this.landAction = new BABYLON.Sprite("land", this.spriteManagerPlayer['land']);
         this.landAction.position = new BABYLON.Vector3(0.1, -1.2, 0);
         this.landAction.playAnimation(0, 11, false, 80, () => {

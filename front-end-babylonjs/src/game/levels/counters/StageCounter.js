@@ -118,6 +118,7 @@ export default class StageCounter {
                         });
                         background.background = "#F38669";
                         screen = 2;
+                        this.player.infoSound.play();
                     } else if (show) {
                         stageUI.remove(this.stageStatus);
                         this.player.coinsTextControl.isVisible = true;
@@ -194,6 +195,7 @@ export default class StageCounter {
                     });
                     background.background = "#F38669";
                     screen = 2;
+                    this.player.infoSound.play();
                 } else if (show && timer <= 0) {
                     stageUI.remove(this.stageStatus);
                     this.player.coinsTextControl.isVisible = true;

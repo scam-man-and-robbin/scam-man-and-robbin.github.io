@@ -40,10 +40,12 @@ export default class RunnerLevel extends Level {
 
         // Dummy Sounds for Time Being. Needs changing (Or requires providing credits)
         this.assets.addMusic('music', '/assets/musics/Guitar-Mayhem.mp3');
-        this.assets.addSound('playerDieSound', '/assets/sounds/game-die.mp3', { volume: 0.4 });
-        this.assets.addSound('gotCoinSound', '/assets/sounds/coin-c-09.wav');
-        this.assets.addSound('damageSound', '/assets/sounds/damage.wav');
-        this.assets.addSound('approachSound', '/assets/sounds/monster.wav');
+        this.assets.addSound('gameLostSound', '/assets/sounds/game-lost.wav');
+        this.assets.addSound('gotCoinSound', '/assets/sounds/coin_going_into_pot.wav');
+        this.assets.addSound('beginGameSound', '/assets/sounds/begin_game.wav');
+        this.assets.addSound('infoSound', '/assets/sounds/info.wav');
+        this.assets.addSound('damageSound', '/assets/sounds/scammed.wav');
+        this.assets.addSound('movementSound', '/assets/sounds/movement.wav');
         this.assets.addSound('attackSound', '/assets/sounds/monster_attack.mp3');
 
     }
@@ -225,7 +227,7 @@ export default class RunnerLevel extends Level {
         this.player = new Player(this);
 
         this.playerLight = new BABYLON.DirectionalLight("playerLight", new BABYLON.Vector3(0, -1, 1), this.scene);
-        this.playerLight.intensity = 1.2;
+        this.playerLight.intensity = 20;
         this.playerLight.includedOnlyMeshes.push(this.player.mesh);
         this.playerLight.parent = this.player.mesh;
         this.light.excludedMeshes.push(this.player.mesh);
@@ -239,6 +241,7 @@ export default class RunnerLevel extends Level {
             player.position = new BABYLON.Vector3(this.player.mesh.position.x, this.player.mesh.position.y - 0.2, 0);
             player.size = 0.8;
             player.isPickable = true;
+            this.player.gameLostSound.play();
             player.playAnimation(0, 2, false, 400, () => {
                 GAME.pause();
                 this.showMenu();
@@ -301,7 +304,7 @@ export default class RunnerLevel extends Level {
                 this.player.mesh.material.alpha = 0;
             }
         }
-        if (this.player.maxCoins && this.player.coins <= 1) {
+        if (this.player.maxCoins && this.player.coins <= 1 && !this.player.gameEnded) {
             this.player.allowCoinChange = false;
             if (this.player.onDie) {
                 this.ageTimer.clear();
@@ -355,12 +358,15 @@ export default class RunnerLevel extends Level {
                 this.scams &&
                 !this.scams.activeScams.length &&
                 this.boons &&
-                !this.boons.activeBoons.length) || this.nextStage === 1)) {
-                this.stageCounter.showStage(this.nextStage);
-                this.currentStageAge = this.age;
-                this.nextStage++;
-                this.holdStage = false;
-                clearInterval(trigger);
+                !this.boons.activeBoons.length &&
+                this.tiles &&
+                !this.tiles.activeCoins.length) || this.nextStage === 1)) {
+                    this.player.infoSound.play();
+                    this.stageCounter.showStage(this.nextStage);
+                    this.currentStageAge = this.age;
+                    this.nextStage++;
+                    this.holdStage = false;
+                    clearInterval(trigger);
             }
         }, 1000);
 

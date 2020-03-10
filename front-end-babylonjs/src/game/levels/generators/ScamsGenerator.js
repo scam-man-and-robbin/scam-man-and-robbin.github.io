@@ -366,22 +366,35 @@ export default class ScamsGenerator {
                             if (element.intersectsMesh(scams[index], false)) {
                                 // this.slicer(element)
                                 // element.material.emissiveColor = new BABYLON.Color3.FromHexString('#ff0000')
-                                scams[index].dispose();
-                                element.visibility = false;
+                                scams[index].dispose();                                
+                                this.foreground.layerMask = 0;
+                                clearInterval(this.blackOutTrigger);
+                                setTimeout(() => {
+                                    element.dispose();
+                                    this.removeActiveScam(randomTileTypeNumber);
+                                    clearInterval(trigger[index]);
+                                }, 200);
                                 this.player.keepScam(randomPositionChooser);
-                                clearInterval(trigger[index]);
                             }
                         }
                     });
                     if (this.player.groundMesh.intersectsMesh(scams[index], false)) {
+                        this.foreground.layerMask = 0;
                         this.player.checkLife();
                         scams[index].dispose();
+                        this.removeActiveScam(randomTileTypeNumber);
                         clearInterval(trigger[index]);
                     }
                     else if (this.player.mesh.intersectsMesh(scams[index], false)) {
                         this.foreground.layerMask = 0;
                         this.player.checkLife();
                         scams[index].dispose();
+                        this.removeActiveScam(randomTileTypeNumber);
+                        clearInterval(trigger[index]);
+                    }
+                    if (!this.player.lives || this.level.age >= 65) {
+                        scams[index].dispose();
+                        this.removeActiveScam(randomTileTypeNumber);
                         clearInterval(trigger[index]);
                     }
                     if (GAME.isPaused()) {
@@ -392,13 +405,14 @@ export default class ScamsGenerator {
                         scamAnimation.restart();
                     }
                 } else {
+                    this.removeActiveScam(randomTileTypeNumber);
                     clearInterval(trigger[index]);
                 }
             }, 5);
             setTimeout(() => {
                 scamAnimation.pause();
                 scams[index].dispose();
-            }, 10000);
+            }, 8000);
         }
     }
 
