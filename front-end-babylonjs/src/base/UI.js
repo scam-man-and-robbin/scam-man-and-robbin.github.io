@@ -1,4 +1,5 @@
 import Message from './../../public/message.json';
+import Game from '../Game.js';
 
 export default class UI {
 

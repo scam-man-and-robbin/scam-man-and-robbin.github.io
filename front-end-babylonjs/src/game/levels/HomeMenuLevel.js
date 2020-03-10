@@ -12,7 +12,9 @@ export default class HomeMenuLevel extends Level {
     * Function to setup musics and sound assets
     */
     setupAssets() {
-        this.assets.addMusic('music', '/assets/musics/Guitar-Mayhem.mp3');
+        this.assets.addMusic('music', '/assets/musics/SCAM_MAN_background2.mp3');
+        this.assets.addSound('selectSound', '/assets/sounds/Select_sound.wav');
+
     }
 
     /**
@@ -26,13 +28,16 @@ export default class HomeMenuLevel extends Level {
         this.scene.clearColor = new BABYLON.Color4(0, 0, 0, 0);
 
         var menu = new UI('homeMenuUI');
-
+        var click = this.assets.getSound('selectSound');
         menu.addImage();
         menu.addImgButton('playButton', {
             'imgpath' : "assets/scenes/scam-man-play-btn.png",
             'width' : 0.25,
             'top' : '210px',
-            'onclick': () => GAME.goToLevel('RunnerLevel')
+            'onclick': () => {
+                click.play();
+                GAME.goToLevel('RunnerLevel')
+            }
         });
 
     }

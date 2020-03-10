@@ -106,6 +106,7 @@ export default class StageCounter {
                     // stageUI.clear();
                     // GAME.resume();
                     // show = false;
+                    this.player.selectSound.play();
                     if(screen === 1 && stage > 0) {
                         timer = 6;
                         this.setBoons(stageData);
