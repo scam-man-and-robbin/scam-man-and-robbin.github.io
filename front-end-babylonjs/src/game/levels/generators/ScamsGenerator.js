@@ -46,7 +46,7 @@ export default class ScamsGenerator {
 
         // New scams keep generating every 4 second
         setInterval(() => {
-            this.scamTypes = stages["stage_" + (this.level.nextStage-1)]["scams"];
+            this.scamTypes = stages["stage_" + (this.level.nextStage - 1)]["scams"];
             if (!GAME.isPaused() && this.player.lives && this.level.age < 65 && !this.level.freezeGeneration) {
                 let randomTileTypeNumber = Math.floor((Math.random() * this.scamTypes.length));
                 let scamType = this.scamTypes[randomTileTypeNumber];
@@ -57,9 +57,9 @@ export default class ScamsGenerator {
                 } else {
                     this.createScams(scamType, randomTileTypeNumber);
                 }
-                if(!this.scamSet.has(scamType)){
+                if (!this.scamSet.has(scamType)) {
                     this.scamSet.add(scamType);
-                } 
+                }
             }
         }, 4000);
     }
@@ -154,16 +154,16 @@ export default class ScamsGenerator {
                     this.removeActiveScam(randomTileTypeNumber);
                     clearInterval(trigger);
                 }
-                if(!this.player.lives || this.level.age >= 65) {
+                if (!this.player.lives || this.level.age >= 65) {
                     scams.dispose();
                     this.removeActiveScam(randomTileTypeNumber);
                     clearInterval(trigger);
                 }
-                if(GAME.isPaused()) {
+                if (GAME.isPaused()) {
                     scams.paused = true;
                     scamAnimation.pause();
                 }
-                if(!GAME.isPaused() && scams.paused) {
+                if (!GAME.isPaused() && scams.paused) {
                     scamAnimation.restart();
                 }
             } else {
@@ -280,18 +280,18 @@ export default class ScamsGenerator {
         this.foreground.dispose();
         this.blackOutTrigger = setInterval(() => {
             this.foreground.layerMask = 0;
-            if(!GAME.isPaused() && this.player.lives && this.level.age < 65) {
+            if (!GAME.isPaused() && this.player.lives && this.level.age < 65) {
                 this.foreground = new BABYLON.Layer("front", "/assets/scenes/" + imgPath, this.scene);
                 this.foreground.isBackground = false;
                 this.foreground.layerMask = 1;
-                if(imgPath == 'distort1.png'){
+                if (imgPath == 'distort1.png') {
                     imgPath = 'distort2.png';
                 } else {
                     imgPath = 'distort1.png';
                 }
             }
         }, 500);
-        
+
         return this.createScamAnimation();
     }
 
@@ -334,7 +334,7 @@ export default class ScamsGenerator {
     }
 
     createSplitterScams() {
-        
+
         let scams = [];
         var trigger = [];
         for (let index = 0; index < 2; index++) {
@@ -348,13 +348,13 @@ export default class ScamsGenerator {
 
             let message = Message.message;
             let location = message["splitter"].path;
-            
+
             scams[index].material = this.level.getMaterial('scamMaterial');
             scams[index].material.diffuseTexture = new BABYLON.Texture(location, this.scene);
             scams[index].position.x = 0;
             scams[index].position.y = 3;
             scams[index].position.z = 0;
-            scams[index].animations.push(this.createSplitterAnimation(scams[index], index == 1 ? 'right' : 'left',index));
+            scams[index].animations.push(this.createSplitterAnimation(scams[index], index == 1 ? 'right' : 'left', index));
             let scamAnimation = this.scene.beginAnimation(scams[index], 0, 2000, false);
             trigger[index] = setInterval(() => {
                 let playerMesh = this.player.getMesh();
@@ -384,11 +384,11 @@ export default class ScamsGenerator {
                         scams[index].dispose();
                         clearInterval(trigger[index]);
                     }
-                    if(GAME.isPaused()) {
+                    if (GAME.isPaused()) {
                         scams[index].paused = true;
                         scamAnimation.pause();
                     }
-                    if(!GAME.isPaused() && scams[index].paused) {
+                    if (!GAME.isPaused() && scams[index].paused) {
                         scamAnimation.restart();
                     }
                 } else {
@@ -416,10 +416,10 @@ export default class ScamsGenerator {
                 this.decision = !this.decision;
             } else if (index == 1) {
                 position = position.add(new BABYLON.Vector3((GAME.isMobile() ? -1 : -1.5), -1.5, 0));
-            } else  if(index == 0) {
+            } else if (index == 0) {
                 position = position.add(new BABYLON.Vector3(0, -0.8, 0));
             } else {
-                if(this.decision){
+                if (this.decision) {
                     position = position.add(new BABYLON.Vector3(0, -1, 0));
                 } else {
                     position = position.add(new BABYLON.Vector3(0, -1.5, 0));

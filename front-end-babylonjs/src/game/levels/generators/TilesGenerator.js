@@ -46,7 +46,7 @@ export default class TilesGenerator {
 
         // New coins keep generating every 2 second
         setInterval(() => {
-            if(!GAME.isPaused() && this.player.lives  && this.level.age < 65){
+            if (!GAME.isPaused() && this.player.lives && this.level.age < 65) {
                 this.createCoins();
             }
         }, 2000);
@@ -61,14 +61,14 @@ export default class TilesGenerator {
         // To position scam objects on different lanes randomly Default to Middle Lane
         let randomPositionChooser = Math.floor((Math.random() * 100)); // 0 to 100 random number
         let positionX = 0;
-        if(randomPositionChooser >= 0 && randomPositionChooser < 30) {
+        if (randomPositionChooser >= 0 && randomPositionChooser < 30) {
             positionX = GAME.isMobile() ? -1 : -1.5; // Positining on the left
         }
 
-        if(randomPositionChooser >= 30) {
+        if (randomPositionChooser >= 30) {
             positionX = 0;
         }
-        if(randomPositionChooser >= 60) {
+        if (randomPositionChooser >= 60) {
             positionX = GAME.isMobile() ? 1 : 1.5; // Positioning on the right
         }
         let coinDiameter = GAME.isMobile() ? 0.25 : 0.4;
@@ -88,7 +88,7 @@ export default class TilesGenerator {
          * Incase of collectable action change here
          */
         var trigger = setInterval(() => {
-            if(groundPlane.intersectsMesh(coins, false)) {
+            if (groundPlane.intersectsMesh(coins, false)) {
                 coins.dispose();
                 clearInterval(trigger);
             }
@@ -97,15 +97,15 @@ export default class TilesGenerator {
                 coins.dispose();
                 clearInterval(trigger);
             }
-            if(!this.player.lives || this.level.age >= 65) {
+            if (!this.player.lives || this.level.age >= 65) {
                 coins.dispose();
                 clearInterval(trigger);
-            }           
-            if(GAME.isPaused()) {
+            }
+            if (GAME.isPaused()) {
                 coins.paused = true;
                 coinAnimation.pause();
             }
-            if(!GAME.isPaused() && coins.paused) {
+            if (!GAME.isPaused() && coins.paused) {
                 coinAnimation.restart();
             }
         }, 10);
@@ -113,7 +113,7 @@ export default class TilesGenerator {
             coinAnimation.pause();
             coins.dispose();
         }, 20000);
-        if(GAME.isPaused()){
+        if (GAME.isPaused()) {
             coinAnimation.pause();
         }
     }

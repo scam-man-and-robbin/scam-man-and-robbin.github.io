@@ -53,7 +53,7 @@ export default class RunnerLevel extends Level {
      * Also Coins will be initialized followed by Scam Objects and Boon Objects
      */
     buildScene() {
-        
+
         this.scene.clearColor = new BABYLON.Color3.FromHexString(GAME.options.backgroundColor);
 
         this.createMenus();
@@ -69,10 +69,10 @@ export default class RunnerLevel extends Level {
         // var light2 = new BABYLON.DirectionalLight("light2", new BABYLON.Vector3(-100, 100, 100), this.scene);
         //  light2.diffuse = new BABYLON.Color3(1, 0, 1);
         // var light1 = new BABYLON.DirectionalLight("light1", new BABYLON.Vector3(1, -1, 1), this.scene);
-        
+
 
         //Light direction is directly down from a position one unit up, fast decay
-        this.light = new BABYLON.SpotLight("spotLight3", new BABYLON.Vector3(0,-1,-500), new BABYLON.Vector3(0, 0, 1), Math.PI / 2, 50, this.scene);
+        this.light = new BABYLON.SpotLight("spotLight3", new BABYLON.Vector3(0, -1, -500), new BABYLON.Vector3(0, 0, 1), Math.PI / 2, 50, this.scene);
         this.light.diffuse = new BABYLON.Color3(1, 1, 1);
         this.light.specular = new BABYLON.Color3(1, 1, 1);
         this.light.intensity = 0.5;
@@ -236,7 +236,7 @@ export default class RunnerLevel extends Level {
             this.player.mesh.material.alpha = 0;
             var player = new BABYLON.Sprite("player", this.player.spriteManagerPlayer['lose']);
             player.position = this.player.mesh.position;
-            player.position = new BABYLON.Vector3(this.player.mesh.position.x, this.player.mesh.position.y-0.2, 0);
+            player.position = new BABYLON.Vector3(this.player.mesh.position.x, this.player.mesh.position.y - 0.2, 0);
             player.size = 0.8;
             player.isPickable = true;
             player.playAnimation(0, 2, false, 400, () => {
@@ -264,7 +264,7 @@ export default class RunnerLevel extends Level {
         this.pointsTextControl.text = 'Pension Pot: £' + this.player.getPoints();
         // this.ageTextControl.text = 'Age: ' + this.age;
         this.currentRecordTextControl.text = 'Current Record: ' + this.player.getLastRecord();
-        if(this.status == 'WIN') {
+        if (this.status == 'WIN') {
             this.gameStatus.text = 'Congratulations!';
             this.gameSubTextControl.text = 'You successfully avoided the scams and completed level 3!'
         } else {
@@ -286,16 +286,16 @@ export default class RunnerLevel extends Level {
     beforeRender() {
         if (!GAME.isPaused()) {
             // this.player.visible();
-            this.player.pauseButtonControl.isVisible=true;
-            this.player.coinsTextControl.isVisible=true;
+            this.player.pauseButtonControl.isVisible = true;
+            this.player.coinsTextControl.isVisible = true;
             this.player.move();
             this.age = parseInt(this.ageTimer.ageControl.text);
-            if(((this.age - 18) % 16) == 0 && this.currentStageAge !== this.age && !this.player.gameEnded) {
+            if (((this.age - 18) % 16) == 0 && this.currentStageAge !== this.age && !this.player.gameEnded) {
                 this.freezeGeneration = true;
                 this.holdStage = true;
                 this.completeStage();
             }
-            if(!this.player.beamEnabled && this.player.changePosition && !this.player.playerLanding && !this.player.gameEnded) {
+            if (!this.player.beamEnabled && this.player.changePosition && !this.player.playerLanding && !this.player.gameEnded) {
                 this.player.mesh.material.alpha = 1;
             } else {
                 this.player.mesh.material.alpha = 0;
@@ -303,7 +303,7 @@ export default class RunnerLevel extends Level {
         }
         if (this.player.maxCoins && this.player.coins <= 1) {
             this.player.allowCoinChange = false;
-            if (this.player.onDie) {            
+            if (this.player.onDie) {
                 this.ageTimer.clear();
                 this.player.onDie();
             }
@@ -351,19 +351,19 @@ export default class RunnerLevel extends Level {
 
     completeStage() {
         let trigger = setInterval(() => {
-            if(this.holdStage && ((this.freezeGeneration && 
-                this.scams && 
-                !this.scams.activeScams.length && 
+            if (this.holdStage && ((this.freezeGeneration &&
+                this.scams &&
+                !this.scams.activeScams.length &&
                 this.boons &&
                 !this.boons.activeBoons.length) || this.nextStage === 1)) {
-                    this.stageCounter.showStage(this.nextStage);
-                    this.currentStageAge = this.age;
-                    this.nextStage++;
-                    this.holdStage = false;
-                    clearInterval(trigger);
+                this.stageCounter.showStage(this.nextStage);
+                this.currentStageAge = this.age;
+                this.nextStage++;
+                this.holdStage = false;
+                clearInterval(trigger);
             }
         }, 1000);
-        
+
     }
 
 }

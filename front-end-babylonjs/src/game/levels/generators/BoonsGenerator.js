@@ -49,7 +49,7 @@ export default class BoonsGenerator {
 
         // New boons keep generating every 10 second
         setInterval(() => {
-            this.boonTypes = stages["stage_" + (this.level.nextStage-1)]["boons"];
+            this.boonTypes = stages["stage_" + (this.level.nextStage - 1)]["boons"];
             if (!GAME.isPaused() && this.player.lives && this.level.age < 65 && !this.level.freezeGeneration) {
                 let randomTileTypeNumber = Math.floor((Math.random() * this.boonTypes.length));
                 let boonType = this.boonTypes[randomTileTypeNumber];
@@ -58,11 +58,11 @@ export default class BoonsGenerator {
                 let message = Message.message;
                 let location = message[boonType].path;
 
-                
+
                 this.texture = new BABYLON.Texture(location, this.scene);
                 this.boonMaterial.diffuseTexture = this.texture
                 this.createBoons(boonType, randomTileTypeNumber);
-                if(!this.boonSet.has(boonType)){
+                if (!this.boonSet.has(boonType)) {
                     this.boonSet.add(boonType);
                 }
             }
@@ -132,7 +132,7 @@ export default class BoonsGenerator {
                     this.removeActiveBoon(randomTileTypeNumber);
                     clearInterval(trigger);
                 }
-                if(!this.player.lives || this.level.age >= 65) {
+                if (!this.player.lives || this.level.age >= 65) {
                     boons.dispose();
                     this.removeActiveBoon(randomTileTypeNumber);
                     clearInterval(trigger);
