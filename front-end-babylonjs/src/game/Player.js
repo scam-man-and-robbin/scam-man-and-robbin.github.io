@@ -66,6 +66,9 @@ export default class Player {
         this.beginGameSound = this.level.assets.getSound('beginGameSound');
         this.infoSound = this.level.assets.getSound('infoSound');
         this.scammedSound = this.level.assets.getSound('damageSound');
+        this.zappingSound = this.level.assets.getSound('zappingSound');
+        this.winningSound = this.level.assets.getSound('winningSound');
+        this.selectSound = this.level.assets.getSound('selectSound');
         this.movementSound = this.level.assets.getSound('movementSound');
         this.groundMesh = BABYLON.MeshBuilder.CreateBox("groundplane", {
             width: screen.width,
@@ -105,6 +108,7 @@ export default class Player {
             'horizontalAlignment': BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_RIGHT,
             'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_BOTTOM,
             'onclick': () => {
+                this.selectSound.play();
                 this.coinsTextControl.isVisible = false;
                 this.pauseButtonControl.isVisible = false;
                 this.soundMuteButtonControl.isVisible = false;
@@ -361,6 +365,7 @@ export default class Player {
      * Function to handle scam counter.
      */
     keepScam(scamId) {
+        this.zappingSound.play();
         if (this.lastScamId !== scamId) {
             this.lastScamId = scamId;
             this.scamCount++;

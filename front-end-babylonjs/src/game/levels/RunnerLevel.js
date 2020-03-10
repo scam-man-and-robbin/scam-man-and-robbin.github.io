@@ -40,14 +40,17 @@ export default class RunnerLevel extends Level {
     setupAssets() {
 
         // Dummy Sounds for Time Being. Needs changing (Or requires providing credits)
-        this.assets.addMusic('music', '/assets/musics/Guitar-Mayhem.mp3');
+        this.assets.addMusic('music', '/assets/musics/SCAM_MAN_background2.wav',{autoplay: true});
         this.assets.addSound('gameLostSound', '/assets/sounds/game-lost.wav');
         this.assets.addSound('gotCoinSound', '/assets/sounds/coin_going_into_pot.wav');
         this.assets.addSound('beginGameSound', '/assets/sounds/begin_game.wav');
         this.assets.addSound('infoSound', '/assets/sounds/info.wav');
         this.assets.addSound('damageSound', '/assets/sounds/scammed.wav');
         this.assets.addSound('movementSound', '/assets/sounds/movement.wav');
-        this.assets.addSound('attackSound', '/assets/sounds/monster_attack.mp3');
+        this.assets.addSound('zappingSound', '/assets/sounds/Zapping_Scam.wav',{ volume: 0.2 });
+        this.assets.addSound('winningSound', '/assets/sounds/Winning_Sound.wav');
+        this.assets.addSound('splashScreenSound', '/assets/sounds/Winning_Sound.wav');
+        this.assets.addSound('selectSound', '/assets/sounds/Select_sound.wav');
 
     }
 
@@ -175,7 +178,10 @@ export default class RunnerLevel extends Level {
             'height': '50px',
             'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP,
             'textVerticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_CENTER,
-            'onclick': () => GAME.goToLevel('RunnerLevel')
+            'onclick': () => {
+                this.player.selectSound.play();
+                GAME.goToLevel('RunnerLevel')
+            }
         });
 
         this.menu.addButton('backButton', 'Return to Home', {
@@ -183,7 +189,10 @@ export default class RunnerLevel extends Level {
             'height': '50px',
             'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP,
             'textVerticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_CENTER,
-            'onclick': () => GAME.goToLevel('HomeMenuLevel')
+            'onclick': () => {
+                this.player.selectSound.play();
+                GAME.goToLevel('HomeMenuLevel')
+            }
         });
 
         this.menu.hide();
@@ -256,6 +265,7 @@ export default class RunnerLevel extends Level {
 
         // Actions when player wins
         this.player.win = () => {
+            this.player.winningSound.play();
             GAME.pause();
             this.status = 'WIN';
             this.showMenu();
