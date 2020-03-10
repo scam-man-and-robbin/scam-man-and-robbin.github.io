@@ -92,22 +92,50 @@ export default class Player {
             'top': '-10px',
             'left': '-10px',
             'fontSize': '15px',
-            'horizontalAlignment': BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_RIGHT,
+            'horizontalAlignment': BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER,
             'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_BOTTOM
         });
         this.pauseButtonControl = this.hud.addButton('Pause', 'PAUSE', {
             'width': (GAME.isMobile() ? 0.15 : 0.1),
             'height': 0.05,
-            'top': '10px',
+            'top': '-10px',
             'left': '-10px',
             'isVisible': true,
             'fontSize': '10em',
             'horizontalAlignment': BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_RIGHT,
-            'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP,
+            'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_BOTTOM,
             'onclick': () => {
                 this.coinsTextControl.isVisible = false;
                 this.pauseButtonControl.isVisible = false;
+                this.soundMuteButtonControl.isVisible = false;
+                this.soundUnMuteButtonControl.isVisible = false;
                 this.message.pauseScreen(this.coins, this.scamCount, this.boonCount, this.level.scams ? this.level.scams.scamSet : null)
+            }
+        });
+        this.soundMuteButtonControl = this.hud.addButton('mute', 'MUTE', {
+            'width': (GAME.isMobile() ? 0.15 : 0.1),
+            'height': 0.05,
+            'top': '-10px',
+            'left': '10px',
+            'isVisible': true,
+            'fontSize': '10em',
+            'horizontalAlignment': BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_LEFT,
+            'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_BOTTOM,
+            'onclick': () => {
+                window.localStorage['mute_sound'] = 1;
+            }
+        });
+        this.soundUnMuteButtonControl = this.hud.addButton('mute', 'UNMUTE', {
+            'width': (GAME.isMobile() ? 0.15 : 0.1),
+            'height': 0.05,
+            'top': '-10px',
+            'left': '10px',
+            'isVisible': true,
+            'fontSize': '10em',
+            'horizontalAlignment': BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_LEFT,
+            'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_BOTTOM,
+            'onclick': () => {
+                window.localStorage['mute_sound'] = 0;
             }
         });
     }
@@ -185,7 +213,16 @@ export default class Player {
     */
     move() {
         this.checkDirectionMovement();
-        this.checkShoot();
+        this.checkShoot(); 
+        if(window.localStorage['mute_sound'] == 1){
+            this.soundUnMuteButtonControl.isVisible = true;
+            this.soundMuteButtonControl.isVisible = false;
+            BABYLON.Engine.audioEngine.setGlobalVolume(0);
+        }else {
+            this.soundUnMuteButtonControl.isVisible = false;
+            this.soundMuteButtonControl.isVisible = true;
+            BABYLON.Engine.audioEngine.setGlobalVolume(80);
+        }
     }
     /**
     * Function to handle player left, right and center actions.
@@ -193,6 +230,7 @@ export default class Player {
     checkDirectionMovement() {
         if (GAME.keys.left && !this.gameEnded && !this.playerLanding) {
             if (this.changePosition && this.mesh.position.x > (GAME.isMobile() ? -1 : -1.5)) {
+                this.movementSound.play();
                 this.changePosition = false;
                 if (this.shootAction) {
                     this.shootAction.dispose();
@@ -209,7 +247,6 @@ export default class Player {
                 this.mesh.animations = [];
                 this.mesh.animations.push(this.createPlayerSideMotion('left', this.mesh.position.x));
                 this.scene.beginAnimation(this.mesh, 0, 100, false);
-                this.movementSound.play();
                 setTimeout(() => {
                     this.changePosition = true;
                     clearInterval(movement);
@@ -219,6 +256,7 @@ export default class Player {
         }
         if (GAME.keys.right && !this.gameEnded && !this.playerLanding) {
             if (this.changePosition && this.mesh.position.x < (GAME.isMobile() ? 1 : 1.5)) {
+                this.movementSound.play();
                 this.changePosition = false;
                 if (this.shootAction) {
                     this.shootAction.dispose();
@@ -236,7 +274,6 @@ export default class Player {
                 this.mesh.animations = [];
                 this.mesh.animations.push(this.createPlayerSideMotion('right', this.mesh.position.x));
                 this.scene.beginAnimation(this.mesh, 0, 100, false);
-                this.movementSound.play();
                 setTimeout(() => {
                     this.changePosition = true;
                     clearInterval(movement);
@@ -336,6 +373,7 @@ export default class Player {
      */
     keepBoon(boon) {
         this.boonCount++;
+        this.gotCoinSound.play();
         if (boon == 'invisiblity_boon') {
             this.level.playerLight.intensity = 1.3;
             this.shielded = true;

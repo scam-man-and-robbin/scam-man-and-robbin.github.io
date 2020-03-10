@@ -62,6 +62,7 @@ export default class Game {
         if(!this.paused && autoAction && this.currentLevel.player) {
             this.currentLevel.player.coinsTextControl.isVisible = false;
             this.currentLevel.player.pauseButtonControl.isVisible = false;
+            this.currentLevel.soundButtonControl.isVisible = false;
             this.currentLevel.player.message.pauseScreen(this.currentLevel.player.coins,this.currentLevel.player.scamCount,this.currentLevel.player.boonCount,this.currentLevel.scams ? this.currentLevel.scams.scamSet : null)
         }
         this.paused = true;

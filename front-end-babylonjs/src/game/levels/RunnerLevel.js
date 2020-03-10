@@ -29,6 +29,7 @@ export default class RunnerLevel extends Level {
         this.status = null;
         this.currentStageAge = 0;
         this.nextStage = 1;
+        this.speed = 0;
 
         // this.gamestats = null;
     }
@@ -111,6 +112,7 @@ export default class RunnerLevel extends Level {
         this.scene.useMaterialMeshMap = true;
         this.scene.debugLayer.hide();
         // this.scene.debugLayer.show();
+        // BABYLON.Engine.audioEngine.useCustomUnlockedButton = false
     }
 
     /**
@@ -247,6 +249,8 @@ export default class RunnerLevel extends Level {
                 this.showMenu();
                 this.ageTimer.clear();
                 this.player.pauseButtonControl.isVisible = false;
+                this.player.soundMuteButtonControl.isVisible = false;
+                this.player.soundUnMuteButtonControl.isVisible = false;
             });
         }
 
@@ -257,6 +261,8 @@ export default class RunnerLevel extends Level {
             this.showMenu();
             this.ageTimer.clear();
             this.player.pauseButtonControl.isVisible = false;
+            this.player.soundMuteButtonControl.isVisible = false;
+            this.player.soundUnMuteButtonControl.isVisible = false;
         }
     }
 

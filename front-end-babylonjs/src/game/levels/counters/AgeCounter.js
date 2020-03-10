@@ -31,7 +31,7 @@ export default class AgeCounter {
         outterRect.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP;
         outterRect.top = '10px';
         outterRect.left = '10px';
-        outterRect.width = 0.4;
+        outterRect.width = 0.8;
         outterRect.height = "40px";
         outterRect.thickness = 0;
         this.advancedTexture.addControl(outterRect);
@@ -43,7 +43,7 @@ export default class AgeCounter {
         rect1.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP;
         rect1.top = '10px';
         rect1.left = '10px';
-        rect1.width = 0.4;
+        rect1.width = 0.8;
         rect1.height = "20px";
         rect1.cornerRadius = 40;
         rect1.color = "#F0E469";
