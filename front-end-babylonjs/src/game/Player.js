@@ -34,7 +34,7 @@ export default class Player {
      */
     createCommonMaterials() {
         var playerMaterial = new BABYLON.StandardMaterial("playerMaterial", this.scene);
-        playerMaterial.diffuseTexture = new BABYLON.Texture("assets/scenes/scam man_stand.png", this.scene);
+        playerMaterial.diffuseTexture = new BABYLON.Texture("assets/scenes/Standing 1 1.png", this.scene);
         playerMaterial.diffuseTexture.hasAlpha = true;
         playerMaterial.backFaceCulling = true;
 
@@ -74,6 +74,7 @@ export default class Player {
         this.spriteManagerPlayer['right'] = new BABYLON.SpriteManager("playerManager", "assets/scenes/scamman_walk_right.png", 1, 62, this.scene);
         this.spriteManagerPlayer['up'] = new BABYLON.SpriteManager("playerManager", "assets/scenes/scamman_attack.png", 1, {width: 41, height: 63}, this.scene);
         this.spriteManagerPlayer['land'] = new BABYLON.SpriteManager("playerManager", "assets/scenes/scamman_land.png", 1, {width: 118, height: 198}, this.scene);
+        this.spriteManagerPlayer['lose'] = new BABYLON.SpriteManager("playerManager", "assets/scenes/scam man_lose.png", 1, {width: 38, height: 48}, this.scene);
         this.createHUD();
     }
     /**
@@ -127,7 +128,7 @@ export default class Player {
     * Called when scam is missed and landed over player
     */
     checkLife() {
-        // if (this.mesh.material.alpha != 1) return;
+        if (this.shielded) return;
         if (this.godMode) return;
         if (this.coins <= 1) {
             this.coins = 0;
@@ -141,8 +142,8 @@ export default class Player {
             let message = Message.message;
             this.scammedSound.play();
             // Reduce coins when scammed.
-            // let newCoins = Math.floor((this.coins / GAME.options.player.lives) * (GAME.options.player.lives - this.lives));
-            // var factor = Math.floor((this.coins - newCoins) / 10);
+
+            this.scamming = true;
             let newCoins = Math.floor(this.coins-message[this.activeScam].reduction);
             var factor = Math.floor((this.coins - newCoins) / 10);
             var trigger = setInterval(() => {
@@ -156,11 +157,13 @@ export default class Player {
                     this.coinsTextControl.text = 'Pension Pot: £' + this.coins;
                     this.coinsTextControl.fontSize = '15px';
                     this.coinsTextControl.color = 'black';
+                    this.scamming = false;
                     clearInterval(trigger);
                 }
                 if (this.coins <= 1) {
                     this.coins = 0;
                     this.allowCoinChange = false;
+                    this.scamming = false;
                     this.coinsTextControl.text = 'Pension Pot: £' + this.coins;
                     this.coinsTextControl.fontSize = '15px';
                     this.coinsTextControl.color = 'red';
@@ -184,7 +187,7 @@ export default class Player {
     * Function to handle player left, right and center actions.
     */
     checkDirectionMovement() {
-        if (GAME.keys.left) {
+        if (GAME.keys.left && !this.gameEnded && !this.playerLanding) {
             if (this.changePosition && this.mesh.position.x > (GAME.isMobile() ? -1 : -1.5)) {
                 this.changePosition = false;
                 if(this.shootAction){
@@ -209,7 +212,7 @@ export default class Player {
                 }, 200);
             }
         }
-        if (GAME.keys.right) {
+        if (GAME.keys.right && !this.gameEnded && !this.playerLanding) {
             if (this.changePosition && this.mesh.position.x < (GAME.isMobile() ? 1 : 1.5)) {
                 this.changePosition = false;
                 if(this.shootAction){
@@ -262,7 +265,7 @@ export default class Player {
     * Function to handle player shoot actions.
     */
     checkShoot() {
-        if (GAME.keys.shoot && !this.beamEnabled && this.changePosition) {
+        if (GAME.keys.shoot && !this.beamEnabled && this.changePosition && !this.gameEnded && !this.playerLanding) {
             let bullet = BABYLON.Mesh.CreateCylinder("bullet_" + this.bullerCounter++, 3, 1, 0.05, 0, 0, this.scene);
             // scams.position = this.mesh.getAbsolutePosition().clone();
             let meshPosition = this.mesh.getAbsolutePosition().clone();
@@ -327,43 +330,40 @@ export default class Player {
      */
     keepBoon(boon) {
         this.boonCount++;
-        if (boon == 'life_boon' && this.lives < 3) {
-            this.lives += 1;
-            // this.livesTextControl.text = 'Lives: ' + this.lives;
-        }
-        else if (boon == 'invisiblity_boon') {
-            this.mesh.material.alpha = 0.3;
+        if (boon == 'invisiblity_boon') {
+            this.level.playerLight.intensity = 1.3;
+            this.shielded = true;
             setTimeout(() => {
                 var count = 0;
-                this.mesh.material.alpha = 1;
+                this.level.playerLight.intensity = 1;
                 var trigger = setInterval(() => {
-                    this.mesh.material.alpha = (count % 2) ? 0.3 : 1;
+                    this.level.playerLight.intensity = (count % 2) ? 1.3 : 1;
                     count += 1;
                     if(count > 10) {
+                        this.shielded = false;
                         clearInterval(trigger);
                     }
                 }, 200);
             }, 10000);
         }
-        else if(boon == 'normal_boon') {
-            let newCoins = this.coins * 2;
-            var factor = Math.floor((newCoins - this.coins) / 10);
-            var trigger = setInterval(() => {
-                this.coins += factor;
-                this.maxCoins = (this.coins > this.maxCoins) ? this.coins : this.maxCoins;
-                if (this.coins < newCoins && this.allowCoinChange) {
-                    this.coinsTextControl.text = 'Pension Pot: £' + this.coins;
-                    this.coinsTextControl.fontSize = '15px';
-                    this.coinsTextControl.color = 'green';
-                } else {
-                    this.coins = this.lives > 0 ? newCoins : 0;
-                    this.coinsTextControl.text = 'Pension Pot: £' + this.coins;
-                    this.coinsTextControl.fontSize = '15px';
-                    this.coinsTextControl.color = 'black';
-                    clearInterval(trigger);
-                }
-            }, 50);
-        }
+        let message = Message.message;
+        let newCoins = Math.floor(this.coins+message[boon].addition);
+        var factor = Math.floor((newCoins - this.coins) / 10);
+        var trigger = setInterval(() => {
+            this.coins += factor;
+            this.maxCoins = (this.coins > this.maxCoins) ? this.coins : this.maxCoins;
+            if (this.coins < newCoins && this.allowCoinChange) {
+                this.coinsTextControl.text = 'Pension Pot: £' + this.coins;
+                this.coinsTextControl.fontSize = '15px';
+                this.coinsTextControl.color = 'green';
+            } else {
+                this.coins = this.lives > 0 ? newCoins : 0;
+                this.coinsTextControl.text = 'Pension Pot: £' + this.coins;
+                this.coinsTextControl.fontSize = '15px';
+                this.coinsTextControl.color = 'black';
+                clearInterval(trigger);
+            }
+        }, 50);
     }
     /**
      * Function to update highest score of player in this machine.
@@ -416,5 +416,6 @@ export default class Player {
         });
         this.landAction.size = 3;
         this.landAction.isPickable = true;
+        this.mesh.position.x = 0;
     }
 }

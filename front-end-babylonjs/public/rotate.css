@@ -12,10 +12,6 @@
     #renderCanvas{ display:block; }
 } */
 
-body {    
-    display: flex;
-    justify-content: center;
-}
 #overlay {
     position: fixed;
     top: 0;

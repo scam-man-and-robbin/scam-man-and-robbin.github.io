@@ -147,6 +147,7 @@ export default class UI {
                 scamDescription.fontSize = '12px';
                 scamDescription.textHorizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_LEFT;
                 scamDescription.textWrapping = true;
+                scamDescription.lineSpacing = '0px';
                 display.addControl(scamDescription);
                 if (GAME.isMobile()) {
                     temp += 55;

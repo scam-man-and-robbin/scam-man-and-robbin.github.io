@@ -58,21 +58,10 @@ export default class BoonsGenerator {
                 let message = Message.message;
                 let location = message[boonType].path;
 
-                if (boonType == 'invisiblity_boon') {
-                    this.texture = new BABYLON.Texture(location, this.scene);
-                    this.boonMaterial.diffuseTexture = this.texture
-                    this.createBoons('invisiblity_boon', randomTileTypeNumber);
-                }
-                else if (boonType == 'life_boon') {
-                    this.texture = new BABYLON.Texture(location, this.scene);
-                    this.boonMaterial.diffuseTexture = this.texture
-                    this.createBoons('life_boon', randomTileTypeNumber);
-                }
-                else {
-                    this.texture = new BABYLON.Texture(location, this.scene);
-                    this.boonMaterial.diffuseTexture = this.texture
-                    this.createBoons('normal_boon', randomTileTypeNumber);
-                }
+                
+                this.texture = new BABYLON.Texture(location, this.scene);
+                this.boonMaterial.diffuseTexture = this.texture
+                this.createBoons(boonType, randomTileTypeNumber);
                 if(!this.boonSet.has(boonType)){
                     this.boonSet.add(boonType);
                 }

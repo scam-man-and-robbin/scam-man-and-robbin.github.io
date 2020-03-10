@@ -66,12 +66,20 @@ export default class RunnerLevel extends Level {
         // camera.attachControl(GAME.canvas, true);
 
         // Add lights to the scene
-        var light2 = new BABYLON.DirectionalLight("light2", new BABYLON.Vector3(-100, 100, 100), this.scene);
+        // var light2 = new BABYLON.DirectionalLight("light2", new BABYLON.Vector3(-100, 100, 100), this.scene);
         //  light2.diffuse = new BABYLON.Color3(1, 0, 1);
         // var light1 = new BABYLON.DirectionalLight("light1", new BABYLON.Vector3(1, -1, 1), this.scene);
         
+
+        //Light direction is directly down from a position one unit up, fast decay
+        this.light = new BABYLON.SpotLight("spotLight3", new BABYLON.Vector3(0,-1,-500), new BABYLON.Vector3(0, 0, 1), Math.PI / 2, 50, this.scene);
+        this.light.diffuse = new BABYLON.Color3(1, 1, 1);
+        this.light.specular = new BABYLON.Color3(1, 1, 1);
+        this.light.intensity = 0.5;
+
+
         //light1.intensity = 1;
-        light2.intensity = 0.9;
+        // light2.intensity = 0.9;
 
         this.createPlayer();
 
@@ -110,7 +118,7 @@ export default class RunnerLevel extends Level {
     createMenus() {
         this.menu = new UI('runnerMenuUI');
 
-        this.gameStatus = this.menu.addText('You Win', {
+        this.gameStatus = this.menu.addText('Congratulations!', {
             'top': '60px',
             'color': GAME.options.pointsTextColor,
             'outlineColor': GAME.options.pointsOutlineTextColor,
@@ -128,16 +136,7 @@ export default class RunnerLevel extends Level {
             'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP
         });
 
-        this.pointsTextControl = this.menu.addText('Points: £ 0', {
-            'top': '140px',
-            'color': GAME.options.pointsTextColor,
-            'outlineColor': GAME.options.pointsOutlineTextColor,
-            'outlineWidth': '2px',
-            'fontSize': '35px',
-            'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP
-        });
-
-        this.ageTextControl = this.menu.addText('Age: 0', {
+        this.pointsTextControl = this.menu.addText('Pension Pot: £ 0', {
             'top': '180px',
             'color': GAME.options.pointsTextColor,
             'outlineColor': GAME.options.pointsOutlineTextColor,
@@ -145,6 +144,15 @@ export default class RunnerLevel extends Level {
             'fontSize': '35px',
             'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP
         });
+
+        // this.ageTextControl = this.menu.addText('Age: 0', {
+        //     'top': '180px',
+        //     'color': GAME.options.pointsTextColor,
+        //     'outlineColor': GAME.options.pointsOutlineTextColor,
+        //     'outlineWidth': '2px',
+        //     'fontSize': '35px',
+        //     'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP
+        // });
 
         this.currentRecordTextControl = this.menu.addText('Current Record: 0', {
             'top': '220px',
@@ -163,7 +171,7 @@ export default class RunnerLevel extends Level {
             'height': '50px',
             'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP,
             'textVerticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_CENTER,
-            'onclick': () => this.replay()
+            'onclick': () => GAME.goToLevel('RunnerLevel')
         });
 
         this.menu.addButton('backButton', 'Return to Home', {
@@ -216,17 +224,27 @@ export default class RunnerLevel extends Level {
         // Creates the player and sets it as camera target
         this.player = new Player(this);
 
-        this.playerLight = new BABYLON.DirectionalLight("playerLight", new BABYLON.Vector3(1, -2, 1), this.scene);
-        this.playerLight.intensity = 1;
+        this.playerLight = new BABYLON.DirectionalLight("playerLight", new BABYLON.Vector3(0, -1, 1), this.scene);
+        this.playerLight.intensity = 1.2;
         this.playerLight.includedOnlyMeshes.push(this.player.mesh);
         this.playerLight.parent = this.player.mesh;
+        this.light.excludedMeshes.push(this.player.mesh);
 
         // Actions when player dies
         this.player.onDie = () => {
-            GAME.pause();
-            this.showMenu();
-            this.ageTimer.clear();
-            this.player.pauseButtonControl.isVisible = false;
+            this.player.gameEnded = true;
+            this.player.mesh.material.alpha = 0;
+            var player = new BABYLON.Sprite("player", this.player.spriteManagerPlayer['lose']);
+            player.position = this.player.mesh.position;
+            player.position = new BABYLON.Vector3(this.player.mesh.position.x, this.player.mesh.position.y-0.2, 0);
+            player.size = 0.8;
+            player.isPickable = true;
+            player.playAnimation(0, 2, false, 400, () => {
+                GAME.pause();
+                this.showMenu();
+                this.ageTimer.clear();
+                this.player.pauseButtonControl.isVisible = false;
+            });
         }
 
         // Actions when player wins
@@ -243,15 +261,15 @@ export default class RunnerLevel extends Level {
      * Function to show Menu with last points/high record
      */
     showMenu() {
-        this.pointsTextControl.text = 'Points: £' + this.player.getPoints();
-        this.ageTextControl.text = 'Age: ' + this.age;
+        this.pointsTextControl.text = 'Pension Pot: £' + this.player.getPoints();
+        // this.ageTextControl.text = 'Age: ' + this.age;
         this.currentRecordTextControl.text = 'Current Record: ' + this.player.getLastRecord();
         if(this.status == 'WIN') {
-            this.gameStatus.text = 'You Win!';
-            this.gameSubTextControl.text = 'Bravo! Play again to beat the record...'
+            this.gameStatus.text = 'Congratulations!';
+            this.gameSubTextControl.text = 'You successfully avoided the scams and completed level 3!'
         } else {
             this.gameStatus.text = 'You Lost!';
-            this.gameSubTextControl.text = 'You cannot give up. Try reaching Age 65...'
+            this.gameSubTextControl.text = 'Play again and see if you can avoid the scams to reach level 3!'
         }
         this.menu.show();
 
@@ -272,12 +290,12 @@ export default class RunnerLevel extends Level {
             this.player.coinsTextControl.isVisible=true;
             this.player.move();
             this.age = parseInt(this.ageTimer.ageControl.text);
-            if(((this.age - 18) % 16) == 0 && this.currentStageAge !== this.age) {
+            if(((this.age - 18) % 16) == 0 && this.currentStageAge !== this.age && !this.player.gameEnded) {
                 this.freezeGeneration = true;
                 this.holdStage = true;
                 this.completeStage();
             }
-            if(!this.player.beamEnabled && this.player.changePosition && !this.player.playerLanding) {
+            if(!this.player.beamEnabled && this.player.changePosition && !this.player.playerLanding && !this.player.gameEnded) {
                 this.player.mesh.material.alpha = 1;
             } else {
                 this.player.mesh.material.alpha = 0;
@@ -308,6 +326,7 @@ export default class RunnerLevel extends Level {
         this.ageTimer = new AgeCounter(this);
         this.nextStage = 1;
         this.currentStageAge = 0;
+        this.player.gameEnded = false;
         GAME.resume();
 
 
@@ -337,7 +356,6 @@ export default class RunnerLevel extends Level {
                 !this.scams.activeScams.length && 
                 this.boons &&
                 !this.boons.activeBoons.length) || this.nextStage === 1)) {
-                    console.log(this.nextStage)
                     this.stageCounter.showStage(this.nextStage);
                     this.currentStageAge = this.age;
                     this.nextStage++;

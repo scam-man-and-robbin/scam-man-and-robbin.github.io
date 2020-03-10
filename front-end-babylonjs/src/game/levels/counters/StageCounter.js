@@ -122,16 +122,18 @@ export default class StageCounter {
                         stageUI.remove(this.stageStatus);
                         this.player.coinsTextControl.isVisible = true;
                         stageUI.clear();
-                        GAME.resume();
+                        if(!this.player.gameEnded) {
+                            GAME.resume();
+                            this.player.landPlayer();
+                        }
                         show = false;
-                        this.player.landPlayer();
                         clearInterval(trigger);
                     }
                 }
             });
             if(stageData['scams']) {
                 let top = -140;
-                this.scamDescription = this.addText("Beware the following scams", {
+                this.scamDescription = this.addText("Shine your torch and avoid the following scams! ", {
                     'top': top,
                     'color': GAME.options.pointsTextColor,
                     'outlineColor': GAME.options.pointsOutlineTextColor,
@@ -196,9 +198,11 @@ export default class StageCounter {
                     stageUI.remove(this.stageStatus);
                     this.player.coinsTextControl.isVisible = true;
                     stageUI.clear();
-                    GAME.resume();
+                    if(!this.player.gameEnded) {
+                        GAME.resume();
+                        this.player.landPlayer();
+                    }
                     show = false;
-                    this.player.landPlayer();
                     clearInterval(trigger);
                 }
             }, 1000);

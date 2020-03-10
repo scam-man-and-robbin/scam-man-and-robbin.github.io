@@ -94,35 +94,36 @@ export default class AgeCounter {
         this.ageControl.text = '18';
         this.ageControl.color = '#EB12DB';
         this.ageControl.fontSize = 10;
+        this.ageControl.isVisible = false;
 
         this.progressValue.addControl(this.ageControl);
 
-        let startText = new BABYLON.GUI.TextBlock();
-        startText.textHorizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_LEFT;
-        startText.textVerticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_BOTTOM;
-        startText.text = '18';
-        startText.color = 'BLACK';
-        startText.fontSize = 12;
+        // let startText = new BABYLON.GUI.TextBlock();
+        // startText.textHorizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_LEFT;
+        // startText.textVerticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_BOTTOM;
+        // startText.text = '18';
+        // startText.color = 'BLACK';
+        // startText.fontSize = 12;
 
-        outterRect.addControl(startText);
+        // outterRect.addControl(startText);
 
-        let endText = new BABYLON.GUI.TextBlock();
-        endText.textHorizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_RIGHT;
-        endText.textVerticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_BOTTOM;
-        endText.text = '65';
-        endText.color = 'BLACK';
-        endText.fontSize = 12;
+        // let endText = new BABYLON.GUI.TextBlock();
+        // endText.textHorizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_RIGHT;
+        // endText.textVerticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_BOTTOM;
+        // endText.text = '65';
+        // endText.color = 'BLACK';
+        // endText.fontSize = 12;
 
-        outterRect.addControl(endText);
+        // outterRect.addControl(endText);
 
-        let label = new BABYLON.GUI.TextBlock();
-        label.textHorizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER;
-        label.textVerticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_BOTTOM;
-        label.text = 'Age';
-        label.color = 'BLACK';
-        label.fontSize = 12;
+        // let label = new BABYLON.GUI.TextBlock();
+        // label.textHorizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER;
+        // label.textVerticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_BOTTOM;
+        // label.text = 'Age';
+        // label.color = 'BLACK';
+        // label.fontSize = 12;
 
-        outterRect.addControl(label);
+        // outterRect.addControl(label);
 
         let moveProgressWidth = 0;
         let ageValue = 0;

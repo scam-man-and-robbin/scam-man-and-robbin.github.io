@@ -42,21 +42,35 @@
             "reduction" : 100,
             "path" : "assets/scenes/Cold_call.png"
         },
-        "normal_boon" : {
+        "refuse" : {
             "info" : "Normal Boon: Check FCA registered - get FCA number",
             "icon" : "FCA logo",
-            "path" : "assets/scenes/Refuse.png"
-            
+            "path" : "assets/scenes/Refuse.png",
+            "addition" : 100            
+        },
+        "pension_wise" : {
+            "info" : "Pension Wise: Check FCA registered - get FCA number",
+            "icon" : "FCA logo",
+            "path" : "assets/scenes/Pensionwise.png",
+            "addition" : 300            
+        },
+        "thinking_about" : {
+            "info" : "Thining About: Ask to sleep on your decision/ think about it",
+            "icon" : "FCA logo",
+            "path" : "assets/scenes/ThinkingAbout.png",
+            "addition" : 600            
         },
         "invisiblity_boon" : {
-            "info" : "Invisiblity Boon: Ask to sleep on your decision/ think about it",
+            "info" : "FCA: Check FCA registered - get FCA number",
             "icon" : "FCA logo",
-            "path" : "assets/scenes/FCA.png"
+            "path" : "assets/scenes/FCA.png",
+            "addition" : 400
         },
-        "life_boon" : {
-            "info" : "Life Boon: Check with current provider before transferring",
+        "dont_transfer" : {
+            "info" : "Don't transfer: Check with current provider before transferring",
             "icon" : "FCA logo",
-            "path" : "assets/scenes/Don't_transfer.png"
+            "path" : "assets/scenes/Don't transfer.png",
+            "addition" : 1000
         }
     }
 }

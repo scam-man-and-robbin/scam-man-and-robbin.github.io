@@ -7,11 +7,11 @@
     },
     "stage_1" : {
         "scams" : ["zig_zag", "accelerator"],
-        "boons" : ["normal_boon", "invisiblity_boon"]
+        "boons" : ["refuse", "pension_wise"]
     },
     "stage_2" : {
         "scams" : ["speedy", "zig_zag"],
-        "boons" : ["normal_boon", "life_boon"]
+        "boons" : ["thinking_about", "invisiblity_boon"]
     },
     "stage_3" : {
         "scams" : ["diagonal", "splitter"],
