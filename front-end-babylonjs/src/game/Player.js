@@ -62,10 +62,14 @@ export default class Player {
         this.mesh.material = this.level.getMaterial('playerMaterial');
         this.changePosition = true;
         this.gotCoinSound = this.level.assets.getSound('gotCoinSound');
+        this.gameLostSound = this.level.assets.getSound('gameLostSound');
+        this.beginGameSound = this.level.assets.getSound('beginGameSound');
+        this.infoSound = this.level.assets.getSound('infoSound');
         this.scammedSound = this.level.assets.getSound('damageSound');
         this.zappingSound = this.level.assets.getSound('zappingSound');
         this.winningSound = this.level.assets.getSound('winningSound');
         this.selectSound = this.level.assets.getSound('selectSound');
+        this.movementSound = this.level.assets.getSound('movementSound');
         this.groundMesh = BABYLON.MeshBuilder.CreateBox("groundplane", {
             width: screen.width,
             height: 0.1,
@@ -75,9 +79,9 @@ export default class Player {
         this.spriteManagerPlayer = [];
         this.spriteManagerPlayer['left'] = new BABYLON.SpriteManager("playerManager", "assets/scenes/scamman_walk_left.png", 1, 62, this.scene);
         this.spriteManagerPlayer['right'] = new BABYLON.SpriteManager("playerManager", "assets/scenes/scamman_walk_right.png", 1, 62, this.scene);
-        this.spriteManagerPlayer['up'] = new BABYLON.SpriteManager("playerManager", "assets/scenes/scamman_attack.png", 1, {width: 41, height: 63}, this.scene);
-        this.spriteManagerPlayer['land'] = new BABYLON.SpriteManager("playerManager", "assets/scenes/scamman_land.png", 1, {width: 118, height: 198}, this.scene);
-        this.spriteManagerPlayer['lose'] = new BABYLON.SpriteManager("playerManager", "assets/scenes/scam man_lose.png", 1, {width: 38, height: 48}, this.scene);
+        this.spriteManagerPlayer['up'] = new BABYLON.SpriteManager("playerManager", "assets/scenes/scamman_attack.png", 1, { width: 41, height: 63 }, this.scene);
+        this.spriteManagerPlayer['land'] = new BABYLON.SpriteManager("playerManager", "assets/scenes/scamman_land.png", 1, { width: 118, height: 198 }, this.scene);
+        this.spriteManagerPlayer['lose'] = new BABYLON.SpriteManager("playerManager", "assets/scenes/scam man_lose.png", 1, { width: 38, height: 48 }, this.scene);
         this.createHUD();
     }
     /**
@@ -94,12 +98,12 @@ export default class Player {
             'horizontalAlignment': BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_RIGHT,
             'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_BOTTOM
         });
-        this.pauseButtonControl = this.hud.addButton('Pause','PAUSE',{
-            'width':(GAME.isMobile() ? 0.15 : 0.1),
-            'height':0.05,
-            'top' : '10px',
-            'left' : '-10px',
-            'isVisible' : true,
+        this.pauseButtonControl = this.hud.addButton('Pause', 'PAUSE', {
+            'width': (GAME.isMobile() ? 0.15 : 0.1),
+            'height': 0.05,
+            'top': '10px',
+            'left': '-10px',
+            'isVisible': true,
             'fontSize': '10em',
             'horizontalAlignment': BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_RIGHT,
             'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP,
@@ -107,7 +111,7 @@ export default class Player {
                 this.selectSound.play();
                 this.coinsTextControl.isVisible = false;
                 this.pauseButtonControl.isVisible = false;
-                this.message.pauseScreen(this.coins,this.scamCount,this.boonCount,this.level.scams ? this.level.scams.scamSet : null)
+                this.message.pauseScreen(this.coins, this.scamCount, this.boonCount, this.level.scams ? this.level.scams.scamSet : null)
             }
         });
     }
@@ -148,7 +152,7 @@ export default class Player {
             // Reduce coins when scammed.
 
             this.scamming = true;
-            let newCoins = Math.floor(this.coins-message[this.activeScam].reduction);
+            let newCoins = Math.floor(this.coins - message[this.activeScam].reduction);
             var factor = Math.floor((this.coins - newCoins) / 10);
             var trigger = setInterval(() => {
                 this.coins -= factor;
@@ -194,7 +198,7 @@ export default class Player {
         if (GAME.keys.left && !this.gameEnded && !this.playerLanding) {
             if (this.changePosition && this.mesh.position.x > (GAME.isMobile() ? -1 : -1.5)) {
                 this.changePosition = false;
-                if(this.shootAction){
+                if (this.shootAction) {
                     this.shootAction.dispose();
                     clearInterval(this.shootTrigger);
                 }
@@ -209,6 +213,7 @@ export default class Player {
                 this.mesh.animations = [];
                 this.mesh.animations.push(this.createPlayerSideMotion('left', this.mesh.position.x));
                 this.scene.beginAnimation(this.mesh, 0, 100, false);
+                this.movementSound.play();
                 setTimeout(() => {
                     this.changePosition = true;
                     clearInterval(movement);
@@ -219,7 +224,7 @@ export default class Player {
         if (GAME.keys.right && !this.gameEnded && !this.playerLanding) {
             if (this.changePosition && this.mesh.position.x < (GAME.isMobile() ? 1 : 1.5)) {
                 this.changePosition = false;
-                if(this.shootAction){
+                if (this.shootAction) {
                     this.shootAction.dispose();
                     clearInterval(this.shootTrigger);
                 }
@@ -235,6 +240,7 @@ export default class Player {
                 this.mesh.animations = [];
                 this.mesh.animations.push(this.createPlayerSideMotion('right', this.mesh.position.x));
                 this.scene.beginAnimation(this.mesh, 0, 100, false);
+                this.movementSound.play();
                 setTimeout(() => {
                     this.changePosition = true;
                     clearInterval(movement);
@@ -274,23 +280,23 @@ export default class Player {
             // scams.position = this.mesh.getAbsolutePosition().clone();
             let meshPosition = this.mesh.getAbsolutePosition().clone();
             bullet.position.x = meshPosition.x;
-            bullet.position.y = -0.2;
+            bullet.position.y = -0.3;
             bullet.material = this.level.getMaterial('bulletMaterial');
             this.beamEnabled = true;
-            if(this.shootAction) {
+            if (this.shootAction) {
                 this.shootAction.dispose();
                 clearInterval(this.shootTrigger);
             }
             this.shootAction = new BABYLON.Sprite("player", this.spriteManagerPlayer['up']);
             this.shootAction.playAnimation(0, 3, false, 25);
             this.shootAction.position.x = this.mesh.position.x + 0.2;
-            this.shootAction.position.y = this.mesh.position.y;
+            this.shootAction.position.y = this.mesh.position.y - 0.1;
             this.shootAction.position.z = this.mesh.position.z;
             this.shootAction.size = 1;
             this.shootAction.isPickable = true;
             this.shootTrigger = setInterval(() => {
                 this.shootAction.position.x = this.mesh.position.x + 0.2;
-                this.shootAction.position.y = this.mesh.position.y;
+                this.shootAction.position.y = this.mesh.position.y - 0.1;
                 this.shootAction.position.z = this.mesh.position.z;
             }, 24);
             // Clear bullet after half second
@@ -301,7 +307,7 @@ export default class Player {
                 clearInterval(this.shootTrigger);
             }, 700);
             var trigger = setInterval(() => {
-                if(!this.changePosition) {
+                if (!this.changePosition) {
                     bullet.dispose();
                     this.beamEnabled = false;
                     clearInterval(trigger);
@@ -323,7 +329,7 @@ export default class Player {
      */
     keepScam(scamId) {
         this.zappingSound.play();
-        if(this.lastScamId !== scamId) {
+        if (this.lastScamId !== scamId) {
             this.lastScamId = scamId;
             this.scamCount++;
         }
@@ -344,7 +350,7 @@ export default class Player {
                 var trigger = setInterval(() => {
                     this.level.playerLight.intensity = (count % 2) ? 1.3 : 1;
                     count += 1;
-                    if(count > 10) {
+                    if (count > 10) {
                         this.shielded = false;
                         clearInterval(trigger);
                     }
@@ -352,7 +358,7 @@ export default class Player {
             }, 10000);
         }
         let message = Message.message;
-        let newCoins = Math.floor(this.coins+message[boon].addition);
+        let newCoins = Math.floor(this.coins + message[boon].addition);
         var factor = Math.floor((newCoins - this.coins) / 10);
         var trigger = setInterval(() => {
             this.coins += factor;
@@ -412,6 +418,7 @@ export default class Player {
 
     landPlayer() {
         this.playerLanding = true;
+        this.beginGameSound.play();
         this.landAction = new BABYLON.Sprite("land", this.spriteManagerPlayer['land']);
         this.landAction.position = new BABYLON.Vector3(0.1, -1.2, 0);
         this.landAction.playAnimation(0, 11, false, 80, () => {

@@ -4,7 +4,7 @@
             "info" : "Cold-calling: You respond to someone contacting you out of the blue to move their pension" ,
             "icon" : "a phone",
             "reduction" : 400,
-            "path" : "assets/scenes/Fake_vigilante.png"
+            "path" : "assets/scenes/Cold_call.png"
         },
         "splitter" : {
             "info" : "Offered withdrawal: Transfer your pension to a scheme because they offer you early access to your pension" ,
@@ -13,7 +13,7 @@
             "path" : "assets/scenes/Early_withdrawl.png"
         },
         "accelerator" : {
-            "info" : "Accelerator: You engaged with a company because they offered you free financial advice",
+            "info" : "‘Free’ financial advice: You engaged with a company because they offered you free financial advice",
             "icon" : "pound signs with a cross through it",
             "reduction" : 300,
             "path" : "assets/scenes/Free_advice.png" 
@@ -25,16 +25,16 @@
             "path" : "assets/scenes/scam.png"
         },
         "speedy" : {
-            "info" : "Speedy: You agree to something because you are told the offer has a time limit on it",
+            "info" : "Time pressure: You agree to something because you are told the offer has a time limit on it",
             "icon" : " clock",
             "reduction" : 600,
             "path" : "assets/scenes/Time_pressure.png"
         },
         "diagonal" : {
-            "info" : "Diagonal: Fake scammer vigilantes working on people’s fear of scams to get them to move their pension",
+            "info" : "Fake Scam Vigilante: Fake scammer vigilantes working on people’s fear of scams to get them to move their pension",
             "icon" : "mini scam man",
             "reduction" : 700,
-            "path" : "assets/scenes/scam.png"
+            "path" : "assets/scenes/Fake_vigilante.png"
         },
         "normal_scam" : {
             "info" : "Normal Scam: High returns with low risk",
@@ -43,7 +43,7 @@
             "path" : "assets/scenes/Cold_call.png"
         },
         "refuse" : {
-            "info" : "Normal Boon: Check FCA registered - get FCA number",
+            "info" : "Refuse: Check FCA registered - get FCA number",
             "icon" : "FCA logo",
             "path" : "assets/scenes/Refuse.png",
             "addition" : 100            
@@ -52,13 +52,13 @@
             "info" : "Pension Wise: Check FCA registered - get FCA number",
             "icon" : "FCA logo",
             "path" : "assets/scenes/Pensionwise.png",
-            "addition" : 300            
+            "addition" : 200            
         },
         "thinking_about" : {
             "info" : "Thining About: Ask to sleep on your decision/ think about it",
             "icon" : "FCA logo",
             "path" : "assets/scenes/ThinkingAbout.png",
-            "addition" : 600            
+            "addition" : 300            
         },
         "invisiblity_boon" : {
             "info" : "FCA: Check FCA registered - get FCA number",
@@ -70,7 +70,7 @@
             "info" : "Don't transfer: Check with current provider before transferring",
             "icon" : "FCA logo",
             "path" : "assets/scenes/Don't transfer.png",
-            "addition" : 1000
+            "addition" : 500
         }
     }
 }

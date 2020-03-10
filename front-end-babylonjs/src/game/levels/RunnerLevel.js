@@ -40,11 +40,12 @@ export default class RunnerLevel extends Level {
 
         // Dummy Sounds for Time Being. Needs changing (Or requires providing credits)
         this.assets.addMusic('music', '/assets/musics/SCAM_MAN_background2.wav',{autoplay: true});
-        this.assets.addSound('playerDieSound', '/assets/sounds/game-die.mp3', { volume: 0.4 });
-        this.assets.addSound('gotCoinSound', '/assets/sounds/coin-c-09.wav');
-        this.assets.addSound('damageSound', '/assets/sounds/damage.wav');
-        this.assets.addSound('approachSound', '/assets/sounds/monster.wav');
-        this.assets.addSound('attackSound', '/assets/sounds/monster_attack.mp3');
+        this.assets.addSound('gameLostSound', '/assets/sounds/game-lost.wav');
+        this.assets.addSound('gotCoinSound', '/assets/sounds/coin_going_into_pot.wav');
+        this.assets.addSound('beginGameSound', '/assets/sounds/begin_game.wav');
+        this.assets.addSound('infoSound', '/assets/sounds/info.wav');
+        this.assets.addSound('damageSound', '/assets/sounds/scammed.wav');
+        this.assets.addSound('movementSound', '/assets/sounds/movement.wav');
         this.assets.addSound('zappingSound', '/assets/sounds/Zapping_Scam.wav',{ volume: 0.2 });
         this.assets.addSound('winningSound', '/assets/sounds/Winning_Sound.wav');
         this.assets.addSound('splashScreenSound', '/assets/sounds/Winning_Sound.wav');
@@ -57,7 +58,7 @@ export default class RunnerLevel extends Level {
      * Also Coins will be initialized followed by Scam Objects and Boon Objects
      */
     buildScene() {
-        
+
         this.scene.clearColor = new BABYLON.Color3.FromHexString(GAME.options.backgroundColor);
 
         this.createMenus();
@@ -73,10 +74,10 @@ export default class RunnerLevel extends Level {
         // var light2 = new BABYLON.DirectionalLight("light2", new BABYLON.Vector3(-100, 100, 100), this.scene);
         //  light2.diffuse = new BABYLON.Color3(1, 0, 1);
         // var light1 = new BABYLON.DirectionalLight("light1", new BABYLON.Vector3(1, -1, 1), this.scene);
-        
+
 
         //Light direction is directly down from a position one unit up, fast decay
-        this.light = new BABYLON.SpotLight("spotLight3", new BABYLON.Vector3(0,-1,-500), new BABYLON.Vector3(0, 0, 1), Math.PI / 2, 50, this.scene);
+        this.light = new BABYLON.SpotLight("spotLight3", new BABYLON.Vector3(0, -1, -500), new BABYLON.Vector3(0, 0, 1), Math.PI / 2, 50, this.scene);
         this.light.diffuse = new BABYLON.Color3(1, 1, 1);
         this.light.specular = new BABYLON.Color3(1, 1, 1);
         this.light.intensity = 0.5;
@@ -235,7 +236,7 @@ export default class RunnerLevel extends Level {
         this.player = new Player(this);
 
         this.playerLight = new BABYLON.DirectionalLight("playerLight", new BABYLON.Vector3(0, -1, 1), this.scene);
-        this.playerLight.intensity = 1.2;
+        this.playerLight.intensity = 20;
         this.playerLight.includedOnlyMeshes.push(this.player.mesh);
         this.playerLight.parent = this.player.mesh;
         this.light.excludedMeshes.push(this.player.mesh);
@@ -246,9 +247,10 @@ export default class RunnerLevel extends Level {
             this.player.mesh.material.alpha = 0;
             var player = new BABYLON.Sprite("player", this.player.spriteManagerPlayer['lose']);
             player.position = this.player.mesh.position;
-            player.position = new BABYLON.Vector3(this.player.mesh.position.x, this.player.mesh.position.y-0.2, 0);
+            player.position = new BABYLON.Vector3(this.player.mesh.position.x, this.player.mesh.position.y - 0.2, 0);
             player.size = 0.8;
             player.isPickable = true;
+            this.player.gameLostSound.play();
             player.playAnimation(0, 2, false, 400, () => {
                 GAME.pause();
                 this.showMenu();
@@ -275,7 +277,7 @@ export default class RunnerLevel extends Level {
         this.pointsTextControl.text = 'Pension Pot: £' + this.player.getPoints();
         // this.ageTextControl.text = 'Age: ' + this.age;
         this.currentRecordTextControl.text = 'Current Record: ' + this.player.getLastRecord();
-        if(this.status == 'WIN') {
+        if (this.status == 'WIN') {
             this.gameStatus.text = 'Congratulations!';
             this.gameSubTextControl.text = 'You successfully avoided the scams and completed level 3!'
         } else {
@@ -297,24 +299,24 @@ export default class RunnerLevel extends Level {
     beforeRender() {
         if (!GAME.isPaused()) {
             // this.player.visible();
-            this.player.pauseButtonControl.isVisible=true;
-            this.player.coinsTextControl.isVisible=true;
+            this.player.pauseButtonControl.isVisible = true;
+            this.player.coinsTextControl.isVisible = true;
             this.player.move();
             this.age = parseInt(this.ageTimer.ageControl.text);
-            if(((this.age - 18) % 16) == 0 && this.currentStageAge !== this.age && !this.player.gameEnded) {
+            if (((this.age - 18) % 16) == 0 && this.currentStageAge !== this.age && !this.player.gameEnded) {
                 this.freezeGeneration = true;
                 this.holdStage = true;
                 this.completeStage();
             }
-            if(!this.player.beamEnabled && this.player.changePosition && !this.player.playerLanding && !this.player.gameEnded) {
+            if (!this.player.beamEnabled && this.player.changePosition && !this.player.playerLanding && !this.player.gameEnded) {
                 this.player.mesh.material.alpha = 1;
             } else {
                 this.player.mesh.material.alpha = 0;
             }
         }
-        if (this.player.maxCoins && this.player.coins <= 1) {
+        if (this.player.maxCoins && this.player.coins <= 1 && !this.player.gameEnded) {
             this.player.allowCoinChange = false;
-            if (this.player.onDie) {            
+            if (this.player.onDie) {
                 this.ageTimer.clear();
                 this.player.onDie();
             }
@@ -362,11 +364,14 @@ export default class RunnerLevel extends Level {
 
     completeStage() {
         let trigger = setInterval(() => {
-            if(this.holdStage && ((this.freezeGeneration && 
-                this.scams && 
-                !this.scams.activeScams.length && 
+            if (this.holdStage && ((this.freezeGeneration &&
+                this.scams &&
+                !this.scams.activeScams.length &&
                 this.boons &&
-                !this.boons.activeBoons.length) || this.nextStage === 1)) {
+                !this.boons.activeBoons.length &&
+                this.tiles &&
+                !this.tiles.activeCoins.length) || this.nextStage === 1)) {
+                    this.player.infoSound.play();
                     this.stageCounter.showStage(this.nextStage);
                     this.currentStageAge = this.age;
                     this.nextStage++;
@@ -374,7 +379,7 @@ export default class RunnerLevel extends Level {
                     clearInterval(trigger);
             }
         }, 1000);
-        
+
     }
 
 }
