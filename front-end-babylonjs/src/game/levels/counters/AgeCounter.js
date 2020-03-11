@@ -32,7 +32,7 @@ export default class AgeCounter {
         outterRect.top = '10px';
         outterRect.left = '10px';
         outterRect.width = 0.8;
-        outterRect.height = "40px";
+        outterRect.height = "45px";
         outterRect.thickness = 0;
         this.advancedTexture.addControl(outterRect);
 
@@ -44,7 +44,7 @@ export default class AgeCounter {
         rect1.top = '10px';
         rect1.left = '10px';
         rect1.width = 0.8;
-        rect1.height = "20px";
+        rect1.height = "25px";
         rect1.cornerRadius = 40;
         rect1.color = "#F0E469";
         rect1.thickness = 3;
@@ -57,7 +57,7 @@ export default class AgeCounter {
         progressBar.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_LEFT;
         progressBar.width = 0.98;
         progressBar.left = '2px';
-        progressBar.height = "10px";
+        progressBar.height = "15px";
         progressBar.cornerRadius = 100;
         progressBar.color = "#EB12DB";
         progressBar.thickness = 0;
@@ -98,6 +98,15 @@ export default class AgeCounter {
 
         this.progressValue.addControl(this.ageControl);
 
+        for (let index = 1; index <= 3; index++) {
+            var splitter = new BABYLON.GUI.Rectangle();
+            splitter.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_LEFT;
+            splitter.width =  0.3333 * index;
+            splitter.height = 1;
+            splitter.thickness = 3;
+            splitter.background = 'transparent';
+            progressBar.addControl(splitter);  
+        }
         // let startText = new BABYLON.GUI.TextBlock();
         // startText.textHorizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_LEFT;
         // startText.textVerticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_BOTTOM;

@@ -383,13 +383,13 @@ export default class Player {
         this.boonCount++;
         this.gotCoinSound.play();
         if (boon == 'invisiblity_boon') {
-            this.level.playerLight.intensity = 1.3;
+            this.level.playerLight.intensity = 1;
             this.shielded = true;
             setTimeout(() => {
                 var count = 0;
                 this.level.playerLight.intensity = 1;
                 var trigger = setInterval(() => {
-                    this.level.playerLight.intensity = (count % 2) ? 1.3 : 1;
+                    this.level.playerLight.intensity = (count % 2) ? 1 : 1.3;
                     count += 1;
                     if (count > 10) {
                         this.shielded = false;
