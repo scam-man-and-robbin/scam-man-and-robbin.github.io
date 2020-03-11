@@ -25,6 +25,7 @@ export default class Player {
         this.coinsTextControl = null;
         this.pauseButtonControl = null;
         this.lastScamId = null;
+        this.gameEnded = false;
         this.createCommonMaterials();
         this.setupPlayer();
     }
@@ -140,6 +141,7 @@ export default class Player {
             'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_BOTTOM,
             'onclick': () => {
                 window.localStorage['mute_sound'] = 0;
+                BABYLON.Engine.audioEngine.unlock();
             }
         });
     }
@@ -225,6 +227,7 @@ export default class Player {
         }else {
             this.soundUnMuteButtonControl.isVisible = false;
             this.soundMuteButtonControl.isVisible = true;
+            BABYLON.Engine.audioEngine.unlock();
             BABYLON.Engine.audioEngine.setGlobalVolume(80);
         }
     }

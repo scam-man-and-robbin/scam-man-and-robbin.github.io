@@ -44,7 +44,7 @@ export default class StageCounter {
      */
     showStage(stage) {
         GAME.pause();
-        let show = true, timer = 6, screen = 1;
+        let show = true, timer = GAME.options.messageReadTime, screen = 1;
         this.scamsMessage = [];
         this.scamsImage = [];
         let stageUI = new UI('stageLoadingUI');
@@ -108,7 +108,7 @@ export default class StageCounter {
                     // show = false;
                     this.player.selectSound.play();
                     if (screen === 1 && stage > 0) {
-                        timer = 6;
+                        timer = GAME.options.messageReadTime;
                         this.setBoons(stageData);
                         this.scamDescription.dispose();
                         this.scamsMessage.forEach(scam => {
@@ -185,7 +185,7 @@ export default class StageCounter {
                     this.stageStatus.text = 'Level ' + stage + '…. Loading in ' + (!timer && screen === 1 ? 6 : timer);
                 }
                 if (screen === 1 && !timer && stage > 0) {
-                    timer = 6;
+                    timer = GAME.options.messageReadTime;
                     this.setBoons(stageData);
                     this.scamDescription.dispose();
                     this.scamsMessage.forEach(scam => {

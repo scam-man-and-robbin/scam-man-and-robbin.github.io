@@ -128,9 +128,9 @@ export default class AgeCounter {
         let moveProgressWidth = 0;
         let ageValue = 0;
         let gameLength = GAME.options.gameLength; // 1 min
-        var trigger = setInterval(() => {
-            if (ageValue <= 47 && this.player.lives) {
-                if (!GAME.isPaused() && this.player.lives) {
+        this.trigger = setInterval(() => {
+            if (ageValue <= 47) {
+                if (!GAME.isPaused()) {
                     moveProgressWidth += ((98 / gameLength) / 100 / 10);
                     ageValue += (47 / gameLength / 10);
                     this.progressValue.width = moveProgressWidth;
@@ -143,18 +143,16 @@ export default class AgeCounter {
                         this.ageControl.alpha = 1;
                     }
                 }
-            } else if (!this.player.lives) {
-                clearInterval(trigger);
-            }
-            else {
+            } else {
                 this.player.win();
-                clearInterval(trigger);
+                clearInterval(this.trigger);
             }
         }, 100);
 
     }
 
     clear() {
+        clearInterval(this.trigger);
         this.advancedTexture.dispose();
     }
 

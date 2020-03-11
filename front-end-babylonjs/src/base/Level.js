@@ -30,6 +30,7 @@ export default class Level {
     }
 
     createScene() {
+        GAME.engine.displayLoadingUI();
         // Create the scene space
         this.scene = new BABYLON.Scene(GAME.engine);
 

@@ -53,7 +53,7 @@ export default class ScamsGenerator {
                 this.player.activeScam = scamType;
                 this.activeScams.push(randomTileTypeNumber);
                 if (scamType == 'splitter') {
-                    this.createSplitterScams();
+                    this.createSplitterScams(randomTileTypeNumber);
                 } else {
                     this.createScams(scamType, randomTileTypeNumber);
                 }
@@ -94,7 +94,7 @@ export default class ScamsGenerator {
         let message = Message.message;
         let location = message[type].path;
 
-        scams.material = this.level.getMaterial('scamMaterial');
+        scams.material = this.level.getMaterial('scamMaterial').clone('scam_material' + randomPositionChooser);
         scams.material.diffuseTexture = new BABYLON.Texture(location, this.scene);
         scams.position.x = positionX;
         scams.position.y = 3;
@@ -333,7 +333,7 @@ export default class ScamsGenerator {
         return scamAnimation;
     }
 
-    createSplitterScams() {
+    createSplitterScams(randomTileTypeNumber) {
 
         let scams = [];
         var trigger = [];
@@ -349,7 +349,7 @@ export default class ScamsGenerator {
             let message = Message.message;
             let location = message["splitter"].path;
 
-            scams[index].material = this.level.getMaterial('scamMaterial');
+            scams[index].material = this.level.getMaterial('scamMaterial').clone('scam_material' + randomPositionChooser);
             scams[index].material.diffuseTexture = new BABYLON.Texture(location, this.scene);
             scams[index].position.x = 0;
             scams[index].position.y = 3;
@@ -366,7 +366,7 @@ export default class ScamsGenerator {
                             if (element.intersectsMesh(scams[index], false)) {
                                 // this.slicer(element)
                                 // element.material.emissiveColor = new BABYLON.Color3.FromHexString('#ff0000')
-                                scams[index].dispose();                                
+                                scams[index].dispose();
                                 this.foreground.layerMask = 0;
                                 clearInterval(this.blackOutTrigger);
                                 setTimeout(() => {

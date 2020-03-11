@@ -29,7 +29,7 @@ export default class RunnerLevel extends Level {
         this.status = null;
         this.currentStageAge = 0;
         this.nextStage = 1;
-        this.speed = 0;
+        this.speed = GAME.options.player.defaultSpeed;
 
         // this.gamestats = null;
     }
@@ -108,14 +108,14 @@ export default class RunnerLevel extends Level {
         }, (GAME.options.player.scamStartAfter * 3) + 500);
 
         // For now game speed is incremented for each 15 seconds
-        setInterval(() => {
+        this.speedTrigger = setInterval(() => {
             this.setGameSpeed();
         }, 15000);
 
         this.scene.useMaterialMeshMap = true;
         this.scene.debugLayer.hide();
         // this.scene.debugLayer.show();
-        // BABYLON.Engine.audioEngine.useCustomUnlockedButton = false
+        BABYLON.Engine.audioEngine.useCustomUnlockedButton = true;
     }
 
     /**
@@ -246,6 +246,7 @@ export default class RunnerLevel extends Level {
         // Actions when player dies
         this.player.onDie = () => {
             this.player.gameEnded = true;
+            clearInterval(this.speedTrigger);
             this.player.mesh.material.alpha = 0;
             var player = new BABYLON.Sprite("player", this.player.spriteManagerPlayer['lose']);
             player.position = this.player.mesh.position;
@@ -265,6 +266,8 @@ export default class RunnerLevel extends Level {
 
         // Actions when player wins
         this.player.win = () => {
+            this.player.gameEnded = true;
+            clearInterval(this.speedTrigger);
             this.player.winningSound.play();
             GAME.pause();
             this.status = 'WIN';
@@ -355,7 +358,6 @@ export default class RunnerLevel extends Level {
      * Function to return game speed outside this Class 
      */
     getGameSpeed() {
-        this.speed = this.speed ? this.speed : GAME.options.player.defaultSpeed
         return this.speed;
     }
 
@@ -369,6 +371,9 @@ export default class RunnerLevel extends Level {
     }
 
     completeStage() {
+        if(this.nextStage === 1) {
+            GAME.engine.hideLoadingUI();
+        }
         let trigger = setInterval(() => {
             if (this.holdStage && ((this.freezeGeneration &&
                 this.scams &&
