@@ -73,15 +73,15 @@ export default class StageCounter {
 
         if (stageData) {
 
-            this.stageStatus = this.addText('Stage ' + stage, {
-                'top': '-180px',
-                'color': GAME.options.pointsTextColor,
-                'outlineColor': GAME.options.pointsOutlineTextColor,
-                'outlineWidth': '2px',
-                'fontSize': '25px',
-                'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_CENTER
-            });
-            stageUI.menuTexture.addControl(this.stageStatus);
+            // this.stageStatus = this.addText('Stage ' + stage, {
+            //     'top': '-180px',
+            //     'color': GAME.options.pointsTextColor,
+            //     'outlineColor': GAME.options.pointsOutlineTextColor,
+            //     'outlineWidth': '2px',
+            //     'fontSize': '25px',
+            //     'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_CENTER
+            // });
+            // stageUI.menuTexture.addControl(this.stageStatus);
 
             if (stageData['message']) {
                 this.gameSubTextControl = this.addText(stageData['message'], {
@@ -126,7 +126,7 @@ export default class StageCounter {
                         screen = 2;
                         this.player.infoSound.play();
                     } else if (show) {
-                        stageUI.remove(this.stageStatus);
+                        // stageUI.remove(this.stageStatus);
                         this.player.coinsTextControl.isVisible = true;
                         stageUI.clear();
                         if (!this.player.gameEnded) {

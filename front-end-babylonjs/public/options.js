@@ -30,11 +30,11 @@ window.initialGameOptions = {
         'increaseSpeedRatio': 0.5,
         'lives': 3,
         'scamStartAfter' : 5000, // 5 seconds,
-        'godMode': true
+        'godMode': false
     },
 
     'gameLength' : 270, // in seconds
     'messageReadTime': 6, // in seconds
     'maxLifetimeAllowance' : 1055000,
-    'tutorialLength' : 60 // in seconds
+    'tutorialLength' : 45 // in seconds
 };
