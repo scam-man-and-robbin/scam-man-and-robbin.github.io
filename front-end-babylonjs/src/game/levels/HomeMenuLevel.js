@@ -43,7 +43,7 @@ export default class HomeMenuLevel extends Level {
             'top' : '210px',
             'onclick': () => {
                 click.play();
-                GAME.goToLevel('RunnerLevel')
+                GAME.goToLevel('TutorialLevel')
             }
         });
 

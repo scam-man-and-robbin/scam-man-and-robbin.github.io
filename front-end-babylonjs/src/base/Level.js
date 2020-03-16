@@ -34,7 +34,7 @@ export default class Level {
         // Create the scene space
         this.scene = new BABYLON.Scene(GAME.engine);
 
-        if(GAME.currentLevelName === 'RunnerLevel') {
+        if(GAME.currentLevelName === 'RunnerLevel' || GAME.currentLevelName === 'TutorialLevel') {
             // To change bg image based on device
             let imgPath = "/assets/scenes/game_bg.png";
             if (GAME.isMobile()) {

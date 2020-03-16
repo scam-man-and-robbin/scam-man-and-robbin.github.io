@@ -74,7 +74,7 @@ export default class StageCounter {
 
         if (stageData) {
 
-            this.stageStatus = this.addText('Level ' + stage + '…. Loading in ' + timer, {
+            this.stageStatus = this.addText('Stage ' + stage, {
                 'top': '-180px',
                 'color': GAME.options.pointsTextColor,
                 'outlineColor': GAME.options.pointsOutlineTextColor,
@@ -135,7 +135,6 @@ export default class StageCounter {
                             this.player.landPlayer();
                         }
                         show = false;
-                        clearInterval(trigger);
                     }
                 }
             });
@@ -184,37 +183,6 @@ export default class StageCounter {
             }
             this.player.coinsTextControl.isVisible = false;
             stageUI.show();
-
-            let trigger = setInterval(() => {
-                if (show) {
-                    timer = timer - 1;
-                    this.stageStatus.text = 'Level ' + stage + '…. Loading in ' + (!timer && screen === 1 ? 6 : timer);
-                }
-                if (screen === 1 && !timer && stage > 0) {
-                    timer = GAME.options.messageReadTime;
-                    this.setBoons(stageData);
-                    this.scamDescription.dispose();
-                    this.scamsMessage.forEach(scam => {
-                        scam.dispose();
-                    });
-                    this.scamsImage.forEach(image => {
-                        image.dispose();
-                    });
-                    // background.background = "#F38669";
-                    screen = 2;
-                    this.player.infoSound.play();
-                } else if (show && timer <= 0) {
-                    stageUI.remove(this.stageStatus);
-                    this.player.coinsTextControl.isVisible = true;
-                    stageUI.clear();
-                    if (!this.player.gameEnded) {
-                        GAME.resume();
-                        this.player.landPlayer();
-                    }
-                    show = false;
-                    clearInterval(trigger);
-                }
-            }, 1000);
         }
     }
 

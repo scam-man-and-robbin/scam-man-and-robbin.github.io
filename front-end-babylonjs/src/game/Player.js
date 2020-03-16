@@ -123,6 +123,21 @@ export default class Player {
             'horizontalAlignment': BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER,
             'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_BOTTOM
         });
+        if (GAME.currentLevelName == 'TutorialLevel') {
+            this.coinsTextControl.isVisible = false;
+            this.skipControl = this.hud.addImgButton('continueBtn', {
+                'imgpath': "assets/scenes/scam-man-continue-btn.png",
+                'top': '-5px',
+                'width': 0.25,
+                'height': '50px',
+                'horizontalAlignment': BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER,
+                'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_BOTTOM,
+                'onclick': () => {
+                    this.gameEnded = true;
+                    GAME.goToLevel('RunnerLevel');
+                }
+            });
+        }
 
         this.pauseButtonControl = this.hud.addImgButton('PAUSE', {
             'imgpath' : "assets/scenes/pause.png",
@@ -148,6 +163,11 @@ export default class Player {
                 this.pausedImage.isVisible = true;
 
                 // this.message.pauseScreen(this.coins, this.scamCount, this.boonCount, this.level.scams ? this.level.scams.scamSet : null)
+                // this.soundMuteButtonControl.isVisible = false;
+                // this.soundUnMuteButtonControl.isVisible = false;
+                if (this.skipControl) {
+                    this.skipControl.isVisible = false;
+                }
             }
         });
         this.pausedImage = this.hud.addImage('PAUSED',{
@@ -213,6 +233,7 @@ export default class Player {
     keepCoin() {
         if (this.lives != 0 && this.allowCoinChange) {
             this.coins += 100;
+            this.coins = GAME.options.maxLifetimeAllowance < this.coins ? GAME.options.maxLifetimeAllowance : this.coins;
             this.gotCoinSound.play();
             this.coinsTextControl.text = '£ ' + this.coins;
             this.coinsTextControl.fontSize = '15px';
@@ -280,12 +301,12 @@ export default class Player {
     */
     move() {
         this.checkDirectionMovement();
-        this.checkShoot(); 
-        if(window.localStorage['mute_sound'] == 1){
+        this.checkShoot();
+        if (window.localStorage['mute_sound'] == 1) {
             this.soundUnMuteButtonControl.isVisible = true;
             this.soundMuteButtonControl.isVisible = false;
             BABYLON.Engine.audioEngine.setGlobalVolume(0);
-        }else {
+        } else {
             this.soundUnMuteButtonControl.isVisible = false;
             this.soundMuteButtonControl.isVisible = true;
             BABYLON.Engine.audioEngine.unlock();
@@ -377,12 +398,16 @@ export default class Player {
     */
     checkShoot() {
         if (GAME.keys.shoot && !this.beamEnabled && this.changePosition && !this.gameEnded && !this.playerLanding) {
-            let bullet = BABYLON.Mesh.CreateCylinder("bullet_" + this.bullerCounter++, 3, 1, 0.05, 0, 0, this.scene);
+            if (this.bullet) {
+                this.bullet.isVisible = false;
+            }
+            this.bullet = BABYLON.Mesh.CreateCylinder("bullet_" + this.bullerCounter++, 3, 1, 0.05, 0, 0, this.scene);
             // scams.position = this.mesh.getAbsolutePosition().clone();
             let meshPosition = this.mesh.getAbsolutePosition().clone();
-            bullet.position.x = meshPosition.x;
-            bullet.position.y = -0.3;
-            bullet.material = this.level.getMaterial('bulletMaterial');
+            this.bullet.position.x = meshPosition.x;
+            this.bullet.position.y = -0.3;
+            this.bullet.material = this.level.getMaterial('bulletMaterial');
+            this.level.light.excludedMeshes.push(this.bullet);
             this.beamEnabled = true;
             if (this.shootAction) {
                 this.shootAction.dispose();
@@ -402,14 +427,14 @@ export default class Player {
             }, 24);
             // Clear bullet after half second
             setTimeout(() => {
-                bullet.dispose();
+                this.bullet.dispose();
                 this.beamEnabled = false;
                 this.shootAction.dispose();
                 clearInterval(this.shootTrigger);
             }, 700);
             var trigger = setInterval(() => {
                 if (!this.changePosition) {
-                    bullet.dispose();
+                    this.bullet.dispose();
                     this.beamEnabled = false;
                     clearInterval(trigger);
                 }
@@ -461,22 +486,25 @@ export default class Player {
         }
         let message = Message.message;
         let newCoins = Math.floor(this.coins + message[boon].addition);
+        newCoins = newCoins > GAME.options.maxLifetimeAllowance ? GAME.options.maxLifetimeAllowance : newCoins;
         var factor = Math.floor((newCoins - this.coins) / 10);
-        var trigger = setInterval(() => {
-            this.coins += factor;
-            this.maxCoins = (this.coins > this.maxCoins) ? this.coins : this.maxCoins;
-            if (this.coins < newCoins && this.allowCoinChange) {
-                this.coinsTextControl.text = '£ ' + this.coins;
-                this.coinsTextControl.fontSize = '15px';
-                this.coinsTextControl.color = 'green';
-            } else {
-                this.coins = this.lives > 0 ? newCoins : 0;
-                this.coinsTextControl.text = '£ ' + this.coins;
-                this.coinsTextControl.fontSize = '15px';
-                this.coinsTextControl.color = '#FFFF99';
-                clearInterval(trigger);
-            }
-        }, 50);
+        if (factor) {
+            var trigger = setInterval(() => {
+                this.coins += factor;
+                this.maxCoins = (this.coins > this.maxCoins) ? this.coins : this.maxCoins;
+                if (this.coins < newCoins && this.allowCoinChange) {
+                    this.coinsTextControl.text = '£ ' + this.coins;
+                    this.coinsTextControl.fontSize = '15px';
+                    this.coinsTextControl.color = 'green';
+                } else {
+                    this.coins = this.lives > 0 ? newCoins : 0;
+                    this.coinsTextControl.text = '£ ' + this.coins;
+                    this.coinsTextControl.fontSize = '15px';
+                    this.coinsTextControl.color = '#FFFF99';
+                    clearInterval(trigger);
+                }
+            }, 50);
+        }
     }
     /**
      * Function to update highest score of player in this machine.
@@ -524,6 +552,7 @@ export default class Player {
         this.landAction = new BABYLON.Sprite("land", this.spriteManagerPlayer['land']);
         this.landAction.position = new BABYLON.Vector3(0.1, -1.2, 0);
         this.landAction.playAnimation(0, 11, false, 80, () => {
+            this.mesh.material.alpha = 1;
             this.playerLanding = false;
             this.level.freezeGeneration = false;
             this.landAction.dispose();
