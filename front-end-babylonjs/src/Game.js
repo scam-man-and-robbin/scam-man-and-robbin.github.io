@@ -60,11 +60,15 @@ export default class Game {
 
     pause(autoAction) {
         if(!this.paused && autoAction && this.currentLevel.player) {
-            this.currentLevel.player.coinsTextControl.isVisible = false;
-            this.currentLevel.player.pauseButtonControl.isVisible = false;
-            this.currentLevel.player.soundUnMuteButtonControl.isVisible = false;
-            this.currentLevel.player.soundMuteButtonControl.isVisible = false;
-            this.currentLevel.player.message.pauseScreen(this.currentLevel.player.coins,this.currentLevel.player.scamCount,this.currentLevel.player.boonCount,this.currentLevel.scams ? this.currentLevel.scams.scamSet : null)
+            // this.currentLevel.player.groundImg.isVisible = false;
+            // this.currentLevel.player.coinsTextControl.isVisible = false;
+            // this.currentLevel.player.pauseButtonControl.isVisible = false;
+            // this.currentLevel.player.soundUnMuteButtonControl.isVisible = false;
+            // this.currentLevel.player.soundMuteButtonControl.isVisible = false;
+            // this.currentLevel.player.message.pauseScreen(this.currentLevel.player.coins,this.currentLevel.player.scamCount,this.currentLevel.player.boonCount,this.currentLevel.scams ? this.currentLevel.scams.scamSet : null)
+            GAME.pause();
+            this.currentLevel.player.pausedImage.isVisible = true;
+            this.currentLevel.player.resumeButton.isVisible = true;
         }
         this.paused = true;
     }

@@ -92,51 +92,96 @@ export default class Player {
         this.hud = new UI('playerHudUI');
         this.coinsTextControl = null;
         this.pauseButtonControl = null;
-        this.coinsTextControl = this.hud.addText('Pension Pot: £0', {
-            'top': '-10px',
-            'left': '-10px',
-            'fontSize': '15px',
+        this.groundImg = this.hud.addImage('groundImage',{
+            'imgpath' : "assets/scenes/ground_image.png",
+            'width' : 1,
+            'isVisible': true,
+            'height' : 0.07,
+            'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_BOTTOM
+        });
+        this.potImg = this.hud.addImage('potImage',{
+            'imgpath' : "assets/scenes/pot.png",
+            "width" : 0.07,
+            "height" : 0.05,
+            'top' : GAME.isMobile() ? '-32px' : '-42px',
             'horizontalAlignment': BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER,
             'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_BOTTOM
         });
-        this.pauseButtonControl = this.hud.addButton('Pause', 'PAUSE', {
-            'width': (GAME.isMobile() ? 0.15 : 0.1),
-            'height': 0.05,
-            'top': '-10px',
-            'left': '-10px',
+        this.moneyBar = this.hud.addImage('moneyBar',{
+            'imgpath' : "assets/scenes/moneybar.png",
+            "width" : 0.4,
+            "height" : 0.03,
+            'top' : '-6px',
+            'horizontalAlignment': BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER,
+            'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_BOTTOM
+        });
+        this.coinsTextControl = this.hud.addText('£ 0', {
+            'top': '-7px',
+            'left': '-5px',
+            'fontSize': '15px',
+            'color' : '#FFFF99',
+            'horizontalAlignment': BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER,
+            'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_BOTTOM
+        });
+
+        this.pauseButtonControl = this.hud.addImgButton('PAUSE', {
+            'imgpath' : "assets/scenes/pause.png",
+            // 'width': (GAME.isMobile() ? 0.15 : 0.1),
+            'width': 0.08,
+            'height': 0.06,
+            'top': GAME.isMobile() ? '-15px' : '-20px',
+            'left': '-25px',
             'isVisible': true,
-            'fontSize': '10em',
+            // 'fontSize': '10em',
             'horizontalAlignment': BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_RIGHT,
             'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_BOTTOM,
             'onclick': () => {
                 this.selectSound.play();
-                this.coinsTextControl.isVisible = false;
+                // this.coinsTextControl.isVisible = false;
+                // this.pauseButtonControl.isVisible = false;
+                // this.soundMuteButtonControl.isVisible = false;
+                // this.soundUnMuteButtonControl.isVisible = false;
+                // this.groundImg.isVisible = false ;
+                GAME.pause();
+                this.resumeButton.isVisible = true;
                 this.pauseButtonControl.isVisible = false;
-                this.soundMuteButtonControl.isVisible = false;
-                this.soundUnMuteButtonControl.isVisible = false;
-                this.message.pauseScreen(this.coins, this.scamCount, this.boonCount, this.level.scams ? this.level.scams.scamSet : null)
+                this.pausedImage.isVisible = true;
+
+                // this.message.pauseScreen(this.coins, this.scamCount, this.boonCount, this.level.scams ? this.level.scams.scamSet : null)
             }
         });
-        this.soundMuteButtonControl = this.hud.addButton('mute', 'MUTE', {
-            'width': (GAME.isMobile() ? 0.15 : 0.1),
-            'height': 0.05,
-            'top': '-10px',
-            'left': '10px',
+        this.pausedImage = this.hud.addImage('PAUSED',{
+            'imgpath' : "assets/scenes/PausedScreen.png",
+            // 'width': (GAME.isMobile() ? 0.15 : 0.1),
+            'width': 0.5,
+            'height': 0.1,
+            'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_CENTER,
+        });
+        this.pausedImage.isVisible = false;
+        this.soundMuteButtonControl = this.hud.addImgButton('MUTE', {
+            'imgpath' : "assets/scenes/music_on.png",
+            'width' : 0.08,
+            // 'width': (GAME.isMobile() ? 0.15 : 0.1),
+            'height': 0.06,
+            'top': GAME.isMobile() ? '-15px' : '-20px',
+            'left': '25px',
             'isVisible': true,
-            'fontSize': '10em',
+            // 'fontSize': '10em',
             'horizontalAlignment': BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_LEFT,
             'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_BOTTOM,
             'onclick': () => {
                 window.localStorage['mute_sound'] = 1;
             }
         });
-        this.soundUnMuteButtonControl = this.hud.addButton('mute', 'UNMUTE', {
-            'width': (GAME.isMobile() ? 0.15 : 0.1),
-            'height': 0.05,
-            'top': '-10px',
-            'left': '10px',
+        this.soundUnMuteButtonControl = this.hud.addImgButton('UNMUTE', {
+            // 'width': (GAME.isMobile() ? 0.15 : 0.1),
+            'imgpath' : "assets/scenes/music_off.png",
+            'width' : 0.08,
+            'height': 0.06,
+            'top': GAME.isMobile() ? '-15px' : '-20px',
+            'left': '25px',
             'isVisible': true,
-            'fontSize': '10em',
+            // 'fontSize': '10em',
             'horizontalAlignment': BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_LEFT,
             'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_BOTTOM,
             'onclick': () => {
@@ -144,6 +189,22 @@ export default class Player {
                 BABYLON.Engine.audioEngine.unlock();
             }
         });
+        this.resumeButton = this.hud.addButton('resume', 'RESUME',{
+            'width': 0.08,
+            'height': 0.06,
+            'top': GAME.isMobile() ? '-15px' : '-20px',
+            'left': '-25px',
+            'horizontalAlignment': BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_RIGHT,
+            'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_BOTTOM,
+            'onclick' : () =>{
+                GAME.resume();
+                this.pausedImage.isVisible = false;
+                this.resumeButton.isVisible = false;
+                this.pauseButtonControl.isVisible = true;
+            }
+        });
+        this.resumeButton.isVisible = false;
+
     }
     /**
     * Function to handle coin counter.
@@ -153,7 +214,7 @@ export default class Player {
         if (this.lives != 0 && this.allowCoinChange) {
             this.coins += 100;
             this.gotCoinSound.play();
-            this.coinsTextControl.text = 'Pension Pot: £' + this.coins;
+            this.coinsTextControl.text = '£ ' + this.coins;
             this.coinsTextControl.fontSize = '15px';
             setTimeout(() => {
                 this.coinsTextControl.fontSize = '15px';
@@ -170,7 +231,7 @@ export default class Player {
         if (this.godMode) return;
         if (this.coins <= 1) {
             this.coins = 0;
-            this.coinsTextControl.text = 'Pension Pot: £' + this.coins;
+            this.coinsTextControl.text = '£ ' + this.coins;
             this.coinsTextControl.fontSize = '15px';
             this.allowCoinChange = false;
             if (this.onDie) {
@@ -187,14 +248,14 @@ export default class Player {
             var trigger = setInterval(() => {
                 this.coins -= factor;
                 if (this.coins > newCoins) {
-                    this.coinsTextControl.text = 'Pension Pot: £' + this.coins;
+                    this.coinsTextControl.text = '£ ' + this.coins;
                     this.coinsTextControl.fontSize = '15px';
                     this.coinsTextControl.color = 'red';
                 } else {
                     this.allowCoinChange = true;
-                    this.coinsTextControl.text = 'Pension Pot: £' + this.coins;
+                    this.coinsTextControl.text = '£ ' + this.coins;
                     this.coinsTextControl.fontSize = '15px';
-                    this.coinsTextControl.color = 'black';
+                    this.coinsTextControl.color = '#FFFF99';
                     this.scamming = false;
                     clearInterval(trigger);
                 }
@@ -202,7 +263,7 @@ export default class Player {
                     this.coins = 0;
                     this.allowCoinChange = false;
                     this.scamming = false;
-                    this.coinsTextControl.text = 'Pension Pot: £' + this.coins;
+                    this.coinsTextControl.text = '£ ' + this.coins;
                     this.coinsTextControl.fontSize = '15px';
                     this.coinsTextControl.color = 'red';
                     if (this.onDie) {
@@ -405,14 +466,14 @@ export default class Player {
             this.coins += factor;
             this.maxCoins = (this.coins > this.maxCoins) ? this.coins : this.maxCoins;
             if (this.coins < newCoins && this.allowCoinChange) {
-                this.coinsTextControl.text = 'Pension Pot: £' + this.coins;
+                this.coinsTextControl.text = '£ ' + this.coins;
                 this.coinsTextControl.fontSize = '15px';
                 this.coinsTextControl.color = 'green';
             } else {
                 this.coins = this.lives > 0 ? newCoins : 0;
-                this.coinsTextControl.text = 'Pension Pot: £' + this.coins;
+                this.coinsTextControl.text = '£ ' + this.coins;
                 this.coinsTextControl.fontSize = '15px';
-                this.coinsTextControl.color = 'black';
+                this.coinsTextControl.color = '#FFFF99';
                 clearInterval(trigger);
             }
         }, 50);
@@ -452,7 +513,7 @@ export default class Player {
         this.scamCount = 0;
         this.boonCount = 0;
         this.lives = GAME.options.player.lives;
-        this.coinsTextControl.text = 'Pension Pot: £' + this.coins;
+        this.coinsTextControl.text = '£ ' + this.coins;
         this.allowCoinChange = true;
         this.pauseButtonControl.isVisible = true;
     }

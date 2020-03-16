@@ -61,6 +61,7 @@ export default class BoonsGenerator {
 
                 this.texture = new BABYLON.Texture(location, this.scene);
                 this.boonMaterial.diffuseTexture = this.texture
+                this.boonMaterial.diffuseTexture.hasAlpha = true;
                 this.createBoons(boonType, randomTileTypeNumber);
                 if (!this.boonSet.has(boonType)) {
                     this.boonSet.add(boonType);

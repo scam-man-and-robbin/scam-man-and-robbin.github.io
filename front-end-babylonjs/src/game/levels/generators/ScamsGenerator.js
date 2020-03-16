@@ -96,6 +96,7 @@ export default class ScamsGenerator {
 
         scams.material = this.level.getMaterial('scamMaterial').clone('scam_material' + randomPositionChooser);
         scams.material.diffuseTexture = new BABYLON.Texture(location, this.scene);
+        scams.material.diffuseTexture.hasAlpha = true;
         scams.position.x = positionX;
         scams.position.y = 3;
         scams.position.z = 0;
@@ -351,6 +352,7 @@ export default class ScamsGenerator {
 
             scams[index].material = this.level.getMaterial('scamMaterial').clone('scam_material' + randomPositionChooser);
             scams[index].material.diffuseTexture = new BABYLON.Texture(location, this.scene);
+            scams[index].material.diffuseTexture.hasAlpha = true;
             scams[index].position.x = 0;
             scams[index].position.y = 3;
             scams[index].position.z = 0;

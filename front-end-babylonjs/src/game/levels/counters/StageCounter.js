@@ -49,14 +49,20 @@ export default class StageCounter {
         this.scamsImage = [];
         let stageUI = new UI('stageLoadingUI');
 
-        let background = new BABYLON.GUI.Rectangle();
-        background.width = 1;
-        background.height = 1;
-        background.thickness = 0;
-        background.background = "#FFDA75";
-        background.alpha = 1;
-        stageUI.menuTexture.addControl(background);
+        // let background = new BABYLON.GUI.Rectangle();
+        // background.width = 1;
+        // background.height = 1;
+        // background.thickness = 0;
+        // background.background = "#FFDA75";
+        // background.alpha = 1;
+        // stageUI.menuTexture.addControl(background);
 
+        var background = stageUI.addImage('stageScreen',{
+            'imgpath' : "assets/scenes/stage_screen.png",
+            'width' : 1,
+            'height' : 1
+        });
+        background.isVisible = false;
         this.stageUI = new BABYLON.GUI.Rectangle();
         this.stageUI.width = 0.9;
         this.stageUI.height = 1;
@@ -117,7 +123,7 @@ export default class StageCounter {
                         this.scamsImage.forEach(image => {
                             image.dispose();
                         });
-                        background.background = "#F38669";
+                        // background.background = "#F38669";
                         screen = 2;
                         this.player.infoSound.play();
                     } else if (show) {
@@ -194,7 +200,7 @@ export default class StageCounter {
                     this.scamsImage.forEach(image => {
                         image.dispose();
                     });
-                    background.background = "#F38669";
+                    // background.background = "#F38669";
                     screen = 2;
                     this.player.infoSound.play();
                 } else if (show && timer <= 0) {

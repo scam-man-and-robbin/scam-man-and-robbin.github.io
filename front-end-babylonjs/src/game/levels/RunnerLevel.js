@@ -125,30 +125,40 @@ export default class RunnerLevel extends Level {
     createMenus() {
         this.menu = new UI('runnerMenuUI');
 
-        this.gameStatus = this.menu.addText('Congratulations!', {
-            'top': '60px',
-            'color': GAME.options.pointsTextColor,
-            'outlineColor': GAME.options.pointsOutlineTextColor,
-            'outlineWidth': '2px',
-            'fontSize': '40px',
-            'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP
+        this.lostScreen = this.menu.addImage('lostScreen',{
+            'imgpath':"assets/scenes/Game_over_screen.png",
+            'width' : 0.8,
+            'height' : 0.8,
         });
+        this.winningScreen = this.menu.addImage('winningScreen',{
+            'imgpath':"assets/scenes/winning_screen_1.png",
+            'width' : 0.8,
+            'height' : 0.8,
+        });
+        // this.gameStatus = this.menu.addText('Congratulations!', {
+        //     'top': '60px',
+        //     'color': GAME.options.pointsTextColor,
+        //     'outlineColor': GAME.options.pointsOutlineTextColor,
+        //     'outlineWidth': '2px',
+        //     'fontSize': '40px',
+        //     'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP
+        // });
 
         this.gameSubTextControl = this.menu.addText('You cannot give up. Try reaching Age 65...', {
-            'top': '105px',
+            'width' : 0.5,
+            'top': '155px',
             'color': GAME.options.pointsTextColor,
             'outlineColor': GAME.options.pointsOutlineTextColor,
             'outlineWidth': '2px',
             'fontSize': '15px',
             'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP
         });
-
         this.pointsTextControl = this.menu.addText('Pension Pot: £ 0', {
-            'top': '180px',
+            'top': '220px',
             'color': GAME.options.pointsTextColor,
             'outlineColor': GAME.options.pointsOutlineTextColor,
             'outlineWidth': '2px',
-            'fontSize': '35px',
+            'fontSize': '30px',
             'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP
         });
 
@@ -162,19 +172,27 @@ export default class RunnerLevel extends Level {
         // });
 
         this.currentRecordTextControl = this.menu.addText('Current Record: 0', {
-            'top': '220px',
+            'top': '260px',
             'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP
         });
 
         this.hasMadeRecordTextControl = this.menu.addText('You got a new Points Record!', {
-            'top': '260px',
+            'top': '300px',
             'color': GAME.options.recordTextColor,
             'fontSize': '20px',
             'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP
         });
 
-        this.menu.addButton('replayButton', 'Replay Game', {
-            'top': '300px',
+        this.lastDisplay = this.menu.addText('lastText',{
+            'top' : '460px',
+            'fontSize' : '15px',
+            'color': GAME.options.recordTextColor,
+            'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP,
+            'width' : 0.5,
+        });
+        this.menu.addImgButton('replayButton', {
+            'imgpath' : "assets/scenes/Play_again.png",
+            'top': '340px',
             'height': '50px',
             'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP,
             'textVerticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_CENTER,
@@ -185,7 +203,7 @@ export default class RunnerLevel extends Level {
         });
 
         this.menu.addButton('backButton', 'Return to Home', {
-            'top': '360px',
+            'top': '390px',
             'height': '50px',
             'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP,
             'textVerticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_CENTER,
@@ -258,6 +276,7 @@ export default class RunnerLevel extends Level {
                 GAME.pause();
                 this.showMenu();
                 this.ageTimer.clear();
+                this.player.hud.hide();
                 this.player.pauseButtonControl.isVisible = false;
                 this.player.soundMuteButtonControl.isVisible = false;
                 this.player.soundUnMuteButtonControl.isVisible = false;
@@ -266,6 +285,7 @@ export default class RunnerLevel extends Level {
 
         // Actions when player wins
         this.player.win = () => {
+            this.player.hud.hide();
             this.player.gameEnded = true;
             clearInterval(this.speedTrigger);
             this.player.winningSound.play();
@@ -283,17 +303,21 @@ export default class RunnerLevel extends Level {
      * Function to show Menu with last points/high record
      */
     showMenu() {
+        this.menu.show();
+        this.lastDisplay.text = 'Unfortunately, Scam Man wont be on hand to protect you! So it is important to know how to identify a pension scan.'
         this.pointsTextControl.text = 'Pension Pot: £' + this.player.getPoints();
         // this.ageTextControl.text = 'Age: ' + this.age;
         this.currentRecordTextControl.text = 'Current Record: ' + this.player.getLastRecord();
+
         if (this.status == 'WIN') {
-            this.gameStatus.text = 'Congratulations!';
+            // this.gameStatus.text = 'Congratulations!';
+            this.lostScreen.isVisible = false;
             this.gameSubTextControl.text = 'You successfully avoided the scams and completed level 3!'
         } else {
-            this.gameStatus.text = 'You Lost!';
-            this.gameSubTextControl.text = 'Play again and see if you can avoid the scams to reach level 3!'
+            
+            this.winningScreen.isVisible = false;
+            this.gameSubTextControl.text = 'You lost! Play again and see if you can avoid the scams to reach level 3!'
         }
-        this.menu.show();
 
         if (this.player.hasMadePointsRecord()) {
             this.hasMadeRecordTextControl.isVisible = true;
