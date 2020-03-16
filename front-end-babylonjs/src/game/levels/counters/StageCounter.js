@@ -62,7 +62,6 @@ export default class StageCounter {
             'width' : 1,
             'height' : 1
         });
-        background.isVisible = false;
         this.stageUI = new BABYLON.GUI.Rectangle();
         this.stageUI.width = 0.9;
         this.stageUI.height = 1;

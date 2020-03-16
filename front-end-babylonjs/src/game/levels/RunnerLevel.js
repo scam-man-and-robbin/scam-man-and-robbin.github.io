@@ -202,7 +202,8 @@ export default class RunnerLevel extends Level {
             }
         });
 
-        this.menu.addButton('backButton', 'Return to Home', {
+        this.menu.addImgButton('Return to Home', {
+            'imgpath' : "assets/scenes/Home_Button.png",
             'top': '390px',
             'height': '50px',
             'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP,

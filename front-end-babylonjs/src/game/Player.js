@@ -209,7 +209,8 @@ export default class Player {
                 BABYLON.Engine.audioEngine.unlock();
             }
         });
-        this.resumeButton = this.hud.addButton('resume', 'RESUME',{
+        this.resumeButton = this.hud.addImgButton('RESUME',{
+            'imgpath' : "assets/scenes/Play_Button.png",
             'width': 0.08,
             'height': 0.06,
             'top': GAME.isMobile() ? '-15px' : '-20px',
