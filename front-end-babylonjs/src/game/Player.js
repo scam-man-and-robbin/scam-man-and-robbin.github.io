@@ -77,12 +77,13 @@ export default class Player {
             depth: 0.01
         }, this.scene);
         this.groundMesh.position = new BABYLON.Vector3(0, -2.7, 0);
+        this.groundMesh.isVisible = false;
         this.spriteManagerPlayer = [];
         this.spriteManagerPlayer['left'] = new BABYLON.SpriteManager("playerManager", "assets/scenes/scamman_walk_left.png", 1, 62, this.scene);
         this.spriteManagerPlayer['right'] = new BABYLON.SpriteManager("playerManager", "assets/scenes/scamman_walk_right.png", 1, 62, this.scene);
-        this.spriteManagerPlayer['up'] = new BABYLON.SpriteManager("playerManager", "assets/scenes/scamman_attack.png", 1, { width: 41, height: 63 }, this.scene);
+        this.spriteManagerPlayer['up'] = new BABYLON.SpriteManager("playerManager", "assets/scenes/scamman_attack.png", 1, { width: 41, height: 62 }, this.scene);
         this.spriteManagerPlayer['land'] = new BABYLON.SpriteManager("playerManager", "assets/scenes/scamman_land.png", 1, { width: 118, height: 198 }, this.scene);
-        this.spriteManagerPlayer['lose'] = new BABYLON.SpriteManager("playerManager", "assets/scenes/scam man_lose.png", 1, { width: 38, height: 48 }, this.scene);
+        this.spriteManagerPlayer['lose'] = new BABYLON.SpriteManager("playerManager", "assets/scenes/scam man_lose.png", 1, { width: 38, height: 62 }, this.scene);
         this.createHUD();
     }
     /**
@@ -125,6 +126,8 @@ export default class Player {
         });
         if (GAME.currentLevelName == 'TutorialLevel') {
             this.coinsTextControl.isVisible = false;
+            this.moneyBar.isVisible = false;
+            this.potImg.isVisible = false;
             this.skipControl = this.hud.addImgButton('continueBtn', {
                 'imgpath': "assets/scenes/scam-man-continue-btn.png",
                 'top': '-5px',

@@ -47,7 +47,7 @@ export default class ScamsGenerator {
         // New scams keep generating every 4 second
         setInterval(() => {
             this.scamTypes = stages["stage_" + (this.level.nextStage - 1)]["scams"];
-            if (!GAME.isPaused() && this.player.lives && this.level.age < 65 && !this.level.freezeGeneration) {
+            if (!GAME.isPaused() && this.player.lives && this.level.age < 65 && !this.level.freezeGeneration && this.scene) {
                 let randomTileTypeNumber = Math.floor((Math.random() * this.scamTypes.length));
                 let scamType = this.scamTypes[randomTileTypeNumber];
                 this.player.activeScam = scamType;
