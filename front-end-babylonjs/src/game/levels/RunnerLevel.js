@@ -40,7 +40,7 @@ export default class RunnerLevel extends Level {
     setupAssets() {
 
         // Dummy Sounds for Time Being. Needs changing (Or requires providing credits)
-        this.assets.addMusic('music', '/assets/musics/SCAM_MAN_background2.wav',{autoplay: true});
+        // this.assets.addMusic('music', '/assets/musics/SCAM_MAN_background2.wav',{autoplay: true});
         this.assets.addSound('gameLostSound', '/assets/sounds/game-lost.wav');
         this.assets.addSound('gotCoinSound', '/assets/sounds/coin_going_into_pot.wav');
         this.assets.addSound('beginGameSound', '/assets/sounds/begin_game.wav');

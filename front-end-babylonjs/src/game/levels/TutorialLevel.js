@@ -40,7 +40,7 @@ export default class TutorialLevel extends Level {
     setupAssets() {
 
         // Dummy Sounds for Time Being. Needs changing (Or requires providing credits)
-        this.assets.addMusic('music', '/assets/musics/SCAM_MAN_background2.wav', { autoplay: true });
+        // this.assets.addMusic('music', '/assets/musics/SCAM_MAN_background2.wav', { autoplay: true });
         this.assets.addSound('gameLostSound', '/assets/sounds/game-lost.wav');
         this.assets.addSound('gotCoinSound', '/assets/sounds/coin_going_into_pot.wav');
         this.assets.addSound('beginGameSound', '/assets/sounds/begin_game.wav');
@@ -249,7 +249,7 @@ export default class TutorialLevel extends Level {
         if (!GAME.isPaused()) {
             this.player.pauseButtonControl.isVisible = true;
             this.player.coinsTextControl.isVisible = false;
-            this.player.skipControl.isVisible = false;
+            this.player.skipControl.isVisible = true;
             this.player.move();
             if (!this.player.beamEnabled && this.player.changePosition && !this.player.playerLanding && !this.player.gameEnded && this.nextStage) {
                 this.player.mesh.material.alpha = 1;
