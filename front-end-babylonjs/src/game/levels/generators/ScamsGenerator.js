@@ -51,6 +51,9 @@ export default class ScamsGenerator {
                 let randomTileTypeNumber = Math.floor((Math.random() * this.scamTypes.length));
                 let scamType = this.scamTypes[randomTileTypeNumber];
                 this.player.activeScam = scamType;
+                if (GAME.currentLevelName === 'TutorialLevel' && !this.scamSet.size) {
+                    this.level.createTutorialText(2);
+                }
                 this.activeScams.push(randomTileTypeNumber);
                 if (scamType == 'splitter') {
                     this.createSplitterScams(randomTileTypeNumber);
@@ -96,6 +99,7 @@ export default class ScamsGenerator {
 
         scams.material = this.level.getMaterial('scamMaterial').clone('scam_material' + randomPositionChooser);
         scams.material.diffuseTexture = new BABYLON.Texture(location, this.scene);
+        scams.material.diffuseTexture.hasAlpha = true;
         scams.position.x = positionX;
         scams.position.y = 3;
         scams.position.z = 0;
@@ -135,6 +139,9 @@ export default class ScamsGenerator {
                                 element.dispose();
                                 this.removeActiveScam(randomTileTypeNumber);
                                 clearInterval(trigger);
+                                this.player.shootAction.dispose();
+                                clearInterval(this.player.shootTrigger);
+                                this.player.beamEnabled = false;
                             }, 200);
                             this.player.keepScam(randomPositionChooser);
                         }
@@ -351,6 +358,7 @@ export default class ScamsGenerator {
 
             scams[index].material = this.level.getMaterial('scamMaterial').clone('scam_material' + randomPositionChooser);
             scams[index].material.diffuseTexture = new BABYLON.Texture(location, this.scene);
+            scams[index].material.diffuseTexture.hasAlpha = true;
             scams[index].position.x = 0;
             scams[index].position.y = 3;
             scams[index].position.z = 0;
@@ -373,6 +381,9 @@ export default class ScamsGenerator {
                                     element.dispose();
                                     this.removeActiveScam(randomTileTypeNumber);
                                     clearInterval(trigger[index]);
+                                    this.player.shootAction.dispose();
+                                    clearInterval(this.player.shootTrigger);
+                                    this.player.beamEnabled = false;
                                 }, 200);
                                 this.player.keepScam(randomPositionChooser);
                             }
@@ -418,7 +429,7 @@ export default class ScamsGenerator {
 
 
     createSplitterAnimation(scams, direction) {
-        let scamAnimation = new BABYLON.Animation("scamfall", "position", this.level.getGameSpeed() - 20, BABYLON.Animation.ANIMATIONTYPE_VECTOR3,
+        let scamAnimation = new BABYLON.Animation("scamfall", "position", this.level.getGameSpeed() - 10, BABYLON.Animation.ANIMATIONTYPE_VECTOR3,
             BABYLON.Animation.ANIMATIONLOOPMODE_CYCLE);
 
         let keys = [];

@@ -53,6 +53,9 @@ export default class BoonsGenerator {
             if (!GAME.isPaused() && this.player.lives && this.level.age < 65 && !this.level.freezeGeneration) {
                 let randomTileTypeNumber = Math.floor((Math.random() * this.boonTypes.length));
                 let boonType = this.boonTypes[randomTileTypeNumber];
+                if (GAME.currentLevelName === 'TutorialLevel' && !this.typeOfBoon) {
+                    this.level.createTutorialText(3);
+                }
                 this.activeBoons.push(randomTileTypeNumber);
                 this.typeOfBoon++;
                 let message = Message.message;
@@ -98,6 +101,7 @@ export default class BoonsGenerator {
         }, this.scene);
 
         boons.material = this.level.getMaterial('boonMaterial');
+        boons.material.diffuseTexture.hasAlpha = true;
         boons.position.x = positionX;
         boons.position.y = 3;
         boons.position.z = 0;
@@ -117,6 +121,9 @@ export default class BoonsGenerator {
                                 element.dispose();
                                 this.removeActiveBoon(randomTileTypeNumber);
                                 clearInterval(trigger);
+                                this.player.shootAction.dispose();
+                                clearInterval(this.player.shootTrigger);
+                                this.player.beamEnabled = false;
                             }, 200);
                         }
                     }

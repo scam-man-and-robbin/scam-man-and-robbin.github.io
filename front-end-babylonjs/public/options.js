@@ -26,13 +26,15 @@ window.initialGameOptions = {
 
     // Player Options
     'player': {
-        'defaultSpeed': 15,
-        'increaseSpeedRatio': 2,
+        'defaultSpeed': 20,
+        'increaseSpeedRatio': 0.5,
         'lives': 3,
         'scamStartAfter' : 5000, // 5 seconds,
-        'godMode': false
+        'godMode': true
     },
 
     'gameLength' : 270, // in seconds
-    'messageReadTime': 6 // in seconds
+    'messageReadTime': 6, // in seconds
+    'maxLifetimeAllowance' : 1055000,
+    'tutorialLength' : 60 // in seconds
 };

@@ -160,7 +160,7 @@ export default class UI {
         } else {
             var info = new BABYLON.GUI.TextBlock("CASUAL", "You haven't hit any scams");
             info.color = 'red'
-            info.fontSize = "30em";
+            info.fontSize = "28em";
             // info.paddingBottom = '150px';
             screen.addControl(info)
         }

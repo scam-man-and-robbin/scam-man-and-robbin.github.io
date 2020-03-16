@@ -4,6 +4,7 @@ import Log from './base/Log.js';
 // Game Levels
 import RunnerLevel from './game/levels/RunnerLevel.js';
 import HomeMenuLevel from './game/levels/HomeMenuLevel.js';
+import TutorialLevel from './game/levels/TutorialLevel.js';
 
 /**
  * Class Description
@@ -46,7 +47,8 @@ export default class Game {
 
         this.levels = {
             'HomeMenuLevel': new HomeMenuLevel(),
-            'RunnerLevel': new RunnerLevel()
+            'RunnerLevel': new RunnerLevel(),
+            'TutorialLevel': new TutorialLevel()
         };
 
     }
@@ -64,6 +66,9 @@ export default class Game {
             this.currentLevel.player.pauseButtonControl.isVisible = false;
             this.currentLevel.player.soundUnMuteButtonControl.isVisible = false;
             this.currentLevel.player.soundMuteButtonControl.isVisible = false;
+            if(this.currentLevel.player.skipControl) {
+                this.currentLevel.player.skipControl.isVisible = false;
+            }
             this.currentLevel.player.message.pauseScreen(this.currentLevel.player.coins,this.currentLevel.player.scamCount,this.currentLevel.player.boonCount,this.currentLevel.scams ? this.currentLevel.scams.scamSet : null)
         }
         this.paused = true;

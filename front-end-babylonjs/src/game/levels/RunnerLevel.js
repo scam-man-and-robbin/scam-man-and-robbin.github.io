@@ -78,10 +78,10 @@ export default class RunnerLevel extends Level {
 
 
         //Light direction is directly down from a position one unit up, fast decay
-        this.light = new BABYLON.SpotLight("spotLight3", new BABYLON.Vector3(0, -1, -500), new BABYLON.Vector3(0, 0, 1), Math.PI / 2, 50, this.scene);
-        this.light.diffuse = new BABYLON.Color3(1, 1, 1);
-        this.light.specular = new BABYLON.Color3(1, 1, 1);
-        this.light.intensity = 0.5;
+        this.light = new BABYLON.HemisphericLight("HemiLight", new BABYLON.Vector3(0, -1, 0), this.scene);
+        this.light.intensity = 1;
+        this.light.groundColor = new BABYLON.Color3(1,1,1);
+        this.light.specular = BABYLON.Color3.Black();
 
 
         //light1.intensity = 1;
