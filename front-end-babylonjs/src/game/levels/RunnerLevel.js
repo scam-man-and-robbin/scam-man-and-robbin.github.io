@@ -214,6 +214,19 @@ export default class RunnerLevel extends Level {
             }
         });
 
+        this.menu.addImgButton('Learn more', {
+            'imgpath' : "assets/scenes/learnmore.png",
+            'top': '550px',
+            'height': '15px',
+            'width' : 0.2,
+            'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP,
+            'textVerticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_CENTER,
+            // 'onclick': () => {
+            //     this.player.selectSound.play();
+            //     GAME.goToLevel('HomeMenuLevel')
+            // }
+        });
+
         this.menu.hide();
 
         // this.createTutorialText();

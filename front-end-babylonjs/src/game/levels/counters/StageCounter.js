@@ -57,8 +57,10 @@ export default class StageCounter {
         // background.alpha = 1;
         // stageUI.menuTexture.addControl(background);
 
+        let stageData = stages["stage_" + stage];
+
         var background = stageUI.addImage('stageScreen',{
-            'imgpath' : "assets/scenes/stage_screen.png",
+            'imgpath' : stageData.path,
             'width' : 1,
             'height' : 1
         });
@@ -68,8 +70,6 @@ export default class StageCounter {
         this.stageUI.thickness = 0;
         this.stageUI.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER;
         stageUI.menuTexture.addControl(this.stageUI);
-
-        let stageData = stages["stage_" + stage];
 
         if (stageData) {
 
