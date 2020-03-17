@@ -221,10 +221,10 @@ export default class RunnerLevel extends Level {
             'width' : 0.2,
             'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP,
             'textVerticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_CENTER,
-            // 'onclick': () => {
-            //     this.player.selectSound.play();
-            //     GAME.goToLevel('HomeMenuLevel')
-            // }
+            'onclick': () => {
+                this.player.selectSound.play();
+                window.open('https://www.jmangroup.com/', '_blank');
+            }
         });
 
         this.menu.hide();
