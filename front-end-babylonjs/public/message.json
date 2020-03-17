@@ -46,7 +46,7 @@
             "info" : "Boon: Check FCA registered - get FCA number",
             "icon" : "FCA logo",
             "reduction" : 100,
-            "path" : "assets/scenes/Cold_call.png"
+            "path" : "assets/scenes/Refuse.png"
         },
         "refuse" : {
             "info" : "Refuse: You refuse to discuss your pension with strangers",

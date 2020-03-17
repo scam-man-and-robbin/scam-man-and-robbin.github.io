@@ -40,17 +40,17 @@ export default class TutorialLevel extends Level {
     setupAssets() {
 
         // Dummy Sounds for Time Being. Needs changing (Or requires providing credits)
-        // this.assets.addMusic('music', '/assets/musics/SCAM_MAN_background2.wav', { autoplay: true });
-        this.assets.addSound('gameLostSound', '/assets/sounds/game-lost.wav');
-        this.assets.addSound('gotCoinSound', '/assets/sounds/coin_going_into_pot.wav');
-        this.assets.addSound('beginGameSound', '/assets/sounds/begin_game.wav');
-        this.assets.addSound('infoSound', '/assets/sounds/info.wav');
-        this.assets.addSound('damageSound', '/assets/sounds/scammed.wav');
-        this.assets.addSound('movementSound', '/assets/sounds/movement.wav');
-        this.assets.addSound('zappingSound', '/assets/sounds/Zapping_Scam.wav', { volume: 0.2 });
-        this.assets.addSound('winningSound', '/assets/sounds/Winning_Sound.wav');
-        this.assets.addSound('splashScreenSound', '/assets/sounds/Winning_Sound.wav');
-        this.assets.addSound('selectSound', '/assets/sounds/Select_sound.wav');
+        this.assets.addMusic('music', '/assets/musics/SCAM_MAN_background2.wav', { volume: 0.001, autoplay: true });
+        this.assets.addSound('gameLostSound', '/assets/sounds/game-lost.wav', { volume: 0.01 });
+        this.assets.addSound('gotCoinSound', '/assets/sounds/coin_going_into_pot.wav', { volume: 0.005 });
+        this.assets.addSound('beginGameSound', '/assets/sounds/begin_game.wav', { volume: 0.005 });
+        this.assets.addSound('infoSound', '/assets/sounds/info.wav', { volume: 0.003 });
+        this.assets.addSound('damageSound', '/assets/sounds/scammed.wav', { volume: 0.01 });
+        this.assets.addSound('movementSound', '/assets/sounds/movement.wav', { volume: 0.007 });
+        this.assets.addSound('zappingSound', '/assets/sounds/Zapping_Scam.wav', { volume: 0.0025 });
+        this.assets.addSound('winningSound', '/assets/sounds/Winning_Sound.wav', { volume: 0.01 });
+        this.assets.addSound('splashScreenSound', '/assets/sounds/Winning_Sound.wav', { volume: 0.01 });
+        this.assets.addSound('selectSound', '/assets/sounds/Select_sound.wav', { volume: 0.005 });
 
     }
 
@@ -106,6 +106,8 @@ export default class TutorialLevel extends Level {
      * Message varies based on device
      */
     createTutorialText(messageNumber) {
+
+        this.player.infoSound.play();
 
         this.robbinFlapSpriteManager = new BABYLON.SpriteManager("robbinFlapSpriteManager", "assets/scenes/robin_flap_1.png", 1, { width: 65, height: 62 }, this.scene)
         var robbinFlap = new BABYLON.Sprite("player", this.robbinFlapSpriteManager);

@@ -314,7 +314,7 @@ export default class Player {
             this.soundUnMuteButtonControl.isVisible = false;
             this.soundMuteButtonControl.isVisible = true;
             BABYLON.Engine.audioEngine.unlock();
-            BABYLON.Engine.audioEngine.setGlobalVolume(80);
+            BABYLON.Engine.audioEngine.setGlobalVolume(20);
         }
     }
     /**

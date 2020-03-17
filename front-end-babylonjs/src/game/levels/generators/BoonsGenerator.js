@@ -98,7 +98,7 @@ export default class BoonsGenerator {
         let boons = BABYLON.MeshBuilder.CreateBox("boon_" + randomPositionChooser, {
             width: boonDiameter,
             height: boonDiameter,
-            depth: 0.01
+            depth: 0.001
         }, this.scene);
 
         boons.material = this.level.getMaterial('boonMaterial');
