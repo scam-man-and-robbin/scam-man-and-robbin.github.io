@@ -84,6 +84,7 @@ export default class Player {
         this.spriteManagerPlayer['up'] = new BABYLON.SpriteManager("playerManager", "assets/scenes/scamman_attack.png", 1, { width: 41, height: 62 }, this.scene);
         this.spriteManagerPlayer['land'] = new BABYLON.SpriteManager("playerManager", "assets/scenes/scamman_land.png", 1, { width: 118, height: 198 }, this.scene);
         this.spriteManagerPlayer['lose'] = new BABYLON.SpriteManager("playerManager", "assets/scenes/scam man_lose.png", 1, { width: 38, height: 62 }, this.scene);
+        this.spriteManagerPlayer['win'] = new BABYLON.SpriteManager("playerManager", "assets/scenes/scam man_win.png", 1, { width: 66, height: 62 }, this.scene);
         this.createHUD();
     }
     /**
@@ -561,7 +562,7 @@ export default class Player {
             this.level.freezeGeneration = false;
             this.landAction.dispose();
         });
-        this.landAction.size = 3;
+        this.landAction.size = 3.05;
         this.landAction.isPickable = true;
         this.mesh.position.x = 0;
     }

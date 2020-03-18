@@ -138,7 +138,7 @@ export default class AgeCounter {
         let ageValue = 0;
         let gameLength = GAME.options.gameLength; // 1 min
         this.trigger = setInterval(() => {
-            if (ageValue <= 47) {
+            if (ageValue < 47) {
                 if (!GAME.isPaused()) {
                     moveProgressWidth += ((98 / gameLength) / 100 / 10);
                     ageValue += (47 / gameLength / 10);

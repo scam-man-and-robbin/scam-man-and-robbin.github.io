@@ -299,17 +299,26 @@ export default class RunnerLevel extends Level {
 
         // Actions when player wins
         this.player.win = () => {
-            this.player.hud.hide();
             this.player.gameEnded = true;
             clearInterval(this.speedTrigger);
             this.player.winningSound.play();
-            GAME.pause();
-            this.status = 'WIN';
-            this.showMenu();
-            this.ageTimer.clear();
-            this.player.pauseButtonControl.isVisible = false;
-            this.player.soundMuteButtonControl.isVisible = false;
-            this.player.soundUnMuteButtonControl.isVisible = false;
+
+            this.player.mesh.material.alpha = 0;
+            var player = new BABYLON.Sprite("player", this.player.spriteManagerPlayer['win']);
+            player.position = this.player.mesh.position;
+            player.position = new BABYLON.Vector3(this.player.mesh.position.x + 0.2, this.player.mesh.position.y, 0);
+            player.size = 1.2;
+            player.isPickable = true;
+            setTimeout(() => {
+                this.player.hud.hide();
+                GAME.pause();
+                this.status = 'WIN';
+                this.showMenu();
+                this.ageTimer.clear();
+                this.player.pauseButtonControl.isVisible = false;
+                this.player.soundMuteButtonControl.isVisible = false;
+                this.player.soundUnMuteButtonControl.isVisible = false;
+            }, 1500);
         }
     }
 
@@ -318,7 +327,7 @@ export default class RunnerLevel extends Level {
      */
     showMenu() {
         this.menu.show();
-        this.lastDisplay.text = 'Unfortunately, Scam Man wont be on hand to protect you! So it is important to know how to identify a pension scan.'
+        this.lastDisplay.text = "Unfortunately, Scam Man won't be on hand to protect you! So it is important to know how to identify a pension scam.";
         this.pointsTextControl.text = 'Pension Pot: £' + this.player.getPoints();
         // this.ageTextControl.text = 'Age: ' + this.age;
         this.currentRecordTextControl.text = 'Current Record: ' + this.player.getLastRecord();

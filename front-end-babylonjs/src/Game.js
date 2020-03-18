@@ -40,7 +40,7 @@ export default class Game {
          */
         this.canvas = document.getElementById("renderCanvas");
 
-        this.engine = new BABYLON.Engine(this.canvas, true);
+        this.engine = new BABYLON.Engine(this.canvas, false);
 
         this.currentLevel = null;
         this.currentLevelName = 'HomeMenuLevel';
