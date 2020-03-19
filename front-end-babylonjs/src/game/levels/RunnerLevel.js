@@ -115,7 +115,7 @@ export default class RunnerLevel extends Level {
         this.scene.useMaterialMeshMap = true;
         this.scene.debugLayer.hide();
         // this.scene.debugLayer.show();
-        BABYLON.Engine.audioEngine.useCustomUnlockedButton = true;
+        // BABYLON.Engine.audioEngine.useCustomUnlockedButton = true;
     }
 
     /**
@@ -281,9 +281,9 @@ export default class RunnerLevel extends Level {
             clearInterval(this.speedTrigger);
             this.player.mesh.material.alpha = 0;
             var player = new BABYLON.Sprite("player", this.player.spriteManagerPlayer['lose']);
-            player.position = this.player.mesh.position;
-            player.position = new BABYLON.Vector3(this.player.mesh.position.x, this.player.mesh.position.y - 0.2, 0);
-            player.size = 0.8;
+            player.position = new BABYLON.Vector3(this.player.mesh.position.x, this.player.mesh.position.y - 0.1, 0);
+            player.height = 0.9;
+            player.width = 0.7;
             player.isPickable = true;
             this.player.gameLostSound.play();
             player.playAnimation(0, 2, false, 400, () => {

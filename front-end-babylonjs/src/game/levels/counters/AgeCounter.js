@@ -30,7 +30,7 @@ export default class AgeCounter {
         outterRect.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER;
         outterRect.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP;
         outterRect.top = '10px';
-        outterRect.left = '10px';
+        // outterRect.left = '10px';
         outterRect.width = 0.8;
         outterRect.height = "45px";
         outterRect.thickness = 0;
@@ -42,7 +42,7 @@ export default class AgeCounter {
         rect1.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER;
         rect1.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP;
         rect1.top = '10px';
-        rect1.left = '10px';
+        // rect1.left = '10px';
         rect1.width = 0.8;
         rect1.height = "25px";
         rect1.cornerRadius = 40;
@@ -55,8 +55,8 @@ export default class AgeCounter {
 
         var progressBar = new BABYLON.GUI.Rectangle();
         progressBar.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_LEFT;
-        progressBar.width = 0.98;
-        progressBar.left = '2px';
+        progressBar.width = 1;
+        progressBar.left = '0px';
         progressBar.height = "15px";
         progressBar.cornerRadius = 100;
         progressBar.color = "#EB12DB";
@@ -70,7 +70,7 @@ export default class AgeCounter {
         this.progressValue = new BABYLON.GUI.Rectangle();
         this.progressValue.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_LEFT;
         this.progressValue.width = 0;
-        this.progressValue.left = '2px';
+        this.progressValue.left = '0px';
         this.progressValue.height = 1;
         this.progressValue.cornerRadius = 20;
         this.progressValue.color = "#F0E469";
@@ -101,9 +101,9 @@ export default class AgeCounter {
         for (let index = 1; index <= 4; index++) {
             var splitter = new BABYLON.GUI.Rectangle();
             splitter.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_LEFT;
-            splitter.width =  0.3334 * index;
+            splitter.width =  0.334 * index;
             splitter.height = 1;
-            splitter.thickness = 4;
+            splitter.thickness = 3;
             splitter.background = 'transparent';
             progressBar.addControl(splitter);  
         }

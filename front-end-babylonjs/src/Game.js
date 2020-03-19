@@ -41,6 +41,7 @@ export default class Game {
         this.canvas = document.getElementById("renderCanvas");
 
         this.engine = new BABYLON.Engine(this.canvas, false);
+        BABYLON.Engine.audioEngine.useCustomUnlockedButton = true;
 
         this.currentLevel = null;
         this.currentLevelName = 'HomeMenuLevel';
