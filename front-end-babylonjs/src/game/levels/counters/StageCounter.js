@@ -49,6 +49,7 @@ export default class StageCounter {
         this.scamsImage = [];
         let stageUI = new UI('stageLoadingUI');
 
+        console.log('ss',GAME.engine.getRenderWidth(),GAME.engine.getRenderHeight())
         // let background = new BABYLON.GUI.Rectangle();
         // background.width = 1;
         // background.height = 1;
@@ -138,7 +139,7 @@ export default class StageCounter {
                 }
             });
             if (stageData['scams']) {
-                let top = -140;
+                let top = -(GAME.engine.getRenderHeight()/4.5);
                 this.scamDescription = this.addText("Shine your torch and avoid the following scams! ", {
                     'top': top,
                     'color': GAME.options.pointsTextColor,
@@ -149,12 +150,12 @@ export default class StageCounter {
                 })
                 this.stageUI.addControl(this.scamDescription);
                 stageData['scams'].forEach(scam => {
-                    top = top + 100;
+                    top = top + 85;
                     let image = new BABYLON.GUI.Image("icon", Message.message[scam].path);
-                    image.width = 0.15;
-                    image.height = 0.1;
+                    image.width = 0.095;
+                    image.height = 0.09;
                     image.top = top;
-                    image.left = 0.1;
+                    image.left = 0.2;
                     image.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_LEFT;
                     image.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_CENTER;
                     this.stageUI.addControl(image);
@@ -186,7 +187,7 @@ export default class StageCounter {
     }
 
     setBoons(stageData) {
-        let top = -140;
+        let top = -(GAME.engine.getRenderHeight()/4.5);
         this.stageUI.addControl(this.addText("Collect bonus points", {
             'top': top,
             'color': GAME.options.pointsTextColor,
@@ -196,10 +197,10 @@ export default class StageCounter {
             'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_CENTER
         }));
         stageData['boons'].forEach(scam => {
-            top = top + 100;
+            top = top + 85;
             let image = new BABYLON.GUI.Image("icon", Message.message[scam].path);
-            image.width = 0.15;
-            image.height = 0.1;
+            image.width = 0.095;
+            image.height = 0.09;
             image.top = top;
             image.left = 0.1;
             image.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_LEFT;

@@ -104,26 +104,30 @@ export default class Player {
             'imgpath' : "assets/scenes/pot.png",
             "width" : 0.07,
             "height" : 0.05,
-            'top' : GAME.isMobile() ? '-32px' : '-42px',
+            // 'top' : GAME.isMobile() ? '-32px' : '-42px',
+            'top' : Math.floor(-(GAME.engine.getRenderHeight()/20)), 
             'horizontalAlignment': BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER,
             'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_BOTTOM
         });
+        console.log('ww',this.potImg);
         this.moneyBar = this.hud.addImage('moneyBar',{
             'imgpath' : "assets/scenes/moneybar.png",
             "width" : 0.4,
-            "height" : 0.03,
+            "height" : 0.032,
             'top' : '-6px',
             'horizontalAlignment': BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER,
             'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_BOTTOM
         });
         this.coinsTextControl = this.hud.addText('£ 0', {
-            'top': '-7px',
+            // 'top': '-7px',
+            'top' : Math.floor(-(GAME.engine.getRenderHeight()/100)),
             'left': '-5px',
             'fontSize': '15px',
             'color' : '#FFFF99',
             'horizontalAlignment': BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER,
             'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_BOTTOM
         });
+        console.log('asdad',this.coinsTextControl);
         if (GAME.currentLevelName == 'TutorialLevel') {
             this.coinsTextControl.isVisible = false;
             this.moneyBar.isVisible = false;
@@ -147,7 +151,8 @@ export default class Player {
             // 'width': (GAME.isMobile() ? 0.15 : 0.1),
             'width': 0.08,
             'height': 0.06,
-            'top': GAME.isMobile() ? '-15px' : '-20px',
+            // 'top': GAME.isMobile() ? '-15px' : '-20px',
+            'top' : Math.floor(-(GAME.engine.getRenderHeight()/40)),
             'left': '-25px',
             'isVisible': true,
             // 'fontSize': '10em',
@@ -186,7 +191,8 @@ export default class Player {
             'width' : 0.08,
             // 'width': (GAME.isMobile() ? 0.15 : 0.1),
             'height': 0.06,
-            'top': GAME.isMobile() ? '-15px' : '-20px',
+            // 'top': GAME.isMobile() ? '-15px' : '-20px',
+            'top' : Math.floor(-(GAME.engine.getRenderHeight()/40)),
             'left': '25px',
             'isVisible': true,
             // 'fontSize': '10em',
@@ -201,7 +207,8 @@ export default class Player {
             'imgpath' : "assets/scenes/music_off.png",
             'width' : 0.08,
             'height': 0.06,
-            'top': GAME.isMobile() ? '-15px' : '-20px',
+            'top' : Math.floor(-(GAME.engine.getRenderHeight()/40)),
+            // 'top': GAME.isMobile() ? '-15px' : '-20px',
             'left': '25px',
             'isVisible': true,
             // 'fontSize': '10em',
@@ -216,7 +223,8 @@ export default class Player {
             'imgpath' : "assets/scenes/Play_Button.png",
             'width': 0.08,
             'height': 0.06,
-            'top': GAME.isMobile() ? '-15px' : '-20px',
+            'top' : Math.floor(-(GAME.engine.getRenderHeight()/40)),
+            // 'top': GAME.isMobile() ? '-15px' : '-20px',
             'left': '-25px',
             'horizontalAlignment': BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_RIGHT,
             'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_BOTTOM,
