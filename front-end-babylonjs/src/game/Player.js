@@ -84,6 +84,7 @@ export default class Player {
         this.spriteManagerPlayer['up'] = new BABYLON.SpriteManager("playerManager", "assets/scenes/scamman_attack.png", 1, { width: 41, height: 62 }, this.scene);
         this.spriteManagerPlayer['land'] = new BABYLON.SpriteManager("playerManager", "assets/scenes/scamman_land.png", 1, { width: 118, height: 198 }, this.scene);
         this.spriteManagerPlayer['lose'] = new BABYLON.SpriteManager("playerManager", "assets/scenes/scam man_lose.png", 1, { width: 38, height: 62 }, this.scene);
+        this.spriteManagerPlayer['win'] = new BABYLON.SpriteManager("playerManager", "assets/scenes/scam man_win.png", 1, { width: 66, height: 62 }, this.scene);
         this.createHUD();
     }
     /**
@@ -109,7 +110,6 @@ export default class Player {
             'horizontalAlignment': BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER,
             'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_BOTTOM
         });
-        console.log('ww',this.potImg);
         this.moneyBar = this.hud.addImage('moneyBar',{
             'imgpath' : "assets/scenes/moneybar.png",
             "width" : 0.4,
@@ -127,7 +127,6 @@ export default class Player {
             'horizontalAlignment': BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER,
             'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_BOTTOM
         });
-        console.log('asdad',this.coinsTextControl);
         if (GAME.currentLevelName == 'TutorialLevel') {
             this.coinsTextControl.isVisible = false;
             this.moneyBar.isVisible = false;
@@ -322,7 +321,7 @@ export default class Player {
             this.soundUnMuteButtonControl.isVisible = false;
             this.soundMuteButtonControl.isVisible = true;
             BABYLON.Engine.audioEngine.unlock();
-            BABYLON.Engine.audioEngine.setGlobalVolume(80);
+            BABYLON.Engine.audioEngine.setGlobalVolume(20);
         }
     }
     /**
@@ -569,7 +568,7 @@ export default class Player {
             this.level.freezeGeneration = false;
             this.landAction.dispose();
         });
-        this.landAction.size = 3;
+        this.landAction.size = 3.05;
         this.landAction.isPickable = true;
         this.mesh.position.x = 0;
     }

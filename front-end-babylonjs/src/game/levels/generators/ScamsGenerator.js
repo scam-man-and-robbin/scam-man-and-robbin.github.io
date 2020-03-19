@@ -91,7 +91,7 @@ export default class ScamsGenerator {
         let scams = BABYLON.MeshBuilder.CreateBox("scam_" + randomPositionChooser, {
             width: scamDiameter,
             height: scamDiameter,
-            depth: 0.01
+            depth: 0.001
         }, this.scene);
 
         let message = Message.message;
@@ -350,7 +350,7 @@ export default class ScamsGenerator {
             scams[index] = BABYLON.MeshBuilder.CreateBox("scam_" + randomPositionChooser, {
                 width: scamDiameter,
                 height: scamDiameter,
-                depth: 0.01
+                depth: 0.001
             }, this.scene);
 
             let message = Message.message;

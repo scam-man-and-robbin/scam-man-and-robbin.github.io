@@ -49,7 +49,6 @@ export default class StageCounter {
         this.scamsImage = [];
         let stageUI = new UI('stageLoadingUI');
 
-        console.log('ss',GAME.engine.getRenderWidth(),GAME.engine.getRenderHeight())
         // let background = new BABYLON.GUI.Rectangle();
         // background.width = 1;
         // background.height = 1;

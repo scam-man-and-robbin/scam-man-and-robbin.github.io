@@ -98,12 +98,12 @@ export default class AgeCounter {
 
         this.progressValue.addControl(this.ageControl);
 
-        for (let index = 1; index <= 3; index++) {
+        for (let index = 1; index <= 4; index++) {
             var splitter = new BABYLON.GUI.Rectangle();
             splitter.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_LEFT;
-            splitter.width =  0.3333 * index;
+            splitter.width =  0.3334 * index;
             splitter.height = 1;
-            splitter.thickness = 3;
+            splitter.thickness = 4;
             splitter.background = 'transparent';
             progressBar.addControl(splitter);  
         }
@@ -138,7 +138,7 @@ export default class AgeCounter {
         let ageValue = 0;
         let gameLength = GAME.options.gameLength; // 1 min
         this.trigger = setInterval(() => {
-            if (ageValue <= 47) {
+            if (ageValue < 47) {
                 if (!GAME.isPaused()) {
                     moveProgressWidth += ((98 / gameLength) / 100 / 10);
                     ageValue += (47 / gameLength / 10);
