@@ -1,5 +1,23 @@
 {
     "message" : {
+        "normal_scam" : {
+            "info" : "Cold-calling: You receive a cold call about your pension",
+            "icon" : "FCA logo",
+            "reduction" : 100,
+            "path" : "assets/scenes/Cold_call.png"
+        },
+        "accelerator" : {
+            "info" : "Free advice: You accept ‘free’ financial advice",
+            "icon" : "pound signs with a cross through it",
+            "reduction" : 300,
+            "path" : "assets/scenes/Free_advice.png" 
+        },
+        "speedy" : {
+            "info" : "Time pressure: You feel pressured to make an immediate decision ",
+            "icon" : " clock",
+            "reduction" : 600,
+            "path" : "assets/scenes/Time_pressure.png"
+        },
         "zig_zag" : {
             "info" : "Fake Scam Vigilante: You believe a scammer is authorised by the FCA",
             "icon" : "a phone",
@@ -12,34 +30,16 @@
             "reduction" : 800,
             "path" : "assets/scenes/Early_withdrawl.png"
         },
-        "accelerator" : {
-            "info" : "Free advice: You accept ‘free’ financial advice",
-            "icon" : "pound signs with a cross through it",
-            "reduction" : 300,
-            "path" : "assets/scenes/Free_advice.png" 
-        },
         "black_out" : {
             "info" : "Black out: You engaged with a company because they offered a unique or limited investment opportunity",
             "icon" : "something unusual",
             "reduction" : 500,
             "path" : "assets/scenes/scam.png"
         },
-        "speedy" : {
-            "info" : "Time pressure: You feel pressured to make an immediate decision ",
-            "icon" : " clock",
-            "reduction" : 600,
-            "path" : "assets/scenes/Time_pressure.png"
-        },
         "diagonal" : {
             "info" : "Cold-calling: You receive a cold call about your pension" ,
             "icon" : "mini scam man",
             "reduction" : 400,
-            "path" : "assets/scenes/Cold_call.png"
-        },
-        "normal_scam" : {
-            "info" : "Scam: High returns with low risk",
-            "icon" : "FCA logo",
-            "reduction" : 100,
             "path" : "assets/scenes/Cold_call.png"
         },
         "normal_boon" : {

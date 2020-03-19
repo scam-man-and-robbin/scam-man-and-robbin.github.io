@@ -125,15 +125,16 @@ export default class RunnerLevel extends Level {
     createMenus() {
         this.menu = new UI('runnerMenuUI');
 
+        let top = GAME.engine.getRenderHeight()/5.5;
         this.lostScreen = this.menu.addImage('lostScreen',{
             'imgpath':"assets/scenes/Game_over_screen.png",
-            'width' : 0.8,
-            'height' : 0.8,
+            'width' : 0.9,
+            'height' : 0.9,
         });
         this.winningScreen = this.menu.addImage('winningScreen',{
             'imgpath':"assets/scenes/winning_screen_1.png",
-            'width' : 0.8,
-            'height' : 0.8,
+            'width' : 0.9,
+            'height' : 0.9,
         });
         // this.gameStatus = this.menu.addText('Congratulations!', {
         //     'top': '60px',
@@ -142,11 +143,10 @@ export default class RunnerLevel extends Level {
         //     'outlineWidth': '2px',
         //     'fontSize': '40px',
         //     'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP
-        // });
-
+        // }); 
         this.gameSubTextControl = this.menu.addText('You cannot give up. Try reaching Age 65...', {
-            'width' : 0.5,
-            'top': '155px',
+            'width' : 0.6,
+            'top': top,// GAME.engine.getRenderHeight()
             'color': GAME.options.pointsTextColor,
             'outlineColor': GAME.options.pointsOutlineTextColor,
             'outlineWidth': '2px',
@@ -154,7 +154,7 @@ export default class RunnerLevel extends Level {
             'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP
         });
         this.pointsTextControl = this.menu.addText('Pension Pot: £ 0', {
-            'top': '220px',
+            'top': top+55, // top+80 '220px'e
             'color': GAME.options.pointsTextColor,
             'outlineColor': GAME.options.pointsOutlineTextColor,
             'outlineWidth': '2px',
@@ -172,30 +172,31 @@ export default class RunnerLevel extends Level {
         // });
 
         this.currentRecordTextControl = this.menu.addText('Current Record: 0', {
-            'top': '260px',
+            'top': top+90, // '260px' top+120
             'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP
         });
 
         this.hasMadeRecordTextControl = this.menu.addText('You got a new Points Record!', {
-            'top': '300px',
+            'top': top+140, //'300px' top+160
             'color': GAME.options.recordTextColor,
             'fontSize': '20px',
             'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP
         });
 
-        this.lastDisplay = this.menu.addText('lastText',{
-            'top' : '460px',
+        this.lastText = this.menu.addText('lastText',{
+            'top' : top+265, //  '460px' top+310
             'fontSize' : '15px',
             'color': GAME.options.recordTextColor,
             'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP,
-            'width' : 0.5,
+            'width' : 0.8,
         });
         this.menu.addImgButton('replayButton', {
+            'width' : 0.5,
             'imgpath' : "assets/scenes/Play_again.png",
-            'top': '340px',
+            'top': top+160, //'340px' top+200
             'height': '50px',
             'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP,
-            'textVerticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_CENTER,
+            // 'textVerticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_CENTER,
             'onclick': () => {
                 this.player.selectSound.play();
                 GAME.goToLevel('RunnerLevel')
@@ -203,11 +204,12 @@ export default class RunnerLevel extends Level {
         });
 
         this.menu.addImgButton('Return to Home', {
+            'width' : 0.5,
             'imgpath' : "assets/scenes/Home_Button.png",
-            'top': '390px',
+            'top': top+210, // '390px' top+250 
             'height': '50px',
             'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP,
-            'textVerticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_CENTER,
+            // 'textVerticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_CENTER,
             'onclick': () => {
                 this.player.selectSound.play();
                 GAME.goToLevel('HomeMenuLevel')
@@ -216,17 +218,16 @@ export default class RunnerLevel extends Level {
 
         this.menu.addImgButton('Learn more', {
             'imgpath' : "assets/scenes/learnmore.png",
-            'top': '550px',
+            'top': top+335, //  '550px' top+370
             'height': '15px',
             'width' : 0.2,
             'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP,
-            'textVerticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_CENTER,
+            // 'textVerticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_CENTER,
             'onclick': () => {
                 this.player.selectSound.play();
                 window.open('https://www.jmangroup.com/', '_blank');
             }
         });
-
         this.menu.hide();
 
         // this.createTutorialText();
@@ -327,7 +328,7 @@ export default class RunnerLevel extends Level {
      */
     showMenu() {
         this.menu.show();
-        this.lastDisplay.text = "Unfortunately, Scam Man won't be on hand to protect you! So it is important to know how to identify a pension scam.";
+        this.lastText.text = "Unfortunately, Scam Man won't be on hand to protect you! So it is important to know how to identify a pension scam.";
         this.pointsTextControl.text = 'Pension Pot: £' + this.player.getPoints();
         // this.ageTextControl.text = 'Age: ' + this.age;
         this.currentRecordTextControl.text = 'Current Record: ' + this.player.getLastRecord();

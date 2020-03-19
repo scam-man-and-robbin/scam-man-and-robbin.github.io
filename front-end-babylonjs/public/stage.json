@@ -7,7 +7,7 @@
     },
     "stage_1" : {
         "path" : "assets/scenes/stage_1.png",
-        "scams" : ["diagonal", "accelerator"],
+        "scams" : ["normal_scam", "accelerator"],
         "boons" : ["refuse", "pension_wise"]
     },
     "stage_2" : {

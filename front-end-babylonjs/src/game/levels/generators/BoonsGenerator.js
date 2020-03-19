@@ -160,6 +160,7 @@ export default class BoonsGenerator {
         setTimeout(() => {
             boonAnimation.pause();
             boons.dispose();
+            this.removeActiveBoon(randomTileTypeNumber);
         }, 15000);
     }
 

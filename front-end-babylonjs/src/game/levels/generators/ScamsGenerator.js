@@ -181,6 +181,7 @@ export default class ScamsGenerator {
         setTimeout(() => {
             scamAnimation.pause();
             scams.dispose();
+            this.removeActiveScam(randomTileTypeNumber);
         }, 10000);
     }
 
@@ -422,7 +423,8 @@ export default class ScamsGenerator {
             }, 5);
             setTimeout(() => {
                 scamAnimation.pause();
-                scams[index].dispose();
+                scams[index].dispose();                
+                this.removeActiveScam(randomTileTypeNumber);
             }, 8000);
         }
     }

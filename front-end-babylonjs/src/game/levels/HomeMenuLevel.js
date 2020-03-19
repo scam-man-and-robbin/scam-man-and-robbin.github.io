@@ -40,7 +40,7 @@ export default class HomeMenuLevel extends Level {
         menu.addImgButton('playButton', {
             'imgpath' : "assets/scenes/Start_button.png",
             'width' : 0.25,
-            'top' : '210px',
+            'top' : Math.floor((GAME.engine.getRenderHeight()/3)),
             'onclick': () => {
                 click.play();
                 GAME.goToLevel('TutorialLevel')

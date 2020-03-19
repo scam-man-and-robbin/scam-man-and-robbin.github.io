@@ -117,6 +117,7 @@ export default class TilesGenerator {
         setTimeout(() => {
             coinAnimation.pause();
             coins.dispose();
+            this.removeActiveCoin(randomPositionChooser);
         }, 20000);
         if (GAME.isPaused()) {
             coinAnimation.pause();
