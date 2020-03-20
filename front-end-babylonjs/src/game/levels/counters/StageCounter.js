@@ -149,7 +149,6 @@ export default class StageCounter {
                     'textVerticalAlignment' : BABYLON.GUI.Control.VERTICAL_ALIGNMENT_CENTER
                 })
                 this.stageUI.addControl(this.scamDescription);
-                console.log('ssss',this.scamDescription);
                 stageData['scams'].forEach(scam => {
                     top = top + 90;
                     let image = new BABYLON.GUI.Image("icon", Message.message[scam].path);
@@ -160,7 +159,6 @@ export default class StageCounter {
                     image.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_LEFT;
                     image.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_CENTER;
                     this.stageUI.addControl(image);
-                    console.log('sss',image);
                     let display = new BABYLON.GUI.Rectangle();
                     display.width = 0.75;
                     display.height = 0.1;

@@ -128,12 +128,12 @@ export default class RunnerLevel extends Level {
         let top = GAME.engine.getRenderHeight()/5.5;
         this.lostScreen = this.menu.addImage('lostScreen',{
             'imgpath':"assets/scenes/Game_over_screen.png",
-            'width' : GAME.isMobile() ? 0.9 : 0.6,
+            'width' : GAME.isMobile() ? 0.9 : 0.7,
             'height' : 0.9,
         });
         this.winningScreen = this.menu.addImage('winningScreen',{
             'imgpath':"assets/scenes/winning_screen_1.png",
-            'width' : GAME.isMobile() ? 0.9 : 0.6,
+            'width' : GAME.isMobile() ? 0.9 : 0.7,
             'height' : 0.9,
         });
         // this.gameStatus = this.menu.addText('Congratulations!', {

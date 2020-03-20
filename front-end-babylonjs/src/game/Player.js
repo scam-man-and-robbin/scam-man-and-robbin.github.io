@@ -91,7 +91,6 @@ export default class Player {
     * Function to create UI Texts (Coin Counter, Lives Counter).
     */
     createHUD() {
-        console.log('sss',GAME.isMobile());
         this.hud = new UI('playerHudUI');
         this.coinsTextControl = null;
         this.pauseButtonControl = null;
