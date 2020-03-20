@@ -128,7 +128,7 @@ export default class RunnerLevel extends Level {
         let top = GAME.engine.getRenderHeight()/5.5;
         this.lostScreen = this.menu.addImage('lostScreen',{
             'imgpath':"assets/scenes/Game_over_screen.png",
-            'width' : 0.9,
+            'width' : 0.7,
             'height' : 0.9,
         });
         this.winningScreen = this.menu.addImage('winningScreen',{
@@ -188,10 +188,10 @@ export default class RunnerLevel extends Level {
             'fontSize' : '15px',
             'color': GAME.options.recordTextColor,
             'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP,
-            'width' : 0.8,
+            'width' : GAME.isMobile() ? 0.8 : 0.5,
         });
         this.menu.addImgButton('replayButton', {
-            'width' : 0.5,
+            'width' : GAME.isMobile() ? 0.5 : 0.3,
             'imgpath' : "assets/scenes/Play_again.png",
             'top': top+160, //'340px' top+200
             'height': '50px',
@@ -204,7 +204,7 @@ export default class RunnerLevel extends Level {
         });
 
         this.menu.addImgButton('Return to Home', {
-            'width' : 0.5,
+            'width' : GAME.isMobile() ? 0.5 : 0.3,
             'imgpath' : "assets/scenes/Home_Button.png",
             'top': top+210, // '390px' top+250 
             'height': '50px',

@@ -91,6 +91,7 @@ export default class Player {
     * Function to create UI Texts (Coin Counter, Lives Counter).
     */
     createHUD() {
+        console.log('sss',GAME.isMobile());
         this.hud = new UI('playerHudUI');
         this.coinsTextControl = null;
         this.pauseButtonControl = null;
@@ -150,7 +151,7 @@ export default class Player {
             // 'width': (GAME.isMobile() ? 0.15 : 0.1),
             'width': 0.1,
             'height': 0.08,
-            'top' : Math.floor(-(GAME.engine.getRenderHeight()/40)),
+            'top' : Math.floor(-(GAME.engine.getRenderHeight()/95)),
             'left': '-25px',
             'isVisible': true,
             // 'fontSize': '10em',
@@ -189,7 +190,7 @@ export default class Player {
             'width' : 0.1,
             // 'width': (GAME.isMobile() ? 0.15 : 0.1),
             'height': 0.08,
-            'top' : Math.floor(-(GAME.engine.getRenderHeight()/40)),
+            'top' : Math.floor(-(GAME.engine.getRenderHeight()/95)),
             'left': '25px',
             'isVisible': true,
             // 'fontSize': '10em',
@@ -204,7 +205,7 @@ export default class Player {
             'imgpath' : "assets/scenes/music_off.png",
             'width' : 0.1,
             'height': 0.08,
-            'top' : Math.floor(-(GAME.engine.getRenderHeight()/40)),
+            'top' : Math.floor(-(GAME.engine.getRenderHeight()/95)),
             'left': '25px',
             'isVisible': true,
             // 'fontSize': '10em',
@@ -219,7 +220,7 @@ export default class Player {
             'imgpath' : "assets/scenes/Play_Button.png",
             'width' : 0.1,
             'height': 0.08,
-            'top' : Math.floor(-(GAME.engine.getRenderHeight()/40)),
+            'top' : Math.floor(-(GAME.engine.getRenderHeight()/95)),
             'left': '-25px',
             'horizontalAlignment': BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_RIGHT,
             'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_BOTTOM,

@@ -145,20 +145,22 @@ export default class StageCounter {
                     'outlineColor': GAME.options.pointsOutlineTextColor,
                     'outlineWidth': '2px',
                     'fontSize': '15px',
-                    'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_CENTER
+                    'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_CENTER,
+                    'textVerticalAlignment' : BABYLON.GUI.Control.VERTICAL_ALIGNMENT_CENTER
                 })
                 this.stageUI.addControl(this.scamDescription);
+                console.log('ssss',this.scamDescription);
                 stageData['scams'].forEach(scam => {
-                    top = top + 85;
+                    top = top + 90;
                     let image = new BABYLON.GUI.Image("icon", Message.message[scam].path);
-                    image.width = 0.095;
-                    image.height = 0.09;
+                    image.width = 0.15;
+                    image.height = 0.1;
                     image.top = top;
-                    image.left = 0.2;
+                    image.left = 20;
                     image.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_LEFT;
                     image.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_CENTER;
                     this.stageUI.addControl(image);
-
+                    console.log('sss',image);
                     let display = new BABYLON.GUI.Rectangle();
                     display.width = 0.75;
                     display.height = 0.1;
@@ -196,12 +198,12 @@ export default class StageCounter {
             'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_CENTER
         }));
         stageData['boons'].forEach(scam => {
-            top = top + 85;
+            top = top + 90;
             let image = new BABYLON.GUI.Image("icon", Message.message[scam].path);
-            image.width = 0.095;
-            image.height = 0.09;
+            image.width = 0.15;
+            image.height = 0.1;
             image.top = top;
-            image.left = 0.1;
+            image.left = 20;
             image.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_LEFT;
             image.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_CENTER;
             this.stageUI.addControl(image);
