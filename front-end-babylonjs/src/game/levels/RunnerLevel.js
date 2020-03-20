@@ -128,12 +128,12 @@ export default class RunnerLevel extends Level {
         let top = GAME.engine.getRenderHeight()/5.5;
         this.lostScreen = this.menu.addImage('lostScreen',{
             'imgpath':"assets/scenes/Game_over_screen.png",
-            'width' : 0.7,
+            'width' : GAME.isMobile() ? 0.9 : 0.6,
             'height' : 0.9,
         });
         this.winningScreen = this.menu.addImage('winningScreen',{
             'imgpath':"assets/scenes/winning_screen_1.png",
-            'width' : 0.9,
+            'width' : GAME.isMobile() ? 0.9 : 0.6,
             'height' : 0.9,
         });
         // this.gameStatus = this.menu.addText('Congratulations!', {
@@ -177,7 +177,7 @@ export default class RunnerLevel extends Level {
         });
 
         this.hasMadeRecordTextControl = this.menu.addText('You got a new Points Record!', {
-            'top': top+140, //'300px' top+160
+            'top': top+130, //'300px' top+160
             'color': GAME.options.recordTextColor,
             'fontSize': '20px',
             'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP
