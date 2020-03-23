@@ -166,7 +166,7 @@ export default class StageCounter {
                     this.stageUI.addControl(image);
                     let display = new BABYLON.GUI.Rectangle();
                     display.width = 0.75;
-                    display.height = 0.1;
+                    display.height = 0.2;
                     display.thickness = 0;
                     display.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_RIGHT;
                     display.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_CENTER;
@@ -213,7 +213,7 @@ export default class StageCounter {
 
             let display = new BABYLON.GUI.Rectangle();
             display.width = 0.75;
-            display.height = 0.1;
+            display.height = 0.2;
             display.thickness = 0;
             display.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_RIGHT;
             display.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_CENTER;
