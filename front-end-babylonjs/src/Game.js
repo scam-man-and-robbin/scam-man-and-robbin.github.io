@@ -41,8 +41,9 @@ export default class Game {
         this.canvas = document.getElementById("renderCanvas");
 
         this.engine = new BABYLON.Engine(this.canvas, false);
-        BABYLON.Engine.audioEngine.useCustomUnlockedButton = true;
-
+        this.audioEngine = new BABYLON.AudioEngine;
+        this.audioEngine.useCustomUnlockedButton = true;
+        
         this.currentLevel = null;
         this.currentLevelName = 'HomeMenuLevel';
 
@@ -160,6 +161,7 @@ export default class Game {
         // });
 
         hammertime.on('swipeup', (ev) => {
+            ev.preventDefault();
             this.keys.shoot = 1;
 
             // Resets the key after some milleseconds

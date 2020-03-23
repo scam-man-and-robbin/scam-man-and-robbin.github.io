@@ -81,6 +81,17 @@ export default class Level {
         // Load the assets
         this.assets.load();
 
+        // Mute sounds by default
+        if (window.localStorage['mute_sound'] === 'undefined' || window.localStorage['mute_sound'] === undefined) {
+            window.localStorage['mute_sound'] = 1;
+        }
+        BABYLON.Engine.audioEngine.onAudioLockedObservable.add(() => {
+            GAME.log.debugWarning('Sounds are locked. Please refresh cache');
+        });
+        BABYLON.Engine.audioEngine.onAudioUnlockedObservable.add(() => {
+            GAME.log.debugWarning('Sounds are unlocked.');
+        });
+
         return this.scene;
     }
 
