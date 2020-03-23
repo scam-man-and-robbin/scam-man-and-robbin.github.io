@@ -78,6 +78,7 @@ export default class Player {
         }, this.scene);
         this.groundMesh.position = new BABYLON.Vector3(0, -2.7, 0);
         this.groundMesh.isVisible = false;
+        this.mesh.material.alpha = 0;
         this.spriteManagerPlayer = [];
         this.spriteManagerPlayer['left'] = new BABYLON.SpriteManager("playerManager", "assets/scenes/scamman_walk_left.png", 1, 62, this.scene);
         this.spriteManagerPlayer['right'] = new BABYLON.SpriteManager("playerManager", "assets/scenes/scamman_walk_right.png", 1, 62, this.scene);
@@ -197,6 +198,8 @@ export default class Player {
             'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_BOTTOM,
             'onclick': () => {
                 window.localStorage['mute_sound'] = 1;
+                this.soundUnMuteButtonControl.isVisible = true;
+                this.soundMuteButtonControl.isVisible = false;
             }
         });
         this.soundUnMuteButtonControl = this.hud.addImgButton('UNMUTE', {
@@ -212,6 +215,8 @@ export default class Player {
             'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_BOTTOM,
             'onclick': () => {
                 window.localStorage['mute_sound'] = 0;
+                this.soundUnMuteButtonControl.isVisible = false;
+                this.soundMuteButtonControl.isVisible = true;
                 BABYLON.Engine.audioEngine.unlock();
             }
         });
