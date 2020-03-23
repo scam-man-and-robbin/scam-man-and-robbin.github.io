@@ -128,12 +128,12 @@ export default class RunnerLevel extends Level {
         let top = GAME.engine.getRenderHeight()/5.5;
         this.lostScreen = this.menu.addImage('lostScreen',{
             'imgpath':"assets/scenes/Game_over_screen.png",
-            'width' : GAME.isMobile() ? 0.9 : 0.7,
+            'width' : GAME.isMobile() ? 0.95 : 0.7,
             'height' : 0.9,
         });
         this.winningScreen = this.menu.addImage('winningScreen',{
             'imgpath':"assets/scenes/winning_screen_1.png",
-            'width' : GAME.isMobile() ? 0.9 : 0.7,
+            'width' : GAME.isMobile() ? 0.95 : 0.7,
             'height' : 0.9,
         });
         // this.gameStatus = this.menu.addText('Congratulations!', {
@@ -145,7 +145,7 @@ export default class RunnerLevel extends Level {
         //     'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP
         // }); 
         this.gameSubTextControl = this.menu.addText('You cannot give up. Try reaching Age 65...', {
-            'width' : 0.6,
+            'width' : GAME.isMobile() ? 0.8 : 0.6,
             'top': top,// GAME.engine.getRenderHeight()
             'color': GAME.options.pointsTextColor,
             'outlineColor': GAME.options.pointsOutlineTextColor,
@@ -154,11 +154,11 @@ export default class RunnerLevel extends Level {
             'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP
         });
         this.pointsTextControl = this.menu.addText('Pension Pot: £ 0', {
-            'top': top+55, // top+80 '220px'e
+            'top': top+40, // top+80 '220px'e
             'color': GAME.options.pointsTextColor,
             'outlineColor': GAME.options.pointsOutlineTextColor,
             'outlineWidth': '2px',
-            'fontSize': '30px',
+            'fontSize': '28px',
             'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP
         });
 
@@ -172,28 +172,28 @@ export default class RunnerLevel extends Level {
         // });
 
         this.currentRecordTextControl = this.menu.addText('Current Record: 0', {
-            'top': top+90, // '260px' top+120
+            'top': top+75, // '260px' top+120
             'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP
         });
 
         this.hasMadeRecordTextControl = this.menu.addText('You got a new Points Record!', {
-            'top': top+130, //'300px' top+160
+            'top': top+105, //'300px' top+160
             'color': GAME.options.recordTextColor,
             'fontSize': '20px',
             'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP
         });
 
         this.lastText = this.menu.addText('lastText',{
-            'top' : top+265, //  '460px' top+310
+            'top' : top+245, //  '460px' top+310
             'fontSize' : '15px',
             'color': GAME.options.recordTextColor,
             'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP,
-            'width' : GAME.isMobile() ? 0.8 : 0.5,
+            'width' : GAME.isMobile() ? 0.85 : 0.5,
         });
         this.menu.addImgButton('replayButton', {
             'width' : GAME.isMobile() ? 0.5 : 0.3,
             'imgpath' : "assets/scenes/Play_again.png",
-            'top': top+160, //'340px' top+200
+            'top': top+140, //'340px' top+200
             'height': '50px',
             'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP,
             // 'textVerticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_CENTER,
@@ -206,10 +206,9 @@ export default class RunnerLevel extends Level {
         this.menu.addImgButton('Return to Home', {
             'width' : GAME.isMobile() ? 0.5 : 0.3,
             'imgpath' : "assets/scenes/Home_Button.png",
-            'top': top+210, // '390px' top+250 
+            'top': top+190, // '390px' top+250 
             'height': '50px',
             'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP,
-            // 'textVerticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_CENTER,
             'onclick': () => {
                 this.player.selectSound.play();
                 GAME.goToLevel('HomeMenuLevel')
@@ -218,7 +217,7 @@ export default class RunnerLevel extends Level {
 
         this.menu.addImgButton('Learn more', {
             'imgpath' : "assets/scenes/learnmore.png",
-            'top': top+335, //  '550px' top+370
+            'top': top+315, //  '550px' top+370
             'height': '15px',
             'width' : 0.2,
             'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP,
