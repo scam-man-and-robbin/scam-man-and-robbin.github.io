@@ -35,7 +35,6 @@ export default class StageCounter {
         return textControl;
     }
 
-
     /**
      * Function to notify user of each stage
      * Show scams and boons for corresponding stage
@@ -60,7 +59,7 @@ export default class StageCounter {
         let stageData = stages["stage_" + stage];
 
         var background = stageUI.addImage('stageScreen',{
-            'imgpath' : stageData.path,
+            'imgpath' : "assets/scenes/stage_boarder.png",
             'width' : 1,
             'height' : 1
         });
@@ -139,6 +138,12 @@ export default class StageCounter {
             });
             if (stageData['scams']) {
                 let top = -(GAME.engine.getRenderHeight()/4.5);
+                this.levelImage = new BABYLON.GUI.Image("levelImage", stageData.path);
+                this.levelImage.width = 0.3;
+                this.levelImage.height = 0.05;
+                this.levelImage.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_CENTER;
+                this.levelImage.top = (top - 60);
+                this.stageUI.addControl(this.levelImage);
                 this.scamDescription = this.addText("Shine your torch and avoid the following scams! ", {
                     'top': top,
                     'color': GAME.options.pointsTextColor,
