@@ -30,6 +30,7 @@ export default class TutorialLevel extends Level {
         this.speed = GAME.options.player.defaultSpeed + 10;
         this.freezeGeneration = false;
         this.age = 18;
+        this.gameStarted = false;
 
         // this.gamestats = null;
     }

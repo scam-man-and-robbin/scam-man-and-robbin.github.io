@@ -89,7 +89,7 @@ export default class Level {
             GAME.log.debugWarning('Sounds are locked. Please refresh cache');
         });
         BABYLON.Engine.audioEngine.onAudioUnlockedObservable.add(() => {
-            GAME.log.debugWarning('Sounds are unlocked.');
+            // GAME.log.debugWarning('Sounds are unlocked.');
         });
 
         return this.scene;
