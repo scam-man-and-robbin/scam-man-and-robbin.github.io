@@ -46,7 +46,7 @@ export default class AgeCounter {
         rect1.width = 0.8;
         rect1.height = "25px";
         rect1.cornerRadius = 40;
-        rect1.color = "#F0E469";
+        rect1.color = "#EBC514";
         rect1.thickness = 3;
         rect1.background = "white";
         var img = new BABYLON.GUI.Image("image", "/assets/scenes/stripe.jpg");
@@ -73,9 +73,9 @@ export default class AgeCounter {
         this.progressValue.left = '0px';
         this.progressValue.height = 1;
         this.progressValue.cornerRadius = 20;
-        this.progressValue.color = "#F0E469";
+        this.progressValue.color = "#EBC514";
         this.progressValue.thickness = 0;
-        this.progressValue.background = "#F0E469";
+        this.progressValue.background = "#EBC514";
         rect1.addControl(this.progressValue);
         this.advancedTexture.addControl(rect1);
 
