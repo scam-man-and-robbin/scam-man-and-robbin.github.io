@@ -257,7 +257,7 @@ export default class Game {
         if (navigator.userAgent.match(/Android/i)
             || navigator.userAgent.match(/webOS/i)
             || navigator.userAgent.match(/iPhone/i)
-            || navigator.userAgent.match(/iPad/i)
+            // || navigator.userAgent.match(/iPad/i)
             || navigator.userAgent.match(/iPod/i)
             || navigator.userAgent.match(/BlackBerry/i)
             || navigator.userAgent.match(/Windows Phone/i)) {
@@ -265,6 +265,21 @@ export default class Game {
         }
 
         return false;
+    }
+
+    isPad(){
+        const ua = window.navigator.userAgent;
+        if (ua.indexOf('iPad') > -1) {
+            return true;
+        }
+    
+        if (ua.indexOf('Macintosh') > -1) {
+            try {
+                return true;
+            } catch (e) {}
+        }
+ 
+    return false;
     }
 
 }
