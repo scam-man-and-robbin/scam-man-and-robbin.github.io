@@ -142,7 +142,7 @@ export default class StageCounter {
                 this.levelImage.width = 0.3;
                 this.levelImage.height = GAME.isMobile() ? 0.05 : 0.07 ;  
                 this.levelImage.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_CENTER;
-                this.levelImage.top = (top - 60);
+                this.levelImage.top = GAME.isPad ? (top - 80) : (top - 60);
                 this.stageUI.addControl(this.levelImage);
                 this.scamDescription = this.addText("Shine your torch and avoid the following scams! ", {
                     'top': top,
@@ -155,7 +155,7 @@ export default class StageCounter {
                 })
                 this.stageUI.addControl(this.scamDescription);
                 stageData['scams'].forEach(scam => {
-                    top = top + 90;
+                    top = GAME.isPad() ?  top + 130 : top + 90 ;
                     let image = new BABYLON.GUI.Image("icon", Message.message[scam].path);
                     image.width = 0.15;
                     image.height = 0.1;
@@ -201,7 +201,7 @@ export default class StageCounter {
             'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_CENTER
         }));
         stageData['boons'].forEach(scam => {
-            top = top + 90;
+            top = GAME.isPad() ?  top + 130 : top + 90 ;
             let image = new BABYLON.GUI.Image("icon", Message.message[scam].path);
             image.width = 0.15;
             image.height = 0.1;

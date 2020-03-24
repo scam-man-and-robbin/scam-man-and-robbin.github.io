@@ -28,7 +28,7 @@ export default class TilesGenerator {
         // coinMaterial.specularColor = new BABYLON.Color3.Yellow();
 
         let coinMaterial = new BABYLON.StandardMaterial("coinMaterial", this.scene);
-        coinMaterial.diffuseTexture = new BABYLON.Texture("assets/scenes/Coins.png", this.scene);
+        coinMaterial.diffuseTexture = new BABYLON.Texture("assets/scenes/coin.png", this.scene);
         coinMaterial.diffuseTexture.hasAlpha = true;
         coinMaterial.backFaceCulling = true;
 

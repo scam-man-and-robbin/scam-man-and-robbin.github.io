@@ -122,9 +122,10 @@ export default class TutorialLevel extends Level {
 
         let text = '';
         if (messageNumber == 1) {
-            text = GAME.isMobile() ? 'Swipe screen Left/Right to control Scam Man. Swipe Up to Shoot.' : 'Use Arrow Keys to Move & Space to Shoot.';
+
+            text = (GAME.isMobile() || GAME.isPad()) ? 'Swipe screen Left/Right to control Scam Man. Swipe Up to Shoot.' : 'Use Arrow Keys to Move & Space to Shoot.';
         } else if (messageNumber == 2) {
-            text = GAME.isMobile() ? 'Swipe up to shine your torch.' : 'Use Up Arrow keys or Space to shine your torch.';
+            text = (GAME.isMobile() || GAME.isPad()) ? 'Swipe up to shine your torch.' : 'Use Up Arrow keys or Space to shine your torch.';
         } else if (messageNumber == 3) {
             text = 'Collect as many coins and bonuses as you can to win the game.';
         }
