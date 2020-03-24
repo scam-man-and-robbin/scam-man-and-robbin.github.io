@@ -278,6 +278,7 @@ export default class RunnerLevel extends Level {
         // Actions when player dies
         this.player.onDie = () => {
             this.player.gameEnded = true;
+            this.player.potImg.source = "assets/scenes/pot.png";
             clearInterval(this.speedTrigger);
             this.player.mesh.material.alpha = 0;
             var player = new BABYLON.Sprite("player", this.player.spriteManagerPlayer['lose']);

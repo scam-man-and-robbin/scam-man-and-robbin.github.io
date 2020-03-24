@@ -256,6 +256,34 @@ export default class Player {
         }
     }
     /**
+    * Function to handle Pension Pot visual.
+    */
+    handlePot() {
+        var url = "";
+        if(this.coins) {
+            url = "assets/scenes/pot low.png";
+        }
+        if(this.coins > 2000) {
+            url = "assets/scenes/pot-1.png";
+        }
+        if(this.coins > 4000) {
+            url = "assets/scenes/pot-2.png";
+        }
+        if(this.coins > 8000) {
+            url = "assets/scenes/pot-3.png";
+        }
+        if(this.coins > 10000) {
+            url = "assets/scenes/pot-4.png";
+        }
+        if(this.coins > 13500) {
+            url = "assets/scenes/pot-full.png";
+        }
+        if(url) {
+            this.potImg.source = url;
+        }
+        
+    }
+    /**
     * Function to handle Live counter.
     * Called when scam is missed and landed over player
     */
@@ -315,6 +343,7 @@ export default class Player {
     move() {
         this.checkDirectionMovement();
         this.checkShoot();
+        this.handlePot();
         if (window.localStorage['mute_sound'] == 1) {
             this.soundUnMuteButtonControl.isVisible = true;
             this.soundMuteButtonControl.isVisible = false;
