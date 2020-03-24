@@ -122,7 +122,6 @@ export default class TutorialLevel extends Level {
 
         let text = '';
         if (messageNumber == 1) {
-
             text = (GAME.isMobile() || GAME.isPad()) ? 'Swipe screen Left/Right to control Scam Man. Swipe Up to Shoot.' : 'Use Arrow Keys to Move & Space to Shoot.';
         } else if (messageNumber == 2) {
             text = (GAME.isMobile() || GAME.isPad()) ? 'Swipe up to shine your torch.' : 'Use Up Arrow keys or Space to shine your torch.';
@@ -130,9 +129,6 @@ export default class TutorialLevel extends Level {
             text = 'Collect as many coins and bonuses as you can to win the game.';
         }
         var menuTexture = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI('uiName', false);
-        var style = menuTexture.createStyle();
-        style.fontFamily = "'Tomorrow', sans-serif";
-        style.fontSize = 15;
 
         let image = new BABYLON.GUI.Image("icon", "assets/scenes/tutorial_plate.png");
         image.width = 1;
@@ -157,7 +153,7 @@ export default class TutorialLevel extends Level {
         textControl.textHorizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER;
         textControl.textVerticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_CENTER;
         textControl.textWrapping = true;
-        textControl.style = style
+        textControl.fontFamily = "'Tomorrow',sans-serif";
         rectBox.addControl(textControl);
 
 

@@ -145,7 +145,7 @@ export default class RunnerLevel extends Level {
         //     'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP
         // }); 
         this.gameSubTextControl = this.menu.addText('You cannot give up. Try reaching Age 65...', {
-            'width' : GAME.isMobile() ? 0.8 : 0.6,
+            'width' : GAME.isMobile() ? 0.85 : 0.6,
             'top': top,// GAME.engine.getRenderHeight()
             'color': GAME.options.pointsTextColor,
             'outlineColor': GAME.options.pointsOutlineTextColor,
@@ -217,7 +217,7 @@ export default class RunnerLevel extends Level {
 
         this.menu.addImgButton('Learn more', {
             'imgpath' : "assets/scenes/learnmore.png",
-            'top': top+315, //  '550px' top+370
+            'top': top+320, //  '550px' top+370
             'height': '15px',
             'width' : 0.2,
             'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP,
