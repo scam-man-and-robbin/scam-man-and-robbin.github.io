@@ -140,7 +140,7 @@ export default class StageCounter {
                 let top = -(GAME.engine.getRenderHeight()/4.5);
                 this.levelImage = new BABYLON.GUI.Image("levelImage", stageData.path);
                 this.levelImage.width = 0.3;
-                this.levelImage.height = 0.05;
+                this.levelImage.height = GAME.isMobile() ? 0.05 : 0.07 ;  
                 this.levelImage.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_CENTER;
                 this.levelImage.top = (top - 60);
                 this.stageUI.addControl(this.levelImage);
