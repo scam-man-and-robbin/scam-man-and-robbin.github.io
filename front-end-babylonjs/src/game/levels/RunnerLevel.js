@@ -334,10 +334,12 @@ export default class RunnerLevel extends Level {
 
         if (this.status == 'WIN') {
             // this.gameStatus.text = 'Congratulations!';
+            this.pointsTextControl.text = 'Pension Pot: £' + this.player.getPoints();
+            this.currentRecordTextControl.text = 'Current Record: ' + this.player.getLastRecord();
             this.lostScreen.isVisible = false;
             this.gameSubTextControl.text = 'You successfully avoided the scams and completed level 3!'
         } else {
-            
+            this.pointsTextControl.text = 'Pension Pot: £ 0';
             this.winningScreen.isVisible = false;
             this.gameSubTextControl.text = 'You lost! Play again and see if you can avoid the scams to reach level 3!'
         }

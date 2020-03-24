@@ -34,7 +34,7 @@ export default class BoonsGenerator {
      */
     createCommonMaterials() {
         this.boonMaterial = new BABYLON.StandardMaterial("boonMaterial", this.scene);
-        this.boonMaterial.diffuseTexture = new BABYLON.Texture("assets/scenes/FCA.png", this.scene);
+        this.boonMaterial.diffuseTexture = new BABYLON.Texture("assets/scenes/Refuse.png", this.scene);
         this.boonMaterial.diffuseTexture.hasAlpha = true;
         this.boonMaterial.backFaceCulling = true;
 
@@ -50,7 +50,7 @@ export default class BoonsGenerator {
         // New boons keep generating every 10 second
         setInterval(() => {
             this.boonTypes = stages["stage_" + (this.level.nextStage - 1)]["boons"];
-            if (!GAME.isPaused() && this.player.lives && this.level.age < 65 && !this.level.freezeGeneration && this.scene) {
+            if (!GAME.isPaused() && this.player && this.player.lives && this.level.age < 65 && !this.level.freezeGeneration && this.scene) {
                 let randomTileTypeNumber = Math.floor((Math.random() * this.boonTypes.length));
                 let boonType = this.boonTypes[randomTileTypeNumber];
                 if (GAME.currentLevelName === 'TutorialLevel' && !this.typeOfBoon) {

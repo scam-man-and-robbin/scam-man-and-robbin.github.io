@@ -3,7 +3,7 @@
         "normal_scam" : {
             "info" : "Cold-calling: You receive a cold call about your pension",
             "icon" : "FCA logo",
-            "reduction" : 100,
+            "reduction" : 400,
             "path" : "assets/scenes/Cold_call.png"
         },
         "accelerator" : {

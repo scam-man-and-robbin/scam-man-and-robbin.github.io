@@ -129,6 +129,9 @@ export default class TutorialLevel extends Level {
             text = 'Collect as many coins and bonuses as you can to win the game.';
         }
         var menuTexture = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI('uiName', false);
+        var style = menuTexture.createStyle();
+        style.fontFamily = "'Tomorrow', sans-serif";
+        style.fontSize = 15;
 
         let image = new BABYLON.GUI.Image("icon", "assets/scenes/tutorial_plate.png");
         image.width = 1;
@@ -153,6 +156,7 @@ export default class TutorialLevel extends Level {
         textControl.textHorizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER;
         textControl.textVerticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_CENTER;
         textControl.textWrapping = true;
+        textControl.style = style
         rectBox.addControl(textControl);
 
 

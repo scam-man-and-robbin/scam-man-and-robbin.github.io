@@ -8,6 +8,8 @@ export default class UI {
         this.controls = [];
 
         this.menuTexture = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI(uiName);
+        this.style = this.menuTexture.createStyle();
+        this.style.fontFamily = "'Tomorrow', sans-serif";
     }
 
     addButton(name, text, options = {}) {
@@ -200,7 +202,8 @@ export default class UI {
         textControl.textHorizontalAlignment = (typeof options.horizontalAlignment !== 'undefined') ? options.horizontalAlignment : BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER;
         textControl.textVerticalAlignment = (typeof options.verticalAlignment !== 'undefined') ? options.verticalAlignment : BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP;
         textControl.textWrapping = options.wrapping || true;
-
+        textControl.style = this.style;
+        textControl.style.fontSize = options.fontSize || 20;
         this.menuTexture.addControl(textControl);
         this.add(textControl);
 
