@@ -80,12 +80,13 @@ export default class Player {
         this.groundMesh.isVisible = false;
         this.mesh.material.alpha = 0;
         this.spriteManagerPlayer = [];
-        this.spriteManagerPlayer['left'] = new BABYLON.SpriteManager("playerManager", "assets/scenes/scamman_walk_left.png", 1, 62, this.scene);
-        this.spriteManagerPlayer['right'] = new BABYLON.SpriteManager("playerManager", "assets/scenes/scamman_walk_right.png", 1, 62, this.scene);
+        this.spriteManagerPlayer['left'] = new BABYLON.SpriteManager("playerManager", "assets/scenes/scamman_walk_left.png", 1, { width: 61, height: 60 }, this.scene);
+        this.spriteManagerPlayer['right'] = new BABYLON.SpriteManager("playerManager", "assets/scenes/scamman_walk_right.png", 1, { width: 61, height: 60 }, this.scene);
         this.spriteManagerPlayer['up'] = new BABYLON.SpriteManager("playerManager", "assets/scenes/scamman_attack.png", 1, { width: 41, height: 62 }, this.scene);
         this.spriteManagerPlayer['land'] = new BABYLON.SpriteManager("playerManager", "assets/scenes/scamman_land.png", 1, { width: 118, height: 198 }, this.scene);
         this.spriteManagerPlayer['lose'] = new BABYLON.SpriteManager("playerManager", "assets/scenes/scam man_lose.png", 1, { width: 39, height: 48 }, this.scene);
         this.spriteManagerPlayer['win'] = new BABYLON.SpriteManager("playerManager", "assets/scenes/scam man_win.png", 1, { width: 66, height: 62 }, this.scene);
+        this.spriteManagerPlayer['shield'] = new BABYLON.SpriteManager("playerManager", "assets/scenes/shield.png", 1, { width: 61, height: 60 }, this.scene);
         this.createHUD();
     }
     /**
@@ -513,20 +514,32 @@ export default class Player {
         this.boonCount++;
         this.gotCoinSound.play();
         if (boon == 'invisiblity_boon') {
-            this.level.playerLight.intensity = 1;
-            this.shielded = true;
-            setTimeout(() => {
-                var count = 0;
-                this.level.playerLight.intensity = 1;
-                var trigger = setInterval(() => {
-                    this.level.playerLight.intensity = (count % 2) ? 1 : 1.3;
-                    count += 1;
-                    if (count > 10) {
-                        this.shielded = false;
-                        clearInterval(trigger);
-                    }
-                }, 200);
-            }, 10000);
+            this.shielded = 10;
+            if(this.shieldTrigger) {
+                this.shieldSprite.dispose();
+                clearInterval(this.maintainPositionTrigger);
+                clearInterval(this.shieldTrigger);
+            }
+            this.shieldSprite = new BABYLON.Sprite("shieldSprite", this.spriteManagerPlayer['shield']);
+            this.shieldSprite.playAnimation(0, 7, true, 100);
+            this.shieldSprite.position = this.mesh.position;
+            this.shieldSprite.size = 1.15;
+            this.maintainPositionTrigger = setInterval(() => {
+                this.shieldSprite.position = this.mesh.position;
+                if(this.beamEnabled) {
+                    this.shieldSprite.isVisible = false;
+                }else {
+                    this.shieldSprite.isVisible = true;
+                }
+            }, 100);
+            this.shieldTrigger = setInterval(() => {
+                this.shielded--;
+                if(!this.shielded) {
+                    this.shieldSprite.dispose();
+                    clearInterval(this.maintainPositionTrigger);
+                    clearInterval(this.shieldTrigger);
+                }
+            }, 1000);
         }
         let message = Message.message;
         let newCoins = Math.floor(this.coins + message[boon].addition);
