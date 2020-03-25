@@ -200,6 +200,7 @@ export default class Player {
                 window.localStorage['mute_sound'] = 1;
                 this.soundUnMuteButtonControl.isVisible = true;
                 this.soundMuteButtonControl.isVisible = false;
+                BABYLON.Engine.audioEngine.setGlobalVolume(0);
             }
         });
         this.soundUnMuteButtonControl = this.hud.addImgButton('UNMUTE', {
@@ -218,6 +219,7 @@ export default class Player {
                 this.soundUnMuteButtonControl.isVisible = false;
                 this.soundMuteButtonControl.isVisible = true;
                 BABYLON.Engine.audioEngine.unlock();
+                BABYLON.Engine.audioEngine.setGlobalVolume(20);
             }
         });
         this.resumeButton = this.hud.addImgButton('RESUME',{
@@ -312,7 +314,7 @@ export default class Player {
                 if (this.coins > newCoins) {
                     this.coinsTextControl.text = '£ ' + this.coins;
                     this.coinsTextControl.fontSize = '15px';
-                    this.coinsTextControl.color = 'red';
+                    this.coinsTextControl.color = '#ff0000';
                 } else {
                     this.allowCoinChange = true;
                     this.coinsTextControl.text = '£ ' + this.coins;
@@ -327,7 +329,7 @@ export default class Player {
                     this.scamming = false;
                     this.coinsTextControl.text = '£ ' + this.coins;
                     this.coinsTextControl.fontSize = '15px';
-                    this.coinsTextControl.color = 'red';
+                    this.coinsTextControl.color = '#ff0000';
                     if (this.onDie) {
                         this.onDie();
                     }

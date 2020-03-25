@@ -146,7 +146,7 @@ export default class RunnerLevel extends Level {
         // }); 
         this.gameSubTextControl = this.menu.addText('You cannot give up. Try reaching Age 65...', {
             'width' : GAME.isMobile() ? 0.85 : 0.6,
-            'top': top,// GAME.engine.getRenderHeight()
+            'top': (GAME.engine.getRenderHeight() * 20)/ 100, // 20% from top
             'color': GAME.options.pointsTextColor,
             'outlineColor': GAME.options.pointsOutlineTextColor,
             'outlineWidth': '2px',
@@ -154,7 +154,7 @@ export default class RunnerLevel extends Level {
             'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP
         });
         this.pointsTextControl = this.menu.addText('Pension Pot: £ 0', {
-            'top': top+40, // top+80 '220px'e
+            'top': (GAME.engine.getRenderHeight() * 30)/ 100, // 30% from top
             'color': GAME.options.pointsTextColor,
             'outlineColor': GAME.options.pointsOutlineTextColor,
             'outlineWidth': '2px',
@@ -172,19 +172,19 @@ export default class RunnerLevel extends Level {
         // });
 
         this.currentRecordTextControl = this.menu.addText('Current Record: 0', {
-            'top': top+75, // '260px' top+120
+            'top': (GAME.engine.getRenderHeight() * 40)/ 100, // 40% from top
             'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP
         });
 
         this.hasMadeRecordTextControl = this.menu.addText('You got a new Points Record!', {
-            'top': top+105, //'300px' top+160
+            'top': (GAME.engine.getRenderHeight() * 46)/ 100, // 46% from top
             'color': GAME.options.recordTextColor,
             'fontSize': '20px',
             'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP
         });
 
         this.lastText = this.menu.addText('lastText',{
-            'top' : top+245, //  '460px' top+310
+            'top' : (GAME.engine.getRenderHeight() * 70)/ 100, // 70% from top
             'fontSize' : '15px',
             'color': GAME.options.recordTextColor,
             'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP,
@@ -193,7 +193,7 @@ export default class RunnerLevel extends Level {
         this.menu.addImgButton('replayButton', {
             'width' : GAME.isMobile() ? 0.5 : 0.3,
             'imgpath' : "assets/scenes/Play_again.png",
-            'top': top+140, //'340px' top+200
+            'top': (GAME.engine.getRenderHeight() * 50)/ 100, // 50% from top
             'height': '50px',
             'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP,
             // 'textVerticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_CENTER,
@@ -206,7 +206,7 @@ export default class RunnerLevel extends Level {
         this.menu.addImgButton('Return to Home', {
             'width' : GAME.isMobile() ? 0.5 : 0.3,
             'imgpath' : "assets/scenes/Home_Button.png",
-            'top': top+190, // '390px' top+250 
+            'top': ((GAME.engine.getRenderHeight() * 50)/ 100) + 50, // 60% from top
             'height': '50px',
             'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP,
             'onclick': () => {
@@ -217,7 +217,7 @@ export default class RunnerLevel extends Level {
 
         this.menu.addImgButton('Learn more', {
             'imgpath' : "assets/scenes/learnmore.png",
-            'top': top+320, //  '550px' top+370
+            'top': (GAME.engine.getRenderHeight() * 87)/ 100, // 87% from top
             'height': '15px',
             'width' : 0.2,
             'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP,
@@ -335,8 +335,6 @@ export default class RunnerLevel extends Level {
 
         if (this.status == 'WIN') {
             // this.gameStatus.text = 'Congratulations!';
-            this.pointsTextControl.text = 'Pension Pot: £' + this.player.getPoints();
-            this.currentRecordTextControl.text = 'Current Record: ' + this.player.getLastRecord();
             this.lostScreen.isVisible = false;
             this.gameSubTextControl.text = 'You successfully avoided the scams and completed level 3!'
         } else {
