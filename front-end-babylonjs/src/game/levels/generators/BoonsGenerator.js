@@ -18,6 +18,7 @@ export default class BoonsGenerator {
         this.typeOfBoon = 0;
         this.texture = null;
         this.boonSet = new Set();
+        this.lastTwoBoons = [];
         // Special Boons
         this.boonTypes = [
             // 'normal_boon',
@@ -49,10 +50,33 @@ export default class BoonsGenerator {
 
         // New boons keep generating every 10 second
         setInterval(() => {
-            this.boonTypes = stages["stage_" + (this.level.nextStage - 1)]["boons"];
             if (!GAME.isPaused() && this.player && this.player.lives && this.level.age < 65 && !this.level.freezeGeneration && this.scene) {
+                
+                // Append boons from previous stage and include current stage boons
+                this.boonTypes = [];
+                for (let index = 1; index <= this.level.nextStage; index++) {
+                    var scamList = stages["stage_" + (this.level.nextStage - index)]["boons"]
+                    scamList.forEach(element => {
+                        if(this.boonTypes.indexOf(element) === -1) {
+                            this.boonTypes.push(element);
+                        }
+                    });
+                }
+
+
                 let randomTileTypeNumber = Math.floor((Math.random() * this.boonTypes.length));
                 let boonType = this.boonTypes[randomTileTypeNumber];
+
+                // Ensure invisibility boon did not appear in last two boons
+                while(this.lastTwoBoons.includes("invisiblity_boon") && boonType == 'invisiblity_boon') {
+                    randomTileTypeNumber = Math.floor((Math.random() * this.boonTypes.length));
+                    boonType = this.boonTypes[randomTileTypeNumber];
+                }                
+                if(this.lastTwoBoons.length === 2) {
+                    this.lastTwoBoons.shift();
+                }
+                this.lastTwoBoons.push(boonType);
+
                 if (GAME.currentLevelName === 'TutorialLevel' && !this.typeOfBoon) {
                     this.level.createTutorialText(3);
                 }

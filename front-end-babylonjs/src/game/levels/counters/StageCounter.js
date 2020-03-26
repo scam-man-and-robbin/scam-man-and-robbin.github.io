@@ -32,7 +32,7 @@ export default class StageCounter {
         textControl.textVerticalAlignment = (typeof options.verticalAlignment !== 'undefined') ? options.verticalAlignment : BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP;
         textControl.textWrapping = options.wrapping || true;
         textControl.fontFamily = options.fontFamily || "'Tomorrow',sans-serif";
-
+        textControl.fontWeight = 'bolder';
         return textControl;
     }
 
