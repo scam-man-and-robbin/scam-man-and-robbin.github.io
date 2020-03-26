@@ -134,10 +134,10 @@ export default class Player {
             this.moneyBar.isVisible = false;
             this.potImg.isVisible = false;
             this.skipControl = this.hud.addImgButton('continueBtn', {
-                'imgpath': "assets/scenes/scam-man-continue-btn.png",
-                'top': '-5px',
-                'width': 0.25,
-                'height': '50px',
+                'imgpath': "assets/scenes/Continue.png",
+                'top': -(GAME.engine.getRenderHeight()*2)/100,
+                'width': GAME.isMobile() ? 0.4 : 0.05,
+                'height' : 0.05,
                 'horizontalAlignment': BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER,
                 'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_BOTTOM,
                 'onclick': () => {
