@@ -26,10 +26,20 @@ export default class AgeCounter {
         this.advancedTexture = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI", false);
 
         // Outer Rectangle for Values
+        var frame = new BABYLON.GUI.Rectangle();
+        frame.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER;
+        frame.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP;
+        frame.width = 1;
+        frame.height = "50px";
+        frame.thickness = 0;
+        frame.background = "#45186e";
+        this.advancedTexture.addControl(frame);
+
+        // Outer Rectangle for Values
         var outterRect = new BABYLON.GUI.Rectangle();
         outterRect.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER;
         outterRect.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP;
-        outterRect.top = '10px';
+        outterRect.top = '15px';
         // outterRect.left = '10px';
         outterRect.width = 0.8;
         outterRect.height = "45px";
@@ -41,12 +51,12 @@ export default class AgeCounter {
         var rect1 = new BABYLON.GUI.Rectangle();
         rect1.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER;
         rect1.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP;
-        rect1.top = '10px';
+        rect1.top = '15px';
         // rect1.left = '10px';
         rect1.width = 0.8;
         rect1.height = "25px";
         rect1.cornerRadius = 40;
-        rect1.color = "#EBC514";
+        rect1.color = "#935DB6";
         rect1.thickness = 3;
         rect1.background = "white";
         var img = new BABYLON.GUI.Image("image", "/assets/scenes/stripe.jpg");
@@ -59,9 +69,9 @@ export default class AgeCounter {
         progressBar.left = '0px';
         progressBar.height = "15px";
         progressBar.cornerRadius = 100;
-        progressBar.color = "#EB12DB";
+        progressBar.color = "#DDDBE0";
         progressBar.thickness = 0;
-        progressBar.background = "#EB12DB";
+        progressBar.background = "#DDDBE0";
         progressBar.alpha = 0.6;
         rect1.addControl(progressBar);
 
@@ -92,7 +102,7 @@ export default class AgeCounter {
         this.ageControl.textHorizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER;
         this.ageControl.textVerticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_CENTER;
         this.ageControl.text = '18';
-        this.ageControl.color = '#EB12DB';
+        this.ageControl.color = '#DDDBE0';
         this.ageControl.fontSize = 10;
         this.ageControl.isVisible = false;
 
@@ -104,6 +114,7 @@ export default class AgeCounter {
             splitter.width =  0.334 * index;
             splitter.height = 1;
             splitter.thickness = 3;
+            splitter.color = '#CCCACE';
             splitter.background = 'transparent';
             progressBar.addControl(splitter);  
         }
