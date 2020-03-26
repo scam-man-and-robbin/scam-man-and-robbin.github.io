@@ -102,9 +102,10 @@ export default class StageCounter {
 
             // Skip button
             stageUI.addImgButton('continueBtn', {
-                'imgpath': "assets/scenes/scam-man-continue-btn.png",
-                'top': '-50px',
-                'width': GAME.isMobile() ? 0.4 : 0.25,
+                'imgpath': "assets/scenes/Continue.png",
+                'top': -(GAME.engine.getRenderHeight()*10)/100,
+                'width': 0.2,
+                'height' : 0.05,
                 'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_BOTTOM,
                 'onclick': () => {
                     // this.player.coinsTextControl.isVisible = true;
