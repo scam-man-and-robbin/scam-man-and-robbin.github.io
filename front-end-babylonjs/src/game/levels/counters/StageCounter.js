@@ -104,7 +104,7 @@ export default class StageCounter {
             stageUI.addImgButton('continueBtn', {
                 'imgpath': "assets/scenes/Continue.png",
                 'top': -(GAME.engine.getRenderHeight()*10)/100,
-                'width': GAME.isMobile() ? 0.4 : 0.05,
+                'width': 0.2,
                 'height' : 0.05,
                 'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_BOTTOM,
                 'onclick': () => {
