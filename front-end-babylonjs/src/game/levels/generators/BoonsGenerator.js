@@ -78,7 +78,7 @@ export default class BoonsGenerator {
                 this.lastTwoBoons.push(boonType);
 
                 if (GAME.currentLevelName === 'TutorialLevel' && !this.typeOfBoon) {
-                    this.level.createTutorialText(3);
+                    this.level.createTutorialText(6);
                 }
                 this.activeBoons.push(randomTileTypeNumber);
                 this.typeOfBoon++;

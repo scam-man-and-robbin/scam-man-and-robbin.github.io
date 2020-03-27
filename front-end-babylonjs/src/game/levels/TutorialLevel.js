@@ -31,6 +31,7 @@ export default class TutorialLevel extends Level {
         this.freezeGeneration = false;
         this.age = 18;
         this.gameStarted = false;
+        this.currentTimeLength = 0;
 
         // this.gamestats = null;
     }
@@ -83,24 +84,14 @@ export default class TutorialLevel extends Level {
 
         this.tiles = new TilesGenerator(this);
         this.tiles.generate();
-
-        // Scams will be started after n seconds.
-        setTimeout(() => {
-            this.scams = new ScamsGenerator(this);
-            this.scams.generate();
-        }, GAME.options.player.scamStartAfter);
-
-        // Boons will be started after 3*n+0.5 seconds.
-        setTimeout(() => {
-            this.boons = new BoonsGenerator(this);
-            this.boons.generate();
-        }, (GAME.options.player.scamStartAfter * 3) + 500);
+        this.scams = new ScamsGenerator(this);
+        this.boons = new BoonsGenerator(this);
 
         this.scene.useMaterialMeshMap = true;
         this.scene.debugLayer.hide();
         // this.scene.debugLayer.show();
         this.scene.onPointerObservable.add(pointerEvent => {
-            if(!this.audioUnlocked) {
+            if (!this.audioUnlocked) {
                 BABYLON.Engine.audioEngine.unlock();
                 this.audioUnlocked = true;
             }
@@ -112,7 +103,7 @@ export default class TutorialLevel extends Level {
      * Message varies based on device
      */
     createTutorialText(messageNumber) {
-
+        GAME.pause();
         this.player.infoSound.play();
 
         this.robbinFlapSpriteManager = new BABYLON.SpriteManager("robbinFlapSpriteManager", "assets/scenes/robin_flap_1.png", 1, { width: 65, height: 62 }, this.scene)
@@ -120,45 +111,78 @@ export default class TutorialLevel extends Level {
         robbinFlap.playAnimation(0, 5, true, 100);
         robbinFlap.position = new BABYLON.Vector3(-1, 2, -1);
 
-        let text = '';
+        let text = '', height = 0.2;
         if (messageNumber == 1) {
-            text = (GAME.isMobile() || GAME.isPad()) ? 'Swipe screen Left/Right to control Scam Man. Swipe Up to Shoot.' : 'Use Arrow Keys to Move & Space to Shoot.';
+            text = 'Welcome to Scam Man and Robbin’! \n\n You are Scam Man, a cloaked vigilante who’s on a mission to protect people’s pensions from scams. \n\n I’m Robbin’, and I’m here to help you!';
+            height = 0.42;
         } else if (messageNumber == 2) {
-            text = (GAME.isMobile() || GAME.isPad()) ? 'Swipe up to shine your torch.' : 'Use Up Arrow keys or Space to shine your torch.';
+            text = 'You must correctly identify six of the most common pension scams and destroy them. \n\n Collect the bonuses and coins to build a healthy pension pot and be in with a chance of winning. ';
+            height = 0.38;
         } else if (messageNumber == 3) {
-            text = 'Collect as many coins and bonuses as you can to win the game.';
+            text = (GAME.isMobile() || GAME.isPad()) ? 'Swipe left and right on the screen to move in each direction…' : 'Use left and right arrow keys to move in each direction…';
+        } else if (messageNumber == 4) {
+            text = 'Collect as many coins as you can by letting them fall on you…';
+        } else if (messageNumber == 5) {
+            text = (GAME.isMobile() || GAME.isPad()) ? 'Swipe upwards to activate your torch and shine a light on the falling scams to destroy them…' : 'Use spacebar or up arrow key to activate your torch and shine a light on the falling scams to destroy them…';
+        } else if (messageNumber == 6) {
+            text = 'Be sure to collect any bonuses that fall, but don’t shine your torch on them as this will destroy them…';
         }
-        var menuTexture = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI('uiName', false);
+        var hud = new UI('stageLoadingUI', true);
+        var menuTexture = hud.menuTexture;
 
+        // Tutorial Frame
         let image = new BABYLON.GUI.Image("icon", "assets/scenes/tutorial_plate.png");
         image.width = 1;
-        image.height = 0.2;
-        image.top = (GAME.engine.getRenderHeight()*10)/100;
+        image.height = height;
+        image.top = (GAME.engine.getRenderHeight() * 10) / 100;
         image.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER;
         image.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP;
         menuTexture.addControl(image);
 
+        // Message Frame
         var rectBox = new BABYLON.GUI.Rectangle();
-        rectBox.width = 0.65;
-        rectBox.height = 0.2;
+        rectBox.width = 0.71;
+        rectBox.height = height;
         rectBox.left = '-15px';
-        rectBox.top = (GAME.engine.getRenderHeight()*12)/100;
+        rectBox.top = (GAME.engine.getRenderHeight() * (height== 0.2 ? 12 : 13)) / 100;
         rectBox.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_RIGHT;
         rectBox.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP;
         rectBox.thickness = 0;
         menuTexture.addControl(rectBox);
 
+        // Message Content
         var textControl = new BABYLON.GUI.TextBlock();
         textControl.text = text;
-        textControl.fontSize = 15;
+        textControl.fontSize = GAME.engine.getRenderHeight() < 600 ? 11 : 14;
         textControl.textHorizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER;
         textControl.textVerticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_CENTER;
         textControl.textWrapping = true;
         textControl.fontFamily = "'Tomorrow',sans-serif";
         rectBox.addControl(textControl);
 
-        if (messageNumber == 1)
-        {
+        // Skip Button
+        this.skipControl = hud.addImgButton('continueBtn', {
+            'imgpath': "assets/scenes/Continue.png",
+            'top': ((GAME.engine.getRenderHeight() * ((height + 0.1) * 100)) / 100),
+            'width': 0.2,
+            'height': 0.05,
+            'horizontalAlignment': BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_RIGHT,
+            'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP,
+            'onclick': () => {
+                robbinFlap.dispose();
+                image.dispose();
+                rectBox.dispose();
+                textControl.dispose();
+                this.skipControl.dispose();
+                GAME.resume();
+                if (messageNumber < 4) {
+                    this.createTutorialText(messageNumber + 1);
+                }
+            }
+        });
+
+        if (messageNumber == 1) {
+            // Top Header
             var modeDis = new BABYLON.GUI.Rectangle();
             modeDis.width = GAME.engine.getRenderWidth();
             modeDis.height = 0.1;
@@ -191,20 +215,20 @@ export default class TutorialLevel extends Level {
             let z = d;
 
             robbinFlap.position.x = -x + 1;
-            robbinFlap.position.y = y - 2.2;
+            robbinFlap.position.y = y - (2.2 + (height== 0.2 ? 0 : 1));
             robbinFlap.position.z = z;
             robbinFlap.size = 1.5;
         }
 
         this.scene.registerBeforeRender(() => cornerSphere(this.scene));
 
-        setTimeout(() => {
-            robbinFlap.dispose();
-            // menuTexture.dispose();
-            image.dispose();
-            rectBox.dispose();
-            textControl.dispose();
-        }, 5000);
+        // setTimeout(() => {
+        //     robbinFlap.dispose();
+        //     // menuTexture.dispose();
+        //     image.dispose();
+        //     rectBox.dispose();
+        //     textControl.dispose();
+        // }, 5000);
     }
 
     /**
@@ -263,17 +287,28 @@ export default class TutorialLevel extends Level {
             this.player.soundUnMuteButtonControl.isVisible = false;
         }
 
-        // Tutorial level length
-        setTimeout(() => {
-            this.freezeGeneration = true;
-            // After all game objects are done start game
-            setTimeout(() => {
-                if (!this.player.gameEnded) {
-                    this.player.gameEnded = true;
-                    GAME.goToLevel('RunnerLevel')
-                }
-            }, 5000);
-        }, GAME.options.tutorialLength * 1000);
+        var trigger = setInterval(() => {
+            if(this.currentTimeLength >= GAME.options.tutorialLength) {
+                this.freezeGeneration = true;
+                // After all game objects are done start game
+                setTimeout(() => {
+                    if (!this.player.gameEnded) {
+                        this.player.gameEnded = true;
+                        GAME.goToLevel('RunnerLevel');
+                    }
+                }, 3000);
+                clearInterval(trigger);
+            }
+            if(this.currentTimeLength === 7) {
+                this.scams.generate();
+            }
+            if(this.currentTimeLength === 15) {
+                this.boons.generate();
+            }
+            if(!GAME.isPaused()) {
+                this.currentTimeLength += 1;
+            }
+        }, 1000);
     }
 
     /**
