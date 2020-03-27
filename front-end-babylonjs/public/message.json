@@ -1,79 +1,92 @@
 {
     "message" : {
         "normal_scam" : {
-            "info" : "Cold-calling: You receive a cold call about your pension",
+            "name" : "Cold call:",
+            "info" : "You receive a cold call about your pension",
             "icon" : "FCA logo",
             "reduction" : 400,
             "path" : "assets/scenes/Cold_call.png"
         },
         "accelerator" : {
-            "info" : "Free advice: You accept ‘free’ financial advice",
+            "name" : "Free advice:",
+            "info" : "You accept ‘free’ financial advice",
             "icon" : "pound signs with a cross through it",
             "reduction" : 300,
             "path" : "assets/scenes/Free_advice.png" 
         },
         "speedy" : {
-            "info" : "Time pressure: You feel pressured to make an immediate decision ",
+            "name" : "Time pressure:",
+            "info" : "You feel pressured to make an immediate decision",
             "icon" : " clock",
             "reduction" : 600,
             "path" : "assets/scenes/Time_pressure.png"
         },
         "zig_zag" : {
-            "info" : "Fake Scam Vigilante: You believe a scammer is authorised by the FCA",
+            "name" : "False claims:",
+            "info" : " You let an unknown provider convince you to change your pension arrangements",
             "icon" : "a phone",
             "reduction" : 500,
             "path" : "assets/scenes/Fake_vigilante.png"
         },
         "splitter" : {
-            "info" : "Offered withdrawal: You’re promised early access to your pension" ,
+            "name" : "Early access:",
+            "info" : " You’re promised access to your pension before you turn 55" ,
             "icon" : "a non-standard coloured coin",
             "reduction" : 800,
             "path" : "assets/scenes/Early_withdrawl.png"
         },
         "black_out" : {
-            "info" : "Black out: You engaged with a company because they offered a unique or limited investment opportunity",
+            "name" : "Black out:",
+            "info" : "You engaged with a company because they offered a unique or limited investment opportunity",
             "icon" : "something unusual",
             "reduction" : 500,
             "path" : "assets/scenes/scam.png"
         },
         "diagonal" : {
-            "info" : "Cold-calling: You receive a cold call about your pension" ,
+            "name" : "Safe Haven:",
+            "info" : "You move your pension to a ‘safe haven’ during the coronavirus pandemic",
             "icon" : "mini scam man",
             "reduction" : 400,
             "path" : "assets/scenes/Cold_call.png"
         },
         "normal_boon" : {
-            "info" : "Boon: Check FCA registered - get FCA number",
+            "name" : "Boon:",
+            "info" : "Check FCA registered - get FCA number",
             "icon" : "FCA logo",
             "reduction" : 100,
             "path" : "assets/scenes/Refuse.png"
         },
         "refuse" : {
-            "info" : "Refuse: You refuse to discuss your pension with strangers",
+            "name" : "Hang up:",
+            "info" : "You refuse to discuss your pension with strangers",
             "icon" : "FCA logo",
             "path" : "assets/scenes/Refuse.png",
             "addition" : 100            
         },
         "pension_wise" : {
-            "info" : "Pension Wise: You get impartial information from Pension Wise",
+            "name" : "Reject unsolicited advice:",
+            "info" : "You get impartial information from Pension Wise",
             "icon" : "FCA logo",
             "path" : "assets/scenes/Pensionwise.png",
             "addition" : 200            
         },
         "thinking_about" : {
-            "info" : "Thining About: You take your time and won’t be rushed ",
+            "name" : "Ask for more time:",
+            "info" : "You take your time and won’t be rushed ",
             "icon" : "FCA logo",
             "path" : "assets/scenes/ThinkingAbout.png",
             "addition" : 300            
         },
         "invisiblity_boon" : {
-            "info" : "FCA: You check the FCA Register",
+            "name" : "Do your homework:",
+            "info" : "You check the FCA’s Financial Services Register",
             "icon" : "FCA logo",
             "path" : "assets/scenes/FCA.png",
             "addition" : 400
         },
         "dont_transfer" : {
-            "info" : "Don't transfer: You refuse to transfer your pension for early withdrawal",
+            "name" : "You wait until you turn 55:",
+            "info" : "You refuse to transfer your pension for early withdrawal",
             "icon" : "FCA logo",
             "path" : "assets/scenes/Don't transfer.png",
             "addition" : 500
