@@ -371,7 +371,7 @@ export default class Player {
                     clearInterval(this.shootTrigger);
                 }
                 var player = new BABYLON.Sprite("player", this.spriteManagerPlayer['left']);
-                player.playAnimation(0, 7, true, 100);
+                player.playAnimation(0, 7, true, 80);
                 player.position = this.mesh.position;
                 player.size = 1.15;
                 player.isPickable = true;
@@ -385,7 +385,7 @@ export default class Player {
                     this.changePosition = true;
                     clearInterval(movement);
                     player.dispose();
-                }, 200);
+                }, 150);
             }
         }
         if (GAME.keys.right && !this.gameEnded && !this.playerLanding) {
@@ -398,7 +398,7 @@ export default class Player {
                 }
                 var player = new BABYLON.Sprite("player", this.spriteManagerPlayer['right']);
                 // this.mesh.material.alpha = 0;
-                player.playAnimation(0, 7, true, 100);
+                player.playAnimation(0, 7, true, 80);
                 player.position = this.mesh.position;
                 player.size = 1.15;
                 player.isPickable = true;
@@ -412,7 +412,7 @@ export default class Player {
                     this.changePosition = true;
                     clearInterval(movement);
                     player.dispose();
-                }, 200);
+                }, 150);
             }
         }
     }
