@@ -115,9 +115,14 @@ export default class TilesGenerator {
             }
         }, 10);
         setTimeout(() => {
-            coinAnimation.pause();
-            coins.dispose();
-            this.removeActiveCoin(randomPositionChooser);
+            var trigger = setInterval(() => {
+                if(!GAME.isPaused) {
+                    coinAnimation.pause();
+                    coins.dispose();
+                    this.removeActiveCoin(randomPositionChooser);
+                    clearInterval(trigger);
+                }
+            }, 10);
         }, 20000);
         if (GAME.isPaused()) {
             coinAnimation.pause();

@@ -182,9 +182,14 @@ export default class BoonsGenerator {
             }
         }, 5);
         setTimeout(() => {
-            boonAnimation.pause();
-            boons.dispose();
-            this.removeActiveBoon(randomTileTypeNumber);
+            var trigger = setInterval(() => {
+                if(!GAME.isPaused) {
+                    boonAnimation.pause();
+                    boons.dispose();
+                    this.removeActiveBoon(randomTileTypeNumber);
+                    clearInterval(trigger);
+                }
+            }, 100);
         }, 15000);
     }
 

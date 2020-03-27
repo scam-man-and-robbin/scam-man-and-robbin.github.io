@@ -187,9 +187,14 @@ export default class ScamsGenerator {
             }
         }, 5);
         setTimeout(() => {
-            scamAnimation.pause();
-            scams.dispose();
-            this.removeActiveScam(randomTileTypeNumber);
+            var trigger = setInterval(() => {
+                if(!GAME.isPaused) {
+                    scamAnimation.pause();
+                    scams.dispose();
+                    this.removeActiveScam(randomTileTypeNumber);
+                    clearInterval(trigger);
+                }
+            }, 100);            
         }, 10000);
     }
 
@@ -430,9 +435,14 @@ export default class ScamsGenerator {
                 }
             }, 5);
             setTimeout(() => {
-                scamAnimation.pause();
-                scams[index].dispose();                
-                this.removeActiveScam(randomTileTypeNumber);
+                var trigger = setInterval(() => {
+                    if(!GAME.isPaused) {
+                        scamAnimation.pause();
+                        scams[index].dispose();                
+                        this.removeActiveScam(randomTileTypeNumber);
+                        clearInterval(trigger);
+                    }
+                }, 100);
             }, 8000);
         }
     }
