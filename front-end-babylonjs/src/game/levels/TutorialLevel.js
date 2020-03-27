@@ -160,7 +160,7 @@ export default class TutorialLevel extends Level {
         if (messageNumber == 1)
         {
             var modeDis = new BABYLON.GUI.Rectangle();
-            modeDis.width = GAME.engine.getRenderWidth();
+            modeDis.width = 1;
             modeDis.height = 0.1;
             modeDis.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER;
             modeDis.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP;
@@ -171,7 +171,6 @@ export default class TutorialLevel extends Level {
             var modeControl = new BABYLON.GUI.TextBlock();
             modeControl.text = 'Tutorial Mode';
             modeControl.color = 'white'
-            modeControl.width = GAME.engine.getRenderWidth();
             modeControl.fontSize = 15;
             modeControl.textHorizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER;
             modeControl.textVerticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_CENTER;
