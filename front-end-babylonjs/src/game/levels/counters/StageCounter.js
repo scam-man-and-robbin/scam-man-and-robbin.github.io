@@ -105,7 +105,7 @@ export default class StageCounter {
             // Skip button
             stageUI.addImgButton('continueBtn', {
                 'imgpath': "assets/scenes/Continue.png",
-                'top': -(GAME.engine.getRenderHeight()*8)/100,
+                'top': -(GAME.engine.getRenderHeight()*6)/100,
                 'width': 0.2,
                 'height' : 0.05,
                 'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_BOTTOM,
@@ -159,7 +159,7 @@ export default class StageCounter {
                 })
                 this.stageUI.addControl(this.scamDescription);
                 this.warningMessage = this.addText("Remember, it doesn’t take many scams to reduce the pension pot to £0!", {
-                    'top': (GAME.engine.getRenderHeight()*52)/100,
+                    'top': (GAME.engine.getRenderHeight()*50)/100,
                     'color': GAME.options.pointsTextColor,
                     'outlineColor': GAME.options.pointsOutlineTextColor,
                     'outlineWidth': '2px',
@@ -192,6 +192,8 @@ export default class StageCounter {
                     let scamsHeading = this.addText(Message.message[scam]['name'], {
                         'top': '0px',
                         'fontSize': '10px',
+                        'outlineColor': GAME.options.pointsOutlineTextColor,
+                        'outlineWidth': '0.05px',
                         'left': '1px',
                         'horizontalAlignment': BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER,
                         // 'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_CENTER
@@ -254,6 +256,8 @@ export default class StageCounter {
             let scamsHeading = this.addText(Message.message[scam]['name'], {
                 'top': '0px',
                 'fontSize': '10px',
+                'outlineColor': GAME.options.pointsOutlineTextColor,
+                'outlineWidth': '0.05px',
                 'left': '1px',
                 'horizontalAlignment': BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER,
                 // 'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_CENTER

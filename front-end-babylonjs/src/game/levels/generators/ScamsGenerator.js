@@ -60,7 +60,7 @@ export default class ScamsGenerator {
                 let scamType = this.scamTypes[randomTileTypeNumber];
                 this.player.activeScam = scamType;
                 if (GAME.currentLevelName === 'TutorialLevel' && !this.scamSet.size) {
-                    this.level.createTutorialText(2);
+                    this.level.createTutorialText(5);
                 }
                 this.activeScams.push(randomTileTypeNumber);
                 if (scamType == 'splitter') {

@@ -122,7 +122,7 @@ export default class TilesGenerator {
                     this.removeActiveCoin(randomPositionChooser);
                     clearInterval(trigger);
                 }
-            }, 10);
+            }, 100);
         }, 20000);
         if (GAME.isPaused()) {
             coinAnimation.pause();
