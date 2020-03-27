@@ -133,6 +133,7 @@ export default class TutorialLevel extends Level {
         let image = new BABYLON.GUI.Image("icon", "assets/scenes/tutorial_plate.png");
         image.width = 1;
         image.height = 0.2;
+        image.top = (GAME.engine.getRenderHeight()*10)/100;
         image.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER;
         image.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP;
         menuTexture.addControl(image);
@@ -141,7 +142,7 @@ export default class TutorialLevel extends Level {
         rectBox.width = 0.65;
         rectBox.height = 0.2;
         rectBox.left = '-15px';
-        rectBox.top = '10px';
+        rectBox.top = (GAME.engine.getRenderHeight()*12)/100;
         rectBox.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_RIGHT;
         rectBox.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP;
         rectBox.thickness = 0;
@@ -156,6 +157,28 @@ export default class TutorialLevel extends Level {
         textControl.fontFamily = "'Tomorrow',sans-serif";
         rectBox.addControl(textControl);
 
+        if (messageNumber == 1)
+        {
+            var modeDis = new BABYLON.GUI.Rectangle();
+            modeDis.width = GAME.engine.getRenderWidth();
+            modeDis.height = 0.1;
+            modeDis.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER;
+            modeDis.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP;
+            modeDis.thickness = 0;
+            modeDis.background = "#45186e";
+            menuTexture.addControl(modeDis);
+
+            var modeControl = new BABYLON.GUI.TextBlock();
+            modeControl.text = 'Tutorial Mode';
+            modeControl.color = 'white'
+            modeControl.width = GAME.engine.getRenderWidth();
+            modeControl.fontSize = 15;
+            modeControl.textHorizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER;
+            modeControl.textVerticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_CENTER;
+            modeControl.textWrapping = true;
+            modeControl.fontFamily = "'Tomorrow',sans-serif";
+            modeDis.addControl(modeControl);
+        }
 
         var cornerSphere = function (scene) {
             let frustumPlanes = BABYLON.Frustum.GetPlanes(scene.activeCamera.getTransformationMatrix());
@@ -168,7 +191,7 @@ export default class TutorialLevel extends Level {
             let z = d;
 
             robbinFlap.position.x = -x + 1;
-            robbinFlap.position.y = y - 1;
+            robbinFlap.position.y = y - 2.2;
             robbinFlap.position.z = z;
             robbinFlap.size = 1.5;
         }
@@ -177,8 +200,10 @@ export default class TutorialLevel extends Level {
 
         setTimeout(() => {
             robbinFlap.dispose();
-            menuTexture.dispose();
-            // tutorialTextPlate.dispose();
+            // menuTexture.dispose();
+            image.dispose();
+            rectBox.dispose();
+            textControl.dispose();
         }, 5000);
     }
 
