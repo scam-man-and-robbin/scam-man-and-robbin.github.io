@@ -133,8 +133,8 @@ export default class Player {
             this.coinsTextControl.isVisible = false;
             this.moneyBar.isVisible = false;
             this.potImg.isVisible = false;
-            this.skipControl = this.hud.addImgButton('continueBtn', {
-                'imgpath': "assets/scenes/Continue.png",
+            this.skipControl = this.hud.addImgButton('SkipBtn', {
+                'imgpath': "assets/scenes/Skip_tutorial.png",
                 'top': -(GAME.engine.getRenderHeight()*1)/100,
                 'width': 0.2,
                 'height' : 0.05,

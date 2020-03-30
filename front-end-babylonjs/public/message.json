@@ -1,5 +1,11 @@
 {
     "message" : {
+        "generic_scam" : {
+            "name" : "tutorial_scam",
+            "info" : "Generic Scam",
+            "icon" : "Red Border logo",
+            "path" : "assets/scenes/Generic_scam.png"
+        },
         "normal_scam" : {
             "name" : "Cold call:",
             "info" : "You receive a cold call about your pension",
@@ -48,6 +54,12 @@
             "icon" : "mini scam man",
             "reduction" : 400,
             "path" : "assets/scenes/Cold_call.png"
+        },
+        "generic_boon" : {
+            "name" : "Tutorial boon",
+            "info" : "Generic Boon",
+            "icon" : "Green Border logo",
+            "path" : "assets/scenes/Bonus.png"
         },
         "normal_boon" : {
             "name" : "Boon:",

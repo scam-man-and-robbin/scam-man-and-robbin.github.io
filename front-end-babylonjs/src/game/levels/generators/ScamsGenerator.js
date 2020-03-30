@@ -80,7 +80,7 @@ export default class ScamsGenerator {
      * @param {string} type - Flag to decide the behaviour of the scam.
      */
     createScams(type, randomTileTypeNumber) {
-
+        if(type == 'generic_scam' && GAME.currentLevelName != 'TutorialLevel') return;
         // To position scam objects on different lanes randomly Default to Middle Lane
         let randomPositionChooser = Math.floor((Math.random() * 100)); // 0 to 100 random number
         let positionX = 0;
@@ -114,7 +114,7 @@ export default class ScamsGenerator {
 
         if (type == 'zig_zag') {
             scams.animations.push(this.createZigZagScamAnimation(scams));
-        } else if (type == 'normal_scam') {
+        } else if (type == 'normal_scam' || (type == 'generic_scam')) {
             scams.animations.push(this.createScamAnimation());
         }
         else if (type == 'speedy') {
