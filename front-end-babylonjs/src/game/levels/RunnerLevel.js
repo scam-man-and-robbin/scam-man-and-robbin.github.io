@@ -305,11 +305,12 @@ export default class RunnerLevel extends Level {
             this.player.winningSound.play();
 
             this.player.mesh.material.alpha = 0;
-            var player = new BABYLON.Sprite("player", this.player.spriteManagerPlayer['win']);
-            player.position = this.player.mesh.position;
-            player.position = new BABYLON.Vector3(this.player.mesh.position.x + 0.2, this.player.mesh.position.y, 0);
-            player.size = 1.2;
-            player.isPickable = true;
+            // this.wPlayer = new BABYLON.Sprite("player", this.player.spriteManagerPlayer['win']);
+            // this.wPlayer.position = this.player.mesh.position;
+            // this.wPlayer.position = new BABYLON.Vector3(this.player.mesh.position.x + 0.2, this.player.mesh.position.y, 0);
+            // this.wPlayer.size = 1.2;
+            // this.wPlayer.isPickable = true;
+            this.playerWin();
             setTimeout(() => {
                 this.player.hud.hide();
                 GAME.pause();
@@ -419,6 +420,7 @@ export default class RunnerLevel extends Level {
     }
 
     completeStage() {
+        this.indication = false;
         if(this.nextStage === 1) {
             GAME.engine.hideLoadingUI();
         }
@@ -431,9 +433,20 @@ export default class RunnerLevel extends Level {
                 this.tiles &&
                 !this.tiles.activeCoins.length) || this.nextStage === 1)) {
                     this.player.infoSound.play();
-                    this.stageCounter.showStage(this.nextStage);
+                    if(this.nextStage == 1){
+                        this.stageCounter.showStage(this.nextStage);
+                        this.nextStage++; 
+                    }
+                    else{
+                        this.player.playerLanding = true;
+                        this.playerWin();
+                        setTimeout(()=>{
+                            this.stageCounter.showStage(this.nextStage);
+                            this.nextStage++; 
+                            this.wPlayer.dispose();
+                        },3000);
+                    }
                     this.currentStageAge = this.age;
-                    this.nextStage++;
                     this.holdStage = false;
                     clearInterval(trigger);
             }
@@ -441,4 +454,11 @@ export default class RunnerLevel extends Level {
 
     }
 
+    playerWin(){
+        this.wPlayer = new BABYLON.Sprite("player", this.player.spriteManagerPlayer['win']);
+        this.wPlayer.position = this.player.mesh.position;
+        this.wPlayer.position = new BABYLON.Vector3(this.player.mesh.position.x + 0.2, this.player.mesh.position.y, 0);
+        this.wPlayer.size = 1.2;
+        this.wPlayer.isPickable = true;
+    }
 }
