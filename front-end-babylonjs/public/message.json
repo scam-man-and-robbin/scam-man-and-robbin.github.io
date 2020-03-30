@@ -11,35 +11,35 @@
             "info" : "You receive a cold call about your pension",
             "icon" : "FCA logo",
             "reduction" : 400,
-            "path" : "assets/scenes/Cold_call.png"
+            "path" : "assets/scenes/Cold_call_v2.png"
         },
         "accelerator" : {
             "name" : "Free advice:",
             "info" : "You accept ‘free’ financial advice",
             "icon" : "pound signs with a cross through it",
             "reduction" : 300,
-            "path" : "assets/scenes/Free_advice.png" 
+            "path" : "assets/scenes/Free_advice_v2.png" 
         },
         "speedy" : {
             "name" : "Time pressure:",
             "info" : "You feel pressured to make an immediate decision",
             "icon" : " clock",
             "reduction" : 600,
-            "path" : "assets/scenes/Time_pressure.png"
+            "path" : "assets/scenes/Time_pressure_v2.png"
         },
         "zig_zag" : {
             "name" : "False claims:",
             "info" : " You let an unknown provider convince you to change your pension arrangements",
             "icon" : "a phone",
             "reduction" : 500,
-            "path" : "assets/scenes/Fake_vigilante.png"
+            "path" : "assets/scenes/Fake_vigilante_v2.png"
         },
         "splitter" : {
             "name" : "Early access:",
             "info" : " You’re promised access to your pension before you turn 55" ,
             "icon" : "a non-standard coloured coin",
             "reduction" : 800,
-            "path" : "assets/scenes/Early_withdrawl.png"
+            "path" : "assets/scenes/Early_withdrawl_v2.png"
         },
         "black_out" : {
             "name" : "Black out:",
@@ -53,7 +53,7 @@
             "info" : "You move your pension to a ‘safe haven’ during the coronavirus pandemic",
             "icon" : "mini scam man",
             "reduction" : 400,
-            "path" : "assets/scenes/Cold_call.png"
+            "path" : "assets/scenes/Cold_call_v2.png"
         },
         "generic_boon" : {
             "name" : "Tutorial boon",
@@ -66,20 +66,20 @@
             "info" : "Check FCA registered - get FCA number",
             "icon" : "FCA logo",
             "reduction" : 100,
-            "path" : "assets/scenes/Refuse.png"
+            "path" : "assets/scenes/Refuse_v2.png"
         },
         "refuse" : {
             "name" : "Hang up:",
             "info" : "You refuse to discuss your pension with strangers",
             "icon" : "FCA logo",
-            "path" : "assets/scenes/Refuse.png",
+            "path" : "assets/scenes/Refuse_v2.png",
             "addition" : 100            
         },
         "pension_wise" : {
             "name" : "Reject unsolicited advice:",
             "info" : "You get impartial information from Pension Wise",
             "icon" : "FCA logo",
-            "path" : "assets/scenes/Pensionwise.png",
+            "path" : "assets/scenes/Pensionwise_v2.png",
             "addition" : 200            
         },
         "thinking_about" : {
@@ -93,14 +93,14 @@
             "name" : "Do your homework:",
             "info" : "You check the FCA’s Financial Services Register",
             "icon" : "FCA logo",
-            "path" : "assets/scenes/FCA.png",
+            "path" : "assets/scenes/FCA_v2.png",
             "addition" : 400
         },
         "dont_transfer" : {
             "name" : "You wait until you turn 55:",
             "info" : "You refuse to transfer your pension for early withdrawal",
             "icon" : "FCA logo",
-            "path" : "assets/scenes/Don't transfer.png",
+            "path" : "assets/scenes/Don't_transfer_v2.png",
             "addition" : 500
         }
     }
