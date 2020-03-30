@@ -205,7 +205,7 @@ export default class RunnerLevel extends Level {
 
         this.menu.addImgButton('Return to Home', {
             'width' : GAME.isMobile() ? 0.5 : 0.3,
-            'imgpath' : "assets/scenes/Home_Button.png",
+            'imgpath' : "assets/scenes/Home_Button_v2.png",
             'top': ((GAME.engine.getRenderHeight() * 50)/ 100) + 50, // 60% from top
             'height': '50px',
             'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP,
