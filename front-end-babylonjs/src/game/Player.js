@@ -26,6 +26,7 @@ export default class Player {
         this.pauseButtonControl = null;
         this.lastScamId = null;
         this.gameEnded = false;
+        this.freezeScams = false;
         this.createCommonMaterials();
         this.setupPlayer();
     }

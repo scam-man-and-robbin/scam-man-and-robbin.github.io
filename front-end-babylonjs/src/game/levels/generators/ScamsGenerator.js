@@ -31,7 +31,7 @@ export default class ScamsGenerator {
     createCommonMaterials() {
 
         let scamMaterial = new BABYLON.StandardMaterial("scamMaterial", this.scene);
-        scamMaterial.diffuseTexture = new BABYLON.Texture("assets/scenes/Cold_call.png", this.scene);
+        scamMaterial.diffuseTexture = new BABYLON.Texture("assets/scenes/Cold_call_v2.png", this.scene);
         scamMaterial.diffuseTexture.hasAlpha = true;
         scamMaterial.backFaceCulling = true;
 
@@ -46,7 +46,7 @@ export default class ScamsGenerator {
 
         // New scams keep generating every 4 second
         setInterval(() => {
-            if (!GAME.isPaused() && this.player.lives && this.level.age < 65 && !this.level.freezeGeneration && this.scene) {
+            if (!GAME.isPaused() && this.player.lives && this.level.age < 65 && !this.level.freezeGeneration && this.scene && !this.player.freezeScams) {
                 this.scamTypes = [];
                 for (let index = 1; index <= this.level.nextStage; index++) {
                     var scamList = stages["stage_" + (this.level.nextStage - index)]["scams"]

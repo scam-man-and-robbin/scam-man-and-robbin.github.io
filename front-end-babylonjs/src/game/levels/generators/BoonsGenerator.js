@@ -35,7 +35,7 @@ export default class BoonsGenerator {
      */
     createCommonMaterials() {
         this.boonMaterial = new BABYLON.StandardMaterial("boonMaterial", this.scene);
-        this.boonMaterial.diffuseTexture = new BABYLON.Texture("assets/scenes/Refuse.png", this.scene);
+        this.boonMaterial.diffuseTexture = new BABYLON.Texture("assets/scenes/Refuse_v2.png", this.scene);
         this.boonMaterial.diffuseTexture.hasAlpha = true;
         this.boonMaterial.backFaceCulling = true;
 
@@ -94,7 +94,7 @@ export default class BoonsGenerator {
                     this.boonSet.add(boonType);
                 }
             }
-        }, 11000);
+        }, GAME.currentLevelName === 'TutorialLevel' ? 4000 : 11000);
     }
 
 
