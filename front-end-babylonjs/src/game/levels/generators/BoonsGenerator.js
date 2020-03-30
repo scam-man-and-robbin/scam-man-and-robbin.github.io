@@ -104,7 +104,7 @@ export default class BoonsGenerator {
      * Currently only one type of Boon Entity
      */
     createBoons(type, randomTileTypeNumber) {
-
+        if(type == 'generic_boon' && GAME.currentLevelName != 'TutorialLevel') return;
         // To position boon objects on different lanes randomly Default to Middle Lane
         let randomPositionChooser = Math.floor((Math.random() * 100)); // 0 to 100 random number
         let positionX = 0;

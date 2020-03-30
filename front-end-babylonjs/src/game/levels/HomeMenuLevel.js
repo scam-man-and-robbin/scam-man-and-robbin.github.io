@@ -38,9 +38,10 @@ export default class HomeMenuLevel extends Level {
             'top' : '100px' 
         });
         menu.addImgButton('playButton', {
-            'imgpath' : "assets/scenes/Start_button.png",
-            'width' : 0.25,
-            'top' : Math.floor((GAME.engine.getRenderHeight()*80/100)),
+            'imgpath' : "assets/scenes/Start_v2.png",
+            'height' : '25px',
+            'width' : 0.15,
+            'top' : Math.floor((GAME.engine.getRenderHeight()*90/100)),
             'verticalAlignment' : BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP,
             'onclick': () => {
                 click.play();
