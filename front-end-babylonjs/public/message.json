@@ -74,7 +74,7 @@
             "name" : "Ask for more time:",
             "info" : "You take your time and won’t be rushed ",
             "icon" : "FCA logo",
-            "path" : "assets/scenes/ThinkingAbout.png",
+            "path" : "assets/scenes/Thinking_about_v2.png",
             "addition" : 300            
         },
         "invisiblity_boon" : {

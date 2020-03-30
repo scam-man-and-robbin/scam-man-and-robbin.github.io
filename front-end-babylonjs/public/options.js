@@ -36,5 +36,5 @@ window.initialGameOptions = {
     'gameLength' : 270, // in seconds
     'messageReadTime': 6, // in seconds
     'maxLifetimeAllowance' : 1055000,
-    'tutorialLength' : 45 // in seconds
+    'tutorialLength' : 30 // in seconds
 };
