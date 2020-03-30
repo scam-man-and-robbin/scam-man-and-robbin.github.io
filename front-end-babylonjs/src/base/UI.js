@@ -42,7 +42,7 @@ export default class UI {
     addImgButton(name, options = {}) {
         let imgbutton = new BABYLON.GUI.Button.CreateImageOnlyButton(name, options.imgpath);
 
-        imgbutton.thickness = 0;
+        imgbutton.thickness = options.thickness || 0;
         imgbutton.width = options.width || 0.5;
         imgbutton.height = options.height || '60px';
         imgbutton.color = options.color || 'black';

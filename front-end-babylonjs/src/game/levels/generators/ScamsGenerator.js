@@ -49,12 +49,15 @@ export default class ScamsGenerator {
             if (!GAME.isPaused() && this.player.lives && this.level.age < 65 && !this.level.freezeGeneration && this.scene && !this.player.freezeScams) {
                 this.scamTypes = [];
                 for (let index = 1; index <= this.level.nextStage; index++) {
-                    var scamList = stages["stage_" + (this.level.nextStage - index)]["scams"]
-                    scamList.forEach(element => {
-                        if(this.scamTypes.indexOf(element) === -1) {
-                            this.scamTypes.push(element);
-                        }
-                    });
+                    var stage = this.level.nextStage - index;
+                    if(stage || GAME.currentLevelName === 'TutorialLevel') {
+                        var scamList = stages["stage_" + (stage)]["scams"]
+                        scamList.forEach(element => {
+                            if(this.scamTypes.indexOf(element) === -1) {
+                                this.scamTypes.push(element);
+                            }
+                        });
+                    }
                 }
                 let randomTileTypeNumber = Math.floor((Math.random() * this.scamTypes.length));
                 let scamType = this.scamTypes[randomTileTypeNumber];
@@ -80,7 +83,6 @@ export default class ScamsGenerator {
      * @param {string} type - Flag to decide the behaviour of the scam.
      */
     createScams(type, randomTileTypeNumber) {
-        if(type == 'generic_scam' && GAME.currentLevelName != 'TutorialLevel') return;
         // To position scam objects on different lanes randomly Default to Middle Lane
         let randomPositionChooser = Math.floor((Math.random() * 100)); // 0 to 100 random number
         let positionX = 0;
