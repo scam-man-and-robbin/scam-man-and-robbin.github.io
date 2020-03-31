@@ -104,6 +104,7 @@ export default class TutorialLevel extends Level {
      */
     createTutorialText(messageNumber) {
         GAME.pause();
+        this.activeMessage = true;
         this.player.infoSound.play();
 
         this.robbinFlapSpriteManager = new BABYLON.SpriteManager("robbinFlapSpriteManager", "assets/scenes/robin_flap_1.png", 1, { width: 65, height: 62 }, this.scene)
@@ -201,6 +202,7 @@ export default class TutorialLevel extends Level {
                 clearInterval(trigger);
                 this.skipControl.dispose();
                 background.dispose();
+                this.activeMessage = false;
                 GAME.resume();
                 if (messageNumber < 4) {
                     this.createTutorialText(messageNumber + 1);
@@ -345,7 +347,6 @@ export default class TutorialLevel extends Level {
         if (!GAME.isPaused()) {
             this.player.pauseButtonControl.isVisible = true;
             this.player.coinsTextControl.isVisible = false;
-            this.player.skipControl.isVisible = true;
             this.player.move();
             if (!this.player.beamEnabled && this.player.changePosition && !this.player.playerLanding && !this.player.gameEnded && this.nextStage) {
                 this.player.mesh.material.alpha = 1;
@@ -358,6 +359,7 @@ export default class TutorialLevel extends Level {
                     this.nextStage = 1;
                     this.player.landPlayer();
                     this.createTutorialText(1);
+                    this.player.skipControl.isVisible = true;
                 }, 2000);
                 this.freezeGeneration = true;
                 this.gameStarted = true;

@@ -1,56 +1,87 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, viewport-fit=cover maximum-scale=1">
-        <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <meta name="apple-mobile-web-app-capable" content="yes">
-        <title>Scam Man & Robbins</title>
-        <link rel="manifest" href="manifest.json">
-        <link href="rotate.css" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/css?family=Tomorrow&display=swap" rel="stylesheet">
 
-        <style>
-            html, body {
-                overflow: hidden;
-                width: 100%;
-                height: 100%;
-                margin: 0;
-                padding: 0;
-                position: fixed;
-            }
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="user-scalable=no, width=device-width, initial-scale=1.0, viewport-fit=cover maximum-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="apple-mobile-web-app-capable" content="yes">
 
-            body {
-                background-repeat: no-repeat;
-                background-attachment: fixed;
-                background-position: center; 
-                background-color: #636e72;
-            }
+    <!-- OG Tags -->
+    <meta property="og:title" content="Scam Man & Robbin'" />
+    <meta property="og:url" content="http://www.scam-man.com" />
+    <meta property="og:image" content="assets/scenes/scamman_logo.png" />
+    <meta property="og:description" content="Here's my Scam Man and Robbin' score..." />
 
-            #renderCanvas {
-                margin: auto !important;
-                width: 100%;
-                height: 100%;
-                touch-action: none;
-            }
-        </style>
+    <title>Scam Man & Robbin'</title>
+    <link rel="manifest" href="manifest.json">
+    <link href="assets/css/rotate.css" rel="stylesheet">
+    <link href="assets/css/tomorrow.css" rel="stylesheet">
+    <link href="assets/css/font-awesome.min.css" rel="stylesheet">
+    <link href="assets/css/modal.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="assets/js/jssocials-1.4.0/jssocials.css" />
+    <link rel="stylesheet" type="text/css" href="assets/js/jssocials-1.4.0/jssocials-theme-flat.css" />
+    <style>
+        html,
+        body {
+            overflow: hidden;
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            position: fixed;
+        }
 
-        <script src="options.js?v2"></script>  
-        
-        <script src="build/vendor.js"></script>
-        <script src="build/app.js?v2"></script>
-        <script src="https://cdn.babylonjs.com/loaders/babylonjs.loaders.min.js"></script>
+        body {
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-position: center;
+            background-color: #636e72;
+        }
 
-    </head>
+        #renderCanvas {
+            margin: auto !important;
+            width: 100%;
+            height: 100%;
+            touch-action: none;
+        }
+    </style>
 
-    <body>
-        <div id="turn">
-            <div id="overlay">
-                <span>Please rotate your screen to play...</span>
+    <script src="options.js?v2"></script>
+
+    <script src="build/vendor.js"></script>
+    <script src="build/app.js?v2"></script>
+    <script src="https://cdn.babylonjs.com/loaders/babylonjs.loaders.min.js"></script>
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/jssocials-1.4.0/jssocials.min.js"></script>
+    <script src="assets/js/modal.js"></script>
+</head>
+
+<body>
+    <div id="turn">
+        <div id="overlay">
+            <span>Please rotate your screen to play...</span>
+            <button id="myBtn">Open Modal</button>
+        </div>
+    </div>
+    <!-- Main game canvas -->
+    <canvas id="renderCanvas" touch-action="none"></canvas>
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
+
+        <!-- Modal content -->
+        <div class="modal-content">
+            <div class="modal-body">
+                <span class="close">&times;</span>
+                <p>Share your score</p>
+                <div id="share"></div>
             </div>
         </div>
-        <!-- Main game canvas -->
-        <canvas id="renderCanvas" touch-action="none"></canvas>        
-    </body>
+
+    </div>
+</body>
+<script>
+</script>
 
 </html>

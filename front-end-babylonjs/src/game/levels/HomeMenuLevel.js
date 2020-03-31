@@ -36,8 +36,8 @@ export default class HomeMenuLevel extends Level {
         });
         menu.addImage('LOGO',{
             'imgpath' : "assets/scenes/scamman_logo.png",
-            'width' : 0.65,
-            'height' : 0.45,
+            'width' : 0.7,
+            'height' : 0.38,
             'verticalAlignment' : BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP,
             'top' : Math.floor((GAME.engine.getRenderHeight()*3/100)),
         });

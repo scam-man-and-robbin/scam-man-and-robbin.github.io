@@ -61,18 +61,20 @@ export default class ScamsGenerator {
                 }
                 let randomTileTypeNumber = Math.floor((Math.random() * this.scamTypes.length));
                 let scamType = this.scamTypes[randomTileTypeNumber];
-                this.player.activeScam = scamType;
-                if (GAME.currentLevelName === 'TutorialLevel' && !this.scamSet.size) {
-                    this.level.createTutorialText(5);
-                }
-                this.activeScams.push(randomTileTypeNumber);
-                if (scamType == 'splitter') {
-                    this.createSplitterScams(randomTileTypeNumber);
-                } else {
-                    this.createScams(scamType, randomTileTypeNumber);
-                }
-                if (!this.scamSet.has(scamType)) {
-                    this.scamSet.add(scamType);
+                if(scamType) {
+                    this.player.activeScam = scamType;
+                    if (GAME.currentLevelName === 'TutorialLevel' && !this.scamSet.size) {
+                        this.level.createTutorialText(5);
+                    }
+                    this.activeScams.push(randomTileTypeNumber);
+                    if (scamType == 'splitter') {
+                        this.createSplitterScams(randomTileTypeNumber);
+                    } else {
+                        this.createScams(scamType, randomTileTypeNumber);
+                    }
+                    if (!this.scamSet.has(scamType)) {
+                        this.scamSet.add(scamType);
+                    }
                 }
             }
         }, 4000);

@@ -146,6 +146,7 @@ export default class Player {
                     GAME.goToLevel('RunnerLevel');
                 }
             });
+            this.skipControl.isVisible = false;
         }
 
         this.pauseButtonControl = this.hud.addImgButton('PAUSE', {
@@ -233,7 +234,9 @@ export default class Player {
             'horizontalAlignment': BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_RIGHT,
             'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_BOTTOM,
             'onclick' : () =>{
-                GAME.resume();
+                if(!this.level.activeMessage) {
+                    GAME.resume();
+                }
                 this.pausedImage.isVisible = false;
                 this.resumeButton.isVisible = false;
                 this.pauseButtonControl.isVisible = true;
