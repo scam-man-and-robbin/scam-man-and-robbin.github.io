@@ -49,7 +49,7 @@
 @media (min-width: 1281px) {
   
     #renderCanvas{ 
-        width: 40% !important;
+        width: 100% !important;
     }
     #turn{ display:none; }
     #renderCanvas{ display:block; }
@@ -64,7 +64,7 @@
   @media (min-width: 1025px) and (max-width: 1280px) {
     
     #renderCanvas{ 
-        width: 40% !important;
+        width: 100% !important;
     }
     #turn{ display:none; }
     #renderCanvas{ display:block; }
@@ -119,5 +119,17 @@
     
     #turn{ display:none; }
     #renderCanvas{ display:block; }
+    .device > .device-frame > #renderCanvas {
+      visibility: visible;
+      width: 100% !important;
+      height: 100% !important;
+    }
+    .device, .device-frame{
+        visibility: hidden;
+        width: 0 !important;
+        height: 0 !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
     
   }

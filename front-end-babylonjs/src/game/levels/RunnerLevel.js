@@ -125,16 +125,16 @@ export default class RunnerLevel extends Level {
     createMenus() {
         this.menu = new UI('runnerMenuUI');
 
-        let top = GAME.engine.getRenderHeight() / 5.5;
-        this.lostScreen = this.menu.addImage('lostScreen', {
-            'imgpath': "assets/scenes/Game_over_screen.png",
-            'width': GAME.isMobile() ? 0.95 : 0.7,
-            'height': 0.9,
+        let top = GAME.engine.getRenderHeight()/5.5;
+        this.lostScreen = this.menu.addImage('lostScreen',{
+            'imgpath':"assets/scenes/Game_over_screen.png",
+            'width' :  0.95,
+            'height' : 0.9,
         });
-        this.winningScreen = this.menu.addImage('winningScreen', {
-            'imgpath': "assets/scenes/winning_screen_1.png",
-            'width': GAME.isMobile() ? 0.95 : 0.7,
-            'height': 0.9,
+        this.winningScreen = this.menu.addImage('winningScreen',{
+            'imgpath':"assets/scenes/winning_screen_1.png",
+            'width' : 0.95 ,
+            'height' : 0.9,
         });
         // this.gameStatus = this.menu.addText('Congratulations!', {
         //     'top': '60px',
@@ -145,8 +145,8 @@ export default class RunnerLevel extends Level {
         //     'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP
         // }); 
         this.gameSubTextControl = this.menu.addText('You cannot give up. Try reaching Age 65...', {
-            'width': GAME.isMobile() ? 0.85 : 0.6,
-            'top': (GAME.engine.getRenderHeight() * 20) / 100, // 20% from top
+            'width' : 0.85,
+            'top': (GAME.engine.getRenderHeight() * 20)/ 100, // 20% from top
             'color': GAME.options.pointsTextColor,
             'outlineColor': GAME.options.pointsOutlineTextColor,
             'outlineWidth': '2px',
@@ -188,12 +188,12 @@ export default class RunnerLevel extends Level {
             'fontSize': '15px',
             'color': GAME.options.recordTextColor,
             'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP,
-            'width': GAME.isMobile() ? 0.85 : 0.5,
+            'width' :  0.85,
         });
         this.menu.addImgButton('replayButton', {
-            'width': GAME.isMobile() ? 0.5 : 0.3,
-            'imgpath': "assets/scenes/Play_again.png",
-            'top': (GAME.engine.getRenderHeight() * 50) / 100, // 50% from top
+            'width' :  0.5,
+            'imgpath' : "assets/scenes/Play_again.png",
+            'top': (GAME.engine.getRenderHeight() * 50)/ 100, // 50% from top
             'height': '50px',
             'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP,
             // 'textVerticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_CENTER,
@@ -204,7 +204,7 @@ export default class RunnerLevel extends Level {
         });
 
         this.menu.addImgButton('Share', {
-            'width': GAME.isMobile() ? 0.5 : 0.3,
+            'width': 0.5 ,
             'imgpath': "assets/scenes/share.png",
             'top': ((GAME.engine.getRenderHeight() * 50) / 100) + 50, // 60% from top
             'height': '50px',
@@ -235,8 +235,8 @@ export default class RunnerLevel extends Level {
         });
 
         this.menu.addImgButton('Learn more', {
-            'imgpath': "assets/scenes/learnmore.png",
-            'top': (GAME.engine.getRenderHeight() * 87) / 100, // 87% from top
+            'imgpath' : "assets/scenes/learnmore.png",
+            'top': (GAME.engine.getRenderHeight() * 85)/ 100, // 87% from top
             'height': '15px',
             'width': 0.2,
             'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP,

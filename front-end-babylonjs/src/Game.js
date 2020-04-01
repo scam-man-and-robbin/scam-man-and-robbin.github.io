@@ -38,7 +38,16 @@ export default class Game {
         /**
          * Starts the BABYLON engine on the Canvas element
          */
-        this.canvas = document.getElementById("renderCanvas");
+        
+        if(this.isMobile() || this.isPad())
+        {
+            this.canvas = document.getElementById("renderCanvas");
+            document.getElementsByClassName("device")[0].remove();
+        }
+        else{
+            this.canvas = document.getElementById("renderCanvasDesktop");
+            document.getElementById("renderCanvas").remove();
+        }
         this.engine = new BABYLON.Engine(this.canvas, false);
         this.audioEngine = new BABYLON.AudioEngine;
         this.audioEngine.useCustomUnlockedButton = true;

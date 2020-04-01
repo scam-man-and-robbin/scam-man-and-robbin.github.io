@@ -162,7 +162,6 @@ export default class StageCounter {
                     'top': (GAME.engine.getRenderHeight()*50)/100,
                     'color': GAME.options.pointsTextColor,
                     'outlineColor': GAME.options.pointsOutlineTextColor,
-                    'outlineWidth': '2px',
                     'fontSize': '10px',
                     'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP,
                     'textVerticalAlignment' : BABYLON.GUI.Control.VERTICAL_ALIGNMENT_CENTER
