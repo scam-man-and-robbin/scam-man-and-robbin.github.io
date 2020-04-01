@@ -34,6 +34,7 @@
             margin: 0;
             padding: 0;
             position: fixed;
+            font-family: 'Tomorrow',sans-serif;
         }
 
         body {
@@ -51,10 +52,10 @@
         }
     </style>
 
-    <script src="options.js?v2"></script>
+    <script src="options.js?v3"></script>
 
     <script src="build/vendor.js"></script>
-    <script src="build/app.js?v2"></script>
+    <script src="build/app.js?v3"></script>
     <script src="https://cdn.babylonjs.com/loaders/babylonjs.loaders.min.js"></script>
     <script src="assets/js/jquery.min.js"></script>
     <script src="assets/js/jssocials-1.4.0/jssocials.min.js"></script>
@@ -65,7 +66,6 @@
     <div id="turn">
         <div id="overlay">
             <span>Please rotate your screen to play...</span>
-            <button id="myBtn">Open Modal</button>
         </div>
     </div>
     <div class="device device-galaxy-s8" align = "center">
@@ -85,9 +85,8 @@
 
         <!-- Modal content -->
         <div class="modal-content">
-            <div class="modal-body">
-                <span class="close">&times;</span>
-                <p>Share your score</p>
+            <div class="modal-body text-center">
+                <p><strong>Share your score </strong></p>
                 <div id="share"></div>
             </div>
         </div>
