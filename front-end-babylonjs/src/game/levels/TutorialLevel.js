@@ -91,10 +91,8 @@ export default class TutorialLevel extends Level {
         this.scene.debugLayer.hide();
         // this.scene.debugLayer.show();
         this.scene.onPointerObservable.add(pointerEvent => {
-            if (!this.audioUnlocked) {
-                BABYLON.Engine.audioEngine.unlock();
-                this.audioUnlocked = true;
-            }
+            BABYLON.Engine.audioEngine.unlock();
+            this.audioUnlocked = true;
         })
     }
 
@@ -194,18 +192,20 @@ export default class TutorialLevel extends Level {
             'horizontalAlignment': BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER,
             'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP,
             'onclick': () => {
-                robbinFlap.dispose();
-                image.dispose();
-                robinName.dispose();
-                rectBox.dispose();
-                textControl.dispose();
-                clearInterval(trigger);
-                this.skipControl.dispose();
-                background.dispose();
-                this.activeMessage = false;
-                GAME.resume();
-                if (messageNumber < 4) {
-                    this.createTutorialText(messageNumber + 1);
+                if (!this.player.pausedImage.isVisible) {
+                    robbinFlap.dispose();
+                    image.dispose();
+                    robinName.dispose();
+                    rectBox.dispose();
+                    textControl.dispose();
+                    clearInterval(trigger);
+                    this.skipControl.dispose();
+                    background.dispose();
+                    this.activeMessage = false;
+                    GAME.resume();
+                    if (messageNumber < 4) {
+                        this.createTutorialText(messageNumber + 1);
+                    }
                 }
             }
         });

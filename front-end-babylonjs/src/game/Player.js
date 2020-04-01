@@ -175,9 +175,9 @@ export default class Player {
                 // this.message.pauseScreen(this.coins, this.scamCount, this.boonCount, this.level.scams ? this.level.scams.scamSet : null)
                 // this.soundMuteButtonControl.isVisible = false;
                 // this.soundUnMuteButtonControl.isVisible = false;
-                if (this.skipControl) {
-                    this.skipControl.isVisible = false;
-                }
+                // if (this.skipControl) {
+                //     this.skipControl.isVisible = false;
+                // }
             }
         });
         this.pausedImage = this.hud.addImage('PAUSED',{

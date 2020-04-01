@@ -57,6 +57,10 @@
     background-color: #5cb85c;
     color: white;
   }
+
+  .text-center {
+    text-align: center !important;
+  }
   
   /* Add Animation */
   @-webkit-keyframes slideIn {

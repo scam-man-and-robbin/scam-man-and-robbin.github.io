@@ -43,11 +43,12 @@ export default class HomeMenuLevel extends Level {
         });
         menu.addImgButton('playButton', {
             'imgpath' : "assets/scenes/Start_v2.png",
-            'height' : GAME.isPad() ? '100px':'55px' ,
-            'width' : 0.45,
-            'top' : Math.floor((GAME.engine.getRenderHeight()*50/100)),
+            'height' : GAME.isPad() ? '100px':'60px' ,
+            'width' : 0.55,
+            'top' : Math.floor((GAME.engine.getRenderHeight()*48/100)),
             'verticalAlignment' : BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP,
             'onclick': () => {
+                BABYLON.Engine.audioEngine.unlock();
                 click.play();
                 GAME.goToLevel('TutorialLevel')
             }

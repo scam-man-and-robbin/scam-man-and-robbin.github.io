@@ -171,7 +171,7 @@ export default class RunnerLevel extends Level {
         //     'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP
         // });
 
-        this.currentRecordTextControl = this.menu.addText('Current Record: 0', {
+        this.currentRecordTextControl = this.menu.addText('Highest Record: 0', {
             'top': (GAME.engine.getRenderHeight() * 40) / 100, // 40% from top
             'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP
         });
@@ -211,12 +211,16 @@ export default class RunnerLevel extends Level {
             'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP,
             'onclick': () => {
                 this.player.selectSound.play();   
-                var text = "My high score on Scam Man and Robbin' is " + this.player.getLastRecord() + "! Think you can beat it? \nCheck out the game for yourself and see if you can spot the most common pension scams before they destroy your retirement savings. Good luck! \n";
+                var text = "\nMy high score on Scam Man and Robbin' is " + this.player.getLastRecord() + "! Think you can beat it? \nCheck out the game for yourself and see if you can spot the most common pension scams before they destroy your retirement savings. Good luck! \n";
                 var emailBody = "Hey!%0D%0A%0D%0AMy high score on Scam Man and Robbin' is " + this.player.getLastRecord() + "! Think you can beat it?%0D%0A%0D%0ACheck out the game for yourself and see if you can spot the most common pension scams before they destroy your retirement savings. Good luck!%0D%0A" + window.location.href + "%0D%0A%0D%0ALearn more about how to protect yourself from pension scams: [http://www.scam-man.com]"
                 jsSocials.shares.email.shareUrl = "mailto:{to}?subject=Here's my Scam Man and Robbin' score...&body=" + emailBody;             
                 jsSocials.shares.facebook.shareUrl = "https://www.facebook.com/sharer/sharer.php?u=" + window.location.href + "&quote=" + text;
+                var shares = ["twitter", "facebook", "email"];
+                if(GAME.isMobile() || GAME.isPad()) {
+                    shares.push("whatsapp");
+                }
                 $("#share").jsSocials({
-                    shares: ["email", "twitter", "facebook", "whatsapp"],
+                    shares: shares,
                     url: window.location.href,
                     text: text,
                     showLabel: false,
@@ -293,6 +297,13 @@ export default class RunnerLevel extends Level {
         // Actions when player dies
         this.player.onDie = () => {
             this.player.gameEnded = true;
+            if (this.player.shootAction) {
+                this.player.shootAction.dispose();
+                clearInterval(this.player.shootTrigger);
+            }
+            if (this.player.bullet) {
+                this.player.bullet.isVisible = false;
+            }
             this.player.potImg.source = "assets/scenes/pot.png";
             clearInterval(this.speedTrigger);
             this.player.mesh.material.alpha = 0;
@@ -347,7 +358,7 @@ export default class RunnerLevel extends Level {
         this.lastText.text = "Unfortunately, Scam Man won't be on hand to protect you! So it is important to know how to identify a pension scam.";
         this.pointsTextControl.text = 'Pension Pot: £' + this.player.getPoints();
         // this.ageTextControl.text = 'Age: ' + this.age;
-        this.currentRecordTextControl.text = 'Current Record: ' + this.player.getLastRecord();
+        this.currentRecordTextControl.text = 'Highest Record: ' + this.player.getLastRecord();
 
         if (this.status == 'WIN') {
             // this.gameStatus.text = 'Congratulations!';

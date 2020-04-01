@@ -39,7 +39,6 @@ export default class Game {
          * Starts the BABYLON engine on the Canvas element
          */
         this.canvas = document.getElementById("renderCanvas");
-
         this.engine = new BABYLON.Engine(this.canvas, false);
         this.audioEngine = new BABYLON.AudioEngine;
         this.audioEngine.useCustomUnlockedButton = true;
