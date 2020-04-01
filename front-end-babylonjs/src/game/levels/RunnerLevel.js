@@ -80,7 +80,7 @@ export default class RunnerLevel extends Level {
         //Light direction is directly down from a position one unit up, fast decay
         this.light = new BABYLON.HemisphericLight("HemiLight", new BABYLON.Vector3(0, -1, 0), this.scene);
         this.light.intensity = 1;
-        this.light.groundColor = new BABYLON.Color3(1,1,1);
+        this.light.groundColor = new BABYLON.Color3(1, 1, 1);
         this.light.specular = BABYLON.Color3.Black();
 
 
@@ -154,7 +154,7 @@ export default class RunnerLevel extends Level {
             'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP
         });
         this.pointsTextControl = this.menu.addText('Pension Pot: £ 0', {
-            'top': (GAME.engine.getRenderHeight() * 30)/ 100, // 30% from top
+            'top': (GAME.engine.getRenderHeight() * 30) / 100, // 30% from top
             'color': GAME.options.pointsTextColor,
             'outlineColor': GAME.options.pointsOutlineTextColor,
             'outlineWidth': '2px',
@@ -172,20 +172,20 @@ export default class RunnerLevel extends Level {
         // });
 
         this.currentRecordTextControl = this.menu.addText('Current Record: 0', {
-            'top': (GAME.engine.getRenderHeight() * 40)/ 100, // 40% from top
+            'top': (GAME.engine.getRenderHeight() * 40) / 100, // 40% from top
             'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP
         });
 
         this.hasMadeRecordTextControl = this.menu.addText('You got a new Points Record!', {
-            'top': (GAME.engine.getRenderHeight() * 46)/ 100, // 46% from top
+            'top': (GAME.engine.getRenderHeight() * 46) / 100, // 46% from top
             'color': GAME.options.recordTextColor,
             'fontSize': '20px',
             'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP
         });
 
-        this.lastText = this.menu.addText('lastText',{
-            'top' : (GAME.engine.getRenderHeight() * 70)/ 100, // 70% from top
-            'fontSize' : '15px',
+        this.lastText = this.menu.addText('lastText', {
+            'top': (GAME.engine.getRenderHeight() * 70) / 100, // 70% from top
+            'fontSize': '15px',
             'color': GAME.options.recordTextColor,
             'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP,
             'width' :  0.85,
@@ -203,15 +203,30 @@ export default class RunnerLevel extends Level {
             }
         });
 
-        this.menu.addImgButton('Return to Home', {
-            'width' :  0.5,
-            'imgpath' : "assets/scenes/Home_Button_v2.png",
-            'top': ((GAME.engine.getRenderHeight() * 50)/ 100) + 50, // 60% from top
+        this.menu.addImgButton('Share', {
+            'width': 0.5 ,
+            'imgpath': "assets/scenes/share.png",
+            'top': ((GAME.engine.getRenderHeight() * 50) / 100) + 50, // 60% from top
             'height': '50px',
             'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP,
             'onclick': () => {
-                this.player.selectSound.play();
-                GAME.goToLevel('HomeMenuLevel')
+                this.player.selectSound.play();   
+                var text = "My high score on Scam Man and Robbin' is " + this.player.getLastRecord() + "! Think you can beat it? \nCheck out the game for yourself and see if you can spot the most common pension scams before they destroy your retirement savings. Good luck! \n";
+                var emailBody = "Hey!%0D%0A%0D%0AMy high score on Scam Man and Robbin' is " + this.player.getLastRecord() + "! Think you can beat it?%0D%0A%0D%0ACheck out the game for yourself and see if you can spot the most common pension scams before they destroy your retirement savings. Good luck!%0D%0A" + window.location.href + "%0D%0A%0D%0ALearn more about how to protect yourself from pension scams: [http://www.scam-man.com]"
+                jsSocials.shares.email.shareUrl = "mailto:{to}?subject=Here's my Scam Man and Robbin' score...&body=" + emailBody;             
+                jsSocials.shares.facebook.shareUrl = "https://www.facebook.com/sharer/sharer.php?u=" + window.location.href + "&quote=" + text;
+                $("#share").jsSocials({
+                    shares: ["email", "twitter", "facebook", "whatsapp"],
+                    url: window.location.href,
+                    text: text,
+                    showLabel: false,
+                    shareIn: "popup",
+                });
+                // GAME.goToLevel('HomeMenuLevel');
+                document.getElementById("myModal").style.display = "block";
+                setTimeout(() => {
+                    document.getElementById("myModal").classList.add("popup-open");
+                }, 100);
             }
         });
 
@@ -219,7 +234,7 @@ export default class RunnerLevel extends Level {
             'imgpath' : "assets/scenes/learnmore.png",
             'top': (GAME.engine.getRenderHeight() * 85)/ 100, // 87% from top
             'height': '15px',
-            'width' : 0.2,
+            'width': 0.2,
             'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP,
             // 'textVerticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_CENTER,
             'onclick': () => {
@@ -421,7 +436,7 @@ export default class RunnerLevel extends Level {
 
     completeStage() {
         this.indication = false;
-        if(this.nextStage === 1) {
+        if (this.nextStage === 1) {
             GAME.engine.hideLoadingUI();
         }
         let trigger = setInterval(() => {
@@ -432,29 +447,29 @@ export default class RunnerLevel extends Level {
                 !this.boons.activeBoons.length &&
                 this.tiles &&
                 !this.tiles.activeCoins.length) || this.nextStage === 1)) {
-                    this.player.infoSound.play();
-                    if(this.nextStage == 1){
+                this.player.infoSound.play();
+                if (this.nextStage == 1) {
+                    this.stageCounter.showStage(this.nextStage);
+                    this.nextStage++;
+                }
+                else {
+                    this.player.playerLanding = true;
+                    this.playerWin();
+                    setTimeout(() => {
                         this.stageCounter.showStage(this.nextStage);
-                        this.nextStage++; 
-                    }
-                    else{
-                        this.player.playerLanding = true;
-                        this.playerWin();
-                        setTimeout(()=>{
-                            this.stageCounter.showStage(this.nextStage);
-                            this.nextStage++; 
-                            this.wPlayer.dispose();
-                        },3000);
-                    }
-                    this.currentStageAge = this.age;
-                    this.holdStage = false;
-                    clearInterval(trigger);
+                        this.nextStage++;
+                        this.wPlayer.dispose();
+                    }, 3000);
+                }
+                this.currentStageAge = this.age;
+                this.holdStage = false;
+                clearInterval(trigger);
             }
         }, 1000);
 
     }
 
-    playerWin(){
+    playerWin() {
         this.wPlayer = new BABYLON.Sprite("player", this.player.spriteManagerPlayer['win']);
         this.wPlayer.position = this.player.mesh.position;
         this.wPlayer.position = new BABYLON.Vector3(this.player.mesh.position.x + 0.2, this.player.mesh.position.y, 0);

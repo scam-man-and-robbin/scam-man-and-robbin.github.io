@@ -104,6 +104,7 @@ export default class TutorialLevel extends Level {
      */
     createTutorialText(messageNumber) {
         GAME.pause();
+        this.activeMessage = true;
         this.player.infoSound.play();
 
         this.robbinFlapSpriteManager = new BABYLON.SpriteManager("robbinFlapSpriteManager", "assets/scenes/robin_flap_1.png", 1, { width: 65, height: 62 }, this.scene)
@@ -111,13 +112,13 @@ export default class TutorialLevel extends Level {
         robbinFlap.playAnimation(0, 5, true, 100);
         robbinFlap.position = new BABYLON.Vector3(-1, 2, -1);
 
-        let text = '', height = 0.2;
+        let text = '', height = 0.15;
         if (messageNumber == 1) {
             text = 'Welcome to Scam Man and Robbin’! \n\n You are Scam Man, a cloaked vigilante who’s on a mission to protect people’s pensions from scams. \n\n I’m Robbin’, and I’m here to help you!';
-            height = 0.42;
+            height = 0.35;
         } else if (messageNumber == 2) {
             text = 'You must correctly identify six of the most common pension scams and destroy them. \n\n Collect the bonuses and coins to build a healthy pension pot and be in with a chance of winning. ';
-            height = 0.38;
+            height = 0.31;
         } else if (messageNumber == 3) {
             text = (GAME.isMobile() || GAME.isPad()) ? 'Swipe left and right on the screen to move in each direction…' : 'Use left and right arrow keys to move in each direction…';
         } else if (messageNumber == 4) {
@@ -135,24 +136,34 @@ export default class TutorialLevel extends Level {
         background.height = 1;
         background.thickness = 0;
         background.background = "grey";
-        background.alpha = 0.7;
+        background.alpha = 0.75;
         menuTexture.addControl(background);
 
         // Tutorial Frame
         let image = new BABYLON.GUI.Image("icon", "assets/scenes/tutorial_plate.png");
         image.width = 1;
         image.height = height;
-        image.top = (GAME.engine.getRenderHeight() * 10) / 100;
+        image.top = (GAME.engine.getRenderHeight() * 16) / 100;
         image.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER;
         image.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP;
         menuTexture.addControl(image);
 
+        
+        // Tutorial Frame
+        let robinName = new BABYLON.GUI.Image("icon", "assets/scenes/tutorial_plate_robin.png");
+        robinName.width = 0.22;
+        robinName.height = 0.051;
+        robinName.top = (GAME.engine.getRenderHeight() * 11) / 100;
+        robinName.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_LEFT;
+        robinName.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP;
+        menuTexture.addControl(robinName);
+
         // Message Frame
         let rectBox = new BABYLON.GUI.Rectangle();
-        rectBox.width = 0.71;
+        rectBox.width = 0.7;
         rectBox.height = height;
         rectBox.left = '-15px';
-        rectBox.top = (GAME.engine.getRenderHeight() * (height == 0.2 ? 12 : 13)) / 100;
+        rectBox.top = (GAME.engine.getRenderHeight() * (height == 0.15 ? 15 : 15)) / 100;
         rectBox.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_RIGHT;
         rectBox.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP;
         rectBox.thickness = 0;
@@ -169,42 +180,35 @@ export default class TutorialLevel extends Level {
         rectBox.addControl(textControl);
 
         
-
+        var trigger = setInterval(() => {
+            this.skipControl.thickness = this.skipControl.thickness ? 0 : 1.5
+        }, 300);
         // Skip Button
         this.skipControl = hud.addImgButton('continueBtn', {
             'imgpath': "assets/scenes/Continue.png",
-            'top': ((GAME.engine.getRenderHeight() * ((height + 0.1) * 100)) / 100),
-            'left': '-5px',
+            'top': ((GAME.engine.getRenderHeight() * ((height + 0.16) * 100)) / 100),
             'width': 0.2,
-            'height': 0.05,
-            'horizontalAlignment': BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_RIGHT,
+            'height': 0.055,
+            'thickness': 1.5,
+            'color': 'white',
+            'horizontalAlignment': BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER,
             'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP,
             'onclick': () => {
                 robbinFlap.dispose();
                 image.dispose();
+                robinName.dispose();
                 rectBox.dispose();
                 textControl.dispose();
+                clearInterval(trigger);
                 this.skipControl.dispose();
                 background.dispose();
-                highlight.dispose();
+                this.activeMessage = false;
                 GAME.resume();
                 if (messageNumber < 4) {
                     this.createTutorialText(messageNumber + 1);
                 }
             }
         });
-
-        // Message Frame
-        let highlight = new BABYLON.GUI.Rectangle();
-        highlight.width = 0.21;
-        highlight.height = 0.055;
-        highlight.left = '-4px';
-        highlight.top = ((GAME.engine.getRenderHeight() * ((height + 0.1) * 100)) / 100);
-        highlight.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_RIGHT;
-        highlight.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP;
-        highlight.thickness = 3;
-        highlight.color = 'white';
-        menuTexture.addControl(highlight);
 
         if (messageNumber == 1) {
             // Top Header
@@ -239,16 +243,13 @@ export default class TutorialLevel extends Level {
             let z = d;
 
             robbinFlap.position.x = -x + 1;
-            robbinFlap.position.y = y - (2.2 + (height == 0.2 ? 0 : 1));
+            robbinFlap.position.y = y - (2.2 + (height == 0.15 ? 0.1 : 1.2));
             robbinFlap.position.z = z;
             robbinFlap.size = 1.5;
         }
 
         this.scene.registerBeforeRender(() => cornerSphere(this.scene));
 
-        setInterval(() => {
-            highlight.isVisible = !highlight.isVisible;
-        }, 300);
         // setTimeout(() => {
         //     robbinFlap.dispose();
         //     // menuTexture.dispose();
@@ -346,7 +347,6 @@ export default class TutorialLevel extends Level {
         if (!GAME.isPaused()) {
             this.player.pauseButtonControl.isVisible = true;
             this.player.coinsTextControl.isVisible = false;
-            this.player.skipControl.isVisible = true;
             this.player.move();
             if (!this.player.beamEnabled && this.player.changePosition && !this.player.playerLanding && !this.player.gameEnded && this.nextStage) {
                 this.player.mesh.material.alpha = 1;
@@ -359,6 +359,7 @@ export default class TutorialLevel extends Level {
                     this.nextStage = 1;
                     this.player.landPlayer();
                     this.createTutorialText(1);
+                    this.player.skipControl.isVisible = true;
                 }, 2000);
                 this.freezeGeneration = true;
                 this.gameStarted = true;
