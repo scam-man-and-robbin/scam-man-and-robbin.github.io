@@ -8,6 +8,7 @@
         <title>Scam Man & Robbins</title>
         <link rel="manifest" href="manifest.json">
         <link href="rotate.css" rel="stylesheet">
+        <link href="devices.css" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Tomorrow&display=swap" rel="stylesheet">
 
         <style>
@@ -27,7 +28,7 @@
                 background-color: #636e72;
             }
 
-            #renderCanvas {
+            #renderCanvas,#renderCanvasDesktop {
                 margin: auto !important;
                 width: 100%;
                 height: 100%;
@@ -50,6 +51,17 @@
             </div>
         </div>
         <!-- Main game canvas -->
+        <div id="mobile"></div>
+        <div class="device device-galaxy-s8" align = "center">
+            <div class="device-frame">
+                <canvas id="renderCanvasDesktop" touch-action="none"></canvas>
+            </div>
+            <div class="device-stripe"></div>
+            <div class="device-header"></div>
+            <div class="device-sensors"></div>
+            <div class="device-btns"></div>
+            <div class="device-power"></div>
+        </div>
         <canvas id="renderCanvas" touch-action="none"></canvas>        
     </body>
 

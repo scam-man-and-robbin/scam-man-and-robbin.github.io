@@ -128,12 +128,12 @@ export default class RunnerLevel extends Level {
         let top = GAME.engine.getRenderHeight()/5.5;
         this.lostScreen = this.menu.addImage('lostScreen',{
             'imgpath':"assets/scenes/Game_over_screen.png",
-            'width' : GAME.isMobile() ? 0.95 : 0.7,
+            'width' :  0.95,
             'height' : 0.9,
         });
         this.winningScreen = this.menu.addImage('winningScreen',{
             'imgpath':"assets/scenes/winning_screen_1.png",
-            'width' : GAME.isMobile() ? 0.95 : 0.7,
+            'width' : 0.95 ,
             'height' : 0.9,
         });
         // this.gameStatus = this.menu.addText('Congratulations!', {
@@ -145,7 +145,7 @@ export default class RunnerLevel extends Level {
         //     'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP
         // }); 
         this.gameSubTextControl = this.menu.addText('You cannot give up. Try reaching Age 65...', {
-            'width' : GAME.isMobile() ? 0.85 : 0.6,
+            'width' : 0.85,
             'top': (GAME.engine.getRenderHeight() * 20)/ 100, // 20% from top
             'color': GAME.options.pointsTextColor,
             'outlineColor': GAME.options.pointsOutlineTextColor,
@@ -188,10 +188,10 @@ export default class RunnerLevel extends Level {
             'fontSize' : '15px',
             'color': GAME.options.recordTextColor,
             'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP,
-            'width' : GAME.isMobile() ? 0.85 : 0.5,
+            'width' :  0.85,
         });
         this.menu.addImgButton('replayButton', {
-            'width' : GAME.isMobile() ? 0.5 : 0.3,
+            'width' :  0.5,
             'imgpath' : "assets/scenes/Play_again.png",
             'top': (GAME.engine.getRenderHeight() * 50)/ 100, // 50% from top
             'height': '50px',
@@ -204,7 +204,7 @@ export default class RunnerLevel extends Level {
         });
 
         this.menu.addImgButton('Return to Home', {
-            'width' : GAME.isMobile() ? 0.5 : 0.3,
+            'width' :  0.5,
             'imgpath' : "assets/scenes/Home_Button_v2.png",
             'top': ((GAME.engine.getRenderHeight() * 50)/ 100) + 50, // 60% from top
             'height': '50px',
@@ -217,7 +217,7 @@ export default class RunnerLevel extends Level {
 
         this.menu.addImgButton('Learn more', {
             'imgpath' : "assets/scenes/learnmore.png",
-            'top': (GAME.engine.getRenderHeight() * 87)/ 100, // 87% from top
+            'top': (GAME.engine.getRenderHeight() * 85)/ 100, // 87% from top
             'height': '15px',
             'width' : 0.2,
             'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP,
@@ -332,7 +332,7 @@ export default class RunnerLevel extends Level {
         this.lastText.text = "Unfortunately, Scam Man won't be on hand to protect you! So it is important to know how to identify a pension scam.";
         this.pointsTextControl.text = 'Pension Pot: £' + this.player.getPoints();
         // this.ageTextControl.text = 'Age: ' + this.age;
-        this.currentRecordTextControl.text = 'Current Record: ' + this.player.getLastRecord();
+        this.currentRecordTextControl.text = 'Highest Record: ' + this.player.getLastRecord();
 
         if (this.status == 'WIN') {
             // this.gameStatus.text = 'Congratulations!';
