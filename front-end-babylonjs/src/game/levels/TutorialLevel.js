@@ -170,7 +170,7 @@ export default class TutorialLevel extends Level {
             // Message Content
             let textControl = new BABYLON.GUI.TextBlock();
             textControl.text = text;
-            textControl.fontSize = GAME.engine.getRenderHeight() < 600 ? 11 : 14;
+            textControl.fontSize = GAME.engine.getRenderHeight() < 600 ? 11 : 13;
             textControl.textHorizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER;
             textControl.textVerticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_CENTER;
             textControl.textWrapping = true;

@@ -29,11 +29,6 @@ export default class HomeMenuLevel extends Level {
 
         var menu = new UI('homeMenuUI');
         var click = this.assets.getSound('selectSound');
-        menu.addImage('background',{
-            'imgpath' : "assets/scenes/Start_screen_background.png",
-            'width' : 1,
-            'height' : 1,
-        });
         menu.addImage('LOGO',{
             'imgpath' : "assets/scenes/scamman_logo.png",
             'width' : 0.7,

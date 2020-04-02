@@ -33,21 +33,16 @@ export default class Level {
         GAME.engine.displayLoadingUI();
         // Create the scene space
         this.scene = new BABYLON.Scene(GAME.engine);
-
+        let imgPath = "";
         if(GAME.currentLevelName === 'RunnerLevel' || GAME.currentLevelName === 'TutorialLevel') {
             // To change bg image based on device
-            let imgPath = "/assets/scenes/game_bg.png";
-            if (GAME.isMobile()) {
-                imgPath = "/assets/scenes/game_bg.png";
-            }
-            var background = new BABYLON.Layer("back", imgPath, this.scene);
-            background.isBackground = true;
+            imgPath = "/assets/scenes/game_bg_dark.png";
         } else {
-            let imgPath = "/assets/scenes/white_bg.png";
-            var background = new BABYLON.Layer("back", imgPath, this.scene);
-            background.isBackground = true;
+            imgPath = "/assets/scenes/Start_screen_background.png";
         }
 
+        var background = new BABYLON.Layer("back", imgPath, this.scene);
+        background.isBackground = true;
         this.foreground = new BABYLON.Layer("front", "/assets/scenes/distort1.png", this.scene, false);
         this.foreground.layerMask = 0;
         // Add assets management and execute beforeRender after finish

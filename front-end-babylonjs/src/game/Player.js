@@ -240,6 +240,9 @@ export default class Player {
                 if(!this.level.activeMessage) {
                     GAME.resume();
                 }
+                if (this.skipControl) {
+                    this.skipControl.isVisible = true;
+                }
                 this.pausedImage.isVisible = false;
                 this.resumeButton.isVisible = false;
                 this.pauseButtonControl.isVisible = true;
