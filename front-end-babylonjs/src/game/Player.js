@@ -370,7 +370,7 @@ export default class Player {
     */
     checkDirectionMovement() {
         if (GAME.keys.left && !this.gameEnded && !this.playerLanding) {
-            if (this.changePosition && this.mesh.position.x > (GAME.isMobile() ? -1 : -1.5)) {
+            if (this.changePosition && this.mesh.position.x > (GAME.isMobile() ? -1 : -1)) {
                 this.movementSound.play();
                 this.changePosition = false;
                 if (this.shootAction) {
@@ -396,7 +396,7 @@ export default class Player {
             }
         }
         if (GAME.keys.right && !this.gameEnded && !this.playerLanding) {
-            if (this.changePosition && this.mesh.position.x < (GAME.isMobile() ? 1 : 1.5)) {
+            if (this.changePosition && this.mesh.position.x < (GAME.isMobile() ? 1 : 1)) {
                 this.movementSound.play();
                 this.changePosition = false;
                 if (this.shootAction) {
@@ -435,9 +435,9 @@ export default class Player {
         var frameCounter = 0, value = 0;
         for (let index = 0; index < 5; index++) {
             if (type == 'left') {
-                value += (GAME.isMobile() ? -0.2 : -0.3);
+                value += (GAME.isMobile() ? -0.2 : -0.2);
             } else {
-                value += (GAME.isMobile() ? 0.2 : 0.3);
+                value += (GAME.isMobile() ? 0.2 : 0.2);
             }
             keys.push({ frame: frameCounter, value: startValue + value });
             frameCounter += 15;

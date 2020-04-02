@@ -63,14 +63,14 @@ export default class TilesGenerator {
         let randomPositionChooser = Math.floor((Math.random() * 100)); // 0 to 100 random number
         let positionX = 0;
         if (randomPositionChooser >= 0 && randomPositionChooser < 30) {
-            positionX = GAME.isMobile() ? -1 : -1.5; // Positining on the left
+            positionX = GAME.isMobile() ? -1 : -1; // Positining on the left
         }
 
         if (randomPositionChooser >= 30) {
             positionX = 0;
         }
         if (randomPositionChooser >= 60) {
-            positionX = GAME.isMobile() ? 1 : 1.5; // Positioning on the right
+            positionX = GAME.isMobile() ? 1 : 1; // Positioning on the right
         }
         this.activeCoins.push(randomPositionChooser);
         let coinDiameter = GAME.isMobile() ? 0.3 : 0.4;
