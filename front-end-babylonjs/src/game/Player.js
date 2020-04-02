@@ -142,7 +142,10 @@ export default class Player {
                 'horizontalAlignment': BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER,
                 'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_BOTTOM,
                 'onclick': () => {
-                    this.gameEnded = true;
+                    this.gameEnded = true;                    
+                    clearInterval(this.level.scams.trigger);
+                    clearInterval(this.level.boons.trigger);
+                    clearInterval(this.level.tutorialTrigger);
                     GAME.goToLevel('RunnerLevel');
                 }
             });

@@ -45,7 +45,7 @@ export default class ScamsGenerator {
     generate() {
 
         // New scams keep generating every 4 second
-        setInterval(() => {
+        this.trigger = setInterval(() => {
             if (!GAME.isPaused() && this.player.lives && this.level.age < 65 && !this.level.freezeGeneration && this.scene && !this.player.freezeScams) {
                 this.scamTypes = [];
                 for (let index = 1; index <= this.level.nextStage; index++) {
@@ -98,7 +98,7 @@ export default class ScamsGenerator {
         if (randomPositionChooser >= 60) {
             positionX = GAME.isMobile() ? 1 : 1.5; // Positioning on the right
         }
-        let scamDiameter = GAME.isMobile() ? 0.35 : 0.4;
+        let scamDiameter = GAME.isMobile() ? 0.45 : 0.45;
         // let scams = BABYLON.Mesh.CreateCylinder("scam_"+randomPositionChooser, 0.1, scamDiameter, scamDiameter, 16, 0, this.scene);
         let scams = BABYLON.MeshBuilder.CreateBox("scam_" + randomPositionChooser, {
             width: scamDiameter,
@@ -364,7 +364,7 @@ export default class ScamsGenerator {
         var trigger = [];
         for (let index = 0; index < 2; index++) {
             let randomPositionChooser = Math.floor((Math.random() * 100)); // 0 to 100 random number
-            let scamDiameter = GAME.isMobile() ? 0.35 : 0.4;
+            let scamDiameter = GAME.isMobile() ? 0.45 : 0.45;
             scams[index] = BABYLON.MeshBuilder.CreateBox("scam_" + randomPositionChooser, {
                 width: scamDiameter,
                 height: scamDiameter,

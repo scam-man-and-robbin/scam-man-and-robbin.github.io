@@ -18,6 +18,6 @@
     "stage_3" : {
         "path" : "assets/scenes/Level_3_v3.png",
         "scams" : ["diagonal", "splitter"],
-        "boons" : ["dont_transfer", "invisiblity_boon"]
+        "boons" : ["no_rash_decision", "dont_transfer"]
     }
 }

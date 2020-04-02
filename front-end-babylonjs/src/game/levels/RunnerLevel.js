@@ -199,7 +199,7 @@ export default class RunnerLevel extends Level {
             // 'textVerticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_CENTER,
             'onclick': () => {
                 this.player.selectSound.play();
-                GAME.goToLevel('RunnerLevel')
+                GAME.goToLevel('TutorialLevel');
             }
         });
 

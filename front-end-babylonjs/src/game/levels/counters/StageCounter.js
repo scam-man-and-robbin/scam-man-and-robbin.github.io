@@ -110,27 +110,12 @@ export default class StageCounter {
                 'height' : 0.05,
                 'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_BOTTOM,
                 'onclick': () => {
-                    // this.player.coinsTextControl.isVisible = true;
-                    // stageUI.clear();
-                    // GAME.resume();
-                    // show = false;
                     this.player.selectSound.play();
-                    // if (screen === 1 && stage > 0) {
-                    //     timer = GAME.options.messageReadTime;
-                    //     this.scamDescription.dispose();
-                    //     this.scamsMessage.forEach(scam => {
-                    //         scam.dispose();
-                    //     });
-                    //     this.scamsImage.forEach(image => {
-                    //         image.dispose();
-                    //     });
-                    //     // background.background = "#F38669";
-                    //     screen = 2;
-                    //     this.player.infoSound.play();
-                    // } 
                     if (show) {
-                        // stageUI.remove(this.stageStatus);
                         this.player.coinsTextControl.isVisible = true;
+                        this.player.pausedImage.isVisible = false;
+                        this.player.resumeButton.isVisible = false;
+                        this.player.pauseButtonControl.isVisible = true;
                         stageUI.clear();
                         if (!this.player.gameEnded) {
                             GAME.resume();

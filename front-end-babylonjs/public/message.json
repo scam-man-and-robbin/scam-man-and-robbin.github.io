@@ -29,7 +29,7 @@
         },
         "zig_zag" : {
             "name" : "False claims:",
-            "info" : " You let an unknown provider convince you to change your pension arrangements",
+            "info" : "You let an unknown provider convince you to make changes",
             "icon" : "a phone",
             "reduction" : 500,
             "path" : "assets/scenes/Fake_vigilante_v2.png"
@@ -84,14 +84,14 @@
         },
         "thinking_about" : {
             "name" : "Ask for more time:",
-            "info" : "You take your time and won’t be rushed ",
+            "info" : "You take your time and won’t be rushed",
             "icon" : "FCA logo",
             "path" : "assets/scenes/Thinking_about_v2.png",
             "addition" : 300            
         },
         "invisiblity_boon" : {
             "name" : "Do your homework:",
-            "info" : "You check the FCA’s Financial Services Register",
+            "info" : "You check the FCA’s Financial Services Register*",
             "icon" : "FCA logo",
             "path" : "assets/scenes/FCA_v2.png",
             "addition" : 400
@@ -99,6 +99,13 @@
         "dont_transfer" : {
             "name" : "You wait until you turn 55:",
             "info" : "You refuse to transfer your pension for early withdrawal",
+            "icon" : "FCA logo",
+            "path" : "assets/scenes/Don't_transfer_v2.png",
+            "addition" : 500
+        },
+        "no_rash_decision": {
+            "name" : "No rash decisions:",
+            "info" : "You refuse to move your pension for coronavirus protection",
             "icon" : "FCA logo",
             "path" : "assets/scenes/Don't_transfer_v2.png",
             "addition" : 500
