@@ -183,7 +183,7 @@ export default class StageCounter {
                     this.stageUI.addControl(image);
                     let display = new BABYLON.GUI.Rectangle();
                     display.width = 0.37;
-                    display.height = 0.2;
+                    display.height = 0.22;
                     display.thickness = 0;
                     display.left = leftdis
                     display.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_LEFT;
@@ -224,7 +224,7 @@ export default class StageCounter {
     setBoons(stageData) {
         // let top = (GAME.engine.getRenderHeight()/4.5);
         this.stageUI.addControl(this.addText("Collect bonus points for good scam awareness!", {
-            'top' : (GAME.engine.getRenderHeight()* 48)/100,
+            'top' : (GAME.engine.getRenderHeight()* 49)/100,
             'color': GAME.options.pointsTextColor,
             'outlineColor': GAME.options.pointsOutlineTextColor,
             'outlineWidth': '2px',
@@ -246,7 +246,7 @@ export default class StageCounter {
 
             let display = new BABYLON.GUI.Rectangle();
             display.width = 0.37;
-            display.height = 0.2;
+            display.height = 0.22;
             display.thickness = 0;
             display.left = leftdis;
             display.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_LEFT;

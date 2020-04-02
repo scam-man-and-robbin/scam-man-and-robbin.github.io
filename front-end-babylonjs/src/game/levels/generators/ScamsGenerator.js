@@ -89,14 +89,14 @@ export default class ScamsGenerator {
         let randomPositionChooser = Math.floor((Math.random() * 100)); // 0 to 100 random number
         let positionX = 0;
         if (randomPositionChooser >= 0 && randomPositionChooser < 30) {
-            positionX = GAME.isMobile() ? -1 : -1.5; // Positining on the left
+            positionX = GAME.isMobile() ? -1 : -1; // Positining on the left
         }
 
         if (randomPositionChooser >= 30) {
             positionX = 0;
         }
         if (randomPositionChooser >= 60) {
-            positionX = GAME.isMobile() ? 1 : 1.5; // Positioning on the right
+            positionX = GAME.isMobile() ? 1 : 1; // Positioning on the right
         }
         let scamDiameter = GAME.isMobile() ? 0.35 : 0.4;
         // let scams = BABYLON.Mesh.CreateCylinder("scam_"+randomPositionChooser, 0.1, scamDiameter, scamDiameter, 16, 0, this.scene);
@@ -238,19 +238,19 @@ export default class ScamsGenerator {
         for (let index = 0; index < 8; index++) {
             keys.push({ frame: index * 15, value: position });
             // Shift Right
-            if (position.x == (GAME.isMobile() ? 1 : 1.5)) {
+            if (position.x == (GAME.isMobile() ? 1 : 1)) {
                 shift = true;
                 incrementBy = -1;
-            } else if (position.x == -(GAME.isMobile() ? 1 : 1.5)) {
+            } else if (position.x == -(GAME.isMobile() ? 1 : 1)) {
                 shift = true;
                 incrementBy = 1;
             } else {
                 shift = false
             }
             if (shift) {
-                position = position.add(new BABYLON.Vector3(((GAME.isMobile() ? 1 : 1.5)) * (incrementBy), -1, 0));
+                position = position.add(new BABYLON.Vector3(((GAME.isMobile() ? 1 : 1)) * (incrementBy), -1, 0));
             } else {
-                position = position.add(new BABYLON.Vector3(((GAME.isMobile() ? 1 : 1.5)) * (incrementBy), -1, 0));
+                position = position.add(new BABYLON.Vector3(((GAME.isMobile() ? 1 : 1)) * (incrementBy), -1, 0));
             }
         }
 
@@ -334,12 +334,12 @@ export default class ScamsGenerator {
         for (let index = 0; index < 5; index++) {
             keys.push({ frame: index * 15, value: position });
             if (index == 1 && position.x != 0) {        // keys[index].frame
-                if (position.x == (GAME.isMobile() ? 1 : 1.5)) {
+                if (position.x == (GAME.isMobile() ? 1 : 1)) {
                     // Move Left        
-                    position = position.add(new BABYLON.Vector3((GAME.isMobile() ? 1 : 1.5) * (-2), -1.5, 0));
+                    position = position.add(new BABYLON.Vector3((GAME.isMobile() ? 1 : 1) * (-2), -1.5, 0));
                 } else {
                     // Move Right
-                    position = position.add(new BABYLON.Vector3((GAME.isMobile() ? 1 : 1.5) * (2), -1.5, 0));
+                    position = position.add(new BABYLON.Vector3((GAME.isMobile() ? 1 : 1) * (2), -1.5, 0));
                 }
             }
             //Move Down
@@ -461,10 +461,10 @@ export default class ScamsGenerator {
         for (let index = 0; index < 7; index++) {
             keys.push({ frame: index * 15, value: position });
             if (index == 1 && direction == 'right') {
-                position = position.add(new BABYLON.Vector3((GAME.isMobile() ? 1 : 1.5), -1.5, 0));
+                position = position.add(new BABYLON.Vector3((GAME.isMobile() ? 1 : 1), -1.5, 0));
                 this.decision = !this.decision;
             } else if (index == 1) {
-                position = position.add(new BABYLON.Vector3((GAME.isMobile() ? -1 : -1.5), -1.5, 0));
+                position = position.add(new BABYLON.Vector3((GAME.isMobile() ? -1 : -1), -1.5, 0));
             } else if (index == 0) {
                 position = position.add(new BABYLON.Vector3(0, -0.8, 0));
             } else {
