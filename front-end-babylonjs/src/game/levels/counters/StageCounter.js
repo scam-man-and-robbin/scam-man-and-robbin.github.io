@@ -145,7 +145,7 @@ export default class StageCounter {
                 this.stageUI.addControl(this.scamDescription);
                 if(stage == 2){
                     this.warningMessage = this.addText("*This bonus will make you temporarily invincible", {
-                        'top': -(GAME.engine.getRenderHeight()*15)/100,
+                        'top': -(GAME.engine.getRenderHeight()*10)/100,
                         'color': GAME.options.pointsTextColor,
                         'outlineColor': GAME.options.pointsOutlineTextColor,
                         'fontSize': '11px',
@@ -209,7 +209,7 @@ export default class StageCounter {
     setBoons(stageData) {
         // let top = (GAME.engine.getRenderHeight()/4.5);
         this.stageUI.addControl(this.addText("Collect bonus points for good scam awareness!", {
-            'top' : (GAME.engine.getRenderHeight()* 49)/100,
+            'top' : (GAME.engine.getRenderHeight()* 50)/100,
             'color': GAME.options.pointsTextColor,
             'outlineColor': GAME.options.pointsOutlineTextColor,
             'outlineWidth': '2px',
@@ -223,7 +223,7 @@ export default class StageCounter {
             let image = new BABYLON.GUI.Image("icon", Message.message[scam].path);
             image.width = 0.2;
             image.height = 0.1;
-            image.top = (GAME.engine.getRenderHeight()* 54)/100;
+            image.top = (GAME.engine.getRenderHeight()* 58)/100;
             image.left = leftimg;
             image.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_LEFT;
             image.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP;
@@ -236,7 +236,7 @@ export default class StageCounter {
             display.left = leftdis;
             display.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_LEFT;
             display.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP;
-            display.top = (GAME.engine.getRenderHeight()* 65)/100;
+            display.top = (GAME.engine.getRenderHeight()* 69)/100;
             this.stageUI.addControl(display);
 
             let scamsHeading = this.addText(Message.message[scam]['name'], {
