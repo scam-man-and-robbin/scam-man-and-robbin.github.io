@@ -32,8 +32,7 @@ export default class StageCounter {
         textControl.textHorizontalAlignment = (typeof options.horizontalAlignment !== 'undefined') ? options.horizontalAlignment : BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER;
         textControl.textVerticalAlignment = (typeof options.verticalAlignment !== 'undefined') ? options.verticalAlignment : BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP;
         textControl.textWrapping = options.wrapping || true;
-        textControl.fontFamily = options.fontFamily || "'Tomorrow',sans-serif";
-        textControl.fontWeight = 'bolder';
+        textControl.fontFamily = options.fontFamily || "'Tomorrow', sans-serif";
         return textControl;
     }
 
@@ -136,9 +135,8 @@ export default class StageCounter {
                 this.scamDescription = this.addText("Shine your torch and avoid the following scams! ", {
                     'top': (GAME.engine.getRenderHeight()*10)/100,
                     'color': GAME.options.pointsTextColor,
-                    'outlineColor': GAME.options.pointsOutlineTextColor,
-                    'outlineWidth': '2px',
                     'fontSize': '15px',
+                    'fontStyle' : 'bold',
                     'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP,
                     'textVerticalAlignment' : BABYLON.GUI.Control.VERTICAL_ALIGNMENT_CENTER
                 })
@@ -147,8 +145,8 @@ export default class StageCounter {
                     this.warningMessage = this.addText("*This bonus will make you temporarily invincible", {
                         'top': -(GAME.engine.getRenderHeight()*10)/100,
                         'color': GAME.options.pointsTextColor,
-                        'outlineColor': GAME.options.pointsOutlineTextColor,
                         'fontSize': '11px',
+                        'fontStyle' : 'bold',
                         'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_BOTTOM,
                         'textVerticalAlignment' : BABYLON.GUI.Control.VERTICAL_ALIGNMENT_CENTER
                     });
@@ -178,9 +176,8 @@ export default class StageCounter {
                     let scamsHeading = this.addText(Message.message[scam]['name'], {
                         'top': '0px',
                         'fontSize': '11px',
-                        'outlineColor': GAME.options.pointsOutlineTextColor,
-                        'outlineWidth': '0.05px',
                         'left': '1px',
+                        'fontStyle' : 'bold',
                         'horizontalAlignment': BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER,
                         // 'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_CENTER
                     });
@@ -211,9 +208,8 @@ export default class StageCounter {
         this.stageUI.addControl(this.addText("Collect bonus points for good scam awareness!", {
             'top' : (GAME.engine.getRenderHeight()* 50)/100,
             'color': GAME.options.pointsTextColor,
-            'outlineColor': GAME.options.pointsOutlineTextColor,
-            'outlineWidth': '2px',
             'fontSize': '15px',
+            'fontStyle' : 'bold',
             'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP
         }));
         let leftimg = (GAME.engine.getRenderWidth()*10.5)/100;
@@ -242,9 +238,8 @@ export default class StageCounter {
             let scamsHeading = this.addText(Message.message[scam]['name'], {
                 'top': '0px',
                 'fontSize': '11px',
-                'outlineColor': GAME.options.pointsOutlineTextColor,
-                'outlineWidth': '0.05px',
                 'left': '1px',
+                'fontStyle' : 'bold',
                 'horizontalAlignment': BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER,
                 // 'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_CENTER
             });

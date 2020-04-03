@@ -147,17 +147,14 @@ export default class RunnerLevel extends Level {
         this.gameSubTextControl = this.menu.addText('You cannot give up. Try reaching Age 65...', {
             'width' : 0.85,
             'top': (GAME.engine.getRenderHeight() * 20)/ 100, // 20% from top
-            'color': GAME.options.pointsTextColor,
-            'outlineColor': GAME.options.pointsOutlineTextColor,
-            'outlineWidth': '2px',
-            'fontSize': '15px',
+            'fontSize': '17px',
+            'fontStyle' : 'bold',
             'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP
         });
         this.pointsTextControl = this.menu.addText('Pension Pot: £ 0', {
             'top': (GAME.engine.getRenderHeight() * 30) / 100, // 30% from top
             'color': GAME.options.pointsTextColor,
-            'outlineColor': GAME.options.pointsOutlineTextColor,
-            'outlineWidth': '2px',
+            'fontStyle' : 'bold',
             'fontSize': '28px',
             'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP
         });

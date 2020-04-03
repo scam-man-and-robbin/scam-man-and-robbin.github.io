@@ -192,6 +192,7 @@ export default class UI {
         textControl.text = text;
         textControl.color = options.color || 'black';
         textControl.fontSize = options.fontSize || 20;
+        textControl.fontStyle = options.fontStyle || "";
         textControl.outlineWidth = options.outlineWidth || 0;
         textControl.outlineColor = options.outlineColor || "black";
         textControl.lineSpacing = options.lineSpacing || '0px';
