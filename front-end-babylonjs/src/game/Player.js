@@ -106,9 +106,8 @@ export default class Player {
         });
         this.potImg = this.hud.addImage('potImage',{
             'imgpath' : "assets/scenes/pot.png",
-            "width" : 0.07,
+            "width" : 0.09,
             "height" : 0.05,
-            // 'top' : GAME.isMobile() ? '-32px' : '-42px',
             'top' : Math.floor(-(GAME.engine.getRenderHeight()/20)), 
             'horizontalAlignment': BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER,
             'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_BOTTOM
@@ -122,7 +121,6 @@ export default class Player {
             'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_BOTTOM
         });
         this.coinsTextControl = this.hud.addText('£ 0', {
-            // 'top': '-7px',
             'top' : Math.floor(-(GAME.engine.getRenderHeight()*1/100)),
             'left': '-5px',
             'fontSize': '15px',
@@ -154,38 +152,23 @@ export default class Player {
 
         this.pauseButtonControl = this.hud.addImgButton('PAUSE', {
             'imgpath' : "assets/scenes/pause.png",
-            // 'width': (GAME.isMobile() ? 0.15 : 0.1),
-            'width': 0.1,
+            'width': 0.12,
             'height': 0.08,
             'top' : Math.floor(-(GAME.engine.getRenderHeight()*1.5/100)),
             'left': '-25px',
             'isVisible': true,
-            // 'fontSize': '10em',
             'horizontalAlignment': BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_RIGHT,
             'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_BOTTOM,
             'onclick': () => {
                 this.selectSound.play();
-                // this.coinsTextControl.isVisible = false;
-                // this.pauseButtonControl.isVisible = false;
-                // this.soundMuteButtonControl.isVisible = false;
-                // this.soundUnMuteButtonControl.isVisible = false;
-                // this.groundImg.isVisible = false ;
                 GAME.pause();
                 this.resumeButton.isVisible = true;
                 this.pauseButtonControl.isVisible = false;
                 this.pausedImage.isVisible = true;
-
-                // this.message.pauseScreen(this.coins, this.scamCount, this.boonCount, this.level.scams ? this.level.scams.scamSet : null)
-                // this.soundMuteButtonControl.isVisible = false;
-                // this.soundUnMuteButtonControl.isVisible = false;
-                // if (this.skipControl) {
-                //     this.skipControl.isVisible = false;
-                // }
             }
         });
         this.pausedImage = this.hud.addImage('PAUSED',{
             'imgpath' : "assets/scenes/PausedScreen.png",
-            // 'width': (GAME.isMobile() ? 0.15 : 0.1),
             'width': 0.5,
             'height': 0.1,
             'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_CENTER,
@@ -193,13 +176,11 @@ export default class Player {
         this.pausedImage.isVisible = false;
         this.soundMuteButtonControl = this.hud.addImgButton('MUTE', {
             'imgpath' : "assets/scenes/music_on.png",
-            'width' : 0.1,
-            // 'width': (GAME.isMobile() ? 0.15 : 0.1),
+            'width' : 0.12,
             'height': 0.08,
             'top' : Math.floor(-(GAME.engine.getRenderHeight()*1.5/100)),
             'left': '25px',
             'isVisible': true,
-            // 'fontSize': '10em',
             'horizontalAlignment': BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_LEFT,
             'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_BOTTOM,
             'onclick': () => {
@@ -210,14 +191,12 @@ export default class Player {
             }
         });
         this.soundUnMuteButtonControl = this.hud.addImgButton('UNMUTE', {
-            // 'width': (GAME.isMobile() ? 0.15 : 0.1),
             'imgpath' : "assets/scenes/music_off.png",
-            'width' : 0.1,
+            'width' : 0.12,
             'height': 0.08,
             'top' : Math.floor(-(GAME.engine.getRenderHeight()*1.5/100)),
             'left': '25px',
             'isVisible': true,
-            // 'fontSize': '10em',
             'horizontalAlignment': BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_LEFT,
             'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_BOTTOM,
             'onclick': () => {
@@ -230,7 +209,7 @@ export default class Player {
         });
         this.resumeButton = this.hud.addImgButton('RESUME',{
             'imgpath' : "assets/scenes/Play_Button.png",
-            'width' : 0.1,
+            'width' : 0.12,
             'height': 0.08,
             'top' : Math.floor(-(GAME.engine.getRenderHeight()*1.5/100)),
             'left': '-25px',
@@ -293,6 +272,7 @@ export default class Player {
         }
         if(url) {
             this.potImg.source = url;
+            this.potImg.width = 0.09;
         }
         
     }

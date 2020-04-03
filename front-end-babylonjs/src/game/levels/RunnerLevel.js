@@ -136,14 +136,6 @@ export default class RunnerLevel extends Level {
             'width' : 0.95 ,
             'height' : 0.9,
         });
-        // this.gameStatus = this.menu.addText('Congratulations!', {
-        //     'top': '60px',
-        //     'color': GAME.options.pointsTextColor,
-        //     'outlineColor': GAME.options.pointsOutlineTextColor,
-        //     'outlineWidth': '2px',
-        //     'fontSize': '40px',
-        //     'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP
-        // }); 
         this.gameSubTextControl = this.menu.addText('You cannot give up. Try reaching Age 65...', {
             'width' : 0.85,
             'top': (GAME.engine.getRenderHeight() * 20)/ 100, // 20% from top
@@ -158,16 +150,6 @@ export default class RunnerLevel extends Level {
             'fontSize': '28px',
             'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP
         });
-
-        // this.ageTextControl = this.menu.addText('Age: 0', {
-        //     'top': '180px',
-        //     'color': GAME.options.pointsTextColor,
-        //     'outlineColor': GAME.options.pointsOutlineTextColor,
-        //     'outlineWidth': '2px',
-        //     'fontSize': '35px',
-        //     'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP
-        // });
-
         this.currentRecordTextControl = this.menu.addText('Highest Record: 0', {
             'top': (GAME.engine.getRenderHeight() * 40) / 100, // 40% from top
             'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP
@@ -181,7 +163,7 @@ export default class RunnerLevel extends Level {
         });
 
         this.lastText = this.menu.addText('lastText', {
-            'top': (GAME.engine.getRenderHeight() * 70) / 100, // 70% from top
+            'top': (GAME.engine.getRenderHeight() * 72) / 100, // 70% from top
             'fontSize': '15px',
             'color': GAME.options.recordTextColor,
             'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP,
@@ -233,11 +215,10 @@ export default class RunnerLevel extends Level {
 
         this.menu.addImgButton('Learn more', {
             'imgpath' : "assets/scenes/learnmore.png",
-            'top': (GAME.engine.getRenderHeight() * 85)/ 100, // 87% from top
+            'top': (GAME.engine.getRenderHeight() * 88)/ 100, // 88% from top
             'height': '15px',
             'width': 0.2,
             'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP,
-            // 'textVerticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_CENTER,
             'onclick': () => {
                 this.player.selectSound.play();
                 window.open('https://www.jmangroup.com/', '_blank');
@@ -328,11 +309,6 @@ export default class RunnerLevel extends Level {
             this.player.winningSound.play();
 
             this.player.mesh.material.alpha = 0;
-            // this.wPlayer = new BABYLON.Sprite("player", this.player.spriteManagerPlayer['win']);
-            // this.wPlayer.position = this.player.mesh.position;
-            // this.wPlayer.position = new BABYLON.Vector3(this.player.mesh.position.x + 0.2, this.player.mesh.position.y, 0);
-            // this.wPlayer.size = 1.2;
-            // this.wPlayer.isPickable = true;
             this.playerWin();
             setTimeout(() => {
                 this.player.hud.hide();
@@ -354,11 +330,9 @@ export default class RunnerLevel extends Level {
         this.menu.show();
         this.lastText.text = "Unfortunately, Scam Man won't be on hand to protect you! So it is important to know how to identify a pension scam.";
         this.pointsTextControl.text = 'Pension Pot: £' + this.player.getPoints();
-        // this.ageTextControl.text = 'Age: ' + this.age;
         this.currentRecordTextControl.text = 'Highest Record: ' + this.player.getLastRecord();
 
         if (this.status == 'WIN') {
-            // this.gameStatus.text = 'Congratulations!';
             this.lostScreen.isVisible = false;
             this.gameSubTextControl.text = 'Congratulations! You successfully avoided the scams and completed level 3!'
         } else {
