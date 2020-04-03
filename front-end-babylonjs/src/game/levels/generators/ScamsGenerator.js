@@ -1,4 +1,3 @@
-import UI from './../../../base/UI';
 import Message from '../../../../public/message.json';
 import stages from '../../../../public/stage.json';
 
@@ -49,9 +48,9 @@ export default class ScamsGenerator {
             if (!GAME.isPaused() && this.player.lives && this.level.age < 65 && !this.level.freezeGeneration && this.scene && !this.player.freezeScams) {
                 this.scamTypes = [];
                 for (let index = 1; index <= this.level.nextStage; index++) {
-                    var stage = this.level.nextStage - index;
+                    let stage = this.level.nextStage - index;
                     if(stage || GAME.currentLevelName === 'TutorialLevel') {
-                        var scamList = stages["stage_" + (stage)]["scams"]
+                        let scamList = stages["stage_" + (stage)]["scams"]
                         scamList.forEach(element => {
                             if(this.scamTypes.indexOf(element) === -1) {
                                 this.scamTypes.push(element);
@@ -83,6 +82,7 @@ export default class ScamsGenerator {
     /**
      * Function to create the scam object.
      * @param {string} type - Flag to decide the behaviour of the scam.
+     *  @param {string} randomTileTypeNumber - ScamId object to remove from stack.
      */
     createScams(type, randomTileTypeNumber) {
         // To position scam objects on different lanes randomly Default to Middle Lane
@@ -134,7 +134,7 @@ export default class ScamsGenerator {
             scams.animations.push(this.createDiagonalScamAnimation(scams));
         }
         let scamAnimation = this.scene.beginAnimation(scams, 0, 2000, false);
-        var trigger = setInterval(() => {
+        let trigger = setInterval(() => {
             let playerMesh = this.player.getMesh();
             if (scams) {
                 let scamMesh = [];
@@ -191,7 +191,7 @@ export default class ScamsGenerator {
             }
         }, 5);
         setTimeout(() => {
-            var trigger = setInterval(() => {
+            let trigger = setInterval(() => {
                 if(!GAME.isPaused) {
                     scamAnimation.pause();
                     scams.dispose();
@@ -255,7 +255,7 @@ export default class ScamsGenerator {
         }
 
         scamAnimation.setKeys(keys);
-        var easingFunction = new BABYLON.CircleEase();
+        let easingFunction = new BABYLON.CircleEase();
 
         // For each easing function, you can choose beetween EASEIN (default), EASEOUT, EASEINOUT
         easingFunction.setEasingMode(BABYLON.EasingFunction.EASINGMODE_EASEIN);
@@ -301,7 +301,7 @@ export default class ScamsGenerator {
      * Function to perform screen blackout 
      */
     createBlackoutAnimation() {
-        var imgPath = 'distort1.png';
+        let imgPath = 'distort1.png';
         this.foreground.dispose();
         this.blackOutTrigger = setInterval(() => {
             this.foreground.layerMask = 0;
@@ -348,7 +348,7 @@ export default class ScamsGenerator {
             }
         }
         scamAnimation.setKeys(keys);
-        var easingFunction = new BABYLON.CircleEase();
+        let easingFunction = new BABYLON.CircleEase();
 
         // For each easing function, you can choose beetween EASEIN (default), EASEOUT, EASEINOUT
         easingFunction.setEasingMode(BABYLON.EasingFunction.EASINGMODE_EASEIN);
@@ -358,10 +358,14 @@ export default class ScamsGenerator {
         return scamAnimation;
     }
 
+    /**
+     * Function to create the scam object.
+     *  @param {string} randomTileTypeNumber - ScamId object to remove from stack.
+     */
     createSplitterScams(randomTileTypeNumber) {
 
         let scams = [];
-        var trigger = [];
+        let trigger = [];
         for (let index = 0; index < 2; index++) {
             let randomPositionChooser = Math.floor((Math.random() * 100)); // 0 to 100 random number
             let scamDiameter = GAME.isMobile() ? 0.45 : 0.45;
@@ -439,7 +443,7 @@ export default class ScamsGenerator {
                 }
             }, 5);
             setTimeout(() => {
-                var trigger = setInterval(() => {
+                let trigger = setInterval(() => {
                     if(!GAME.isPaused) {
                         scamAnimation.pause();
                         scams[index].dispose();                
@@ -476,7 +480,7 @@ export default class ScamsGenerator {
             }
         }
         scamAnimation.setKeys(keys);
-        var easingFunction = new BABYLON.CircleEase();
+        let easingFunction = new BABYLON.CircleEase();
 
         // For each easing function, you can choose beetween EASEIN (default), EASEOUT, EASEINOUT
         easingFunction.setEasingMode(BABYLON.EasingFunction.EASINGMODE_EASEIN);
@@ -487,8 +491,12 @@ export default class ScamsGenerator {
         return scamAnimation;
     }
 
+    /**
+     * Function to remove the scam object from stack.
+     *  @param {string} randomTileTypeNumber - ScamId object to remove from stack.
+     */
     removeActiveScam(randomTileTypeNumber) {
-        var index = this.activeScams.indexOf(randomTileTypeNumber);
+        let index = this.activeScams.indexOf(randomTileTypeNumber);
         if (index !== -1) this.activeScams.splice(index, 1);
     }
 

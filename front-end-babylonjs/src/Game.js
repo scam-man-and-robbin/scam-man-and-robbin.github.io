@@ -41,7 +41,7 @@ export default class Game {
 
         if (this.isMobile() || this.isPad()) {
             this.canvas = document.getElementById("renderCanvas");
-            var canvas = document.getElementsByClassName("device")[0];
+            let canvas = document.getElementsByClassName("device")[0];
             if(canvas) {
                 canvas.style.display = 'none';
             }
@@ -50,7 +50,7 @@ export default class Game {
             this.canvas = document.getElementById("renderCanvasDesktop");
             // $('#renderCanvasDesktop').width($('#canvas').height() / 1.7786);
             $('.device-frame').width($('#canvas').height() / 1.7786);
-            var canvas = document.getElementById("renderCanvas");
+            let canvas = document.getElementById("renderCanvas");
             if(canvas) {
                 canvas.style.display = 'none';
             }
@@ -77,14 +77,11 @@ export default class Game {
         this.startLevel();
     }
 
+    /**
+     * Function to define actions when pause button is clicked
+     */
     pause(autoAction) {
         if (!this.paused && autoAction && this.currentLevel.player) {
-            // this.currentLevel.player.groundImg.isVisible = false;
-            // this.currentLevel.player.coinsTextControl.isVisible = false;
-            // this.currentLevel.player.pauseButtonControl.isVisible = false;
-            // this.currentLevel.player.soundUnMuteButtonControl.isVisible = false;
-            // this.currentLevel.player.soundMuteButtonControl.isVisible = false;
-            // this.currentLevel.player.message.pauseScreen(this.currentLevel.player.coins,this.currentLevel.player.scamCount,this.currentLevel.player.boonCount,this.currentLevel.scams ? this.currentLevel.scams.scamSet : null)
             GAME.pause();
             this.currentLevel.player.pausedImage.isVisible = true;
             this.currentLevel.player.resumeButton.isVisible = true;
@@ -146,34 +143,8 @@ export default class Game {
      * Function to set flags based on User Control Action via Touch
      */
     lintenTouchEvents() {
-        var hammertime = new Hammer(document.body);
+        let hammertime = new Hammer(document.body);
         hammertime.get('swipe').set({ direction: Hammer.DIRECTION_ALL });
-        // hammertime.get('pan').set({ direction: Hammer.DIRECTION_ALL });
-
-
-        // hammertime.on('panleft', (ev) => {
-        //     this.keys.left = 1;
-
-        //     setTimeout(() => {
-        //         this.keys.left = 0;
-        //     }, 10);
-        // });
-
-        // hammertime.on('panright', (ev) => {
-        //     this.keys.right = 1;
-
-        //     setTimeout(() => {
-        //         this.keys.right = 0;
-        //     }, 10);
-        // });
-
-        // hammertime.on('panup', (ev) => {
-        //     this.keys.shoot = 1;
-
-        //     setTimeout(() => {
-        //         this.keys.shoot = 0;
-        //     }, 10);
-        // });
 
         hammertime.on('swipeup', (ev) => {
             ev.preventDefault();
@@ -294,13 +265,13 @@ export default class Game {
         try {
             if (userAgent.match(/Macintosh/i) !== null) {
                 // need to distinguish between Macbook and iPad
-                var canvas = document.createElement("canvas");
+                let canvas = document.createElement("canvas");
                 if (canvas !== null) {
-                    var context = canvas.getContext("webgl") || canvas.getContext("experimental-webgl");
+                    let context = canvas.getContext("webgl") || canvas.getContext("experimental-webgl");
                     if (context) {
-                        var info = context.getExtension("WEBGL_debug_renderer_info");
+                        let info = context.getExtension("WEBGL_debug_renderer_info");
                         if (info) {
-                            var renderer = context.getParameter(info.UNMASKED_RENDERER_WEBGL);
+                            let renderer = context.getParameter(info.UNMASKED_RENDERER_WEBGL);
                             if (renderer.indexOf("Apple") !== -1)
                                 return true;
                         }

@@ -55,9 +55,9 @@ export default class BoonsGenerator {
                 // Append boons from previous stage and include current stage boons
                 this.boonTypes = [];
                 for (let index = 1; index <= this.level.nextStage; index++) {
-                    var stage = this.level.nextStage - index;
+                    let stage = this.level.nextStage - index;
                     if(stage || GAME.currentLevelName === 'TutorialLevel') {
-                        var scamList = stages["stage_" + (this.level.nextStage - index)]["boons"]
+                        let scamList = stages["stage_" + (this.level.nextStage - index)]["boons"]
                         scamList.forEach(element => {
                             if(this.boonTypes.indexOf(element) === -1) {
                                 this.boonTypes.push(element);
@@ -102,9 +102,10 @@ export default class BoonsGenerator {
 
 
     /**
-     * 
+     * Function to create Boons
      * @param {string} type - Type of Boon Object
-     * Currently only one type of Boon Entity
+     * @param {string} randomTileTypeNumber - ScamId object to remove from stack.
+     * Currently only two types of Boon Entity
      */
     createBoons(type, randomTileTypeNumber) {
         // To position boon objects on different lanes randomly Default to Middle Lane
@@ -134,7 +135,7 @@ export default class BoonsGenerator {
 
         boons.animations.push(this.createBoonAnimation());
         let boonAnimation = this.scene.beginAnimation(boons, 0, 2000, false);
-        var trigger = setInterval(() => {
+        let trigger = setInterval(() => {
             let playerMesh = this.player.getMesh();
             if (boons) {
                 let boonMesh = [];
@@ -183,7 +184,7 @@ export default class BoonsGenerator {
             }
         }, 5);
         setTimeout(() => {
-            var trigger = setInterval(() => {
+            let trigger = setInterval(() => {
                 if(!GAME.isPaused) {
                     boonAnimation.pause();
                     boons.dispose();
@@ -217,8 +218,12 @@ export default class BoonsGenerator {
         return boonAnimation;
     }
 
+    /**
+     * Function to remove Boons from stack
+     * @param {string} randomTileTypeNumber - ScamId object to remove from stack.
+     */
     removeActiveBoon(randomTileTypeNumber) {
-        var index = this.activeBoons.indexOf(randomTileTypeNumber);
+        let index = this.activeBoons.indexOf(randomTileTypeNumber);
         if (index !== -1) this.activeBoons.splice(index, 1);
     }
 

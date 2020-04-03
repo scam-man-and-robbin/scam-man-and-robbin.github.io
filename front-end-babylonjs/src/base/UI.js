@@ -1,5 +1,4 @@
 import Message from './../../public/message.json';
-import Game from '../Game.js';
 
 export default class UI {
 
@@ -160,7 +159,7 @@ export default class UI {
                 }
             }
         } else {
-            var info = new BABYLON.GUI.TextBlock("CASUAL", "You haven't hit any scams");
+            let info = new BABYLON.GUI.TextBlock("CASUAL", "You haven't hit any scams");
             info.color = 'red'
             info.fontSize = "28em";
             // info.paddingBottom = '150px';
@@ -238,9 +237,9 @@ export default class UI {
 
     displayMessage(scamhitted, signal) {
         GAME.pause();
-        var rect1 = new BABYLON.GUI.Rectangle();
-        var label0 = new BABYLON.GUI.TextBlock("Educational Message", scamhitted);
-        var hit = new BABYLON.GUI.TextBlock("Signal", signal);
+        let rect1 = new BABYLON.GUI.Rectangle();
+        let label0 = new BABYLON.GUI.TextBlock("Educational Message", scamhitted);
+        let hit = new BABYLON.GUI.TextBlock("Signal", signal);
         hit.color = (signal == 'HIT IT') ? 'red' : 'green';
         if (GAME.isMobile()) {
             rect1.width = 1;

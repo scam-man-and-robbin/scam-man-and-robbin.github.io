@@ -62,16 +62,9 @@ export default class TutorialLevel extends Level {
 
         this.scene.clearColor = new BABYLON.Color3.FromHexString(GAME.options.backgroundColor);
 
-        // this.createGameStats();
         // Sets the active camera
         let camera = this.createCamera();
         this.scene.activeCamera = camera;
-
-        //Light direction is directly down from a position one unit up, fast decay
-        // this.light = new BABYLON.SpotLight("spotLight3", new BABYLON.Vector3(0, -1, -500), new BABYLON.Vector3(0, 0, 1), Math.PI / 2, 50, this.scene);
-        // this.light.diffuse = new BABYLON.Color3(1, 1, 1);
-        // this.light.specular = new BABYLON.Color3(1, 1, 1);
-        // this.light.intensity = 0.5;
 
         this.light = new BABYLON.HemisphericLight("HemiLight", new BABYLON.Vector3(0, -1, 0), this.scene);
         this.light.intensity = 1;
@@ -97,6 +90,7 @@ export default class TutorialLevel extends Level {
     /**
      * Function to show Game Instructions
      * Message varies based on device
+     * @param {string} messageNumber - Based on message number different tutorial messages will be displayed
      */
     createTutorialText(messageNumber) {
         if (this.player) {
@@ -178,7 +172,7 @@ export default class TutorialLevel extends Level {
             rectBox.addControl(textControl);
 
 
-            var trigger = setInterval(() => {
+            let trigger = setInterval(() => {
                 this.skipControl.thickness = this.skipControl.thickness ? 0 : 1.5
             }, 300);
             // Skip Button

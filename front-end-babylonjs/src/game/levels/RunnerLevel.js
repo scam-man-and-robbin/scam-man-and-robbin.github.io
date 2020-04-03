@@ -63,29 +63,16 @@ export default class RunnerLevel extends Level {
         this.scene.clearColor = new BABYLON.Color3.FromHexString(GAME.options.backgroundColor);
 
         this.createMenus();
-        // this.createGameStats();
+
         // Sets the active camera
-        var camera = this.createCamera();
+        let camera = this.createCamera();
         this.scene.activeCamera = camera;
-
-        // Uncomment it to allow free camera rotation
-        // camera.attachControl(GAME.canvas, true);
-
-        // Add lights to the scene
-        // var light2 = new BABYLON.DirectionalLight("light2", new BABYLON.Vector3(-100, 100, 100), this.scene);
-        //  light2.diffuse = new BABYLON.Color3(1, 0, 1);
-        // var light1 = new BABYLON.DirectionalLight("light1", new BABYLON.Vector3(1, -1, 1), this.scene);
-
 
         //Light direction is directly down from a position one unit up, fast decay
         this.light = new BABYLON.HemisphericLight("HemiLight", new BABYLON.Vector3(0, -1, 0), this.scene);
         this.light.intensity = 1;
         this.light.groundColor = new BABYLON.Color3(1, 1, 1);
         this.light.specular = BABYLON.Color3.Black();
-
-
-        //light1.intensity = 1;
-        // light2.intensity = 0.9;
 
         this.createPlayer();
 
@@ -114,8 +101,6 @@ export default class RunnerLevel extends Level {
 
         this.scene.useMaterialMeshMap = true;
         this.scene.debugLayer.hide();
-        // this.scene.debugLayer.show();
-        // BABYLON.Engine.audioEngine.useCustomUnlockedButton = true;
     }
 
     /**
@@ -125,7 +110,6 @@ export default class RunnerLevel extends Level {
     createMenus() {
         this.menu = new UI('runnerMenuUI');
 
-        let top = GAME.engine.getRenderHeight()/5.5;
         this.lostScreen = this.menu.addImage('lostScreen',{
             'imgpath':"assets/scenes/Game_over_screen.png",
             'width' :  0.95,
@@ -190,11 +174,11 @@ export default class RunnerLevel extends Level {
             'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP,
             'onclick': () => {
                 this.player.selectSound.play();   
-                var text = "\nMy high score on Scam Man and Robbin' is " + this.player.getLastRecord() + "! Think you can beat it? \nCheck out the game for yourself and see if you can spot the most common pension scams before they destroy your retirement savings. Good luck! \n";
-                var emailBody = "Hey!%0D%0A%0D%0AMy high score on Scam Man and Robbin' is " + this.player.getLastRecord() + "! Think you can beat it?%0D%0A%0D%0ACheck out the game for yourself and see if you can spot the most common pension scams before they destroy your retirement savings. Good luck!%0D%0A" + window.location.href + "%0D%0A%0D%0ALearn more about how to protect yourself from pension scams: [http://www.scam-man.com]"
+                let text = "\nMy high score on Scam Man and Robbin' is " + this.player.getLastRecord() + "! Think you can beat it? \nCheck out the game for yourself and see if you can spot the most common pension scams before they destroy your retirement savings. Good luck! \n";
+                let emailBody = "Hey!%0D%0A%0D%0AMy high score on Scam Man and Robbin' is " + this.player.getLastRecord() + "! Think you can beat it?%0D%0A%0D%0ACheck out the game for yourself and see if you can spot the most common pension scams before they destroy your retirement savings. Good luck!%0D%0A" + window.location.href + "%0D%0A%0D%0ALearn more about how to protect yourself from pension scams: [http://www.scam-man.com]"
                 jsSocials.shares.email.shareUrl = "mailto:{to}?subject=Here's my Scam Man and Robbin' score...&body=" + emailBody;             
                 jsSocials.shares.facebook.shareUrl = "https://www.facebook.com/sharer/sharer.php?u=" + window.location.href + "&quote=" + text;
-                var shares = ["twitter", "facebook", "email"];
+                let shares = ["twitter", "facebook", "email"];
                 if(GAME.isMobile() || GAME.isPad()) {
                     shares.push("whatsapp");
                 }
@@ -226,25 +210,6 @@ export default class RunnerLevel extends Level {
         });
         this.menu.hide();
 
-        // this.createTutorialText();
-
-    }
-
-    /**
-     * Function to show Game Instructions
-     * Message varies based on device
-     */
-    createTutorialText() {
-        let text = GAME.isMobile() ? 'Swipe screen Left/Right to control Scam Man. Swipe Up to Shoot.' : 'Use Arrow Keys to Move & Space to Shoot.';
-
-        // Small tutorial text
-        let tutorialText = this.menu.addText(text, {
-            'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_CENTER
-        });
-
-        setTimeout(() => {
-            this.menu.remove(tutorialText);
-        }, 5000);
     }
 
     /**
@@ -285,7 +250,7 @@ export default class RunnerLevel extends Level {
             this.player.potImg.source = "assets/scenes/pot.png";
             clearInterval(this.speedTrigger);
             this.player.mesh.material.alpha = 0;
-            var player = new BABYLON.Sprite("player", this.player.spriteManagerPlayer['lose']);
+            let player = new BABYLON.Sprite("player", this.player.spriteManagerPlayer['lose']);
             player.position = new BABYLON.Vector3(this.player.mesh.position.x, this.player.mesh.position.y - 0.1, 0);
             player.height = 0.9;
             player.width = 0.7;
@@ -416,6 +381,10 @@ export default class RunnerLevel extends Level {
         }
     }
 
+    /**
+     * Function to increment stage based on age 
+     * Called from beforerender method 
+     */
     completeStage() {
         this.indication = false;
         if (this.nextStage === 1) {
@@ -451,6 +420,9 @@ export default class RunnerLevel extends Level {
 
     }
 
+    /**
+     * Function to set win pose
+     */
     playerWin() {
         this.wPlayer = new BABYLON.Sprite("player", this.player.spriteManagerPlayer['win']);
         this.wPlayer.position = this.player.mesh.position;

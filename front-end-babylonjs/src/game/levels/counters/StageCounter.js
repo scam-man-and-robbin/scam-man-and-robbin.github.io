@@ -52,7 +52,7 @@ export default class StageCounter {
 
         let stageData = stages["stage_" + stage];
 
-        var background = stageUI.addImage('stageScreen',{
+        let background = stageUI.addImage('stageScreen',{
             'imgpath' : "assets/scenes/stage_boarder.png",
             'width' : 1,
             'height' : 1

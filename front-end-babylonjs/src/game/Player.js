@@ -35,7 +35,7 @@ export default class Player {
      * Initial Dev - Simple Purple Color Texture
      */
     createCommonMaterials() {
-        var playerMaterial = new BABYLON.StandardMaterial("playerMaterial", this.scene);
+        let playerMaterial = new BABYLON.StandardMaterial("playerMaterial", this.scene);
         playerMaterial.diffuseTexture = new BABYLON.Texture("assets/scenes/Standing 1 1.png", this.scene);
         playerMaterial.diffuseTexture.hasAlpha = true;
         playerMaterial.backFaceCulling = true;
@@ -257,7 +257,7 @@ export default class Player {
     * Function to handle Pension Pot visual.
     */
     handlePot() {
-        var url = "";
+        let url = "";
         if(this.coins) {
             url = "assets/scenes/pot low.png";
         }
@@ -305,8 +305,8 @@ export default class Player {
 
             this.scamming = true;
             let newCoins = Math.floor(this.coins - message[this.activeScam].reduction);
-            var factor = Math.floor((this.coins - newCoins) / 10);
-            var trigger = setInterval(() => {
+            let factor = Math.floor((this.coins - newCoins) / 10);
+            let trigger = setInterval(() => {
                 this.coins -= factor;
                 if (this.coins > newCoins) {
                     this.coinsTextControl.text = '£ ' + this.coins;
@@ -366,12 +366,12 @@ export default class Player {
                     this.shootAction.dispose();
                     clearInterval(this.shootTrigger);
                 }
-                var player = new BABYLON.Sprite("player", this.spriteManagerPlayer['left']);
+                let player = new BABYLON.Sprite("player", this.spriteManagerPlayer['left']);
                 player.playAnimation(0, 7, true, 80);
                 player.position = this.mesh.position;
                 player.size = 1.15;
                 player.isPickable = true;
-                var movement = setInterval(() => {
+                let movement = setInterval(() => {
                     player.position = this.mesh.position;
                 }, 24);
                 this.mesh.animations = [];
@@ -392,13 +392,13 @@ export default class Player {
                     this.shootAction.dispose();
                     clearInterval(this.shootTrigger);
                 }
-                var player = new BABYLON.Sprite("player", this.spriteManagerPlayer['right']);
+                let player = new BABYLON.Sprite("player", this.spriteManagerPlayer['right']);
                 // this.mesh.material.alpha = 0;
                 player.playAnimation(0, 7, true, 80);
                 player.position = this.mesh.position;
                 player.size = 1.15;
                 player.isPickable = true;
-                var movement = setInterval(() => {
+                let movement = setInterval(() => {
                     player.position = this.mesh.position;
                 }, 24);
                 this.mesh.animations = [];
@@ -421,7 +421,7 @@ export default class Player {
         let playerMotion = new BABYLON.Animation("playerSideMotion", "position.x", 1000, BABYLON.Animation.ANIMATIONTYPE_FLOAT,
             BABYLON.Animation.ANIMATIONLOOPMODE_CYCLE);
         let keys = [];
-        var frameCounter = 0, value = 0;
+        let frameCounter = 0, value = 0;
         for (let index = 0; index < 5; index++) {
             if (type == 'left') {
                 value += (GAME.isMobile() ? -0.2 : -0.2);
@@ -473,7 +473,7 @@ export default class Player {
                 this.shootAction.dispose();
                 clearInterval(this.shootTrigger);
             }, 700);
-            var trigger = setInterval(() => {
+            let trigger = setInterval(() => {
                 if (!this.changePosition) {
                     this.bullet.dispose();
                     this.beamEnabled = false;
@@ -504,7 +504,7 @@ export default class Player {
     /**
      * Function to handle boon counter.
      * @todo Any other logics in future to be added
-     * 1. Currenly coins are doubled.
+     * 1. Currenly coins are increased based on predefined value.
      */
     keepBoon(boon) {
         this.boonCount++;
@@ -540,9 +540,9 @@ export default class Player {
         let message = Message.message;
         let newCoins = Math.floor(this.coins + message[boon].addition);
         newCoins = newCoins > GAME.options.maxLifetimeAllowance ? GAME.options.maxLifetimeAllowance : newCoins;
-        var factor = Math.floor((newCoins - this.coins) / 10);
+        let factor = Math.floor((newCoins - this.coins) / 10);
         if (factor) {
-            var trigger = setInterval(() => {
+            let trigger = setInterval(() => {
                 this.coins += factor;
                 this.maxCoins = (this.coins > this.maxCoins) ? this.coins : this.maxCoins;
                 if (this.coins < newCoins && this.allowCoinChange) {

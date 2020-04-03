@@ -12,9 +12,7 @@ export default class HomeMenuLevel extends Level {
     * Function to setup musics and sound assets
     */
     setupAssets() {
-        // this.assets.addMusic('music', '/assets/musics/SCAM_MAN_background2.wav');
         this.assets.addSound('selectSound', '/assets/sounds/Select_sound.wav');
-        // this.assets.addSound('splashScreenSound', '/assets/sounds/Winning_Sound.wav', { volume: 0.01, autoplay: true });
     }
 
     /**
@@ -22,13 +20,11 @@ export default class HomeMenuLevel extends Level {
     */
     buildScene() {
 
-        var camera = new BABYLON.FreeCamera("camera1", new BABYLON.Vector3(0, 5, -10), this.scene);
-
         // Make this scene transparent to see the document background
         this.scene.clearColor = new BABYLON.Color4(0, 0, 0, 0);
 
-        var menu = new UI('homeMenuUI');
-        var click = this.assets.getSound('selectSound');
+        let menu = new UI('homeMenuUI');
+        let click = this.assets.getSound('selectSound');
         menu.addImage('LOGO',{
             'imgpath' : "assets/scenes/scamman_logo.png",
             'width' : 0.7,

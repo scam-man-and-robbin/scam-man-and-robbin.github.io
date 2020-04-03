@@ -41,7 +41,7 @@ export default class Level {
             imgPath = "/assets/scenes/Start_screen_background.png";
         }
 
-        var background = new BABYLON.Layer("back", imgPath, this.scene);
+        let background = new BABYLON.Layer("back", imgPath, this.scene);
         background.isBackground = true;
         this.foreground = new BABYLON.Layer("front", "/assets/scenes/distort1.png", this.scene, false);
         this.foreground.layerMask = 0;
@@ -76,10 +76,6 @@ export default class Level {
         // Load the assets
         this.assets.load();
 
-        // Mute sounds by default
-        // if (window.localStorage['mute_sound'] === 'undefined' || window.localStorage['mute_sound'] === undefined) {
-        //     window.localStorage['mute_sound'] = 1;
-        // }
         BABYLON.Engine.audioEngine.onAudioLockedObservable.add(() => {
             GAME.log.debugWarning('Sounds are locked. Please refresh cache');
         });

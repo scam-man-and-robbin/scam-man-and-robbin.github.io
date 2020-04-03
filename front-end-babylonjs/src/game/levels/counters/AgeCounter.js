@@ -26,7 +26,7 @@ export default class AgeCounter {
         this.advancedTexture = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI", false);
 
         // Outer Rectangle for Values
-        var frame = new BABYLON.GUI.Rectangle();
+        let frame = new BABYLON.GUI.Rectangle();
         frame.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER;
         frame.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP;
         frame.width = 1;
@@ -36,7 +36,7 @@ export default class AgeCounter {
         this.advancedTexture.addControl(frame);
 
         // Outer Rectangle for Values
-        var outterRect = new BABYLON.GUI.Rectangle();
+        let outterRect = new BABYLON.GUI.Rectangle();
         outterRect.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER;
         outterRect.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP;
         outterRect.top = '15px';
@@ -48,7 +48,7 @@ export default class AgeCounter {
 
 
         // Rectangle box for Progress Bar
-        var rect1 = new BABYLON.GUI.Rectangle();
+        let rect1 = new BABYLON.GUI.Rectangle();
         rect1.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER;
         rect1.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP;
         rect1.top = '15px';
@@ -59,11 +59,11 @@ export default class AgeCounter {
         rect1.color = "#935DB6";
         rect1.thickness = 3;
         rect1.background = "white";
-        var img = new BABYLON.GUI.Image("image", "/assets/scenes/stripe.jpg");
+        let img = new BABYLON.GUI.Image("image", "/assets/scenes/stripe.jpg");
         img.alpha = 0.2;
         rect1.addControl(img);
 
-        var progressBar = new BABYLON.GUI.Rectangle();
+        let progressBar = new BABYLON.GUI.Rectangle();
         progressBar.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_LEFT;
         progressBar.width = 1;
         progressBar.left = '0px';
@@ -109,7 +109,7 @@ export default class AgeCounter {
         this.progressValue.addControl(this.ageControl);
 
         for (let index = 1; index <= 4; index++) {
-            var splitter = new BABYLON.GUI.Rectangle();
+            let splitter = new BABYLON.GUI.Rectangle();
             splitter.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_LEFT;
             splitter.width =  0.334 * index;
             splitter.height = 1;
@@ -118,32 +118,6 @@ export default class AgeCounter {
             splitter.background = 'transparent';
             progressBar.addControl(splitter);  
         }
-        // let startText = new BABYLON.GUI.TextBlock();
-        // startText.textHorizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_LEFT;
-        // startText.textVerticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_BOTTOM;
-        // startText.text = '18';
-        // startText.color = 'BLACK';
-        // startText.fontSize = 12;
-
-        // outterRect.addControl(startText);
-
-        // let endText = new BABYLON.GUI.TextBlock();
-        // endText.textHorizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_RIGHT;
-        // endText.textVerticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_BOTTOM;
-        // endText.text = '65';
-        // endText.color = 'BLACK';
-        // endText.fontSize = 12;
-
-        // outterRect.addControl(endText);
-
-        // let label = new BABYLON.GUI.TextBlock();
-        // label.textHorizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER;
-        // label.textVerticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_BOTTOM;
-        // label.text = 'Age';
-        // label.color = 'BLACK';
-        // label.fontSize = 12;
-
-        // outterRect.addControl(label);
 
         let moveProgressWidth = 0;
         let ageValue = 0;
