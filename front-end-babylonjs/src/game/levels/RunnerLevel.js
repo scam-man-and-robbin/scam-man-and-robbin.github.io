@@ -147,7 +147,7 @@ export default class RunnerLevel extends Level {
         this.gameSubTextControl = this.menu.addText('You cannot give up. Try reaching Age 65...', {
             'width' : 0.85,
             'top': (GAME.engine.getRenderHeight() * 20)/ 100, // 20% from top
-            'fontSize': '17px',
+            'fontSize': '15px',
             'fontStyle' : 'bold',
             'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP
         });
