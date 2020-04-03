@@ -174,6 +174,9 @@ export default class Player {
                 this.resumeButton.isVisible = true;
                 this.pauseButtonControl.isVisible = false;
                 this.pausedImage.isVisible = true;
+                if (this.level.skipControl) {
+                    this.level.skipControl.isVisible = false;
+                }
 
                 // this.message.pauseScreen(this.coins, this.scamCount, this.boonCount, this.level.scams ? this.level.scams.scamSet : null)
                 // this.soundMuteButtonControl.isVisible = false;
@@ -242,6 +245,9 @@ export default class Player {
                 }
                 if (this.skipControl) {
                     this.skipControl.isVisible = true;
+                }
+                if (this.level.skipControl) {
+                    this.level.skipControl.isVisible = true;
                 }
                 this.pausedImage.isVisible = false;
                 this.resumeButton.isVisible = false;
