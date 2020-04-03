@@ -102,7 +102,7 @@ export default class ScamsGenerator {
         // let scams = BABYLON.Mesh.CreateCylinder("scam_"+randomPositionChooser, 0.1, scamDiameter, scamDiameter, 16, 0, this.scene);
         let scams = BABYLON.MeshBuilder.CreateBox("scam_" + randomPositionChooser, {
             width: scamDiameter,
-            height: scamDiameter,
+            height: scamDiameter - 0.01,
             depth: 0.001
         }, this.scene);
 
@@ -367,7 +367,7 @@ export default class ScamsGenerator {
             let scamDiameter = GAME.isMobile() ? 0.45 : 0.45;
             scams[index] = BABYLON.MeshBuilder.CreateBox("scam_" + randomPositionChooser, {
                 width: scamDiameter,
-                height: scamDiameter,
+                height: scamDiameter - 0.01,
                 depth: 0.001
             }, this.scene);
 

@@ -73,7 +73,7 @@ export default class TilesGenerator {
             positionX = GAME.isMobile() ? 1 : 1; // Positioning on the right
         }
         this.activeCoins.push(randomPositionChooser);
-        let coinDiameter = GAME.isMobile() ? 0.3 : 0.4;
+        let coinDiameter = 0.32;
         let coins = BABYLON.Mesh.CreateCylinder("coin", 0.01, coinDiameter, coinDiameter, 16, 0, this.scene);
         coins.material = this.level.getMaterial('coinMaterial');
         coins.position.x = positionX;
