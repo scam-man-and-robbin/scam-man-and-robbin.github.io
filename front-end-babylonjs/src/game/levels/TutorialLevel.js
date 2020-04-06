@@ -142,7 +142,7 @@ export default class TutorialLevel extends Level {
 
 
             // Tutorial Frame
-            let robinName = new BABYLON.GUI.Image("icon", "assets/scenes/tutorial_plate_robin.png");
+            let robinName = new BABYLON.GUI.Image("icon", "assets/scenes/tutorial_plate_robin_v2.png");
             robinName.width = 0.22;
             robinName.height = 0.051;
             robinName.top = (GAME.engine.getRenderHeight() * 11) / 100;

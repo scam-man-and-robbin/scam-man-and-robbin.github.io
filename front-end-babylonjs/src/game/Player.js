@@ -101,29 +101,32 @@ export default class Player {
             'imgpath' : "assets/scenes/ground_image.png",
             'width' : 1,
             'isVisible': true,
-            'height' : 0.07,
-            'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_BOTTOM
-        });
-        this.potImg = this.hud.addImage('potImage',{
-            'imgpath' : "assets/scenes/pot.png",
-            "width" : 0.09,
-            "height" : 0.05,
-            'top' : Math.floor(-(GAME.engine.getRenderHeight()/20)), 
-            'horizontalAlignment': BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER,
+            'height' : 0.075,
             'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_BOTTOM
         });
         this.moneyBar = this.hud.addImage('moneyBar',{
             'imgpath' : "assets/scenes/moneybar.png",
             "width" : 0.4,
-            "height" : 0.032,
-            'top' : '-6px',
+            "height" : 0.05,
+            'top' : Math.floor(-(GAME.engine.getRenderHeight()*1/100)),
+            "left": Math.floor((GAME.engine.getRenderWidth()*2/100)),
+            'horizontalAlignment': BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER,
+            'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_BOTTOM
+        });
+        this.potImg = this.hud.addImage('potImage',{
+            'imgpath' : "assets/scenes/pot.png",
+            "width" : 0.09,
+            "height" : 0.055,
+            'top' : Math.floor(-(GAME.engine.getRenderHeight()*0.8/100)), 
+            "left": Math.floor(-(GAME.engine.getRenderWidth()*20/100)),
             'horizontalAlignment': BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER,
             'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_BOTTOM
         });
         this.coinsTextControl = this.hud.addText('£ 0', {
-            'top' : Math.floor(-(GAME.engine.getRenderHeight()*1/100)),
-            'left': '-5px',
-            'fontSize': '15px',
+            'top' : Math.floor(-(GAME.engine.getRenderHeight()*2.1/100)),
+            "left": "4px",
+            'fontSize': '16px',
+            'fontStyle': 'bold',
             'color' : '#FFFF99',
             'horizontalAlignment': BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER,
             'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_BOTTOM

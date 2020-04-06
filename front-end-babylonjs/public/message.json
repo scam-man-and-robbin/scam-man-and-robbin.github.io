@@ -53,7 +53,7 @@
             "info" : "You move your pension to a ‘safe haven’ during the coronavirus pandemic",
             "icon" : "mini scam man",
             "reduction" : 400,
-            "path" : "assets/scenes/Cold_call_v2.png"
+            "path" : "assets/scenes/virus.png"
         },
         "generic_boon" : {
             "name" : "Tutorial boon",
@@ -100,14 +100,14 @@
             "name" : "You wait until you turn 55:",
             "info" : "You refuse to transfer your pension for early withdrawal",
             "icon" : "FCA logo",
-            "path" : "assets/scenes/Don't_transfer_v2.png",
+            "path" : "assets/scenes/Don't_transfer_v3.png",
             "addition" : 500
         },
         "no_rash_decision": {
             "name" : "No rash decisions:",
             "info" : "You refuse to move your pension for coronavirus protection",
             "icon" : "FCA logo",
-            "path" : "assets/scenes/Don't_transfer_v2.png",
+            "path" : "assets/scenes/no_rash_decisions.png",
             "addition" : 500
         }
     }
