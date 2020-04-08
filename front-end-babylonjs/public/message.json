@@ -50,7 +50,7 @@
         },
         "diagonal" : {
             "name" : "Safe Haven:",
-            "info" : "You move your pension to a ‘safe haven’ during the coronavirus pandemic",
+            "info" : "You move your pension to a fund that guarantees coronavirus protection and high returns",
             "icon" : "mini scam man",
             "reduction" : 400,
             "path" : "assets/scenes/virus.png"
@@ -104,8 +104,8 @@
             "addition" : 500
         },
         "no_rash_decision": {
-            "name" : "No rash decisions:",
-            "info" : "You refuse to move your pension for coronavirus protection",
+            "name" : "You question guarantees:",
+            "info" : "You refuse to move your pension based on false claims and guarantees",
             "icon" : "FCA logo",
             "path" : "assets/scenes/no_rash_decisions.png",
             "addition" : 500
