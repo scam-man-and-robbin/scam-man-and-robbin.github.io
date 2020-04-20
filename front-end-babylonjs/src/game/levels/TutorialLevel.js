@@ -99,11 +99,7 @@ export default class TutorialLevel extends Level {
             this.activeMessage = true;
             this.player.infoSound.play();
 
-            this.robbinFlapSpriteManager = new BABYLON.SpriteManager("robbinFlapSpriteManager", "assets/scenes/robin_flap_1.png", 1, { width: 65, height: 62 }, this.scene)
-            let robbinFlap = new BABYLON.Sprite("player", this.robbinFlapSpriteManager);
-            robbinFlap.playAnimation(0, 5, true, 100);
-            robbinFlap.position = new BABYLON.Vector3(-1, 2, -1);
-
+            
             let text = '', height = 0.15;
             if (messageNumber == 1) {
                 text = 'Welcome to Scam Man and Robbin’! \n\n You are Scam Man, a cloaked vigilante who’s on a mission to protect people’s pensions from scams. \n\n I’m Robbin’, and I’m here to help you!';
@@ -161,6 +157,16 @@ export default class TutorialLevel extends Level {
             rectBox.thickness = 0;
             menuTexture.addControl(rectBox);
 
+            // Tutorial Frame
+            let robinThumb = new BABYLON.GUI.Image("icon", "assets/scenes/Robin thumb.png");
+            robinThumb.width = 0.23;
+            robinThumb.height = 0.11;
+            robinThumb.left = '15px';
+            robinThumb.top = (GAME.engine.getRenderHeight() * (height == 0.15 ? 17.5 : 23.5)) / 100;
+            robinThumb.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_LEFT;
+            robinThumb.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP;
+            menuTexture.addControl(robinThumb);
+
             // Message Content
             let textControl = new BABYLON.GUI.TextBlock();
             textControl.text = text;
@@ -187,10 +193,10 @@ export default class TutorialLevel extends Level {
                 'verticalAlignment': BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP,
                 'onclick': () => {
                     if (!this.player.pausedImage.isVisible) {
-                        robbinFlap.dispose();
                         image.dispose();
                         robinName.dispose();
                         rectBox.dispose();
+                        robinThumb.dispose();
                         textControl.dispose();
                         clearInterval(trigger);
                         this.skipControl.dispose();
@@ -225,24 +231,6 @@ export default class TutorialLevel extends Level {
                 modeControl.fontFamily = "'Tomorrow',sans-serif";
                 modeDis.addControl(modeControl);
             }
-
-            let cornerSphere = function (scene) {
-                let frustumPlanes = BABYLON.Frustum.GetPlanes(scene.activeCamera.getTransformationMatrix());
-                let d = frustumPlanes[0].d;
-                let aspectRatio = GAME.engine.getAspectRatio(scene.activeCamera);
-                let fov = scene.activeCamera.fov;
-
-                let y = 2 * d * Math.tan(fov / 2);
-                let x = y * aspectRatio;
-                let z = d;
-
-                robbinFlap.position.x = -x + 1;
-                robbinFlap.position.y = y - (2.2 + (height == 0.15 ? 0.1 : 1.2));
-                robbinFlap.position.z = z;
-                robbinFlap.size = 1.5;
-            }
-
-            this.scene.registerBeforeRender(() => cornerSphere(this.scene));
 
         }
     }

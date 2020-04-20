@@ -270,7 +270,7 @@ export default class ScamsGenerator {
      * Function for scam objects to fall in speedy manner 
      */
     createSpeedyScamAnimation() {
-        let scamAnimation = new BABYLON.Animation("scamfall", "position.y", this.level.getGameSpeed() - 5, BABYLON.Animation.ANIMATIONTYPE_FLOAT,
+        let scamAnimation = new BABYLON.Animation("scamfall", "position.y", this.level.getGameSpeed() - 10, BABYLON.Animation.ANIMATIONTYPE_FLOAT,
             BABYLON.Animation.ANIMATIONLOOPMODE_CYCLE);
 
         let keys = [];
@@ -285,7 +285,7 @@ export default class ScamsGenerator {
      * Function for scam objects to fall in accelerator manner 
      */
     createAcceleratorScamAnimation() {
-        let scamAnimation = new BABYLON.Animation("scamfall", "position.y", this.level.getGameSpeed() - 5, BABYLON.Animation.ANIMATIONTYPE_FLOAT,
+        let scamAnimation = new BABYLON.Animation("scamfall", "position.y", this.level.getGameSpeed() - 10, BABYLON.Animation.ANIMATIONTYPE_FLOAT,
             BABYLON.Animation.ANIMATIONLOOPMODE_CYCLE);
 
         let keys = [];
@@ -457,7 +457,7 @@ export default class ScamsGenerator {
 
 
     createSplitterAnimation(scams, direction) {
-        let scamAnimation = new BABYLON.Animation("scamfall", "position", this.level.getGameSpeed() - 10, BABYLON.Animation.ANIMATIONTYPE_VECTOR3,
+        let scamAnimation = new BABYLON.Animation("scamfall", "position", this.level.getGameSpeed() - 12, BABYLON.Animation.ANIMATIONTYPE_VECTOR3,
             BABYLON.Animation.ANIMATIONLOOPMODE_CYCLE);
 
         let keys = [];

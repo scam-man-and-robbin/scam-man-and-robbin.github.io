@@ -370,13 +370,13 @@ export default class Player {
                     clearInterval(this.shootTrigger);
                 }
                 let player = new BABYLON.Sprite("player", this.spriteManagerPlayer['left']);
-                player.playAnimation(0, 7, true, 80);
+                player.playAnimation(0, 7, true, 60);
                 player.position = this.mesh.position;
                 player.size = 1.15;
                 player.isPickable = true;
                 let movement = setInterval(() => {
                     player.position = this.mesh.position;
-                }, 24);
+                }, 20);
                 this.mesh.animations = [];
                 this.mesh.animations.push(this.createPlayerSideMotion('left', this.mesh.position.x));
                 this.scene.beginAnimation(this.mesh, 0, 100, false);
@@ -384,7 +384,7 @@ export default class Player {
                     this.changePosition = true;
                     clearInterval(movement);
                     player.dispose();
-                }, 150);
+                }, 100);
             }
         }
         if (GAME.keys.right && !this.gameEnded && !this.playerLanding) {
@@ -397,13 +397,13 @@ export default class Player {
                 }
                 let player = new BABYLON.Sprite("player", this.spriteManagerPlayer['right']);
                 // this.mesh.material.alpha = 0;
-                player.playAnimation(0, 7, true, 80);
+                player.playAnimation(0, 7, true, 40);
                 player.position = this.mesh.position;
                 player.size = 1.15;
                 player.isPickable = true;
                 let movement = setInterval(() => {
                     player.position = this.mesh.position;
-                }, 24);
+                }, 20);
                 this.mesh.animations = [];
                 this.mesh.animations.push(this.createPlayerSideMotion('right', this.mesh.position.x));
                 this.scene.beginAnimation(this.mesh, 0, 100, false);
@@ -411,7 +411,7 @@ export default class Player {
                     this.changePosition = true;
                     clearInterval(movement);
                     player.dispose();
-                }, 150);
+                }, 100);
             }
         }
     }

@@ -169,7 +169,7 @@ export default class Game {
 
             setTimeout(() => {
                 this.keys.left = 0;
-            }, 150);
+            }, 80);
         });
 
         hammertime.on('swiperight', (ev) => {
@@ -177,7 +177,7 @@ export default class Game {
 
             setTimeout(() => {
                 this.keys.right = 0;
-            }, 150);
+            }, 80);
         });
     }
 
