@@ -270,7 +270,7 @@ export default class ScamsGenerator {
      * Function for scam objects to fall in speedy manner 
      */
     createSpeedyScamAnimation() {
-        let scamAnimation = new BABYLON.Animation("scamfall", "position.y", this.level.getGameSpeed() - 10, BABYLON.Animation.ANIMATIONTYPE_FLOAT,
+        let scamAnimation = new BABYLON.Animation("scamfall", "position.y", this.level.getGameSpeed() - 15, BABYLON.Animation.ANIMATIONTYPE_FLOAT,
             BABYLON.Animation.ANIMATIONLOOPMODE_CYCLE);
 
         let keys = [];
