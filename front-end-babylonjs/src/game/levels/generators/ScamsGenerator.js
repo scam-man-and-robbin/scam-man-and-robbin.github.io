@@ -15,7 +15,6 @@ export default class ScamsGenerator {
         this.level = level;
         this.scene = level.scene;
         this.player = level.player;
-        this.foreground = level.foreground;
         this.createCommonMaterials();
         this.scamSet = new Set();
         this.scamTypes = [];
@@ -145,7 +144,6 @@ export default class ScamsGenerator {
                             // this.slicer(element)
                             // element.material.emissiveColor = new BABYLON.Color3.FromHexString('#ff0000')
                             scams.dispose();
-                            this.foreground.layerMask = 0;
                             clearInterval(this.blackOutTrigger);
                             setTimeout(() => {
                                 element.dispose();
@@ -160,14 +158,12 @@ export default class ScamsGenerator {
                     }
                 });
                 if (this.player.groundMesh.intersectsMesh(scams, false)) {
-                    this.foreground.layerMask = 0;
                     this.player.checkLife();
                     scams.dispose();
                     this.removeActiveScam(randomTileTypeNumber);
                     clearInterval(trigger);
                 }
                 else if (this.player.mesh.intersectsMesh(scams, false)) {
-                    this.foreground.layerMask = 0;
                     this.player.checkLife();
                     scams.dispose();
                     this.removeActiveScam(randomTileTypeNumber);
@@ -302,13 +298,8 @@ export default class ScamsGenerator {
      */
     createBlackoutAnimation() {
         let imgPath = 'distort1.png';
-        this.foreground.dispose();
         this.blackOutTrigger = setInterval(() => {
-            this.foreground.layerMask = 0;
             if (!GAME.isPaused() && this.player.lives && this.level.age < 65) {
-                this.foreground = new BABYLON.Layer("front", "/assets/scenes/" + imgPath, this.scene);
-                this.foreground.isBackground = false;
-                this.foreground.layerMask = 1;
                 if (imgPath == 'distort1.png') {
                     imgPath = 'distort2.png';
                 } else {
@@ -397,7 +388,6 @@ export default class ScamsGenerator {
                                 // this.slicer(element)
                                 // element.material.emissiveColor = new BABYLON.Color3.FromHexString('#ff0000')
                                 scams[index].dispose();
-                                this.foreground.layerMask = 0;
                                 clearInterval(this.blackOutTrigger);
                                 setTimeout(() => {
                                     element.dispose();
@@ -412,14 +402,12 @@ export default class ScamsGenerator {
                         }
                     });
                     if (this.player.groundMesh.intersectsMesh(scams[index], false)) {
-                        this.foreground.layerMask = 0;
                         this.player.checkLife();
                         scams[index].dispose();
                         this.removeActiveScam(randomTileTypeNumber);
                         clearInterval(trigger[index]);
                     }
                     else if (this.player.mesh.intersectsMesh(scams[index], false)) {
-                        this.foreground.layerMask = 0;
                         this.player.checkLife();
                         scams[index].dispose();
                         this.removeActiveScam(randomTileTypeNumber);

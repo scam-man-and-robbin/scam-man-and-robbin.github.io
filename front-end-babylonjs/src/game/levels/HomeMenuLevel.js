@@ -12,7 +12,7 @@ export default class HomeMenuLevel extends Level {
     * Function to setup musics and sound assets
     */
     setupAssets() {
-        this.assets.addSound('selectSound', '/assets/sounds/Select_sound.wav');
+        this.assets.addSound('selectSound', 'assets/sounds/Select_sound.wav');
     }
 
     /**

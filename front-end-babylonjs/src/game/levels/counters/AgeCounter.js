@@ -59,7 +59,7 @@ export default class AgeCounter {
         rect1.color = "#935DB6";
         rect1.thickness = 3;
         rect1.background = "white";
-        let img = new BABYLON.GUI.Image("image", "/assets/scenes/stripe.jpg");
+        let img = new BABYLON.GUI.Image("image", "assets/scenes/stripe.jpg");
         img.alpha = 0.2;
         rect1.addControl(img);
 

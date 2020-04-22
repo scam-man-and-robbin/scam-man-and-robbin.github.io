@@ -12,8 +12,6 @@ export default class Level {
         this.scene = null;
 
         this.assets = null;
-
-        this.foreground = null;
     }
 
     start() {
@@ -36,15 +34,13 @@ export default class Level {
         let imgPath = "";
         if(GAME.currentLevelName === 'RunnerLevel' || GAME.currentLevelName === 'TutorialLevel') {
             // To change bg image based on device
-            imgPath = "/assets/scenes/game_bg_dark.png";
+            imgPath = "assets/scenes/game_bg_dark.png";
         } else {
-            imgPath = "/assets/scenes/Start_screen_background.png";
+            imgPath = "assets/scenes/Start_screen_background.png";
         }
 
         let background = new BABYLON.Layer("back", imgPath, this.scene);
         background.isBackground = true;
-        this.foreground = new BABYLON.Layer("front", "/assets/scenes/distort1.png", this.scene, false);
-        this.foreground.layerMask = 0;
         // Add assets management and execute beforeRender after finish
         this.assets = new AssetsDatabase(this.scene, () => {
 
