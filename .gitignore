@@ -1,4 +1,7 @@
-front-end-babylonjs/node_modules
+/node_modules
+/vendor
+.env
+.phpunit.result.cache
 npm-debug.log
 yarn-error.log
 *.zip
