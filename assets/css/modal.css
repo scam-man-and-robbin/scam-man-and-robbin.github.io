@@ -31,15 +31,17 @@
   
   /* The Close Button */
   .close {
-    color: white;
     float: right;
     font-size: 28px;
     font-weight: bold;
+    background-color: white;
+    border: none;
   }
   
   .close:hover,
   .close:focus {
-    color: #000;
+    color: white;
+    background-color: #9A2A68;
     text-decoration: none;
     cursor: pointer;
   }
